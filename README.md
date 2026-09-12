@@ -96,7 +96,7 @@ C:\NIRMAAN AI
 | **Phase 8** | Production Bottleneck Prediction & Flow Intelligence | **COMPLETED** |
 | **Phase 9** | Production & Energy Forecasting | **COMPLETED** |
 | **Phase 10** | Smart Inventory Intelligence | **COMPLETED** |
-| **Phase 11** | Explainable AI & SHAP Feature Attribution | Planned |
+| **Phase 11** | Explainable AI & SHAP Feature Attribution | **COMPLETED** |
 | **Phase 12** | Root Cause Analysis Engine | Planned |
 | **Phase 13** | Composite Factory Health Score | Planned |
 | **Phase 14** | Operational & Financial Loss Analysis (INR) | Planned |
@@ -114,7 +114,7 @@ C:\NIRMAAN AI
 
 ---
 
-## Deployed Intelligence Subsystems (Phases 6–10)
+## Deployed Intelligence Subsystems (Phases 6–11)
 
 ### 1. Predictive Maintenance (Phase 6)
 - **Failure Classification**: XGBoost Champion (Precision: 0.9545, Recall: 0.8235, F1: 0.8842, ROC-AUC: 0.9831) on AI4I 2020. Strict leakage exclusion of tool wear modes and identifiers.
@@ -145,6 +145,13 @@ C:\NIRMAAN AI
 - **Five-Tier Shortage Risk Model**: Actionable categorization across `OUT_OF_STOCK`, `CRITICAL_DEFICIT`, `REORDER_NOW`, `OPTIMAL_BUFFER`, and `SURPLUS_INVENTORY`.
 - **Service Layer**: `InventoryService` exposing single-SKU audits, plant-wide working capital summaries (INR), and machine maintenance-spare evaluations.
 
+### 6. Explainable AI & SHAP Feature Attribution (Phase 11)
+- **Model Attribution Core**: Exact TreeExplainer integration attributing AI4I XGBoost equipment alerts in additive log-odds margin space ($|\text{margin} - (\text{base} + \sum \text{SHAP})| = 0.0$) with calibrated logistic sigmoid mapping to probability, preserving Phase 6 decision threshold $\tau = 0.91$.
+- **NASA C-MAPSS RUL Attribution**: Random Forest TreeExplainer attributing remaining life in operational cycles (base value $\approx 86.52\text{ cycles}$; top degradation drivers: LPT exhaust temperature `s4_roll_mean` and physical core speed `s9_roll_mean`).
+- **Four-Quadrant Local Audits**: Systematic analysis of actual holdout test samples across True Positives, True Negatives, False Positives (high tool wear survival), and False Negatives (moderate tool wear suppression).
+- **Machine 2 Synthetic Investigation**: Evaluates model feature sensitivity on simulated digital twin telemetry with explicit distribution-shift notices and strict causality disclaimers (model attribution $\neq$ physical causality).
+- **Service Layer**: `ExplanationService` generating human-readable manufacturing narratives and Pydantic v2 schemas for real-time attribution without model retraining.
+
 ---
 
 ## Setup & Getting Started
@@ -162,13 +169,14 @@ cd "C:\NIRMAAN AI"
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run complete system test suite (85 tests across Phases 0-10)
+# Run complete system test suite (101 tests across Phases 0-11)
 python -m pytest tests/ -v
 
 # Train / Evaluate individual intelligence subsystems
-python -m src.models.train_pdm         # Phase 6: Predictive Maintenance
-python -m src.models.train_anomaly     # Phase 7: Anomaly Detection
-python -m src.models.train_bottleneck  # Phase 8: Bottleneck Prediction
-python -m src.models.train_forecaster  # Phase 9: Production & Energy Forecasting
-python -m src.models.train_inventory   # Phase 10: Smart Inventory Intelligence
+python -m src.models.train_pdm            # Phase 6: Predictive Maintenance
+python -m src.models.train_anomaly        # Phase 7: Anomaly Detection
+python -m src.models.train_bottleneck     # Phase 8: Bottleneck Prediction
+python -m src.models.train_forecaster     # Phase 9: Production & Energy Forecasting
+python -m src.models.train_inventory      # Phase 10: Smart Inventory Intelligence
+python -m src.models.train_explainability # Phase 11: Explainable AI & SHAP
 ```

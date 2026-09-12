@@ -1,0 +1,296 @@
+{
+  "true_positive": {
+    "test_sample_index": 11,
+    "actual_label": 1,
+    "predicted_label": 1,
+    "predicted_probability": 0.9952,
+    "decision_threshold": 0.91,
+    "raw_margin": 5.3248,
+    "base_value": -0.0008,
+    "shap_sum": 5.3256,
+    "additive_error": 0.0,
+    "top_positive_contributors": [
+      {
+        "feature_name": "temp_diff_k",
+        "display_name": "Thermal Stress Differential (Delta T)",
+        "unit": "Kelvin (K)",
+        "feature_value": 8.0,
+        "shap_value": 3.6932,
+        "absolute_shap": 3.6932,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Difference between process temperature and ambient air temperature (Process Temp - Air Temp)."
+      },
+      {
+        "feature_name": "rotational_speed_rpm",
+        "display_name": "Spindle Rotational Speed",
+        "unit": "RPM",
+        "feature_value": 1350.0,
+        "shap_value": 3.2864,
+        "absolute_shap": 3.2864,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Motor angular velocity driving the cutting tool spindle."
+      },
+      {
+        "feature_name": "torque_speed_ratio",
+        "display_name": "Load Stress Ratio (Torque / Speed)",
+        "unit": "Nm / RPM",
+        "feature_value": 0.0356,
+        "shap_value": 0.3754,
+        "absolute_shap": 0.3754,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Ratio of mechanical resistance to angular velocity; captures low-speed high-strain machine laboring."
+      }
+    ],
+    "top_negative_contributors": [
+      {
+        "feature_name": "tool_wear_min",
+        "display_name": "Tool Wear Accumulated Time",
+        "unit": "Minutes (min)",
+        "feature_value": 32.0,
+        "shap_value": -1.135,
+        "absolute_shap": 1.135,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Cumulative cutting operating time logged on the active cutting tool insert."
+      },
+      {
+        "feature_name": "mechanical_power_kw",
+        "display_name": "Instantaneous Mechanical Power Output",
+        "unit": "Kilowatts (kW)",
+        "feature_value": 6.8,
+        "shap_value": -0.7701,
+        "absolute_shap": 0.7701,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "True mechanical power delivered to cutting interface: (2 * pi * RPM * Torque) / 60,000."
+      },
+      {
+        "feature_name": "process_temperature_k",
+        "display_name": "Internal Process Temperature",
+        "unit": "Kelvin (K)",
+        "feature_value": 311.3,
+        "shap_value": -0.1337,
+        "absolute_shap": 0.1337,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Operating temperature generated within the spindle and workpiece cutting zone."
+      }
+    ],
+    "human_readable_narrative": "Prediction: FAILURE RISK (probability = 0.995 vs threshold 0.91). Factors driving the model toward failure prediction include Thermal Stress Differential (Delta T) (8.0 Kelvin (K), SHAP: +3.69), Spindle Rotational Speed (1350.0 RPM, SHAP: +3.29). Factors mitigating predicted risk include Tool Wear Accumulated Time (32.0 Minutes (min), SHAP: -1.14). Interpretation: The model's prediction is primarily associated with these observed telemetry values."
+  },
+  "true_negative": {
+    "test_sample_index": 0,
+    "actual_label": 0,
+    "predicted_label": 0,
+    "predicted_probability": 0.0046,
+    "decision_threshold": 0.91,
+    "raw_margin": -5.3806,
+    "base_value": -0.0008,
+    "shap_sum": -5.3798,
+    "additive_error": 0.0,
+    "top_positive_contributors": [
+      {
+        "feature_name": "temp_diff_k",
+        "display_name": "Thermal Stress Differential (Delta T)",
+        "unit": "Kelvin (K)",
+        "feature_value": 8.3,
+        "shap_value": 0.9461,
+        "absolute_shap": 0.9461,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Difference between process temperature and ambient air temperature (Process Temp - Air Temp)."
+      },
+      {
+        "feature_name": "process_temperature_k",
+        "display_name": "Internal Process Temperature",
+        "unit": "Kelvin (K)",
+        "feature_value": 309.8,
+        "shap_value": 0.014,
+        "absolute_shap": 0.014,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Operating temperature generated within the spindle and workpiece cutting zone."
+      }
+    ],
+    "top_negative_contributors": [
+      {
+        "feature_name": "rotational_speed_rpm",
+        "display_name": "Spindle Rotational Speed",
+        "unit": "RPM",
+        "feature_value": 1549.0,
+        "shap_value": -2.5971,
+        "absolute_shap": 2.5971,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Motor angular velocity driving the cutting tool spindle."
+      },
+      {
+        "feature_name": "tool_wear_min",
+        "display_name": "Tool Wear Accumulated Time",
+        "unit": "Minutes (min)",
+        "feature_value": 81.0,
+        "shap_value": -1.9027,
+        "absolute_shap": 1.9027,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Cumulative cutting operating time logged on the active cutting tool insert."
+      },
+      {
+        "feature_name": "mechanical_power_kw",
+        "display_name": "Instantaneous Mechanical Power Output",
+        "unit": "Kilowatts (kW)",
+        "feature_value": 6.2451,
+        "shap_value": -0.8438,
+        "absolute_shap": 0.8438,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "True mechanical power delivered to cutting interface: (2 * pi * RPM * Torque) / 60,000."
+      }
+    ],
+    "human_readable_narrative": "Prediction: NORMAL OPERATION (probability = 0.005 vs threshold 0.91). Factors driving the model toward failure prediction include Thermal Stress Differential (Delta T) (8.3 Kelvin (K), SHAP: +0.95). Factors mitigating predicted risk include Spindle Rotational Speed (1549.0 RPM, SHAP: -2.60), Tool Wear Accumulated Time (81.0 Minutes (min), SHAP: -1.90). Interpretation: The model's prediction is primarily associated with these observed telemetry values."
+  },
+  "false_positive": {
+    "test_sample_index": 966,
+    "actual_label": 0,
+    "predicted_label": 1,
+    "predicted_probability": 0.9396,
+    "decision_threshold": 0.91,
+    "raw_margin": 2.7437,
+    "base_value": -0.0008,
+    "shap_sum": 2.7445,
+    "additive_error": 0.0,
+    "top_positive_contributors": [
+      {
+        "feature_name": "tool_wear_min",
+        "display_name": "Tool Wear Accumulated Time",
+        "unit": "Minutes (min)",
+        "feature_value": 225.0,
+        "shap_value": 4.3543,
+        "absolute_shap": 4.3543,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Cumulative cutting operating time logged on the active cutting tool insert."
+      },
+      {
+        "feature_name": "torque_nm",
+        "display_name": "Spindle Torque",
+        "unit": "Newton-meters (Nm)",
+        "feature_value": 48.2,
+        "shap_value": 0.3613,
+        "absolute_shap": 0.3613,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Mechanical rotational resistance and cutting force encountered by the spindle motor."
+      },
+      {
+        "feature_name": "torque_speed_ratio",
+        "display_name": "Load Stress Ratio (Torque / Speed)",
+        "unit": "Nm / RPM",
+        "feature_value": 0.0348,
+        "shap_value": 0.1253,
+        "absolute_shap": 0.1253,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Ratio of mechanical resistance to angular velocity; captures low-speed high-strain machine laboring."
+      }
+    ],
+    "top_negative_contributors": [
+      {
+        "feature_name": "mechanical_power_kw",
+        "display_name": "Instantaneous Mechanical Power Output",
+        "unit": "Kilowatts (kW)",
+        "feature_value": 6.9958,
+        "shap_value": -0.9438,
+        "absolute_shap": 0.9438,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "True mechanical power delivered to cutting interface: (2 * pi * RPM * Torque) / 60,000."
+      },
+      {
+        "feature_name": "rotational_speed_rpm",
+        "display_name": "Spindle Rotational Speed",
+        "unit": "RPM",
+        "feature_value": 1386.0,
+        "shap_value": -0.5827,
+        "absolute_shap": 0.5827,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Motor angular velocity driving the cutting tool spindle."
+      },
+      {
+        "feature_name": "temp_diff_k",
+        "display_name": "Thermal Stress Differential (Delta T)",
+        "unit": "Kelvin (K)",
+        "feature_value": 9.7,
+        "shap_value": -0.2755,
+        "absolute_shap": 0.2755,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Difference between process temperature and ambient air temperature (Process Temp - Air Temp)."
+      }
+    ],
+    "human_readable_narrative": "Prediction: FAILURE RISK (probability = 0.940 vs threshold 0.91). Factors driving the model toward failure prediction include Tool Wear Accumulated Time (225.0 Minutes (min), SHAP: +4.35). Factors mitigating predicted risk include Instantaneous Mechanical Power Output (6.9958 Kilowatts (kW), SHAP: -0.94), Spindle Rotational Speed (1386.0 RPM, SHAP: -0.58). Interpretation: The model's prediction is primarily associated with these observed telemetry values."
+  },
+  "false_negative": {
+    "test_sample_index": 101,
+    "actual_label": 1,
+    "predicted_label": 0,
+    "predicted_probability": 0.812,
+    "decision_threshold": 0.91,
+    "raw_margin": 1.4633,
+    "base_value": -0.0008,
+    "shap_sum": 1.4642,
+    "additive_error": 0.0,
+    "top_positive_contributors": [
+      {
+        "feature_name": "rotational_speed_rpm",
+        "display_name": "Spindle Rotational Speed",
+        "unit": "RPM",
+        "feature_value": 1294.0,
+        "shap_value": 1.5969,
+        "absolute_shap": 1.5969,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Motor angular velocity driving the cutting tool spindle."
+      },
+      {
+        "feature_name": "torque_nm",
+        "display_name": "Spindle Torque",
+        "unit": "Newton-meters (Nm)",
+        "feature_value": 62.4,
+        "shap_value": 1.2776,
+        "absolute_shap": 1.2776,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Mechanical rotational resistance and cutting force encountered by the spindle motor."
+      },
+      {
+        "feature_name": "temp_diff_k",
+        "display_name": "Thermal Stress Differential (Delta T)",
+        "unit": "Kelvin (K)",
+        "feature_value": 8.6,
+        "shap_value": 0.9625,
+        "absolute_shap": 0.9625,
+        "direction": "INCREASES_RISK",
+        "domain_interpretation": "Difference between process temperature and ambient air temperature (Process Temp - Air Temp)."
+      }
+    ],
+    "top_negative_contributors": [
+      {
+        "feature_name": "tool_wear_min",
+        "display_name": "Tool Wear Accumulated Time",
+        "unit": "Minutes (min)",
+        "feature_value": 101.0,
+        "shap_value": -1.6581,
+        "absolute_shap": 1.6581,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Cumulative cutting operating time logged on the active cutting tool insert."
+      },
+      {
+        "feature_name": "mechanical_power_kw",
+        "display_name": "Instantaneous Mechanical Power Output",
+        "unit": "Kilowatts (kW)",
+        "feature_value": 8.4557,
+        "shap_value": -0.8072,
+        "absolute_shap": 0.8072,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "True mechanical power delivered to cutting interface: (2 * pi * RPM * Torque) / 60,000."
+      },
+      {
+        "feature_name": "product_type_code",
+        "display_name": "Workpiece Material Quality Grade",
+        "unit": "Ordinal Code (0=L, 1=M, 2=H)",
+        "feature_value": 2.0,
+        "shap_value": -0.2462,
+        "absolute_shap": 0.2462,
+        "direction": "DECREASES_RISK",
+        "domain_interpretation": "Variant grade of manufactured auto-component (L: Low quality/50% volume, M: Medium/30%, H: High/20%)."
+      }
+    ],
+    "human_readable_narrative": "Prediction: NORMAL OPERATION (probability = 0.812 vs threshold 0.91). Factors driving the model toward failure prediction include Spindle Rotational Speed (1294.0 RPM, SHAP: +1.60), Spindle Torque (62.4 Newton-meters (Nm), SHAP: +1.28). Factors mitigating predicted risk include Tool Wear Accumulated Time (101.0 Minutes (min), SHAP: -1.66). Interpretation: The model's prediction is primarily associated with these observed telemetry values."
+  }
+}
