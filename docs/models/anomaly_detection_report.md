@@ -199,14 +199,20 @@ Rather than introducing premature complex attribution frameworks (which belong t
 
 ---
 
-## 17. Limitations & Research Safeguards
-1. **Controlled Scenario Validation**: Synthetic evaluation reflects the configured physical equations of the digital twin generator. While mathematically rigorous, it does not constitute real-world empirical validation on physical machine tools.
+## 17. Error Analysis & Cross-Machine Evaluation
+- **Post-Maintenance Boundary Transients**: The 33 false positive points occurred during the initial thermal stabilization hours following the simulated maintenance reset.
+- **Cross-Machine Transfer Mismatch**: Testing the M2-trained detector directly on M1, M3, M4, and M5 produced mean anomaly scores >0.99, providing evidence of substantial cross-machine distribution mismatch and supporting the need for machine-specific baseline calibration.
+
+---
+
+## 18. Limitations & Research Safeguards
+1. **Controlled Scenario Validation**: Synthetic evaluation reflects the configured physical equations of the digital twin generator. While mathematically rigorous, it does NOT constitute physical empirical validation, does NOT prove real-world factory performance, and does NOT establish real-world causality.
 2. **Post-Maintenance Boundary Transients**: The 33 false positive points occurred during the initial thermal stabilization hours following the simulated maintenance reset.
 3. **Cross-Machine Transferability**: Anomaly baselines are sensitive to machine power and speed ratings; each machine line requires individual baseline enrollment.
 
 ---
 
-## 18. Reproducibility & Test Suite
+## 19. Reproducibility & Test Suite
 All results are reproducible by executing:
 ```bash
 python -m src.models.train_anomaly
@@ -218,7 +224,7 @@ python -m pytest tests/ -q
 
 ---
 
-## 19. Research-Integrity Sign-Off
+## 20. Research-Integrity Sign-Off
 - **Zero Fabrication**: All reported numerical values were derived from code execution.
 - **Zero Future Leakage**: Verified causal rolling statistics and strict temporal splitting.
 - **Zero Contamination**: Training baseline was strictly nominal (Days 1–15).
