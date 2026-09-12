@@ -91,9 +91,9 @@ C:\NIRMAAN AI
 | **Phase 3** | Data Understanding & Exploratory Data Analysis (EDA) | **COMPLETED** |
 | **Phase 4** | Unified Factory Data Schema | **COMPLETED** |
 | **Phase 5** | Synthetic Factory Dataset Generator | **COMPLETED** |
-| **Phase 6** | Predictive Maintenance (Failure & RUL) | **COMPLETED** |
-| **Phase 7** | Multi-Sensor Anomaly Detection | Planned |
-| **Phase 8** | Production Bottleneck Prediction | Planned |
+| **Phase 6** | Predictive Maintenance (Failure Classification & RUL Regression) | **COMPLETED** |
+| **Phase 7** | Multi-Sensor Anomaly Detection (Unsupervised PCA & Baseline Benchmark) | **COMPLETED** |
+| **Phase 8** | Production Bottleneck Prediction & Flow Intelligence | **COMPLETED** |
 | **Phase 9** | Production & Energy Forecasting | Planned |
 | **Phase 10** | Smart Inventory Intelligence | Planned |
 | **Phase 11** | Explainable AI & SHAP Feature Attribution | Planned |
@@ -114,6 +114,27 @@ C:\NIRMAAN AI
 
 ---
 
+## Deployed Intelligence Subsystems (Phases 6–8)
+
+### 1. Predictive Maintenance (Phase 6)
+- **Failure Classification**: XGBoost Champion (Precision: 0.9545, Recall: 0.8235, F1: 0.8842, ROC-AUC: 0.9831) on AI4I 2020. Strict leakage exclusion of tool wear modes and identifiers.
+- **RUL Regression**: Random Forest Champion (RMSE: 18.11 cycles, MAE: 13.21, $R^2$: 0.7957) on NASA C-MAPSS FD001. Grouped engine unit splitting and causal 5-cycle rolling statistics.
+- **Service Layer**: `PredictiveMaintenanceService` exposing failure risk probabilities and remaining cycle estimates.
+
+### 2. Multi-Sensor Anomaly Detection (Phase 7)
+- **Unsupervised Telemetry Monitoring**: PCA Reconstruction Error Champion (F1: 0.9859, Precision: 0.9722, Recall: 1.0000, PR-AUC: 0.9965) trained on unpolluted reference normal operations (Days 1–15).
+- **Threshold Calibration**: 99th percentile validation calibration yielding an observed 1.04% false-positive rate.
+- **Early Warning**: Detected 1/1 true synthetic degradation event with 106.5 hours (4.44 days) early warning lead time.
+- **Service Layer**: `AnomalyDetectionService` maintaining causal rolling buffers and top-contributing sensor diagnostics.
+
+### 3. Bottleneck Prediction & Flow Intelligence (Phase 8)
+- **Production Flow Forecasting**: Domain-informed heuristic flow baseline predicting upcoming job bottlenecks and cycle time expansions at dispatch time ($t \le t_{\text{scheduled\_start}}$).
+- **Zero-Lookahead Feature Engineering**: Strictly causal prior cycle ratios, dispatch delays, and 1-hour pre-dispatch sensor telemetry.
+- **Cold-Start Integrity**: Explicitly accounts for zero positive bottleneck cases during initial nominal operations, demonstrating why domain physical priors are essential prior to historical failure accumulation.
+- **Service Layer**: `BottleneckService` evaluating real-time line states (`NOMINAL_FLOW`, `MODERATE_CONGESTION`, `CRITICAL_BOTTLENECK`) and identifying active constraint stations.
+
+---
+
 ## Setup & Getting Started
 
 ### Prerequisites
@@ -129,6 +150,11 @@ cd "C:\NIRMAAN AI"
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run foundation verification tests
-pytest tests/test_foundation.py
+# Run complete system test suite (61 tests across Phases 0-8)
+python -m pytest tests/ -v
+
+# Train / Evaluate individual intelligence subsystems
+python -m src.models.train_pdm         # Phase 6: Predictive Maintenance
+python -m src.models.train_anomaly     # Phase 7: Anomaly Detection
+python -m src.models.train_bottleneck  # Phase 8: Bottleneck Prediction
 ```
