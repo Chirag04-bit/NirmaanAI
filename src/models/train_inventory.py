@@ -171,7 +171,19 @@ def run_inventory_pipeline() -> Dict[str, Any]:
         "methodology": "Deterministic Operations Research & Statistical Inventory Control",
         "data_sources": {
             "inventory_catalog": "DATASET/10_SYNTHETIC_FACTORY/synthetic/inventory_items.csv",
-            "production_jobs": "DATASET/10_SYNTHETIC_FACTORY/synthetic/production_jobs.csv",
+            "production_jobs": {
+                "path": "DATASET/10_SYNTHETIC_FACTORY/synthetic/production_jobs.csv",
+                "total_jobs_in_dataset": 300,
+                "machines": ["M1", "M2", "M3", "M4", "M5"],
+                "jobs_per_machine": 60,
+                "jobs_on_sku_consuming_machines": 180,
+                "sku_consuming_machines": ["M1", "M2", "M3"],
+                "md5_checksum": "52db0b6292e4cff0a547b40c0b97d9a4"
+            },
+            "maintenance_records": {
+                "path": "DATASET/10_SYNTHETIC_FACTORY/synthetic/maintenance_records.csv",
+                "nature": "CONFIGURED SYNTHETIC SPARE-CONSUMPTION RELATIONSHIP"
+            },
             "consumption_derivation": "CONFIGURED SYNTHETIC SIMULATION RELATIONSHIP (Bills of Materials)",
             "empirical_source_data_modified": False
         },

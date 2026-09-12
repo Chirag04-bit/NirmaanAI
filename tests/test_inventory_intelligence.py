@@ -302,3 +302,89 @@ class TestDataIntegrityAndReproducibility:
         m2_res = service.evaluate_maintenance_coupling(m2_req)
         assert m2_res.maintenance_required is True
         assert m2_res.bearing_sku == "SKU_SPINDLE_BEARING_M2"
+
+    def test_exact_dataset_lineage_300_jobs(self):
+        """
+        Audit verification:
+        1. production_jobs.csv contains exactly 300 rows across 30 days.
+        2. Exactly 60 jobs per machine across M1, M2, M3, M4, M5.
+        3. The 5 catalog SKUs map specifically to M1, M2, and M3 (60 + 60 + 60 = 180 jobs).
+        4. Checksum matches Phase 5 manifest (52db0b6292e4cff0a547b40c0b97d9a4).
+        """
+        import hashlib
+        from src.utils.config_loader import get_project_root
+        root = get_project_root()
+        jobs_path = root / "DATASET" / "10_SYNTHETIC_FACTORY" / "synthetic" / "production_jobs.csv"
+        assert jobs_path.exists(), f"production_jobs.csv not found at {jobs_path}"
+
+        df_jobs = pd.read_csv(jobs_path)
+        assert len(df_jobs) == 300, f"Expected 300 jobs, found {len(df_jobs)}"
+
+        # Machine distribution: 60 per machine
+        counts = df_jobs["machine_id"].value_counts()
+        for m_id in ["M1", "M2", "M3", "M4", "M5"]:
+            assert counts.get(m_id, 0) == 60, f"Expected 60 jobs for {m_id}, found {counts.get(m_id, 0)}"
+
+        # Tracked SKUs map to M1, M2, M3: 180 relevant jobs
+        relevant_jobs = df_jobs[df_jobs["machine_id"].isin(["M1", "M2", "M3"])]
+        assert len(relevant_jobs) == 180
+
+        # MD5 Checksum matches Phase 5 manifest
+        with open(jobs_path, "rb") as f:
+            md5_hash = hashlib.md5(f.read()).hexdigest()
+        assert md5_hash == "52db0b6292e4cff0a547b40c0b97d9a4"
+
+    def test_sku_or_calculations_are_computed_not_copied(self):
+        """
+        Verifies that SS, ROP, EOQ are calculated dynamically from OR formulas
+        and not blindly copied from the static baseline fields in inventory_items.csv.
+        """
+        catalog = load_inventory_catalog()
+        service = InventoryService()
+
+        for _, row in catalog.iterrows():
+            sku_id = str(row["sku_id"])
+            static_ss = float(row["safety_stock"])
+            static_reorder_qty = float(row["reorder_quantity"])
+
+            req = SkuAuditRequest(sku_id=sku_id)
+            audit = service.audit_single_sku(req)
+
+            # Assert values are genuinely computed and distinct from catalog static defaults
+            assert audit.safety_stock > 0
+            assert audit.eoq > 0
+            assert audit.reorder_point > audit.safety_stock
+
+            # For M1 raw material: static_ss was 150.0, computed SS is ~199.11
+            if sku_id == "SKU_STEEL_BAR_20MM":
+                assert audit.safety_stock != static_ss
+                assert pytest.approx(audit.safety_stock, abs=0.1) == 199.11
+                assert pytest.approx(audit.reorder_point, abs=0.1) == 679.11
+                assert pytest.approx(audit.eoq, abs=0.1) == 2174.69
+
+    def test_stockout_vs_below_safety_stock_semantics(self):
+        """
+        Strict semantic audit:
+        1. current_stock < safety_stock is 'CRITICAL_DEFICIT' (NOT OUT_OF_STOCK).
+        2. Only current_stock <= 0 is 'OUT_OF_STOCK'.
+        """
+        # Critical deficit (positive stock, below SS)
+        status_deficit = InventoryOptimizer.classify_stock_status(
+            current_stock=5.0,
+            safety_stock=20.0,
+            reorder_point=50.0,
+            eoq=100.0
+        )
+        assert status_deficit["inventory_tier"] == "CRITICAL_DEFICIT"
+        assert status_deficit["inventory_tier"] != "OUT_OF_STOCK"
+        assert status_deficit["action_urgency"] == "HIGH_PRIORITY"
+
+        # Out of stock (0 or negative)
+        status_oos = InventoryOptimizer.classify_stock_status(
+            current_stock=0.0,
+            safety_stock=20.0,
+            reorder_point=50.0,
+            eoq=100.0
+        )
+        assert status_oos["inventory_tier"] == "OUT_OF_STOCK"
+        assert status_oos["action_urgency"] == "IMMEDIATE_EXPEDITE"

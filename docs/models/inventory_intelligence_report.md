@@ -42,10 +42,14 @@ Phase 10 implements NirmaanAI's **Smart Inventory Intelligence Subsystem**, prov
 | Asset Path | Records / Scope | Nature of Data | Role in Phase 10 |
 | :--- | :--- | :--- | :--- |
 | `DATASET/10_SYNTHETIC_FACTORY/synthetic/inventory_items.csv` | 5 SKUs across 3 categories | Controlled factory simulation catalog | Warehouse stock levels, unit costs, baseline reorder quantities |
-| `DATASET/10_SYNTHETIC_FACTORY/synthetic/production_jobs.csv` | 180 batches across 30 days | Controlled discrete manufacturing jobs | Causal basis for deriving daily SKU material consumption rates |
-| `DATASET/10_SYNTHETIC_FACTORY/synthetic/maintenance_records.csv` | Component replacement history | Machine maintenance logs | Validation of spare part consumption episodes |
+| `DATASET/10_SYNTHETIC_FACTORY/synthetic/production_jobs.csv` | **300 jobs total** across 30 days (60 jobs/machine across M1–M5; **180 jobs** specifically on machines M1–M3 consuming the 5 catalog SKUs) | Controlled discrete manufacturing jobs | Causal basis for deriving daily SKU material consumption rates |
+| `DATASET/10_SYNTHETIC_FACTORY/synthetic/maintenance_records.csv` | 4 replacement episodes | Machine maintenance logs | Configured synthetic spare-consumption relationship for maintenance overhaul episodes |
 
-### Source Data Immutability:
+### 2.1. Dataset Lineage & Integrity Verification:
+- **Exact File Verification**: `DATASET/10_SYNTHETIC_FACTORY/synthetic/production_jobs.csv` contains exactly **300 rows** (excluding header) spanning 30 calendar days (`2026-01-01` to `2026-01-30`).
+- **Machine Distribution**: Exactly 60 jobs per machine across all 5 machines (`M1`: 60, `M2`: 60, `M3`: 60, `M4`: 60, `M5`: 60).
+- **Lineage Resolution (180 vs 300)**: The 5 inventory catalog items in `inventory_items.csv` represent raw materials, tooling, and spares exclusively consumed by machines `M1` (Lathe), `M2` (Milling), and `M3` (Grinder). These 3 relevant machines account for $60 \times 3 = \mathbf{180\text{ jobs}}$. Machines `M4` (Optical Inspection) and `M5` (Hardware Boxing) account for the remaining $60 \times 2 = 120\text{ jobs}$ but do not consume items from the 5-SKU catalog. Prior documentation loosely cited the 180 relevant machine jobs; the actual underlying dataset is the full 300-job synthetic factory dataset.
+- **Checksum Proof**: The file's MD5 checksum is `52db0b6292e4cff0a547b40c0b97d9a4`, exactly matching the Phase 5 baseline manifest (`DATASET/10_SYNTHETIC_FACTORY/metadata/dataset_manifest.json`). Zero records have been modified, overwritten, or regenerated.
 - **No modification to raw datasets**: All raw data files in `DATASET/` remain untouched (`git status` confirms zero modifications in `DATASET/`).
 - **No external datasets added**: All calculations operate entirely on existing project assets.
 
