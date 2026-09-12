@@ -199,7 +199,8 @@ All metrics below are calculated directly from executed code and recorded in `mo
 
 ### 11.1 AI4I False Negatives (9 unpredicted failures)
 - Inspection of the 9 false negatives produced by XGBoost reveals they primarily correspond to **Random Failures (RNF)**. In AI4I, RNF events are generated with a uniform random component independent of sensor parameters (tool wear, heat, power). No deterministic physical relationship links the telemetry to RNF.
-- False negatives also occurred at early tool wear stages ($<120$ min) during transient power spikes, which fell just below the $0.91$ calibrated decision threshold.
+- **Leakage Integrity**: RNF is used only to characterize false-negative failure events during post-hoc analysis; it is never provided as an input feature.
+- False negatives also occurred at early tool wear stages (<120 min) during transient power spikes, which fell just below the 0.91 calibrated decision threshold.
 
 ### 11.2 NASA C-MAPSS Prediction Dispersion
 - C-MAPSS RUL errors are highest when engines are far from failure ($RUL > 100$ cycles). Because degradation signatures in early cycles are weak, predictions cluster around the capped plateau ($125$ cycles).
@@ -221,16 +222,15 @@ All metrics below are calculated directly from executed code and recorded in `mo
 To verify the integration of the trained models with the NirmaanAI digital twin environment, we evaluated the champion XGBoost classifier on the synthetic shop-floor telemetry (`DATASET/10_SYNTHETIC_FACTORY/synthetic/sensor_readings.csv`, Machine 2):
 
 > [!NOTE]
-> **Validation Framing**: This evaluation represents a **controlled synthetic validation** within a simulated testbed. It does NOT constitute evidence of physical factory performance.
+> **Validation Framing**: This evaluation represents a **controlled synthetic validation** within a simulated testbed. It does NOT constitute evidence of physical factory performance, does NOT establish real-world causality, and does NOT prove physical failure.
 
-### Results & Domain Gap Discovery:
+### Results & Domain Gap Analysis:
 - **Baseline Window (Days 1–10)**: Mean predicted failure probability = $0.9949$.
 - **Degradation Window (Days 18–21)**: Mean predicted failure probability = $0.9959$, Max probability = $0.9978$.
-- **Scientific Finding**:
-  - The AI4I model was trained on small precision cutting tools where torque ranges from $3.8\text{ Nm}$ to $76.6\text{ Nm}$ (mean $40\text{ Nm}$).
-  - Machine 2 in our MSME factory digital twin is a heavy-duty 22 kW Vertical Milling Center operating at $1,500\text{ RPM}$, which physically produces torque of $\tau = \frac{22000 \times 60}{2\pi \times 1500} \approx 140\text{ Nm}$.
-  - Because $140\text{ Nm}$ lies far outside the support of the AI4I training distribution ($>1.8\times$ maximum training torque), the model evaluated all Machine 2 operations as extreme overload.
-  - This observation provides a compelling academic demonstration of **distribution shift and domain mismatch**, motivating the need for vertical-specific normalization and transfer calibration in subsequent phases.
+- **Scientific Observation**:
+  - The AI4I-trained model assigned a failure probability >0.99 to the Machine 2 reading. Because the synthetic Machine 2 operating regime lies outside the AI4I feature distribution, this observation provides evidence of distribution shift and highlights the need for machine-specific normalization and transfer calibration.
+  - Specifically, AI4I was trained on small cutting tools where torque is bounded at $3.8\text{--}76.6\text{ Nm}$ (mean $40\text{ Nm}$), whereas Machine 2 in our MSME factory digital twin is configured as a heavy-duty 22 kW Vertical Milling Center operating at $1,500\text{ RPM}$, which physically produces $\tau \approx 140\text{ Nm}$ torque ($>1.8\times$ maximum training torque).
+  - Consequently, this is an **out-of-distribution / domain-gap observation**. It is NOT empirical validation, does NOT prove physical failure, and does NOT establish real-world causality. It illustrates the critical research necessity of domain adaptation when transferring models across equipment classes.
 
 ---
 
