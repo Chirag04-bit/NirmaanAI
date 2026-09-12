@@ -1,0 +1,130 @@
+{
+  "subsystem": "Bottleneck Prediction & Flow Intelligence",
+  "phase": "Phase 8",
+  "champion_model": "heuristic_rule",
+  "decision_threshold": 0.4,
+  "feature_count": 15,
+  "features": [
+    "batch_quantity",
+    "planned_duration_min",
+    "batch_load_ratio",
+    "hour_of_day",
+    "is_afternoon_shift",
+    "prior_cycle_ratio_mean",
+    "prior_start_delay_mean",
+    "pre_job_vibration_1h",
+    "pre_job_temperature_1h",
+    "pre_job_vibration_dev_1h",
+    "is_machine_M1",
+    "is_machine_M2",
+    "is_machine_M3",
+    "is_machine_M4",
+    "is_machine_M5"
+  ],
+  "benchmark_comparison": [
+    {
+      "model_name": "heuristic_rule",
+      "decision_threshold": 0.5,
+      "test_precision": 0.7778,
+      "test_recall": 0.875,
+      "test_f1": 0.8235,
+      "test_roc_auc": 0.9882,
+      "test_pr_auc": 0.804,
+      "confusion_matrix": {
+        "TN": 120,
+        "FP": 2,
+        "FN": 1,
+        "TP": 7
+      },
+      "false_positive_rate": 0.0164,
+      "false_negative_rate": 0.125
+    },
+    {
+      "model_name": "logistic_regression",
+      "decision_threshold": 0.5,
+      "test_precision": 0.0,
+      "test_recall": 0.0,
+      "test_f1": 0.0,
+      "test_roc_auc": 0.5,
+      "test_pr_auc": 0.0615,
+      "confusion_matrix": {
+        "TN": 122,
+        "FP": 0,
+        "FN": 8,
+        "TP": 0
+      },
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 1.0
+    },
+    {
+      "model_name": "random_forest",
+      "decision_threshold": 0.5,
+      "test_precision": 0.0,
+      "test_recall": 0.0,
+      "test_f1": 0.0,
+      "test_roc_auc": 0.5,
+      "test_pr_auc": 0.0615,
+      "confusion_matrix": {
+        "TN": 122,
+        "FP": 0,
+        "FN": 8,
+        "TP": 0
+      },
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 1.0
+    },
+    {
+      "model_name": "xgboost",
+      "decision_threshold": 0.5,
+      "test_precision": 0.0,
+      "test_recall": 0.0,
+      "test_f1": 0.0,
+      "test_roc_auc": 0.5,
+      "test_pr_auc": 0.0615,
+      "confusion_matrix": {
+        "TN": 122,
+        "FP": 0,
+        "FN": 8,
+        "TP": 0
+      },
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 1.0
+    }
+  ],
+  "champion_performance": {
+    "model_name": "heuristic_rule",
+    "decision_threshold": 0.5,
+    "test_precision": 0.7778,
+    "test_recall": 0.875,
+    "test_f1": 0.8235,
+    "test_roc_auc": 0.9882,
+    "test_pr_auc": 0.804,
+    "confusion_matrix": {
+      "TN": 120,
+      "FP": 2,
+      "FN": 1,
+      "TP": 7
+    },
+    "false_positive_rate": 0.0164,
+    "false_negative_rate": 0.125
+  },
+  "temporal_split_counts": {
+    "train_days_1_to_15": 150,
+    "val_days_16_to_17": 20,
+    "test_days_18_to_30": 130,
+    "total_jobs": 300
+  },
+  "target_formulation": {
+    "target_variable": "bottleneck_event",
+    "definition": "Cycle time expansion ratio >= 1.20 OR start dispatch delay >= 10.0 minutes OR status == DELAYED",
+    "positives_count": 8,
+    "affected_machine": "M2 (Vertical Milling Center)"
+  },
+  "secondary_benchmark_evaluation": {
+    "dataset": "06_MANUFACTURING_PRODUCTION",
+    "total_records": 1000,
+    "test_roc_auc": 0.4903,
+    "test_pr_auc": 0.3531,
+    "finding": "Processing time and material used exhibit zero correlation with Job_Status; delay status is driven by operational dispatch delays rather than machine parameters."
+  }
+}
