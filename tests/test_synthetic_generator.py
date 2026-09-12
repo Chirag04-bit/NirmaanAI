@@ -1,6 +1,6 @@
 """
 Unit and integration tests for NirmaanAI Synthetic Data Engine.
-Validates reproducibility, causal physics, Machine 2 degradation dynamics,
+Validates reproducibility, scenario dynamics, Machine 2 degradation dynamics,
 disaggregated financial loss consistency, and Pydantic schema conformance.
 """
 

@@ -47,10 +47,10 @@ To maintain scientific integrity and prevent fabricated claims, datasets are par
 ### Category C: Generated Synthetic MSME Datasets (Fully Generated & Verified)
 | ID | Dataset Name | Target Vertical | Generation Phase | Synthetic Mechanism | Operational Purpose | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **09** | **Textile MSME Shop Floor Dataset** | Textile Weaving / Spinning MSME | Phase 5 | Mathematical degradation curves + noise (`seed=101`) | Simulates loom motor vibration rise $\rightarrow$ cycle slowdown $\rightarrow$ line bottleneck $\rightarrow$ rupee loss | Generated (43,200 telemetry, 300 jobs, 264 loss records) |
-| **10** | **Integrated Factory Digital Twin Dataset** | Discrete Auto-Components MSME | Phase 5 | Interconnected multi-machine queue simulator (`seed=42`) | End-to-end integration across telemetry, maintenance, inventory, and finance | Generated (43,200 telemetry, 300 jobs, 245 loss records) |
+| **09** | **Textile MSME Shop Floor Dataset** | Textile Weaving / Spinning MSME | Phase 5 | Mathematical degradation curves + noise (`seed=101`) | Simulates loom motor vibration rise $\rightarrow$ cycle slowdown $\rightarrow$ line bottleneck $\rightarrow$ rupee loss | Generated (43,200 telemetry, 300 jobs, 265 loss records) |
+| **10** | **Integrated Factory Digital Twin Dataset** | Discrete Auto-Components MSME | Phase 5 | Interconnected multi-machine queue simulator (`seed=42`) | End-to-end integration across telemetry, maintenance, inventory, and finance | Generated (43,200 telemetry, 300 jobs, 246 loss records) |
 
-*Audit Note: These datasets were generated in Phase 5 via `src/data/synthetic_generator.py` with fully documented physical equations, deterministic random seeds (42 and 101), exact JSON manifests, and full Pydantic v2 schema compliance.*
+*Audit Note: These datasets were generated in Phase 5 via `src/data/synthetic_generator.py` as controlled validation environments with documented equations, deterministic random seeds (42 and 101), configured ground-truth scenario parameters, exact JSON manifests, and full Pydantic v2 schema compliance. They provide controlled ground truth for algorithmic testing and do not establish real-world machine causality.*
 
 ---
 
