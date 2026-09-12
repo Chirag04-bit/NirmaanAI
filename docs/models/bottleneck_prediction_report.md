@@ -92,10 +92,12 @@ Four model families were evaluated on the independent chronological test split (
 
 | Model | Model Nature | Decision Threshold | Test Precision | Test Recall | Test F1 | Test ROC-AUC | Test PR-AUC | Test FPR |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Heuristic Baseline** | **Domain/Physics Prior** | **0.40 (Configured)** | **0.7778** | **0.8750** | **0.8235** | **0.9882** | **0.8040** | **0.0164** |
+| **Heuristic Baseline (Exploratory)\*** | **Post-Hoc Heuristic Prior** | **0.40 (Exploratory)** | **0.7778\*** | **0.8750\*** | **0.8235\*** | **0.9882\*** | **0.8040\*** | **0.0164\*** |
 | **Logistic Regression** | Supervised Discriminative | 0.50 | 0.0000 | 0.0000 | 0.0000 | 0.5000 | 0.0615 | 0.0000 |
 | **Random Forest** | Supervised Discriminative | 0.50 | 0.0000 | 0.0000 | 0.0000 | 0.5000 | 0.0615 | 0.0000 |
 | **XGBoost Classifier** | Supervised Discriminative | 0.50 | 0.0000 | 0.0000 | 0.0000 | 0.5000 | 0.0615 | 0.0000 |
+
+*\*Notice on Heuristic Baseline: These metrics represent exploratory retrospective validation. As disclosed in the audit below, default parameter thresholds were informed post-hoc by diagnostic analysis on the test split and must not be interpreted as an unbiased prospective model evaluation.*
 
 ### Domain-Informed Heuristic Baseline Confusion Matrix ($N = 130$):
 - **True Negatives ($TN$)**: 120
@@ -106,13 +108,18 @@ Four model families were evaluated on the independent chronological test split (
 ### Scientific Interpretation of Supervised Classifiers:
 Supervised discriminative classifiers (Logistic Regression, Random Forest, XGBoost) could not learn a positive bottleneck class under the strictly chronological training regime because the available training period contained no positive bottleneck events. This is not simply poor algorithmic performance; rather, it demonstrates that **the available historical window contains insufficient positive bottleneck examples for conventional supervised classification**. This finding provides strong academic motivation for domain-informed priors during cold-start operations and future supervised learning after sufficient labeled bottleneck history accumulates.
 
-### Threshold Methodology Guardrail:
-The heuristic baseline evaluates pre-job physical deviation and lagged cycle drag using **configured domain/scenario thresholds**:
+### Threshold Provenance Audit & Methodological Disclosure:
+A rigorous code-level and trajectory provenance audit was conducted on the heuristic baseline parameters:
 - Pre-job vibration deviation threshold: $0.30\text{ mm/s}$
 - Lagged cycle ratio threshold: $1.10$ ($+10\%$ cycle slowdown)
-- Continuous risk cutoff: $0.40$
+- Continuous flow-risk score cutoff: $0.40$
 
-These thresholds are configured domain priors established independently of the test labels. Threshold calibration could not be statistically learned because validation contained zero positive events; test evaluation was reserved strictly for final reporting.
+**Provenance Finding**: Implementation history demonstrates that these specific thresholds were selected post-hoc during retrospective diagnostic exploration of false negatives (`JOB_0172` and `JOB_0177`) on the test split.
+
+**Research Integrity Mandates**:
+1. **No Claim of Independent Configuration**: The heuristic thresholds are post-hoc exploratory parameters and cannot be claimed as blind domain priors configured independently of test data.
+2. **Exploratory Status Only**: The resulting test metrics (Precision: 0.7778, Recall: 0.8750, F1: 0.8235, PR-AUC: 0.8040) are strictly retained as **exploratory retrospective results** demonstrating signal separability under calibrated parameters, rather than an unbiased final model evaluation.
+3. **Requirement for Prospective Evaluation**: An independently pre-specified threshold or a fresh, untouched evaluation dataset is required before an unbiased prospective model evaluation can be claimed.
 
 ---
 
@@ -151,7 +158,7 @@ The real-time service [bottleneck_service.py](file:///c:/NIRMAAN%20AI/src/servic
   tests/test_bottleneck_prediction.py::test_temporal_split_isolation PASSED [ 42%]
   tests/test_bottleneck_prediction.py::test_heuristic_bottleneck_classifier_fit_predict PASSED [ 57%]
   tests/test_bottleneck_prediction.py::test_bottleneck_service_inference PASSED [ 71%]
-  tests/test_bottleneck_prediction.py::test_heuristic_thresholds_configured_independent_of_test_data PASSED [ 85%]
+  tests/test_bottleneck_prediction.py::test_heuristic_thresholds_initialization_and_immutability PASSED [ 85%]
   tests/test_bottleneck_prediction.py::test_zero_positive_training_constraint PASSED [100%]
   7 passed in 3.86s
   ```
@@ -175,3 +182,4 @@ The real-time service [bottleneck_service.py](file:///c:/NIRMAAN%20AI/src/servic
 1. **Chronological Cold-Start Limitation**: Because the training baseline represents strictly nominal operations, supervised discriminative classifiers require historical bottleneck variety to train effective boundaries.
 2. **Sequential Line Routing**: WIP queue propagation assumes linear sequential routing (`M1` to `M5`). Non-linear split/merge topologies will require graph network flow modeling.
 3. **Controlled Synthetic Environment**: Primary results reflect the generative simulation equations and do NOT constitute physical empirical validation, do NOT prove real-world factory performance, and do NOT establish real-world causality.
+4. **Threshold Provenance & Exploratory Status**: The heuristic baseline thresholds ($0.30\text{ mm/s}$ vibration deviation, $1.10$ cycle ratio, $0.40$ score cutoff) were derived post-hoc during retrospective diagnostic exploration on the test split. They reflect exploratory retrospective bounds rather than an untouched prospective evaluation. Independent prospective evaluation requires unexamined operational datasets.

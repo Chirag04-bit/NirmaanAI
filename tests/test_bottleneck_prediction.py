@@ -185,15 +185,15 @@ def test_bottleneck_service_inference():
     assert "M3" in res_crit.affected_machines  # Downstream stage propagation
 
 
-def test_heuristic_thresholds_configured_independent_of_test_data():
-    """Verifies that HeuristicBottleneckClassifier uses pre-configured domain thresholds without fitting on test labels."""
+def test_heuristic_thresholds_initialization_and_immutability():
+    """Verifies that HeuristicBottleneckClassifier initializes default scenario thresholds and does not mutate them during fit."""
     clf = HeuristicBottleneckClassifier()
-    # Default configured domain priors
+    # Default initialized scenario thresholds
     assert clf.vib_dev_threshold == 0.30
     assert clf.cycle_ratio_threshold == 1.10
     assert clf.threshold == 0.40
 
-    # Fitting must not modify the configured thresholds based on y
+    # Fitting must not mutate the classifier parameters
     dummy_X = pd.DataFrame({
         "pre_job_vibration_dev_1h": [0.1, 0.2],
         "prior_cycle_ratio_mean": [1.0, 1.05]

@@ -46,11 +46,15 @@ class HeuristicBottleneckClassifier(BaseBottleneckClassifier):
     """
     Domain-Informed Flow Risk Heuristic Baseline.
     Evaluates pre-job mechanical telemetry deviation and lagged cycle ratio.
-    Configured domain/scenario thresholds:
-    - vib_dev_threshold: 0.30 mm/s (configured scenario threshold based on baseline vibration 1.4 mm/s)
-    - cycle_ratio_threshold: 1.10 (configured threshold for 10% cycle slowdown)
-    - decision_threshold: 0.40 (configured composite flow-risk score cutoff)
-    NOTE: These thresholds are configured domain priors, not statistically fit using test data.
+    Configured exploratory scenario thresholds:
+    - vib_dev_threshold: 0.30 mm/s (vibration deviation cutoff)
+    - cycle_ratio_threshold: 1.10 (10% cycle slowdown cutoff)
+    - decision_threshold: 0.40 (composite flow-risk score cutoff)
+    RESEARCH INTEGRITY NOTE: These default parameter values were selected post-hoc
+    during exploratory analysis on the test split. They serve as an exploratory
+    heuristic baseline and do NOT represent an unbiased prospective evaluation.
+    An independently pre-specified prior or a fresh, untouched evaluation set
+    would be required for unbiased evaluation.
     """
 
     def __init__(

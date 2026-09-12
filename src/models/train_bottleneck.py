@@ -83,8 +83,8 @@ def run_bottleneck_benchmarks() -> Dict[str, Any]:
     y_test = splits["y_test"]
 
     # 2. Benchmarking Model Candidates
-    # Heuristic baseline: configured domain/scenario thresholds (0.30 mm/s vib dev, 1.10 cycle ratio, 0.40 score threshold)
-    # NOTE: Configured prior baseline, NOT tuned using test data.
+    # Heuristic baseline: exploratory scenario thresholds (0.30 mm/s vib dev, 1.10 cycle ratio, 0.40 score threshold)
+    # NOTE: Thresholds were derived post-hoc during retrospective diagnostic inspection of the test split.
     models: List[BaseBottleneckClassifier] = [
         HeuristicBottleneckClassifier(vib_dev_threshold=0.30, cycle_ratio_threshold=1.10, decision_threshold=0.40),
         LogisticBottleneckClassifier(C=0.5, random_state=42),
@@ -184,9 +184,11 @@ def run_bottleneck_benchmarks() -> Dict[str, Any]:
         "subsystem": "Bottleneck Prediction & Flow Intelligence",
         "phase": "Phase 8",
         "deployed_baseline": champion_model.name,
-        "baseline_type": "domain_informed_flow_risk_heuristic",
+        "baseline_type": "exploratory_heuristic_baseline",
+        "evaluation_nature": "exploratory_retrospective_evaluation",
         "decision_threshold": champion_model.threshold,
-        "threshold_methodology": "Configured domain/scenario thresholds (0.30 mm/s vibration dev, 1.10 cycle ratio, 0.40 score threshold). Thresholds were NOT tuned or optimized using test data.",
+        "threshold_provenance": "Exploratory post-hoc scenario thresholds (0.30 mm/s vibration deviation, 1.10 cycle ratio, 0.40 score cutoff) informed by retrospective diagnostic analysis of the test split.",
+        "threshold_methodology": "Post-hoc exploratory scenario thresholds (0.30 mm/s vibration deviation, 1.10 cycle ratio, 0.40 score cutoff) informed by retrospective diagnostic analysis of the test split. Test metrics represent exploratory retrospective validation and must not be interpreted as an unbiased prospective evaluation. An independently specified prior or a fresh untouched evaluation dataset is required for prospective verification.",
         "zero_positive_explanation": "Supervised discriminative classifiers (Logistic Regression, Random Forest, XGBoost) could not learn a positive bottleneck class under the strictly chronological training regime because the available training period (Days 1-15, N=150) and validation period (Days 16-17, N=20) contained zero positive bottleneck events. The available historical window contains insufficient positive bottleneck examples for conventional supervised classification, motivating domain-informed priors during cold-start operation.",
         "feature_count": len(champion_model.feature_names),
         "features": champion_model.feature_names,
