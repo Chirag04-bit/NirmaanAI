@@ -1,31 +1,49 @@
 {
   "dataset_id": "03_UCI_SECOM",
   "dataset_name": "UCI SECOM Semiconductor Manufacturing Process Dataset",
-  "source_archive": "archive (2).zip / secom.zip",
-  "license": "Open Access (UCI ML Repository)",
-  "citation": "McCann, M., Johnston, A. (2008). SECOM Data Set.",
-  "ingestion_date": "2026-09-12T17:28:24.995150+00:00",
+  "source_archive": "archive (2).zip (csv format) & secom.zip (raw data and labels format)",
+  "license": "Open Access (UCI Machine Learning Repository)",
+  "citation": "McCann, M., & Johnston, A. (2008). SECOM Data Set. UCI Machine Learning Repository.",
+  "ingestion_date": "2026-09-12T17:31:38.034060+00:00",
+  "primary_target": "Pass/Fail",
+  "target_type": "Binary Classification (-1 = Pass [93.36%], 1 = Fail [6.64%])",
+  "representation_note": "CRITICAL ARCHITECTURAL DISTINCTION: uci-secom.csv, secom.data, secom_labels.data, and secom.names are representation and supporting files of the SAME single SECOM dataset. They MUST NOT be counted as separate datasets. uci-secom.csv is the consolidated tabular representation combining features, labels, and timestamps.",
+  "leakage_guardrail": "Extreme missingness (41,951 nulls across 538 features). Missing value imputation and low-variance feature selection must strictly be fitted on training folds only.",
   "files": [
     {
       "filename": "uci-secom.csv",
+      "role": "Consolidated Tabular Representation",
+      "file_type": "csv",
       "size_bytes": 6055583,
       "md5": "a30fc03f301398e072919d21135be5af",
       "rows": 1567,
       "cols": 592,
-      "primary_target": "Pass/Fail"
+      "column_structure": "Time + 590 numerical sensor features (0-589) + Pass/Fail target"
     },
     {
       "filename": "secom.data",
-      "size_bytes": 5389983
+      "role": "Original Raw Sensor Matrix (Whitespace Delimited)",
+      "file_type": "txt_whitespace",
+      "size_bytes": 5389983,
+      "md5": "e4716cda08f7e67afe99a199eec6a801",
+      "rows": 1567,
+      "cols": 590
     },
     {
       "filename": "secom_labels.data",
-      "size_bytes": 40638
+      "role": "Original Ground-Truth Labels & Timestamps",
+      "file_type": "txt_whitespace",
+      "size_bytes": 40638,
+      "md5": "ec589b71d8fd35adef98bca758bcc545",
+      "rows": 1567,
+      "cols": 2
     },
     {
       "filename": "secom.names",
-      "size_bytes": 4223
+      "role": "Original UCI Documentation and Metadata",
+      "file_type": "doc_txt",
+      "size_bytes": 4223,
+      "md5": "cb9e06c83a28f57b73c68703360255a8"
     }
-  ],
-  "leakage_guardrail": "Imputation and variance thresholding must be fitted exclusively on training folds."
+  ]
 }

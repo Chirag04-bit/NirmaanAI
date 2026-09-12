@@ -3,15 +3,20 @@
   "dataset_name": "Factory Sensor Simulator 2040 (Industrial IoT)",
   "source_archive": "archive (3).zip",
   "license": "CC0 1.0 Universal Public Domain",
-  "ingestion_date": "2026-09-12T17:28:26.309787+00:00",
+  "ingestion_date": "2026-09-12T17:31:38.034060+00:00",
+  "primary_target": "Failure_Within_7_Days",
+  "target_type": "Binary Classification (False: 469,968 [94.0%], True: 30,032 [6.0%])",
+  "auxiliary_target": "Remaining_Useful_Life_days (Continuous Regression: 0 to 365 days)",
+  "leakage_guardrail": "CRITICAL: Remaining_Useful_Life_days deterministically leaks Failure_Within_7_Days when <= 7.0. It MUST be excluded from feature vectors when predicting failure windows.",
   "files": [
     {
       "filename": "factory_sensor_simulator_2040.csv",
+      "file_type": "csv",
       "size_bytes": 51496232,
       "md5": "3ca9e3743c74f11c4090d226303356dc",
       "rows": 500000,
       "cols": 22,
-      "columns": [
+      "column_names": [
         "Machine_ID",
         "Machine_Type",
         "Installation_Year",
@@ -35,9 +40,7 @@
         "Heat_Index",
         "AI_Override_Events"
       ],
-      "primary_target": "Failure_Within_7_Days",
-      "continuous_target": "Remaining_Useful_Life_days"
+      "target_column": "Failure_Within_7_Days"
     }
-  ],
-  "leakage_guardrail": "Exclude Remaining_Useful_Life_days when predicting Failure_Within_7_Days to prevent deterministic leakage."
+  ]
 }

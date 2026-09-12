@@ -1,18 +1,29 @@
 {
   "dataset_id": "01_AI4I_2020",
   "dataset_name": "AI4I 2020 Predictive Maintenance Dataset",
-  "source_archive": "ai4i+2020+predictive+maintenance+dataset.zip",
+  "source_archive": "ai4i+2020+predictive+maintenance+dataset.zip (duplicate in archive.zip)",
   "license": "CC BY 4.0",
-  "citation": "Matzka, S. (2020). Explainable Artificial Intelligence for Predictive Maintenance Applications.",
-  "ingestion_date": "2026-09-12T17:28:24.888035+00:00",
+  "citation": "Matzka, S. (2020). Explainable Artificial Intelligence for Predictive Maintenance Applications. Third International Conference on Artificial Intelligence for Industries (AI4I).",
+  "ingestion_date": "2026-09-12T17:31:38.034060+00:00",
+  "primary_target": "Machine failure",
+  "target_type": "Binary Classification (0: Normal [96.61%], 1: Failure [3.39%])",
+  "diagnostic_targets": [
+    "TWF",
+    "HDF",
+    "PWF",
+    "OSF",
+    "RNF"
+  ],
+  "leakage_guardrail": "Failure mode indicators (TWF, HDF, PWF, OSF, RNF) must be strictly excluded when predicting Machine failure. UDI is a sequential row index and must be dropped.",
   "files": [
     {
       "filename": "ai4i2020.csv",
+      "file_type": "csv",
       "size_bytes": 522048,
       "md5": "f0adaa9c5e25366c6df1cc2684479871",
       "rows": 10000,
       "cols": 14,
-      "columns": [
+      "column_names": [
         "UDI",
         "Product ID",
         "Type",
@@ -28,15 +39,7 @@
         "OSF",
         "RNF"
       ],
-      "primary_target": "Machine failure",
-      "failure_modes": [
-        "TWF",
-        "HDF",
-        "PWF",
-        "OSF",
-        "RNF"
-      ]
+      "target_column": "Machine failure"
     }
-  ],
-  "leakage_guardrail": "Mask TWF, HDF, PWF, OSF, RNF during failure prediction training. Drop UDI row index."
+  ]
 }

@@ -2,19 +2,22 @@
   "dataset_id": "04_ENERGY",
   "dataset_name": "Electricity Load Diagrams 2011-2014",
   "source_archive": "electricityloaddiagrams20112014.zip",
-  "license": "Open Access (UCI ML Repository)",
-  "citation": "Trindade, A. (2015). ElectricityLoadDiagrams20112014 Data Set.",
-  "ingestion_date": "2026-09-12T17:28:25.007519+00:00",
+  "license": "Open Access (UCI Machine Learning Repository)",
+  "citation": "Trindade, A. (2015). ElectricityLoadDiagrams20112014 Data Set. UCI Machine Learning Repository.",
+  "ingestion_date": "2026-09-12T17:31:38.034060+00:00",
+  "primary_target": "Electricity Load (kW) Time-Series",
+  "target_type": "Multivariate Time-Series Forecasting",
+  "temporal_resolution": "15-minute intervals from 2011-01-01 00:15:00 to 2014-12-31 24:00:00",
+  "leakage_guardrail": "Rolling time-series cross-validation without temporal shuffling. Train on earlier time windows, evaluate on subsequent windows.",
   "files": [
     {
       "filename": "LD2011_2014.txt",
+      "file_type": "csv_semicolon",
       "size_bytes": 710998915,
       "md5": "e317add771cebd2df4121e50570eaa25",
       "rows": 140257,
       "cols": 371,
-      "granularity": "15-minute intervals",
-      "primary_target": "kW load time-series forecasting"
+      "column_structure": "Timestamp (Index) + 370 Client Load Profiles (MT_001 to MT_370)"
     }
-  ],
-  "leakage_guardrail": "Rolling time-series cross-validation without temporal shuffling."
+  ]
 }

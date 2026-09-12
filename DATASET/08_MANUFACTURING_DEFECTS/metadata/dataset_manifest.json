@@ -3,15 +3,19 @@
   "dataset_name": "Manufacturing Defect Dataset",
   "source_archive": "archive (4).zip",
   "license": "Open Access (Kaggle)",
-  "ingestion_date": "2026-09-12T17:28:26.422488+00:00",
+  "ingestion_date": "2026-09-12T17:31:38.034060+00:00",
+  "primary_target": "DefectStatus",
+  "target_type": "Binary Classification (1: Defect [84.04%], 0: No Defect [15.96%])",
+  "leakage_guardrail": "Segregate operational machine predictors from post-inspection metrics (DefectRate, QualityScore). DefectRate and QualityScore must not be used to predict DefectStatus.",
   "files": [
     {
       "filename": "manufacturing_defect_dataset.csv",
+      "file_type": "csv",
       "size_bytes": 760500,
       "md5": "1fe23c7ac4b1f0ecbd71aba6615b8e22",
       "rows": 3240,
       "cols": 17,
-      "columns": [
+      "column_names": [
         "ProductionVolume",
         "ProductionCost",
         "SupplierQuality",
@@ -30,8 +34,7 @@
         "AdditiveMaterialCost",
         "DefectStatus"
       ],
-      "primary_target": "DefectStatus"
+      "target_column": "DefectStatus"
     }
-  ],
-  "leakage_guardrail": "Segregate operational machine predictors from post-inspection metrics (DefectRate, QualityScore)."
+  ]
 }

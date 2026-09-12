@@ -2,9 +2,33 @@
   "dataset_id": "07_FACTORY_OEE_DOWNTIME",
   "dataset_name": "Factory OEE & Downtime (Synthetic) \u2014 Starter Schema",
   "source_archive": "archive (5).zip",
-  "license": "CC0-1.0 Universal",
+  "license": "CC0-1.0 Universal Public Domain",
   "author": "Christopher Grove",
-  "status": "Schema and Specification Reference Only (Raw CSVs unavailable in source archive)",
-  "ingestion_date": "2026-09-12T17:28:26.410699+00:00",
-  "target_application": "Phase 4 Unified Schema and Phase 5 OEE/Pareto Downtime formulas"
+  "status": "Schema and Specification Blueprint Only (Raw time-series CSVs unavailable in source archive)",
+  "ingestion_date": "2026-09-12T17:31:38.034060+00:00",
+  "primary_target": "OEE (Availability x Performance x Quality) & Downtime Pareto",
+  "target_type": "Metric Formulas and Calculation Reference",
+  "files": [
+    {
+      "filename": "dataset-metadata.json",
+      "file_type": "json",
+      "size_bytes": 573
+    },
+    {
+      "filename": "README.md",
+      "file_type": "md",
+      "size_bytes": 3591
+    },
+    {
+      "filename": "LICENSE",
+      "file_type": "text",
+      "size_bytes": 224
+    },
+    {
+      "filename": "cover.png",
+      "file_type": "image_png",
+      "size_bytes": 31916
+    }
+  ],
+  "role_in_nirmaanai": "Serves as the metric blueprint for Phase 4 Unified Schema and Phase 5 synthetic OEE generation."
 }

@@ -20,15 +20,18 @@ To maintain scientific integrity and prevent fabricated claims, datasets are par
 ### Category A: Locally Present Datasets (Raw Data Verified)
 *Source location: `C:\Users\user\OneDrive\Desktop\NIRMAAN\DATASET`*
 
-| ID | Dataset Name | Source Archive | License | Verified Rows | Verified Cols | Primary Target | NirmaanAI Module | Ingestion Plan |
+| ID | Dataset Name | Source Archive | License | Verified Rows | Verified Cols | Primary Target | NirmaanAI Module | Ingestion Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **01** | **AI4I 2020 Predictive Maintenance** | `ai4i+2020+predictive+maintenance+dataset.zip` & `archive.zip` | CC BY 4.0 | 10,000 | 14 | `Machine failure` (0/1) | Phase 6 (PdM), Phase 11 (SHAP), Phase 12 (Root Cause) | Copy & unpack into `DATASET/01_AI4I_2020/raw/` in Phase 2 |
-| **02** | **NASA C-MAPSS Turbofan Degradation** | `archive (1).zip` | NASA Open Data | 265,256 (all 4 subsets) | 26 | `RUL` (Remaining Useful Life in cycles) | Phase 6 (RUL Submodule), Phase 13 (Health Score) | Copy & unpack into `DATASET/02_NASA_CMAPSS/raw/` in Phase 2 |
-| **03** | **UCI SECOM Semiconductor Process** | `archive (2).zip` (`uci-secom.csv`) & `secom.zip` | Open Access | 1,567 | 592 | `Pass/Fail` (-1 / +1) | Phase 7 (Anomaly Detection & Multi-Sensor Screening) | Copy & unpack into `DATASET/03_UCI_SECOM/raw/` in Phase 2 |
-| **04** | **Electricity Load Diagrams 2011-2014** | `electricityloaddiagrams20112014.zip` | Open Access | 140,257 | 371 | Load kW time-series (15-min intervals) | Phase 9 (Energy Forecasting), Phase 14 (Financial Loss) | Copy & unpack into `DATASET/04_ENERGY/raw/` in Phase 2 |
-| **05** | **Factory Sensor Simulator 2040** | `archive (3).zip` | CC0 Public Domain | 500,000 | 22 | `Failure_Within_7_Days` (0/1) | Phase 6 (PdM), Phase 7 (Anomaly), Phase 13 (Health) | Copy & unpack into `DATASET/05_INDUSTRIAL_IOT/raw/` in Phase 2 |
-| **06** | **Hybrid Manufacturing Categorical** | `archive (6).zip` | Open Access | 1,000 | 13 | `Job_Status` ('Completed', 'Delayed', 'Failed') | Phase 8 (Bottleneck Prediction), Phase 16 (Simulation) | Copy & unpack into `DATASET/06_MANUFACTURING_PRODUCTION/raw/` in Phase 2 |
-| **08** | **Manufacturing Defect Dataset** | `archive (4).zip` | Open Access | 3,240 | 17 | `DefectStatus` (0/1) | Phase 10 (Inventory Intelligence), Phase 14 (Loss Analysis) | Copy & unpack into `DATASET/08_MANUFACTURING_DEFECTS/raw/` in Phase 2 |
+| **01** | **AI4I 2020 Predictive Maintenance** | `ai4i+2020+predictive+maintenance+dataset.zip` & `archive.zip` | CC BY 4.0 | 10,000 | 14 | `Machine failure` (0/1) | Phase 6 (PdM), Phase 11 (SHAP), Phase 12 (Root Cause) | Ingested in `DATASET/01_AI4I_2020/raw/` |
+| **02** | **NASA C-MAPSS Turbofan Degradation** | `archive (1).zip` | NASA Open Data | 265,256 (all 4 subsets) | 26 | `RUL` (Remaining Useful Life in cycles) | Phase 6 (RUL Submodule), Phase 13 (Health Score) | Ingested in `DATASET/02_NASA_CMAPSS/raw/` |
+| **03** | **UCI SECOM Semiconductor Process** | `archive (2).zip` (`uci-secom.csv`) & `secom.zip` | Open Access | 1,567 | 592 | `Pass/Fail` (-1 / +1) | Phase 7 (Anomaly Detection & Multi-Sensor Screening) | Ingested in `DATASET/03_UCI_SECOM/raw/` |
+| **04** | **Electricity Load Diagrams 2011-2014** | `electricityloaddiagrams20112014.zip` | Open Access | 140,257 | 371 | Load kW time-series (15-min intervals) | Phase 9 (Energy Forecasting), Phase 14 (Financial Loss) | Ingested in `DATASET/04_ENERGY/raw/` |
+| **05** | **Factory Sensor Simulator 2040** | `archive (3).zip` | CC0 Public Domain | 500,000 | 22 | `Failure_Within_7_Days` (0/1) | Phase 6 (PdM), Phase 7 (Anomaly), Phase 13 (Health) | Ingested in `DATASET/05_INDUSTRIAL_IOT/raw/` |
+| **06** | **Hybrid Manufacturing Categorical** | `archive (6).zip` | Open Access | 1,000 | 13 | `Job_Status` ('Completed', 'Delayed', 'Failed') | Phase 8 (Bottleneck Prediction), Phase 16 (Simulation) | Ingested in `DATASET/06_MANUFACTURING_PRODUCTION/raw/` |
+| **08** | **Manufacturing Defect Dataset** | `archive (4).zip` | Open Access | 3,240 | 17 | `DefectStatus` (0/1) | Phase 10 (Inventory Intelligence), Phase 14 (Loss Analysis) | Ingested in `DATASET/08_MANUFACTURING_DEFECTS/raw/` |
+
+> [!IMPORTANT]
+> **UCI SECOM Representation Note**: `uci-secom.csv`, `secom.data`, `secom_labels.data`, and `secom.names` are supporting files and representations of the **same single SECOM dataset** and must NOT be counted as separate datasets. `uci-secom.csv` is the consolidated tabular representation combining features, labels, and timestamps.
 
 ---
 

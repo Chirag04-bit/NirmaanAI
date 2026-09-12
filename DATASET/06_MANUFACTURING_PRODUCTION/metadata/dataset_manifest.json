@@ -3,15 +3,20 @@
   "dataset_name": "Hybrid Manufacturing Categorical (Job Scheduling)",
   "source_archive": "archive (6).zip",
   "license": "Open Access (Kaggle)",
-  "ingestion_date": "2026-09-12T17:28:26.409449+00:00",
+  "ingestion_date": "2026-09-12T17:31:38.034060+00:00",
+  "primary_target": "Job_Status",
+  "target_type": "Multi-Class Classification (Completed: 673, Delayed: 198, Failed: 129)",
+  "auxiliary_target": "Optimization_Category (Multi-Class)",
+  "leakage_guardrail": "Actual_End occurs after job completion and cannot be used at scheduling dispatch time.",
   "files": [
     {
       "filename": "hybrid_manufacturing_categorical.csv",
+      "file_type": "csv",
       "size_bytes": 135164,
       "md5": "e3ee8941b7e7491e1842619347a35b35",
       "rows": 1000,
       "cols": 13,
-      "columns": [
+      "column_names": [
         "Job_ID",
         "Machine_ID",
         "Operation_Type",
@@ -26,9 +31,7 @@
         "Job_Status",
         "Optimization_Category"
       ],
-      "primary_target": "Job_Status",
-      "auxiliary_target": "Optimization_Category"
+      "target_column": "Job_Status"
     }
-  ],
-  "leakage_guardrail": "Exclude Actual_End at job scheduling dispatch time."
+  ]
 }
