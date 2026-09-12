@@ -98,7 +98,7 @@ C:\NIRMAAN AI
 | **Phase 10** | Smart Inventory Intelligence | **COMPLETED** |
 | **Phase 11** | Explainable AI & SHAP Feature Attribution | **COMPLETED** |
 | **Phase 12** | Root Cause Analysis Engine | **COMPLETED** |
-| **Phase 13** | Composite Factory Health Score | Planned |
+| **Phase 13** | Composite Factory Health Score | **COMPLETED** |
 | **Phase 14** | Operational & Financial Loss Analysis (INR) | Planned |
 | **Phase 15** | Prescriptive Recommendation Engine | Planned |
 | **Phase 16** | Digital-Twin-Inspired What-If Simulation | Planned |
@@ -159,6 +159,14 @@ C:\NIRMAAN AI
 - **Contradiction Penalties & Negative Control**: Explicitly penalizes candidate causes when expected physical indicators are nominal, demonstrating that SHAP model attribution alone does NOT constitute root cause analysis.
 - **Service Layer**: `RootCauseAnalysisService` providing deterministic event analysis, controlled synthetic degradation scenario reconstruction, and human-readable audit reports with strict scientific disclaimers.
 
+### 8. Factory Health Score Subsystem (Phase 13)
+- **Multi-Signal Operational Health Core**: Deterministic, bounded ($0\text{--}100$) health score aggregating 6 validated dimensions: Predictive Failure Risk ($0.25$), Multi-Sensor Anomaly Health ($0.20$), Production Flow & Bottleneck ($0.20$), Energy Deviation ($0.10$), Maintenance & Spare Context ($0.10$), and Diagnostic Consistency ($0.15$).
+- **Double-Counting Safeguards**: SHAP is strictly assigned $0.00$ weight in scoring (exclusive to explanatory diagnostics); RCA acts as an operational diagnostic-severity modifier rather than re-penalizing raw sensor telemetry.
+- **Factory-Level Aggregation & Critical Asset Constraint**: Equal baseline weighting ($0.20$ per machine for M1–M5) with $\arg\min_m H_m$ isolation. Automatic plant status override caps factory health at `WATCH` if any machine is `CRITICAL`, preventing healthy machines from masking active station breakdowns.
+- **Dynamic Renormalization & Missing Data**: Explicit coverage tracking with proportional weight renormalization for partial evidence ($[40\%, 99.9\%]$) and hard override to `INSUFFICIENT_DATA` (score $0.0$, `LOW` confidence) when coverage $< 40\%$.
+- **Temporal Causal Filtering**: Strictly causal $H(t) \le t$ evaluation preventing future maintenance leakage or lookahead bias.
+- **Service Layer**: `FactoryHealthService` exposing machine assessments, plant-wide aggregations, historical trend evaluations, and human-readable markdown reports.
+
 ---
 
 ## Setup & Getting Started
@@ -176,7 +184,7 @@ cd "C:\NIRMAAN AI"
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run complete system test suite (119 tests across Phases 0-12)
+# Run complete system test suite (143 tests across Phases 0-13)
 python -m pytest tests/ -v
 
 # Train / Evaluate individual intelligence subsystems
@@ -187,4 +195,5 @@ python -m src.models.train_forecaster     # Phase 9: Production & Energy Forecas
 python -m src.models.train_inventory      # Phase 10: Smart Inventory Intelligence
 python -m src.models.train_explainability # Phase 11: Explainable AI & SHAP
 python -m src.models.evaluate_rca         # Phase 12: Root Cause Analysis
+python -m src.models.evaluate_health      # Phase 13: Factory Health Score
 ```
