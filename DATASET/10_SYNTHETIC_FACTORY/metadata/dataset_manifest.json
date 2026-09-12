@@ -1,0 +1,177 @@
+{
+  "dataset_id": "10_SYNTHETIC_FACTORY",
+  "dataset_name": "Integrated Factory Digital Twin Dataset (Discrete Auto-Components MSME)",
+  "source": "NirmaanAI Physics-Guided Factory Simulator (src/data/synthetic_generator.py)",
+  "random_seed": 42,
+  "simulation_horizon_days": 30,
+  "telemetry_sampling_interval_min": 5,
+  "license": "Proprietary / Academic Research (NirmaanAI Group 59)",
+  "citation": "NirmaanAI: AI-Powered Manufacturing Intelligence & Decision Platform, IEM Kolkata (2026)",
+  "ingestion_date": "2026-09-12T18:00:00.000000+00:00",
+  "shop_floor_configuration": {
+    "total_machines": 5,
+    "line_id": "LINE_01",
+    "machines": ["M1 (CNC Lathe)", "M2 (VMC Milling)", "M3 (Grinder)", "M4 (Inspection)", "M5 (Assembly)"]
+  },
+  "degradation_episode": {
+    "target_machine": "M2",
+    "episode_window": "Day 18 to Day 21",
+    "degradation_type": "Spindle Bearing Wear & Thermal Build-up",
+    "vibration_elevation": "1.4 mm/s baseline to 5.6 mm/s critical halt",
+    "cycle_slowdown": "45.0s nominal to 58-65s actual cycle time",
+    "emergency_halt": "Day 21 (150 minutes unplanned downtime, tech Tech_Kuntal_Sr)",
+    "causal_financial_impact": "Disaggregated INR operational losses (downtime + scrap + rework + peak power)"
+  },
+  "leakage_guardrails": "Do not train predictive maintenance models using actual_end, scrap_quantity, or downstream maintenance logs as simultaneous sensor inputs.",
+  "files": [
+    {
+      "filename": "machines.csv",
+      "file_type": "csv",
+      "size_bytes": 720,
+      "md5": "307ff10f1a91a6331d6c9abacbeed114",
+      "rows": 5,
+      "cols": 12,
+      "columns": [
+        "machine_id",
+        "name",
+        "machine_type",
+        "line_id",
+        "design_cycle_time_sec",
+        "baseline_power_kw",
+        "baseline_vibration_mms",
+        "alert_vibration_mms",
+        "critical_vibration_mms",
+        "rated_capacity_units_per_hour",
+        "status",
+        "installation_year"
+      ]
+    },
+    {
+      "filename": "sensor_readings.csv",
+      "file_type": "csv",
+      "size_bytes": 4017273,
+      "md5": "e31e8281a2b2517ba93599a4fefd6aab",
+      "rows": 43200,
+      "cols": 13,
+      "columns": [
+        "reading_id",
+        "machine_id",
+        "timestamp",
+        "vibration_mms",
+        "temperature_c",
+        "ambient_temperature_c",
+        "rotational_speed_rpm",
+        "torque_nm",
+        "sound_db",
+        "power_consumption_kw",
+        "oil_level_pct",
+        "coolant_level_pct",
+        "tool_wear_min"
+      ]
+    },
+    {
+      "filename": "sensor_readings.parquet",
+      "file_type": "parquet",
+      "size_bytes": 977587,
+      "md5": "c4fb0b9b859b4b25165139c2c2e0b599",
+      "rows": 43200,
+      "cols": 13,
+      "columns": [
+        "reading_id",
+        "machine_id",
+        "timestamp",
+        "vibration_mms",
+        "temperature_c",
+        "ambient_temperature_c",
+        "rotational_speed_rpm",
+        "torque_nm",
+        "sound_db",
+        "power_consumption_kw",
+        "oil_level_pct",
+        "coolant_level_pct",
+        "tool_wear_min"
+      ]
+    },
+    {
+      "filename": "production_jobs.csv",
+      "file_type": "csv",
+      "size_bytes": 55345,
+      "md5": "52db0b6292e4cff0a547b40c0b97d9a4",
+      "rows": 300,
+      "cols": 12,
+      "columns": [
+        "job_id",
+        "machine_id",
+        "operation_type",
+        "scheduled_start",
+        "scheduled_end",
+        "actual_start",
+        "actual_end",
+        "batch_quantity",
+        "completed_quantity",
+        "scrap_quantity",
+        "actual_cycle_time_sec",
+        "status"
+      ]
+    },
+    {
+      "filename": "maintenance_records.csv",
+      "file_type": "csv",
+      "size_bytes": 923,
+      "md5": "bb1fd216e248c7a28a64605c2655f537",
+      "rows": 4,
+      "cols": 9,
+      "columns": [
+        "record_id",
+        "machine_id",
+        "timestamp",
+        "event_type",
+        "failure_mode",
+        "downtime_minutes",
+        "technician_id",
+        "corrective_action",
+        "notes"
+      ]
+    },
+    {
+      "filename": "inventory_items.csv",
+      "file_type": "csv",
+      "size_bytes": 605,
+      "md5": "a9a57180f71c4c46c4cb400807687592",
+      "rows": 5,
+      "cols": 8,
+      "columns": [
+        "item_id",
+        "item_name",
+        "category",
+        "current_stock",
+        "safety_stock",
+        "unit_cost_inr",
+        "reorder_quantity",
+        "unit_of_measure"
+      ]
+    },
+    {
+      "filename": "operational_losses.csv",
+      "file_type": "csv",
+      "size_bytes": 20191,
+      "md5": "34b12582b32d81e3121429c55ebf74e8",
+      "rows": 246,
+      "cols": 12,
+      "columns": [
+        "loss_id",
+        "machine_id",
+        "timestamp",
+        "downtime_minutes",
+        "downtime_loss_inr",
+        "energy_wastage_kwh",
+        "energy_loss_inr",
+        "scrap_quantity",
+        "scrap_loss_inr",
+        "rework_hours",
+        "rework_loss_inr",
+        "total_financial_loss_inr"
+      ]
+    }
+  ]
+}

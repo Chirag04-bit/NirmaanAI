@@ -44,13 +44,13 @@ To maintain scientific integrity and prevent fabricated claims, datasets are par
 
 ---
 
-### Category C: Planned Synthetic Datasets (To Be Generated)
-| ID | Planned Dataset Name | Target Vertical | Generation Phase | Synthetic Mechanism | Operational Purpose | Status |
+### Category C: Generated Synthetic MSME Datasets (Fully Generated & Verified)
+| ID | Dataset Name | Target Vertical | Generation Phase | Synthetic Mechanism | Operational Purpose | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **09** | **Textile MSME Shop Floor Dataset** | Textile Weaving / Spinning MSME | Phase 5 | Mathematical degradation curves + noise | Simulates loom motor vibration rise $\rightarrow$ cycle slowdown $\rightarrow$ line bottleneck $\rightarrow$ rupee loss | Planned (Phase 5) |
-| **10** | **Integrated Factory Digital Twin Dataset** | Discrete Auto-Components MSME | Phase 5 | Interconnected multi-machine queue simulator | End-to-end integration across telemetry, maintenance, inventory, and finance | Planned (Phase 5) |
+| **09** | **Textile MSME Shop Floor Dataset** | Textile Weaving / Spinning MSME | Phase 5 | Mathematical degradation curves + noise (`seed=101`) | Simulates loom motor vibration rise $\rightarrow$ cycle slowdown $\rightarrow$ line bottleneck $\rightarrow$ rupee loss | Generated (43,200 telemetry, 300 jobs, 264 loss records) |
+| **10** | **Integrated Factory Digital Twin Dataset** | Discrete Auto-Components MSME | Phase 5 | Interconnected multi-machine queue simulator (`seed=42`) | End-to-end integration across telemetry, maintenance, inventory, and finance | Generated (43,200 telemetry, 300 jobs, 245 loss records) |
 
-*Audit Note: These datasets do not yet exist. They will be generated strictly in Phase 5 with fully documented equations and reproducible random seeds.*
+*Audit Note: These datasets were generated in Phase 5 via `src/data/synthetic_generator.py` with fully documented physical equations, deterministic random seeds (42 and 101), exact JSON manifests, and full Pydantic v2 schema compliance.*
 
 ---
 
