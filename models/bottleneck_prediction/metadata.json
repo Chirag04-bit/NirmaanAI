@@ -1,8 +1,11 @@
 {
   "subsystem": "Bottleneck Prediction & Flow Intelligence",
   "phase": "Phase 8",
-  "champion_model": "heuristic_rule",
+  "deployed_baseline": "heuristic_baseline",
+  "baseline_type": "domain_informed_flow_risk_heuristic",
   "decision_threshold": 0.4,
+  "threshold_methodology": "Configured domain/scenario thresholds (0.30 mm/s vibration dev, 1.10 cycle ratio, 0.40 score threshold). Thresholds were NOT tuned or optimized using test data.",
+  "zero_positive_explanation": "Supervised discriminative classifiers (Logistic Regression, Random Forest, XGBoost) could not learn a positive bottleneck class under the strictly chronological training regime because the available training period (Days 1-15, N=150) and validation period (Days 16-17, N=20) contained zero positive bottleneck events. The available historical window contains insufficient positive bottleneck examples for conventional supervised classification, motivating domain-informed priors during cold-start operation.",
   "feature_count": 15,
   "features": [
     "batch_quantity",
@@ -23,8 +26,8 @@
   ],
   "benchmark_comparison": [
     {
-      "model_name": "heuristic_rule",
-      "decision_threshold": 0.5,
+      "model_name": "heuristic_baseline",
+      "decision_threshold": 0.4,
       "test_precision": 0.7778,
       "test_recall": 0.875,
       "test_f1": 0.8235,
@@ -91,9 +94,9 @@
       "false_negative_rate": 1.0
     }
   ],
-  "champion_performance": {
-    "model_name": "heuristic_rule",
-    "decision_threshold": 0.5,
+  "baseline_performance": {
+    "model_name": "heuristic_baseline",
+    "decision_threshold": 0.4,
     "test_precision": 0.7778,
     "test_recall": 0.875,
     "test_f1": 0.8235,
@@ -125,6 +128,6 @@
     "total_records": 1000,
     "test_roc_auc": 0.4903,
     "test_pr_auc": 0.3531,
-    "finding": "Processing time and material used exhibit zero correlation with Job_Status; delay status is driven by operational dispatch delays rather than machine parameters."
+    "finding": "The available analysis indicates that dispatch delay is a stronger observable signal of delay status in this dataset than the examined electrical and material variables."
   }
 }

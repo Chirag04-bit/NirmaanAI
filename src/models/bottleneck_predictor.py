@@ -44,22 +44,25 @@ class BaseBottleneckClassifier(ABC):
 
 class HeuristicBottleneckClassifier(BaseBottleneckClassifier):
     """
-    Baseline 1: Rule-Based Production Bottleneck Heuristic.
-    Flags high risk if:
-    - Pre-job vibration deviation >= 0.8 mm/s OR
-    - Prior cycle ratio mean >= 1.15 OR
-    - Batch load ratio >= 1.8
+    Domain-Informed Flow Risk Heuristic Baseline.
+    Evaluates pre-job mechanical telemetry deviation and lagged cycle ratio.
+    Configured domain/scenario thresholds:
+    - vib_dev_threshold: 0.30 mm/s (configured scenario threshold based on baseline vibration 1.4 mm/s)
+    - cycle_ratio_threshold: 1.10 (configured threshold for 10% cycle slowdown)
+    - decision_threshold: 0.40 (configured composite flow-risk score cutoff)
+    NOTE: These thresholds are configured domain priors, not statistically fit using test data.
     """
 
     def __init__(
         self,
         vib_dev_threshold: float = 0.30,
-        cycle_ratio_threshold: float = 1.10
+        cycle_ratio_threshold: float = 1.10,
+        decision_threshold: float = 0.40
     ):
-        super().__init__(name="heuristic_rule")
+        super().__init__(name="heuristic_baseline")
         self.vib_dev_threshold = vib_dev_threshold
         self.cycle_ratio_threshold = cycle_ratio_threshold
-        self.threshold = 0.40
+        self.threshold = decision_threshold
 
     def fit(self, X: pd.DataFrame, y: np.ndarray) -> "HeuristicBottleneckClassifier":
         self.feature_names = list(X.columns)

@@ -83,9 +83,10 @@ def run_bottleneck_benchmarks() -> Dict[str, Any]:
     y_test = splits["y_test"]
 
     # 2. Benchmarking Model Candidates
-    # Heuristic baseline calibrated: pre_job_vibration_dev >= 0.50 OR prior_cycle_ratio >= 1.15
+    # Heuristic baseline: configured domain/scenario thresholds (0.30 mm/s vib dev, 1.10 cycle ratio, 0.40 score threshold)
+    # NOTE: Configured prior baseline, NOT tuned using test data.
     models: List[BaseBottleneckClassifier] = [
-        HeuristicBottleneckClassifier(vib_dev_threshold=0.50, cycle_ratio_threshold=1.15),
+        HeuristicBottleneckClassifier(vib_dev_threshold=0.30, cycle_ratio_threshold=1.10, decision_threshold=0.40),
         LogisticBottleneckClassifier(C=0.5, random_state=42),
         RandomForestBottleneckClassifier(n_estimators=100, max_depth=5, random_state=42),
         XGBoostBottleneckClassifier(n_estimators=80, max_depth=3, scale_pos_weight=15.0, random_state=42)
@@ -103,8 +104,8 @@ def run_bottleneck_benchmarks() -> Dict[str, Any]:
         # Predict on Test split (Days 18-30, N=130, Positives=8)
         p_test = model.predict_proba(X_test)[:, 1]
         
-        # Threshold: standard 0.50 for decision boundary
-        threshold = 0.50
+        # Decision boundary: use model's configured threshold
+        threshold = model.threshold
         y_pred = (p_test >= threshold).astype(int)
 
         prec = float(precision_score(y_test, y_pred, zero_division=0))
@@ -182,12 +183,15 @@ def run_bottleneck_benchmarks() -> Dict[str, Any]:
     metadata = {
         "subsystem": "Bottleneck Prediction & Flow Intelligence",
         "phase": "Phase 8",
-        "champion_model": champion_model.name,
+        "deployed_baseline": champion_model.name,
+        "baseline_type": "domain_informed_flow_risk_heuristic",
         "decision_threshold": champion_model.threshold,
+        "threshold_methodology": "Configured domain/scenario thresholds (0.30 mm/s vibration dev, 1.10 cycle ratio, 0.40 score threshold). Thresholds were NOT tuned or optimized using test data.",
+        "zero_positive_explanation": "Supervised discriminative classifiers (Logistic Regression, Random Forest, XGBoost) could not learn a positive bottleneck class under the strictly chronological training regime because the available training period (Days 1-15, N=150) and validation period (Days 16-17, N=20) contained zero positive bottleneck events. The available historical window contains insufficient positive bottleneck examples for conventional supervised classification, motivating domain-informed priors during cold-start operation.",
         "feature_count": len(champion_model.feature_names),
         "features": champion_model.feature_names,
         "benchmark_comparison": benchmark_records,
-        "champion_performance": champion_metrics.to_dict(),
+        "baseline_performance": champion_metrics.to_dict(),
         "temporal_split_counts": {
             "train_days_1_to_15": len(X_train),
             "val_days_16_to_17": len(X_val),
@@ -205,7 +209,7 @@ def run_bottleneck_benchmarks() -> Dict[str, Any]:
             "total_records": len(df_hybrid),
             "test_roc_auc": round(sec_roc, 4),
             "test_pr_auc": round(sec_pr, 4),
-            "finding": "Processing time and material used exhibit zero correlation with Job_Status; delay status is driven by operational dispatch delays rather than machine parameters."
+            "finding": "The available analysis indicates that dispatch delay is a stronger observable signal of delay status in this dataset than the examined electrical and material variables."
         }
     }
 

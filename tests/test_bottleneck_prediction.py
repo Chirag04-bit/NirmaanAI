@@ -183,3 +183,45 @@ def test_bottleneck_service_inference():
     assert res_crit.is_bottleneck_predicted is True
     assert res_crit.active_constraint_machine == "M2"
     assert "M3" in res_crit.affected_machines  # Downstream stage propagation
+
+
+def test_heuristic_thresholds_configured_independent_of_test_data():
+    """Verifies that HeuristicBottleneckClassifier uses pre-configured domain thresholds without fitting on test labels."""
+    clf = HeuristicBottleneckClassifier()
+    # Default configured domain priors
+    assert clf.vib_dev_threshold == 0.30
+    assert clf.cycle_ratio_threshold == 1.10
+    assert clf.threshold == 0.40
+
+    # Fitting must not modify the configured thresholds based on y
+    dummy_X = pd.DataFrame({
+        "pre_job_vibration_dev_1h": [0.1, 0.2],
+        "prior_cycle_ratio_mean": [1.0, 1.05]
+    })
+    dummy_y = np.array([0, 1])
+    clf.fit(dummy_X, dummy_y)
+    assert clf.vib_dev_threshold == 0.30
+    assert clf.cycle_ratio_threshold == 1.10
+    assert clf.threshold == 0.40
+
+
+def test_zero_positive_training_constraint():
+    """Verifies that training split contains zero positive bottleneck cases."""
+    root = get_project_root()
+    jobs_csv = root / "DATASET" / "10_SYNTHETIC_FACTORY" / "synthetic" / "production_jobs.csv"
+    machines_csv = root / "DATASET" / "10_SYNTHETIC_FACTORY" / "synthetic" / "machines.csv"
+    if not jobs_csv.exists():
+        pytest.skip("Dataset files not found.")
+
+    jobs_df = pd.read_csv(jobs_csv)
+    machines_df = pd.read_csv(machines_csv)
+    splits = prepare_bottleneck_splits(jobs_df, machines_df)
+
+    # Statistical constraint: 0 positives in train and val
+    assert int(splits["y_train"].sum()) == 0
+    assert int(splits["y_val"].sum()) == 0
+    assert len(splits["y_train"]) == 150
+    assert len(splits["y_val"]) == 20
+    assert int(splits["y_test"].sum()) == 8
+    assert len(splits["y_test"]) == 130
+
