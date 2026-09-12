@@ -1,0 +1,42 @@
+{
+  "dataset_id": "01_AI4I_2020",
+  "dataset_name": "AI4I 2020 Predictive Maintenance Dataset",
+  "source_archive": "ai4i+2020+predictive+maintenance+dataset.zip",
+  "license": "CC BY 4.0",
+  "citation": "Matzka, S. (2020). Explainable Artificial Intelligence for Predictive Maintenance Applications.",
+  "ingestion_date": "2026-09-12T17:28:24.888035+00:00",
+  "files": [
+    {
+      "filename": "ai4i2020.csv",
+      "size_bytes": 522048,
+      "md5": "f0adaa9c5e25366c6df1cc2684479871",
+      "rows": 10000,
+      "cols": 14,
+      "columns": [
+        "UDI",
+        "Product ID",
+        "Type",
+        "Air temperature [K]",
+        "Process temperature [K]",
+        "Rotational speed [rpm]",
+        "Torque [Nm]",
+        "Tool wear [min]",
+        "Machine failure",
+        "TWF",
+        "HDF",
+        "PWF",
+        "OSF",
+        "RNF"
+      ],
+      "primary_target": "Machine failure",
+      "failure_modes": [
+        "TWF",
+        "HDF",
+        "PWF",
+        "OSF",
+        "RNF"
+      ]
+    }
+  ],
+  "leakage_guardrail": "Mask TWF, HDF, PWF, OSF, RNF during failure prediction training. Drop UDI row index."
+}

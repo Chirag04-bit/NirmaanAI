@@ -1,0 +1,43 @@
+{
+  "dataset_id": "05_INDUSTRIAL_IOT",
+  "dataset_name": "Factory Sensor Simulator 2040 (Industrial IoT)",
+  "source_archive": "archive (3).zip",
+  "license": "CC0 1.0 Universal Public Domain",
+  "ingestion_date": "2026-09-12T17:28:26.309787+00:00",
+  "files": [
+    {
+      "filename": "factory_sensor_simulator_2040.csv",
+      "size_bytes": 51496232,
+      "md5": "3ca9e3743c74f11c4090d226303356dc",
+      "rows": 500000,
+      "cols": 22,
+      "columns": [
+        "Machine_ID",
+        "Machine_Type",
+        "Installation_Year",
+        "Operational_Hours",
+        "Temperature_C",
+        "Vibration_mms",
+        "Sound_dB",
+        "Oil_Level_pct",
+        "Coolant_Level_pct",
+        "Power_Consumption_kW",
+        "Last_Maintenance_Days_Ago",
+        "Maintenance_History_Count",
+        "Failure_History_Count",
+        "AI_Supervision",
+        "Error_Codes_Last_30_Days",
+        "Remaining_Useful_Life_days",
+        "Failure_Within_7_Days",
+        "Laser_Intensity",
+        "Hydraulic_Pressure_bar",
+        "Coolant_Flow_L_min",
+        "Heat_Index",
+        "AI_Override_Events"
+      ],
+      "primary_target": "Failure_Within_7_Days",
+      "continuous_target": "Remaining_Useful_Life_days"
+    }
+  ],
+  "leakage_guardrail": "Exclude Remaining_Useful_Life_days when predicting Failure_Within_7_Days to prevent deterministic leakage."
+}

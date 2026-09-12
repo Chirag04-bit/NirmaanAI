@@ -1,0 +1,96 @@
+{
+  "dataset_id": "02_NASA_CMAPSS",
+  "dataset_name": "Turbofan Engine Degradation Simulation Dataset (C-MAPSS)",
+  "source_archive": "archive (1).zip",
+  "license": "NASA Open Data / Public Domain",
+  "citation": "Saxena, A., Goebel, K., Simon, D., & Eklund, N. (2008). Damage propagation modeling for aircraft engine run-to-failure simulation.",
+  "ingestion_date": "2026-09-12T17:28:24.976871+00:00",
+  "subsets": [
+    "FD001",
+    "FD002",
+    "FD003",
+    "FD004"
+  ],
+  "total_train_rows": 160359,
+  "total_test_rows": 104897,
+  "columns_count": 26,
+  "primary_target": "RUL (Remaining Useful Life in cycles)",
+  "files": [
+    {
+      "filename": "Damage Propagation Modeling.pdf",
+      "size_bytes": 434158,
+      "md5": "0d0cc7de80315acf1ac9e665b81a809c"
+    },
+    {
+      "filename": "RUL_FD001.txt",
+      "size_bytes": 429,
+      "md5": "8f4a8b3d2692b2f7d8e72b344927bf4b"
+    },
+    {
+      "filename": "RUL_FD002.txt",
+      "size_bytes": 1110,
+      "md5": "4b14b3e25fb98c645f5af6940206b699"
+    },
+    {
+      "filename": "RUL_FD003.txt",
+      "size_bytes": 428,
+      "md5": "93d593d8a0ea31bafd047470f3bad1f8"
+    },
+    {
+      "filename": "RUL_FD004.txt",
+      "size_bytes": 1084,
+      "md5": "baab766b7287001b8c0262079fbd846a"
+    },
+    {
+      "filename": "readme.txt",
+      "size_bytes": 2442,
+      "md5": "9e66b06d060c2f6fb03d4cc4029bc655"
+    },
+    {
+      "filename": "test_FD001.txt",
+      "size_bytes": 2228855,
+      "md5": "62316d1dd70f88a9a43a1e2690765437"
+    },
+    {
+      "filename": "test_FD002.txt",
+      "size_bytes": 5734587,
+      "md5": "9c64d7b4f7520c12e0193df2cfe9e279"
+    },
+    {
+      "filename": "test_FD003.txt",
+      "size_bytes": 2826651,
+      "md5": "602bec683069f2460590f1b32ee77ec9"
+    },
+    {
+      "filename": "test_FD004.txt",
+      "size_bytes": 6957759,
+      "md5": "b6ec46dbf47e0d71ffa40189b0a19238"
+    },
+    {
+      "filename": "train_FD001.txt",
+      "size_bytes": 3515356,
+      "md5": "259f340bac32ce6fa8894815600fa757"
+    },
+    {
+      "filename": "train_FD002.txt",
+      "size_bytes": 9082480,
+      "md5": "b6eaab2a6b589e5e41d43ca2f99e379b"
+    },
+    {
+      "filename": "train_FD003.txt",
+      "size_bytes": 4213862,
+      "md5": "81298e81977a53aa268ad500ac42b2d7"
+    },
+    {
+      "filename": "train_FD004.txt",
+      "size_bytes": 10350705,
+      "md5": "8b510e2c1460ba87214f58ceb3cd0266"
+    },
+    {
+      "filename": "x.txt",
+      "size_bytes": 925,
+      "md5": "39ad7995144f1674356f18cc8e1f0b37"
+    }
+  ],
+  "leakage_guardrail": "Split data strictly by unit_number engine trajectories to prevent temporal train-test contamination."
+}

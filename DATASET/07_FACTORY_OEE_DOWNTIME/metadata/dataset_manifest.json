@@ -1,0 +1,10 @@
+{
+  "dataset_id": "07_FACTORY_OEE_DOWNTIME",
+  "dataset_name": "Factory OEE & Downtime (Synthetic) \u2014 Starter Schema",
+  "source_archive": "archive (5).zip",
+  "license": "CC0-1.0 Universal",
+  "author": "Christopher Grove",
+  "status": "Schema and Specification Reference Only (Raw CSVs unavailable in source archive)",
+  "ingestion_date": "2026-09-12T17:28:26.410699+00:00",
+  "target_application": "Phase 4 Unified Schema and Phase 5 OEE/Pareto Downtime formulas"
+}

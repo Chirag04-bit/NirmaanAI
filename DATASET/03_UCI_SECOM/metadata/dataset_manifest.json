@@ -1,0 +1,31 @@
+{
+  "dataset_id": "03_UCI_SECOM",
+  "dataset_name": "UCI SECOM Semiconductor Manufacturing Process Dataset",
+  "source_archive": "archive (2).zip / secom.zip",
+  "license": "Open Access (UCI ML Repository)",
+  "citation": "McCann, M., Johnston, A. (2008). SECOM Data Set.",
+  "ingestion_date": "2026-09-12T17:28:24.995150+00:00",
+  "files": [
+    {
+      "filename": "uci-secom.csv",
+      "size_bytes": 6055583,
+      "md5": "a30fc03f301398e072919d21135be5af",
+      "rows": 1567,
+      "cols": 592,
+      "primary_target": "Pass/Fail"
+    },
+    {
+      "filename": "secom.data",
+      "size_bytes": 5389983
+    },
+    {
+      "filename": "secom_labels.data",
+      "size_bytes": 40638
+    },
+    {
+      "filename": "secom.names",
+      "size_bytes": 4223
+    }
+  ],
+  "leakage_guardrail": "Imputation and variance thresholding must be fitted exclusively on training folds."
+}

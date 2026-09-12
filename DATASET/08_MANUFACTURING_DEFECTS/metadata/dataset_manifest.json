@@ -1,0 +1,37 @@
+{
+  "dataset_id": "08_MANUFACTURING_DEFECTS",
+  "dataset_name": "Manufacturing Defect Dataset",
+  "source_archive": "archive (4).zip",
+  "license": "Open Access (Kaggle)",
+  "ingestion_date": "2026-09-12T17:28:26.422488+00:00",
+  "files": [
+    {
+      "filename": "manufacturing_defect_dataset.csv",
+      "size_bytes": 760500,
+      "md5": "1fe23c7ac4b1f0ecbd71aba6615b8e22",
+      "rows": 3240,
+      "cols": 17,
+      "columns": [
+        "ProductionVolume",
+        "ProductionCost",
+        "SupplierQuality",
+        "DeliveryDelay",
+        "DefectRate",
+        "QualityScore",
+        "MaintenanceHours",
+        "DowntimePercentage",
+        "InventoryTurnover",
+        "StockoutRate",
+        "WorkerProductivity",
+        "SafetyIncidents",
+        "EnergyConsumption",
+        "EnergyEfficiency",
+        "AdditiveProcessTime",
+        "AdditiveMaterialCost",
+        "DefectStatus"
+      ],
+      "primary_target": "DefectStatus"
+    }
+  ],
+  "leakage_guardrail": "Segregate operational machine predictors from post-inspection metrics (DefectRate, QualityScore)."
+}
