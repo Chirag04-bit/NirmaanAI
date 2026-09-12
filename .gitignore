@@ -1,4 +1,8 @@
-# Python
+# ==============================================================================
+# NirmaanAI .gitignore
+# ==============================================================================
+
+# Python Environments & Bytecode
 __pycache__/
 *.py[cod]
 *$py.class
@@ -9,63 +13,95 @@ venv/
 .venv/
 ENV/
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
-.installed.cfg
 *.egg
 
 # Jupyter
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
-# Environment variables & secrets
+# Secrets & Environment Variables
 .env
 .env.local
 .env.*.local
 *.pem
 *.key
 
+# ------------------------------------------------------------------------------
 # Data & Datasets
-DATASET/
-data/raw/
-data/processed/
-data/synthetic/
-data/external/
+# ------------------------------------------------------------------------------
+# Ignore bulk data payloads in raw, processed, and synthetic directories
+DATASET/**/raw/*
+DATASET/**/processed/*
+DATASET/**/features/*
+data/raw/*
+data/processed/*
+data/synthetic/*
+data/external/*
+
+# Ignore bulk tabular, binary, and compressed data files globally
 *.zip
 *.tar.gz
+*.tgz
+*.7z
+*.rar
 *.csv
+*.tsv
 *.parquet
+*.feather
+*.h5
+*.hdf5
+*.npy
+*.npz
 
-# Model artifacts
+# Whitelist dataset documentation, manifests, schemas, metadata, and .gitkeep
+!DATASET/**/.gitkeep
+!data/**/.gitkeep
+!DATASET/**/metadata/
+!DATASET/**/metadata/*
+!DATASET/**/documentation/
+!DATASET/**/documentation/*
+!DATASET/**/*.md
+!DATASET/**/*.json
+!DATASET/**/*.yaml
+!DATASET/**/*.yml
+!DATASET/**/LICENSE*
+!DATASET/**/README*
+
+# ------------------------------------------------------------------------------
+# Model Artifacts & Checkpoints
+# ------------------------------------------------------------------------------
 models/*.pkl
 models/*.joblib
 models/*.pt
+models/*.pth
 models/*.onnx
 models/*.bin
+models/*.safetensors
 !models/.gitkeep
 
+# ------------------------------------------------------------------------------
 # Vector DB & Embeddings
-rag/vector_db/
-rag/embeddings/
+# ------------------------------------------------------------------------------
+rag/vector_db/*
+rag/embeddings/*
+!rag/vector_db/.gitkeep
+!rag/embeddings/.gitkeep
+!rag/documents/.gitkeep
 
-# Logs & Experiments
+# ------------------------------------------------------------------------------
+# Logs & Experiment Runs
+# ------------------------------------------------------------------------------
 logs/*.log
 logs/*.jsonl
-experiments/runs/
+experiments/runs/*
+!logs/.gitkeep
+!experiments/.gitkeep
 
-# Node / Frontend
+# ------------------------------------------------------------------------------
+# Frontend & Build Artifacts
+# ------------------------------------------------------------------------------
 node_modules/
 frontend/dist/
 frontend/.next/
@@ -73,9 +109,10 @@ frontend/build/
 .npm
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 
-# IDE & OS
+# ------------------------------------------------------------------------------
+# IDE & Operating System
+# ------------------------------------------------------------------------------
 .vscode/
 .idea/
 *.swp

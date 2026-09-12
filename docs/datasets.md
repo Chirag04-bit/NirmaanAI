@@ -1,72 +1,92 @@
 # NirmaanAI Master Dataset Registry
 
-This document serves as the single source of truth for all datasets utilized within the NirmaanAI platform.
+This document serves as the formal and verified catalog of all data assets utilized, planned, or referenced in the NirmaanAI platform.
 
 ---
 
-## 1. Master Dataset Inventory & Status
+## 1. Classification Overview
 
-| Dataset ID & Name | Source Archive / Origin | License | Destination Folder | Rows | Cols | Primary Target | NirmaanAI Module | Preprocessing Status | Current Status |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **01_AI4I_2020** | UCI ML Repository (S. Matzka, 2020) | CC BY 4.0 | `DATASET/01_AI4I_2020/raw/` | 10,000 | 14 | `Machine failure` (0/1) | Phase 6 (Predictive Maintenance), Phase 11 (SHAP) | Pending (Phase 2) | Registered |
-| **02_NASA_CMAPSS** | NASA Ames Prognostics (Saxena & Goebel, 2008) | Open Access / Public | `DATASET/02_NASA_CMAPSS/raw/CMaps/` | 265,256 | 26 | `RUL` (Cycles to failure) | Phase 6 (RUL Submodule), Phase 13 (Health Score) | Pending (Phase 2) | Registered |
-| **03_UCI_SECOM** | UCI ML Repository (McCann & Johnston, 2008) | Open Access | `DATASET/03_UCI_SECOM/raw/` | 1,567 | 592 | `Pass/Fail` (-1 / +1) | Phase 7 (Anomaly Detection & Screening) | Pending (Phase 2) | Registered |
-| **04_ENERGY** | UCI ML Repository (A. Trindade, 2015) | Open Access | `DATASET/04_ENERGY/raw/` | 140,257 | 371 | Load kW time-series | Phase 9 (Forecasting), Phase 14 (Loss Analysis) | Pending (Phase 2) | Registered |
-| **05_INDUSTRIAL_IOT** | Kaggle Open Data (Factory Sensor Simulator 2040) | Public Domain (CC0) | `DATASET/05_INDUSTRIAL_IOT/raw/` | 500,000 | 22 | `Failure_Within_7_Days` | Phase 6 (PdM), Phase 7 (Anomaly), Phase 13 (Health) | Pending (Phase 2) | Registered |
-| **06_MANUFACTURING_PRODUCTION** | Kaggle Open Data (Hybrid Manufacturing) | Open Access | `DATASET/06_MANUFACTURING_PRODUCTION/raw/` | 1,000 | 13 | `Job_Status` / Delays | Phase 8 (Bottlenecks), Phase 16 (Simulation) | Pending (Phase 2) | Registered |
-| **07_FACTORY_OEE_DOWNTIME** | Kaggle Open Data (C. Grove) | CC0-1.0 | `DATASET/07_FACTORY_OEE_DOWNTIME/documentation/` | Metadata | - | OEE / Downtime Pareto | Phase 4 (Unified Schema Blueprint), Phase 5 (Synthetic) | Pending (Phase 2) | Schema Cataloged |
-| **08_MANUFACTURING_DEFECTS** | Kaggle Open Data | Open Access | `DATASET/08_MANUFACTURING_DEFECTS/raw/` | 3,240 | 17 | `DefectStatus` (0/1) | Phase 10 (Inventory), Phase 14 (Financial Loss) | Pending (Phase 2) | Registered |
-| **09_TEXTILE_MANUFACTURING** | Synthetic MSME Shop Floor Generator | Proprietary / Open | `DATASET/09_TEXTILE_MANUFACTURING/synthetic/` | TBD | TBD | Vibration $\rightarrow$ Cycle slowdown | Phase 5 (Synthetic Factory), Phase 8 (Bottleneck) | Planned (Phase 5) | Designed |
-| **10_SYNTHETIC_FACTORY** | Integrated NirmaanAI Engine | Proprietary | `DATASET/10_SYNTHETIC_FACTORY/synthetic/` | Configurable | Schema | Multi-layer Factory State | Full Platform End-to-End Demonstration | Planned (Phase 5) | Designed |
-| **11_MAINTENANCE_KNOWLEDGE** | Public MSME Equipment Manuals & SOPs | Public Domain / Fair Use | `DATASET/11_MAINTENANCE_KNOWLEDGE/raw/` | Text / PDF | Unstructured | Semantic Retrieval | Phase 19 (RAG Memory), Phase 20 (Copilot) | Planned (Phase 19) | Outlined |
+To maintain scientific integrity and prevent fabricated claims, datasets are partitioned into five mutually exclusive categories:
+1. **LOCALLY PRESENT (RAW DATA AVAILABLE)**: Datasets physically verified and present in `C:\Users\user\OneDrive\Desktop\NIRMAAN\DATASET`.
+2. **SCHEMA-ONLY / METADATA RESOURCE**: Datasets where schemas, READMEs, or parameters exist, but raw operational CSV/records are unavailable locally.
+3. **PLANNED SYNTHETIC GENERATION**: Datasets to be mathematically simulated in future phases using domain rules and reproducible seeds.
+4. **PLANNED KNOWLEDGE / RAG CORPUS**: Unstructured technical manuals, SOPs, and troubleshooting records to be curated in Phase 19.
+5. **RECOMMENDED / EXTERNAL CANDIDATES**: Relevant external benchmarks not currently present locally (require explicit user approval before downloading).
 
 ---
 
-## 2. Dataset Detailed Profiles & Leakage Guardrails
+## 2. Master Dataset Catalog
 
-### 01_AI4I_2020 Predictive Maintenance
-- **File**: `ai4i2020.csv`
-- **Rows**: 10,000 | **Columns**: 14
-- **Primary Features**: `Type`, `Air temperature [K]`, `Process temperature [K]`, `Rotational speed [rpm]`, `Torque [Nm]`, `Tool wear [min]`
-- **Targets**: `Machine failure` (3.39% positive class), `TWF`, `HDF`, `PWF`, `OSF`, `RNF`
-- **Critical Leakage Guardrail**: Component failure flags (`TWF`, `HDF`, `PWF`, `OSF`, `RNF`) directly imply `Machine failure = 1`. They must strictly be excluded when training binary failure prediction models. `UDI` is an arbitrary row index and must be dropped.
+### Category A: Locally Present Datasets (Raw Data Verified)
+*Source location: `C:\Users\user\OneDrive\Desktop\NIRMAAN\DATASET`*
 
-### 02_NASA_CMAPSS Turbofan Engine Degradation
-- **Files**: `train_FD001.txt` .. `train_FD004.txt`, `test_FD001.txt` .. `test_FD004.txt`, `RUL_FD001.txt` .. `RUL_FD004.txt`
-- **Total Sensor Records**: 265,256 rows across 4 operating regimes
-- **Features**: 3 operational settings + 21 sensor measurements per time cycle
-- **Target**: Remaining Useful Life (`RUL`) in operating cycles
-- **Critical Leakage Guardrail**: Unit trajectories are time-dependent run-to-failure series. Data splits must be performed on engine `unit_number` groups rather than random shuffling to prevent temporal train-test leakage.
+| ID | Dataset Name | Source Archive | License | Verified Rows | Verified Cols | Primary Target | NirmaanAI Module | Ingestion Plan |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **01** | **AI4I 2020 Predictive Maintenance** | `ai4i+2020+predictive+maintenance+dataset.zip` & `archive.zip` | CC BY 4.0 | 10,000 | 14 | `Machine failure` (0/1) | Phase 6 (PdM), Phase 11 (SHAP), Phase 12 (Root Cause) | Copy & unpack into `DATASET/01_AI4I_2020/raw/` in Phase 2 |
+| **02** | **NASA C-MAPSS Turbofan Degradation** | `archive (1).zip` | NASA Open Data | 265,256 (all 4 subsets) | 26 | `RUL` (Remaining Useful Life in cycles) | Phase 6 (RUL Submodule), Phase 13 (Health Score) | Copy & unpack into `DATASET/02_NASA_CMAPSS/raw/` in Phase 2 |
+| **03** | **UCI SECOM Semiconductor Process** | `archive (2).zip` (`uci-secom.csv`) & `secom.zip` | Open Access | 1,567 | 592 | `Pass/Fail` (-1 / +1) | Phase 7 (Anomaly Detection & Multi-Sensor Screening) | Copy & unpack into `DATASET/03_UCI_SECOM/raw/` in Phase 2 |
+| **04** | **Electricity Load Diagrams 2011-2014** | `electricityloaddiagrams20112014.zip` | Open Access | 140,257 | 371 | Load kW time-series (15-min intervals) | Phase 9 (Energy Forecasting), Phase 14 (Financial Loss) | Copy & unpack into `DATASET/04_ENERGY/raw/` in Phase 2 |
+| **05** | **Factory Sensor Simulator 2040** | `archive (3).zip` | CC0 Public Domain | 500,000 | 22 | `Failure_Within_7_Days` (0/1) | Phase 6 (PdM), Phase 7 (Anomaly), Phase 13 (Health) | Copy & unpack into `DATASET/05_INDUSTRIAL_IOT/raw/` in Phase 2 |
+| **06** | **Hybrid Manufacturing Categorical** | `archive (6).zip` | Open Access | 1,000 | 13 | `Job_Status` ('Completed', 'Delayed', 'Failed') | Phase 8 (Bottleneck Prediction), Phase 16 (Simulation) | Copy & unpack into `DATASET/06_MANUFACTURING_PRODUCTION/raw/` in Phase 2 |
+| **08** | **Manufacturing Defect Dataset** | `archive (4).zip` | Open Access | 3,240 | 17 | `DefectStatus` (0/1) | Phase 10 (Inventory Intelligence), Phase 14 (Loss Analysis) | Copy & unpack into `DATASET/08_MANUFACTURING_DEFECTS/raw/` in Phase 2 |
 
-### 03_UCI_SECOM Semiconductor Process
-- **File**: `uci-secom.csv`
-- **Rows**: 1,567 | **Columns**: 592 (`Time`, 590 sensors, `Pass/Fail`)
-- **Target**: `Pass/Fail` (-1 = Pass [93.36%], 1 = Fail [6.64%])
-- **Critical Leakage Guardrail**: High missingness (41,951 nulls across 538 features). Missing value imputation and low-variance feature selection must strictly be fitted on training folds only.
+---
 
-### 04_ENERGY (Electricity Load Diagrams 2011-2014)
-- **File**: `LD2011_2014.txt`
-- **Rows**: 140,257 timestamps (15-minute intervals) | **Columns**: 371
-- **Target**: Electrical power consumption (kW)
-- **Critical Leakage Guardrail**: Time-series cross-validation (rolling forward-chaining) without random temporal shuffling.
+### Category B: Archive / Schema-Only Resource (Raw Data Unavailable Locally)
+| ID | Dataset Name | Source Archive | License | Available Assets | Missing Assets | Intended Role |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **07** | **Factory OEE & Downtime Starter** | `archive (5).zip` | CC0-1.0 | `README.md`, `LICENSE`, `dataset-metadata.json`, `cover.png` | `factory_synth_minutely.csv`, `oee_by_day.csv`, `oee_by_shift.csv`, `downtime_pareto.csv`, `spc_xbar_r.csv` | Blueprint for Phase 4 Unified Schema and Phase 5 OEE calculations |
 
-### 05_INDUSTRIAL_IOT (Factory Sensor Simulator 2040)
-- **File**: `factory_sensor_simulator_2040.csv`
-- **Rows**: 500,000 | **Columns**: 22
-- **Features**: Vibration, temperature, sound, oil level, coolant level, power consumption, operational hours
-- **Targets**: `Failure_Within_7_Days` (Binary, 6.0% positive), `Remaining_Useful_Life_days` (Continuous)
-- **Critical Leakage Guardrail**: `Remaining_Useful_Life_days` deterministically leaks `Failure_Within_7_Days` for values $\le 7$. It must be dropped when training classification models for the 7-day failure window.
+*Audit Note: The raw time-series CSVs were not packaged in this archive. It will be treated strictly as a schema and metric specification document.*
 
-### 06_MANUFACTURING_PRODUCTION (Hybrid Manufacturing Categorical)
-- **File**: `hybrid_manufacturing_categorical.csv`
-- **Rows**: 1,000 | **Columns**: 13
-- **Features**: `Job_ID`, `Machine_ID`, `Operation_Type`, `Processing_Time`, `Scheduled_Start`, `Actual_Start`
-- **Targets**: `Job_Status` ('Completed', 'Delayed', 'Failed')
-- **Critical Leakage Guardrail**: `Actual_End` occurs after job termination and cannot be used at scheduling time.
+---
 
-### 08_MANUFACTURING_DEFECTS
-- **File**: `manufacturing_defect_dataset.csv`
-- **Rows**: 3,240 | **Columns**: 17
-- **Features**: `ProductionVolume`, `ProductionCost`, `SupplierQuality`, `DeliveryDelay`, `MaintenanceHours`, `DowntimePercentage`, `InventoryTurnover`, `StockoutRate`
-- **Target**: `DefectStatus` (1: 84.04%, 0: 15.96%)
-- **Critical Leakage Guardrail**: Post-inspection metrics (`DefectRate`, `QualityScore`) must be segregated from operational predictors.
+### Category C: Planned Synthetic Datasets (To Be Generated)
+| ID | Planned Dataset Name | Target Vertical | Generation Phase | Synthetic Mechanism | Operational Purpose | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **09** | **Textile MSME Shop Floor Dataset** | Textile Weaving / Spinning MSME | Phase 5 | Mathematical degradation curves + noise | Simulates loom motor vibration rise $\rightarrow$ cycle slowdown $\rightarrow$ line bottleneck $\rightarrow$ rupee loss | Planned (Phase 5) |
+| **10** | **Integrated Factory Digital Twin Dataset** | Discrete Auto-Components MSME | Phase 5 | Interconnected multi-machine queue simulator | End-to-end integration across telemetry, maintenance, inventory, and finance | Planned (Phase 5) |
+
+*Audit Note: These datasets do not yet exist. They will be generated strictly in Phase 5 with fully documented equations and reproducible random seeds.*
+
+---
+
+### Category D: Planned Maintenance & Knowledge Corpora (To Be Curated)
+| ID | Resource Name | Target Equipment | Target Phase | Document Types | Purpose | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **11** | **Factory Maintenance Knowledge Corpus** | CNC Turning, VMC Milling, Textile Looms | Phase 19 | Machine operation manuals, SOPs, troubleshooting guides | Vector indexing for RAG Factory Memory & AI Copilot | Planned (Phase 19) |
+
+*Audit Note: Equipment SOPs and manuals will be curated and placed in `C:\NIRMAAN AI\rag\documents\` in Phase 19.*
+
+---
+
+### Category E: Recommended External Candidates (Not Present - Approval Required)
+If empirical gaps arise during Phase 6–10, candidates (such as CNC milling tool wear datasets from Kaggle/UCI) will be formally proposed via a `DATASET ADDITION PROPOSAL` and will not be downloaded without explicit user approval.
+
+---
+
+## 3. Data Leakage Guardrails for Local Datasets
+
+1. **AI4I 2020 (`01_AI4I_2020`)**:
+   - Failure mode indicators (`TWF`, `HDF`, `PWF`, `OSF`, `RNF`) directly imply `Machine failure = 1`.
+   - *Guardrail*: Mask all failure mode columns when training binary failure prediction models. Use them solely for root-cause multi-label diagnosis. Drop `UDI` index.
+
+2. **NASA C-MAPSS (`02_NASA_CMAPSS`)**:
+   - Run-to-failure multi-cycle degradation.
+   - *Guardrail*: Do not perform random row-level train-test splits. Split strictly by `unit_number` engine trajectories to prevent temporal train-test leakage.
+
+3. **UCI SECOM (`03_UCI_SECOM`)**:
+   - 590 sensors with 41,951 missing entries.
+   - *Guardrail*: Imputation, standardization, and variance thresholding must be fit exclusively on training folds.
+
+4. **Factory Sensor Simulator 2040 (`05_INDUSTRIAL_IOT`)**:
+   - `Remaining_Useful_Life_days` deterministically leaks `Failure_Within_7_Days` when $\le 7$.
+   - *Guardrail*: Exclude `Remaining_Useful_Life_days` when predicting failure within the 7-day operational window.
+
+5. **Hybrid Manufacturing (`06_MANUFACTURING_PRODUCTION`)**:
+   - `Actual_End` occurs after job termination.
+   - *Guardrail*: Exclude `Actual_End` and downstream post-job flags at scheduling inference time.
+
+6. **Manufacturing Defects (`08_MANUFACTURING_DEFECTS`)**:
+   - `DefectRate` and `QualityScore` are post-production inspection outcomes.
+   - *Guardrail*: Segregate operational equipment parameters from inspection quality metrics.
