@@ -97,7 +97,7 @@ C:\NIRMAAN AI
 | **Phase 9** | Production & Energy Forecasting | **COMPLETED** |
 | **Phase 10** | Smart Inventory Intelligence | **COMPLETED** |
 | **Phase 11** | Explainable AI & SHAP Feature Attribution | **COMPLETED** |
-| **Phase 12** | Root Cause Analysis Engine | Planned |
+| **Phase 12** | Root Cause Analysis Engine | **COMPLETED** |
 | **Phase 13** | Composite Factory Health Score | Planned |
 | **Phase 14** | Operational & Financial Loss Analysis (INR) | Planned |
 | **Phase 15** | Prescriptive Recommendation Engine | Planned |
@@ -114,7 +114,7 @@ C:\NIRMAAN AI
 
 ---
 
-## Deployed Intelligence Subsystems (Phases 6–11)
+## Deployed Intelligence Subsystems (Phases 6–12)
 
 ### 1. Predictive Maintenance (Phase 6)
 - **Failure Classification**: XGBoost Champion (Precision: 0.9545, Recall: 0.8235, F1: 0.8842, ROC-AUC: 0.9831) on AI4I 2020. Strict leakage exclusion of tool wear modes and identifiers.
@@ -152,6 +152,13 @@ C:\NIRMAAN AI
 - **Machine 2 Synthetic Investigation**: Evaluates model feature sensitivity on simulated digital twin telemetry with explicit distribution-shift notices and strict causality disclaimers (model attribution $\neq$ physical causality).
 - **Service Layer**: `ExplanationService` generating human-readable manufacturing narratives and Pydantic v2 schemas for real-time attribution without model retraining.
 
+### 7. Root Cause Analysis Engine (Phase 12)
+- **Evidence-Based RCA Core**: Fuses heterogeneous signals from Phase 6 (prediction $\tau=0.91$), Phase 7 (anomaly score $\tau=0.2405$), Phase 8 (cycle ratio & bottleneck state), Phase 10 (spare availability), and Phase 11 (SHAP feature attribution).
+- **Controlled Taxonomy & Machine Baselines**: 13 operational candidate cause categories normalized against machine-specific operating baselines (M1–M5) to account for distribution mismatch.
+- **Temporal Precedence & Causal Ordering**: Verifies precursor progression ($t_0 \le t_1 \le t_2 \le t_3$) with strict lookahead leakage exclusion ($t \le t_{\text{event}}$).
+- **Contradiction Penalties & Negative Control**: Explicitly penalizes candidate causes when expected physical indicators are nominal, demonstrating that SHAP model attribution alone does NOT constitute root cause analysis.
+- **Service Layer**: `RootCauseAnalysisService` providing deterministic event analysis, controlled synthetic degradation scenario reconstruction, and human-readable audit reports with strict scientific disclaimers.
+
 ---
 
 ## Setup & Getting Started
@@ -169,7 +176,7 @@ cd "C:\NIRMAAN AI"
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run complete system test suite (101 tests across Phases 0-11)
+# Run complete system test suite (119 tests across Phases 0-12)
 python -m pytest tests/ -v
 
 # Train / Evaluate individual intelligence subsystems
@@ -179,4 +186,5 @@ python -m src.models.train_bottleneck     # Phase 8: Bottleneck Prediction
 python -m src.models.train_forecaster     # Phase 9: Production & Energy Forecasting
 python -m src.models.train_inventory      # Phase 10: Smart Inventory Intelligence
 python -m src.models.train_explainability # Phase 11: Explainable AI & SHAP
+python -m src.models.evaluate_rca         # Phase 12: Root Cause Analysis
 ```
