@@ -1,0 +1,79 @@
+# NirmaanAI Factory Operating Assumptions and Default Parameters
+# Note: Initial heuristic parameters and configured MSME assumptions — subject to validation.
+
+factory_profile:
+  name: "Nirmaan Model MSME Manufacturing Plant"
+  location: "Kolkata Industrial Cluster, West Bengal, India"
+  currency: "INR"
+  primary_industry: "Textile & Precision Automotive Component MSME"
+  operating_days_per_month: 26
+  shifts_per_day: 3
+  shift_definitions:
+    shift_a:
+      start_time: "06:00"
+      end_time: "14:00"
+      duration_hours: 8
+    shift_b:
+      start_time: "14:00"
+      end_time: "22:00"
+      duration_hours: 8
+    shift_c:
+      start_time: "22:00"
+      end_time: "06:00"
+      duration_hours: 8
+
+financial_assumptions:
+  type: "Configured MSME Assumptions"
+  downtime_hourly_cost_inr: 4500.00        # Idle machine + operator overhead + missed order penalty
+  base_electricity_rate_inr_per_kwh: 8.50  # Industrial tariff rate
+  peak_electricity_rate_inr_per_kwh: 12.50 # Peak hour tariff (18:00 - 22:00)
+  scrap_cost_rate_inr_per_kg: 350.00       # Raw metal/yarn scrapped cost
+  rework_cost_inr_per_hour: 280.00         # Secondary correction technician rate
+  average_part_sale_price_inr: 1250.00     # Finished product sales price
+  contribution_margin_per_unit_inr: 320.00 # Net margin per unit produced
+
+machine_baseline_parameters:
+  machine_1:
+    name: "Precision CNC Turning Center M1"
+    type: "CNC Lathe"
+    design_cycle_time_seconds: 60.0
+    baseline_vibration_mms: 1.2
+    baseline_temperature_c: 42.0
+    power_rating_kw: 15.0
+    rated_capacity_units_per_hour: 50
+
+  machine_2:
+    name: "Multi-Axis Vertical Milling Center M2"
+    type: "VMC Milling"
+    design_cycle_time_seconds: 45.0
+    baseline_vibration_mms: 1.4
+    baseline_temperature_c: 45.0
+    power_rating_kw: 22.0
+    rated_capacity_units_per_hour: 70
+    alert_vibration_threshold_mms: 3.8
+    critical_vibration_threshold_mms: 5.5
+
+  machine_3:
+    name: "Automated Loom / Surface Grinder M3"
+    type: "Grinder"
+    design_cycle_time_seconds: 30.0
+    baseline_vibration_mms: 0.9
+    baseline_temperature_c: 38.0
+    power_rating_kw: 11.0
+    rated_capacity_units_per_hour: 100
+
+factory_health_score_weights:
+  type: "Initial heuristic weights — subject to validation"
+  machine_health: 0.35
+  production_efficiency: 0.25
+  maintenance_condition: 0.20
+  energy_performance: 0.10
+  quality_yield: 0.10
+
+oee_targets:
+  world_class_oee_pct: 85.0
+  typical_msme_oee_pct: 60.0
+  nirmaan_target_oee_pct: 75.0
+  availability_target_pct: 90.0
+  performance_target_pct: 88.0
+  quality_target_pct: 95.0

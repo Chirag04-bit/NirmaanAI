@@ -1,0 +1,51 @@
+# NirmaanAI Dependency Specifications
+# Platform: Windows 11 | Python 3.14+
+
+# Core Math & Data Engineering
+numpy>=2.0.0
+pandas>=2.2.0
+scipy>=1.14.0
+pyarrow>=17.0.0
+
+# Machine Learning & Statistical Modeling
+scikit-learn>=1.5.0
+xgboost>=2.1.0
+statsmodels>=0.14.0
+prophet>=1.1.5
+
+# Model Explainability
+shap>=0.45.0
+
+# Backend Services & APIs
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+python-dotenv>=1.0.1
+sqlalchemy>=2.0.30
+
+# Database Connectors (Production)
+psycopg2-binary>=2.9.9
+asyncpg>=0.29.0
+
+# Visualization & Reporting
+matplotlib>=3.9.0
+seaborn>=0.13.0
+plotly>=5.23.0
+
+# Synthetic Data & Utilities
+faker>=27.0.0
+pyyaml>=6.0.2
+jinja2>=3.1.4
+
+# Document Processing & RAG (Phase 19-20)
+pypdf>=5.0.0
+langchain>=0.2.14
+langchain-community>=0.2.12
+sentence-transformers>=3.0.1
+chromadb>=0.5.5
+
+# Testing & Code Quality
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+httpx>=0.27.0

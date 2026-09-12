@@ -1,0 +1,60 @@
+project:
+  name: "NirmaanAI"
+  title: "AI-Powered Manufacturing Intelligence & Decision Platform"
+  version: "0.1.0"
+  institution: "Institute of Engineering & Management, Kolkata"
+  department: "Computer Science and Engineering (Artificial Intelligence)"
+  group: 59
+  guide: "PROF. KUNTAL MONDAL"
+  author: "NirmaanAI Core Team"
+
+system:
+  random_seed: 42
+  environment: "development"
+  log_level: "INFO"
+  device: "cpu"
+
+paths:
+  root: "C:/NIRMAAN AI"
+  dataset_master: "C:/NIRMAAN AI/DATASET"
+  raw_data: "C:/NIRMAAN AI/data/raw"
+  processed_data: "C:/NIRMAAN AI/data/processed"
+  synthetic_data: "C:/NIRMAAN AI/data/synthetic"
+  models_dir: "C:/NIRMAAN AI/models"
+  configs_dir: "C:/NIRMAAN AI/configs"
+  experiments_dir: "C:/NIRMAAN AI/experiments"
+  logs_dir: "C:/NIRMAAN AI/logs"
+  rag_docs_dir: "C:/NIRMAAN AI/rag/documents"
+
+modules:
+  predictive_maintenance:
+    enabled: true
+    default_model: "xgboost"
+    failure_horizon_days: 7
+    classification_threshold: 0.50
+
+  anomaly_detection:
+    enabled: true
+    contamination_rate: 0.05
+    algorithm: "isolation_forest"
+
+  bottleneck_prediction:
+    enabled: true
+    buffer_queue_threshold: 15
+    cycle_time_deviation_pct: 15.0
+
+  forecasting:
+    enabled: true
+    forecast_horizon_hours: 24
+    aggregation_interval: "15min"
+
+  explainability:
+    enabled: true
+    method: "shap"
+    top_k_features: 5
+
+  health_scoring:
+    enabled: true
+    scale: [0, 100]
+    critical_threshold: 50.0
+    warning_threshold: 75.0
