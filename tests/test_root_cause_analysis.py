@@ -70,7 +70,7 @@ def evidence_engine():
 def baseline_m2_event():
     return RCAEventContext(
         event_id="EVT_TEST_001",
-        timestamp="2026-01-21T10:30:00Z",
+        timestamp="2026-01-22T16:30:00Z",
         machine_id="M2",
         event_type="UNPLANNED_STOP",
         severity="CRITICAL",
@@ -101,14 +101,14 @@ def baseline_m2_event():
                 "anomaly_score": 0.14,
             },
             {
-                "timestamp": "2026-01-19T12:00:00Z",
+                "timestamp": "2026-01-20T02:00:00Z",
                 "vibration_mms": 3.9,
                 "temperature_c": 46.0,
                 "cycle_time_sec": 52.0,
                 "anomaly_score": 0.31,
             },
             {
-                "timestamp": "2026-01-20T10:00:00Z",
+                "timestamp": "2026-01-21T10:00:00Z",
                 "vibration_mms": 4.7,
                 "temperature_c": 50.0,
                 "cycle_time_sec": 57.0,
@@ -367,6 +367,9 @@ def test_synthetic_m2_scenario_reconstruction(rca_service):
 
     assert report.scenario_type == "CONTROLLED SYNTHETIC SCENARIO"
     assert report.machine_id == "M2"
+    # Authoritative dataset timestamp reconciliation
+    assert "2026-01-22" in report.timestamp
+    assert "16:30:00" in report.timestamp
     assert report.primary_candidate.cause_category in [
         CauseCategory.MECHANICAL_LOAD.value,
         CauseCategory.VIBRATION_DEVIATION.value,
@@ -374,6 +377,41 @@ def test_synthetic_m2_scenario_reconstruction(rca_service):
     assert report.confidence == RCAConfidenceLevel.HIGH
     assert report.temporal_precedence_verified is True
     assert len(report.temporal_chain) >= 3
+
+    # Verify monotonic precedence: t0 < t1 < t2 <= t3
+    dts = [parse_timestamp(s.timestamp) for s in report.temporal_chain]
+    for i in range(len(dts) - 1):
+        assert dts[i] <= dts[i + 1], f"Step {report.temporal_chain[i].stage} ({dts[i]}) occurred after {report.temporal_chain[i+1].stage} ({dts[i+1]})!"
+    # Ensure every single step occurs on or before event timestamp
+    event_dt = parse_timestamp(report.timestamp)
+    for s in report.temporal_chain:
+        assert parse_timestamp(s.timestamp) <= event_dt, f"Lookahead leakage: step timestamp {s.timestamp} > event {report.timestamp}!"
+
+
+def test_authoritative_m2_timestamp_provenance(rca_service):
+    """Regression test ensuring authoritative M2 event timestamp is derived directly from maintenance_records.csv."""
+    import pandas as pd
+    from src.utils.config_loader import get_project_root
+    
+    root = get_project_root()
+    maint_csv = root / "DATASET" / "10_SYNTHETIC_FACTORY" / "synthetic" / "maintenance_records.csv"
+    assert maint_csv.exists(), "maintenance_records.csv missing from dataset!"
+    
+    maint_df = pd.read_csv(maint_csv)
+    m2_records = maint_df[
+        (maint_df["machine_id"] == "M2") &
+        (maint_df["failure_mode"] == "BEARING_WEAR")
+    ]
+    assert len(m2_records) == 1, "Expected exactly 1 M2 bearing wear emergency maintenance record!"
+    
+    expected_ts = str(m2_records.iloc[0]["timestamp"])
+    assert "2026-01-22 16:30:00" in expected_ts, f"Dataset maintenance timestamp mismatch: {expected_ts}"
+    
+    report = rca_service.run_m2_controlled_scenario()
+    report_ts = parse_timestamp(report.timestamp)
+    dataset_ts = parse_timestamp(expected_ts)
+    assert report_ts == dataset_ts, f"RCA report timestamp ({report.timestamp}) does not match dataset ({expected_ts})!"
+    assert "2026-01-21" not in report.timestamp, "Erroneous hard-coded 2026-01-21 timestamp retained!"
 
 
 # -----------------------------------------------------------------------------

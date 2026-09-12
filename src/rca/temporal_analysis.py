@@ -83,7 +83,7 @@ class TemporalPrecedenceEngine:
         t1_step: Optional[TemporalStep] = None
         t2_step: Optional[TemporalStep] = None
         
-        # 1. Search for t0: Earliest significant precursor (vibration elevation > baseline + 30% or alert)
+        # 1. Search for t0: Earliest significant precursor (vibration elevation > baseline + 30%)
         for r in valid_history:
             vib = float(r.get("vibration_mms", 0.0))
             if vib >= machine_baseline_vib * 1.3:
@@ -96,7 +96,7 @@ class TemporalPrecedenceEngine:
                 )
                 break
         
-        # 2. Search for t1: Escalation (thermal buildup, severe vibration >= alert_vib, or anomaly excursion)
+        # 2. Search for t1: Escalation (vibration alert threshold breach >= alert_vib, thermal buildup >= 48C, or anomaly excursion >= 0.24)
         if t0_step is not None:
             t0_dt = parse_timestamp(t0_step.timestamp)
             for r in valid_history:
@@ -105,25 +105,24 @@ class TemporalPrecedenceEngine:
                     vib = float(r.get("vibration_mms", 0.0))
                     temp = float(r.get("temperature_c", 0.0))
                     anom = float(r.get("anomaly_score", 0.0))
-                    if vib >= alert_vib or temp >= 45.0 or anom >= 0.24:
+                    if vib >= alert_vib or (vib >= machine_baseline_vib * 1.5 and temp >= 48.0) or anom >= 0.2405:
                         t1_step = TemporalStep(
                             stage=TemporalStage.T1_ESCALATION,
                             timestamp=str(r.get("timestamp")),
                             signal_name="vibration_or_temperature",
-                            observed_value=max(vib, temp),
+                            observed_value=vib if vib >= alert_vib else temp,
                             description=f"Physical degradation escalation (vib={vib:.2f} mm/s, temp={temp:.1f} °C, anomaly={anom:.3f})"
                         )
                         break
 
-        # 3. Search for t2: Operational consequence (cycle time expansion, queue delay)
-        # Can check in valid history or operational job fields
+        # 3. Search for t2: Operational consequence (cycle time expansion, queue delay) occurring after t1 (or t0)
+        after_dt = parse_timestamp(t1_step.timestamp) if t1_step is not None else (parse_timestamp(t0_step.timestamp) if t0_step is not None else None)
         for r in valid_history:
             cycle = float(r.get("cycle_time_sec", 0.0))
             delay = float(r.get("dispatch_delay_min", 0.0))
             if cycle >= nominal_cycle_sec * 1.15 or delay >= 15.0:
-                t2_dt = parse_timestamp(r.get("timestamp"))
-                # Verify it occurs after t0
-                if t0_step is None or t2_dt >= parse_timestamp(t0_step.timestamp):
+                r_dt = parse_timestamp(r.get("timestamp"))
+                if after_dt is None or r_dt >= after_dt:
                     t2_step = TemporalStep(
                         stage=TemporalStage.T2_CONSEQUENCE,
                         timestamp=str(r.get("timestamp")),
@@ -139,7 +138,7 @@ class TemporalPrecedenceEngine:
             timestamp=str(event_timestamp),
             signal_name="event_trigger",
             observed_value=1.0,
-            description=f"Event triggered at {event_timestamp}: failure prediction or shutdown escalation"
+            description=f"Event triggered at {event_timestamp}: emergency halt or failure prediction breach"
         )
         
         # Assemble ordered chain
