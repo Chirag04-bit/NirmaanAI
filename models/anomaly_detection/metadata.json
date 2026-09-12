@@ -1,0 +1,150 @@
+{
+  "subsystem": "Multi-Sensor Anomaly Detection",
+  "phase": "Phase 7",
+  "champion_model": "pca_reconstruction",
+  "decision_threshold": 0.24050022650353087,
+  "feature_count": 25,
+  "features": [
+    "vibration_mms",
+    "temperature_c",
+    "ambient_temperature_c",
+    "rotational_speed_rpm",
+    "torque_nm",
+    "sound_db",
+    "power_consumption_kw",
+    "oil_level_pct",
+    "coolant_level_pct",
+    "temp_diff_c",
+    "mechanical_power_kw",
+    "power_ratio",
+    "torque_speed_ratio",
+    "vibration_mms_roll_mean_5",
+    "vibration_mms_roll_std_5",
+    "vibration_mms_diff_1",
+    "temperature_c_roll_mean_5",
+    "temperature_c_roll_std_5",
+    "temperature_c_diff_1",
+    "power_consumption_kw_roll_mean_5",
+    "power_consumption_kw_roll_std_5",
+    "power_consumption_kw_diff_1",
+    "sound_db_roll_mean_5",
+    "sound_db_roll_std_5",
+    "sound_db_diff_1"
+  ],
+  "benchmark_comparison": [
+    {
+      "model_name": "robust_zscore",
+      "threshold": 0.43289,
+      "val_false_positive_rate": 0.0104,
+      "test_precision": 0.7534,
+      "test_recall": 1.0,
+      "test_f1": 0.8594,
+      "test_roc_auc": 0.9991,
+      "test_pr_auc": 0.9961,
+      "confusion_matrix": {
+        "TN": 2215,
+        "FP": 377,
+        "FN": 0,
+        "TP": 1152
+      },
+      "detected_events": 1,
+      "true_events": 1,
+      "false_alarm_events": 166,
+      "lead_time_hours": 106.5
+    },
+    {
+      "model_name": "pca_reconstruction",
+      "threshold": 0.2405,
+      "val_false_positive_rate": 0.0104,
+      "test_precision": 0.9722,
+      "test_recall": 1.0,
+      "test_f1": 0.9859,
+      "test_roc_auc": 0.9992,
+      "test_pr_auc": 0.9965,
+      "confusion_matrix": {
+        "TN": 2559,
+        "FP": 33,
+        "FN": 0,
+        "TP": 1152
+      },
+      "detected_events": 1,
+      "true_events": 1,
+      "false_alarm_events": 21,
+      "lead_time_hours": 106.5
+    },
+    {
+      "model_name": "one_class_svm",
+      "threshold": 0.73308,
+      "val_false_positive_rate": 0.0104,
+      "test_precision": 0.4046,
+      "test_recall": 1.0,
+      "test_f1": 0.5761,
+      "test_roc_auc": 0.999,
+      "test_pr_auc": 0.9954,
+      "confusion_matrix": {
+        "TN": 897,
+        "FP": 1695,
+        "FN": 0,
+        "TP": 1152
+      },
+      "detected_events": 1,
+      "true_events": 1,
+      "false_alarm_events": 105,
+      "lead_time_hours": 106.5
+    },
+    {
+      "model_name": "isolation_forest",
+      "threshold": 1.0,
+      "val_false_positive_rate": 0.2188,
+      "test_precision": 0.6474,
+      "test_recall": 0.9931,
+      "test_f1": 0.7838,
+      "test_roc_auc": 0.8781,
+      "test_pr_auc": 0.6468,
+      "confusion_matrix": {
+        "TN": 1969,
+        "FP": 623,
+        "FN": 8,
+        "TP": 1144
+      },
+      "detected_events": 1,
+      "true_events": 1,
+      "false_alarm_events": 227,
+      "lead_time_hours": 106.5
+    }
+  ],
+  "champion_performance": {
+    "model_name": "pca_reconstruction",
+    "threshold": 0.2405,
+    "val_false_positive_rate": 0.0104,
+    "test_precision": 0.9722,
+    "test_recall": 1.0,
+    "test_f1": 0.9859,
+    "test_roc_auc": 0.9992,
+    "test_pr_auc": 0.9965,
+    "confusion_matrix": {
+      "TN": 2559,
+      "FP": 33,
+      "FN": 0,
+      "TP": 1152
+    },
+    "detected_events": 1,
+    "true_events": 1,
+    "false_alarm_events": 21,
+    "lead_time_hours": 106.5
+  },
+  "ai4i_secondary_evaluation": {
+    "model": "isolation_forest",
+    "test_roc_auc": 0.8531,
+    "test_pr_auc": 0.3148,
+    "training_sample_count": 6762,
+    "evaluation_sample_count": 3238
+  },
+  "operating_regimes": {
+    "target_machine": "M2 (Vertical Milling Center)",
+    "normal_reference_window": "Days 1 to 15 (2026-01-01 to 2026-01-16)",
+    "validation_window": "Days 16 to 17 (2026-01-16 to 2026-01-18)",
+    "controlled_degradation_window": "Days 18 to 21 (2026-01-18 to 2026-01-22)",
+    "post_maintenance_window": "Days 22 to 30 (2026-01-22 to 2026-01-31)"
+  }
+}
