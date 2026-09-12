@@ -95,7 +95,7 @@ C:\NIRMAAN AI
 | **Phase 7** | Multi-Sensor Anomaly Detection (Unsupervised PCA & Baseline Benchmark) | **COMPLETED** |
 | **Phase 8** | Production Bottleneck Prediction & Flow Intelligence | **COMPLETED** |
 | **Phase 9** | Production & Energy Forecasting | **COMPLETED** |
-| **Phase 10** | Smart Inventory Intelligence | Planned |
+| **Phase 10** | Smart Inventory Intelligence | **COMPLETED** |
 | **Phase 11** | Explainable AI & SHAP Feature Attribution | Planned |
 | **Phase 12** | Root Cause Analysis Engine | Planned |
 | **Phase 13** | Composite Factory Health Score | Planned |
@@ -114,7 +114,7 @@ C:\NIRMAAN AI
 
 ---
 
-## Deployed Intelligence Subsystems (Phases 6–9)
+## Deployed Intelligence Subsystems (Phases 6–10)
 
 ### 1. Predictive Maintenance (Phase 6)
 - **Failure Classification**: XGBoost Champion (Precision: 0.9545, Recall: 0.8235, F1: 0.8842, ROC-AUC: 0.9831) on AI4I 2020. Strict leakage exclusion of tool wear modes and identifiers.
@@ -139,6 +139,12 @@ C:\NIRMAAN AI
 - **Production Throughput**: Causal daily completed unit volume forecasting (Ridge Champion: 10.52 units RMSE, 0.77% WAPE, $R^2 = 0.9938$).
 - **Service Layer**: `ForecastingService` providing multi-horizon power forecasting, shift-level electricity expenditure projections (INR), and peak tariff operational alerts.
 
+### 5. Smart Inventory Intelligence & Operations Research (Phase 10)
+- **Operations Research Optimization Core**: Deterministic dynamic Safety Stock ($SS = Z \sqrt{\bar{L} \sigma_d^2 + \bar{d}^2 \sigma_L^2}$), Reorder Point ($ROP = \bar{d} \bar{L} + SS$), Economic Order Quantity ($EOQ = \sqrt{2DS/H}$), and Days of Supply ($DoS = \text{Current Stock}/\bar{d}$) with $Z=1.645$ (95% standard raw materials) and $Z=2.326$ (99% critical spares/tooling).
+- **Machine 2 Maintenance-Spare Coupling**: Direct operational coupling between Phase 6 failure alerts (empirical threshold $\tau=0.91$) or synthetic vibration excursions ($\ge 3.80\text{ mm/s}$) and `SKU_SPINDLE_BEARING_M2` stock levels. Identifies constrained maintenance when 7-day vendor replenishment lead time cannot arrive before required servicing.
+- **Five-Tier Shortage Risk Model**: Actionable categorization across `OUT_OF_STOCK`, `CRITICAL_DEFICIT`, `REORDER_NOW`, `OPTIMAL_BUFFER`, and `SURPLUS_INVENTORY`.
+- **Service Layer**: `InventoryService` exposing single-SKU audits, plant-wide working capital summaries (INR), and machine maintenance-spare evaluations.
+
 ---
 
 ## Setup & Getting Started
@@ -156,11 +162,13 @@ cd "C:\NIRMAAN AI"
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run complete system test suite (61 tests across Phases 0-8)
+# Run complete system test suite (85 tests across Phases 0-10)
 python -m pytest tests/ -v
 
 # Train / Evaluate individual intelligence subsystems
 python -m src.models.train_pdm         # Phase 6: Predictive Maintenance
 python -m src.models.train_anomaly     # Phase 7: Anomaly Detection
 python -m src.models.train_bottleneck  # Phase 8: Bottleneck Prediction
+python -m src.models.train_forecaster  # Phase 9: Production & Energy Forecasting
+python -m src.models.train_inventory   # Phase 10: Smart Inventory Intelligence
 ```
