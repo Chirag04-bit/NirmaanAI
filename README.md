@@ -87,11 +87,11 @@ C:\NIRMAAN AI
 | :--- | :--- | :--- |
 | **Phase 0** | Project Audit & Existing Work Inspection | **COMPLETED** |
 | **Phase 1** | Project Foundation & Scaffolding | **COMPLETED** |
-| **Phase 2** | Dataset Collection & Organization | Planned |
-| **Phase 3** | Data Understanding & Exploratory Data Analysis (EDA) | Planned |
-| **Phase 4** | Unified Factory Data Schema | Planned |
-| **Phase 5** | Synthetic Factory Dataset Generator | Planned |
-| **Phase 6** | Predictive Maintenance (Failure & RUL) | Planned |
+| **Phase 2** | Dataset Collection & Organization | **COMPLETED** |
+| **Phase 3** | Data Understanding & Exploratory Data Analysis (EDA) | **COMPLETED** |
+| **Phase 4** | Unified Factory Data Schema | **COMPLETED** |
+| **Phase 5** | Synthetic Factory Dataset Generator | **COMPLETED** |
+| **Phase 6** | Predictive Maintenance (Failure & RUL) | **COMPLETED** |
 | **Phase 7** | Multi-Sensor Anomaly Detection | Planned |
 | **Phase 8** | Production Bottleneck Prediction | Planned |
 | **Phase 9** | Production & Energy Forecasting | Planned |

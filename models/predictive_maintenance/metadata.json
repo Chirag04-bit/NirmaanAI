@@ -1,0 +1,423 @@
+{
+  "pipeline_name": "NirmaanAI Predictive Maintenance Subsystem",
+  "training_timestamp_utc": "2026-09-12T18:19:23.889917+00:00",
+  "random_seed": 42,
+  "submodules": {
+    "failure_classification": {
+      "dataset": "DATASET/01_AI4I_2020/raw/ai4i2020.csv",
+      "target": "Machine failure (Binary 0/1)",
+      "split_strategy": "Stratified train (70%) / val (15%) / test (15%)",
+      "leakage_exclusions": [
+        "UDI (row index)",
+        "Product ID (identifier)",
+        "TWF (tool wear failure mode indicator)",
+        "HDF (heat dissipation failure mode indicator)",
+        "PWF (power failure mode indicator)",
+        "OSF (overstrain failure mode indicator)",
+        "RNF (random failure mode indicator)"
+      ],
+      "feature_names": [
+        "air_temperature_k",
+        "process_temperature_k",
+        "rotational_speed_rpm",
+        "torque_nm",
+        "tool_wear_min",
+        "temp_diff_k",
+        "mechanical_power_kw",
+        "torque_speed_ratio",
+        "tool_wear_risk_index",
+        "product_type_code"
+      ],
+      "champion_model": "xgboost",
+      "optimal_threshold": 0.91,
+      "validation_metrics": {
+        "dummy_majority": {
+          "model_name": "dummy_majority",
+          "threshold": 0.5,
+          "accuracy": 0.966,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "macro_f1": 0.4914,
+          "roc_auc": 0.5,
+          "pr_auc": 0.034,
+          "confusion_matrix": [
+            [
+              1449,
+              0
+            ],
+            [
+              51,
+              0
+            ]
+          ],
+          "true_negatives": 1449,
+          "false_positives": 0,
+          "false_negatives": 51,
+          "true_positives": 0,
+          "total_samples": 1500,
+          "failure_count": 51
+        },
+        "logistic_regression": {
+          "model_name": "logistic_regression",
+          "threshold": 0.91,
+          "accuracy": 0.9633,
+          "precision": 0.4615,
+          "recall": 0.4706,
+          "f1_score": 0.466,
+          "macro_f1": 0.7235,
+          "roc_auc": 0.8973,
+          "pr_auc": 0.4496,
+          "confusion_matrix": [
+            [
+              1421,
+              28
+            ],
+            [
+              27,
+              24
+            ]
+          ],
+          "true_negatives": 1421,
+          "false_positives": 28,
+          "false_negatives": 27,
+          "true_positives": 24,
+          "total_samples": 1500,
+          "failure_count": 51
+        },
+        "random_forest": {
+          "model_name": "random_forest",
+          "threshold": 0.77,
+          "accuracy": 0.986,
+          "precision": 0.9412,
+          "recall": 0.6275,
+          "f1_score": 0.7529,
+          "macro_f1": 0.8729,
+          "roc_auc": 0.9519,
+          "pr_auc": 0.8067,
+          "confusion_matrix": [
+            [
+              1447,
+              2
+            ],
+            [
+              19,
+              32
+            ]
+          ],
+          "true_negatives": 1447,
+          "false_positives": 2,
+          "false_negatives": 19,
+          "true_positives": 32,
+          "total_samples": 1500,
+          "failure_count": 51
+        },
+        "xgboost": {
+          "model_name": "xgboost",
+          "threshold": 0.91,
+          "accuracy": 0.9867,
+          "precision": 0.9189,
+          "recall": 0.6667,
+          "f1_score": 0.7727,
+          "macro_f1": 0.8829,
+          "roc_auc": 0.9534,
+          "pr_auc": 0.7935,
+          "confusion_matrix": [
+            [
+              1446,
+              3
+            ],
+            [
+              17,
+              34
+            ]
+          ],
+          "true_negatives": 1446,
+          "false_positives": 3,
+          "false_negatives": 17,
+          "true_positives": 34,
+          "total_samples": 1500,
+          "failure_count": 51
+        }
+      },
+      "test_metrics": {
+        "dummy_majority": {
+          "model_name": "dummy_majority",
+          "threshold": 0.5,
+          "accuracy": 0.966,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "macro_f1": 0.4914,
+          "roc_auc": 0.5,
+          "pr_auc": 0.034,
+          "confusion_matrix": [
+            [
+              1449,
+              0
+            ],
+            [
+              51,
+              0
+            ]
+          ],
+          "true_negatives": 1449,
+          "false_positives": 0,
+          "false_negatives": 51,
+          "true_positives": 0,
+          "total_samples": 1500,
+          "failure_count": 51
+        },
+        "logistic_regression": {
+          "model_name": "logistic_regression",
+          "threshold": 0.91,
+          "accuracy": 0.958,
+          "precision": 0.4118,
+          "recall": 0.549,
+          "f1_score": 0.4706,
+          "macro_f1": 0.7244,
+          "roc_auc": 0.9452,
+          "pr_auc": 0.4659,
+          "confusion_matrix": [
+            [
+              1409,
+              40
+            ],
+            [
+              23,
+              28
+            ]
+          ],
+          "true_negatives": 1409,
+          "false_positives": 40,
+          "false_negatives": 23,
+          "true_positives": 28,
+          "total_samples": 1500,
+          "failure_count": 51
+        },
+        "random_forest": {
+          "model_name": "random_forest",
+          "threshold": 0.77,
+          "accuracy": 0.99,
+          "precision": 0.9737,
+          "recall": 0.7255,
+          "f1_score": 0.8315,
+          "macro_f1": 0.9132,
+          "roc_auc": 0.9739,
+          "pr_auc": 0.9241,
+          "confusion_matrix": [
+            [
+              1448,
+              1
+            ],
+            [
+              14,
+              37
+            ]
+          ],
+          "true_negatives": 1448,
+          "false_positives": 1,
+          "false_negatives": 14,
+          "true_positives": 37,
+          "total_samples": 1500,
+          "failure_count": 51
+        },
+        "xgboost": {
+          "model_name": "xgboost",
+          "threshold": 0.91,
+          "accuracy": 0.9927,
+          "precision": 0.9545,
+          "recall": 0.8235,
+          "f1_score": 0.8842,
+          "macro_f1": 0.9402,
+          "roc_auc": 0.9831,
+          "pr_auc": 0.9275,
+          "confusion_matrix": [
+            [
+              1447,
+              2
+            ],
+            [
+              9,
+              42
+            ]
+          ],
+          "true_negatives": 1447,
+          "false_positives": 2,
+          "false_negatives": 9,
+          "true_positives": 42,
+          "total_samples": 1500,
+          "failure_count": 51
+        }
+      }
+    },
+    "rul_estimation": {
+      "dataset": "DATASET/02_NASA_CMAPSS/raw/CMaps/ (FD001)",
+      "target": "Remaining Useful Life (RUL in cycles, capped at 125)",
+      "split_strategy": "Grouped engine split (70 engines train / 15 val / 15 internal test)",
+      "sensor_selection": "14 informative degradation sensors (s2, s3, s4, s7, s8, s9, s11, s12, s13, s14, s15, s17, s20, s21)",
+      "feature_names": [
+        "setting_1",
+        "setting_2",
+        "s2",
+        "s3",
+        "s4",
+        "s7",
+        "s8",
+        "s9",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s17",
+        "s20",
+        "s21",
+        "setting_1_roll_mean",
+        "setting_2_roll_mean",
+        "s2_roll_mean",
+        "s3_roll_mean",
+        "s4_roll_mean",
+        "s7_roll_mean",
+        "s8_roll_mean",
+        "s9_roll_mean",
+        "s11_roll_mean",
+        "s12_roll_mean",
+        "s13_roll_mean",
+        "s14_roll_mean",
+        "s15_roll_mean",
+        "s17_roll_mean",
+        "s20_roll_mean",
+        "s21_roll_mean",
+        "setting_1_roll_std",
+        "setting_2_roll_std",
+        "s2_roll_std",
+        "s3_roll_std",
+        "s4_roll_std",
+        "s7_roll_std",
+        "s8_roll_std",
+        "s9_roll_std",
+        "s11_roll_std",
+        "s12_roll_std",
+        "s13_roll_std",
+        "s14_roll_std",
+        "s15_roll_std",
+        "s17_roll_std",
+        "s20_roll_std",
+        "s21_roll_std"
+      ],
+      "champion_model": "random_forest_reg",
+      "validation_metrics": {
+        "dummy_mean": {
+          "model_name": "dummy_mean",
+          "mae": 37.053,
+          "rmse": 41.602,
+          "r2": -0.0009,
+          "nasa_score": 924686.99,
+          "sample_count": 3170
+        },
+        "ridge_regression": {
+          "model_name": "ridge_regression",
+          "mae": 17.174,
+          "rmse": 20.651,
+          "r2": 0.7534,
+          "nasa_score": 28890.44,
+          "sample_count": 3170
+        },
+        "random_forest_reg": {
+          "model_name": "random_forest_reg",
+          "mae": 13.462,
+          "rmse": 19.713,
+          "r2": 0.7753,
+          "nasa_score": 76397.14,
+          "sample_count": 3170
+        },
+        "xgboost_reg": {
+          "model_name": "xgboost_reg",
+          "mae": 13.537,
+          "rmse": 19.721,
+          "r2": 0.7751,
+          "nasa_score": 76308.75,
+          "sample_count": 3170
+        }
+      },
+      "internal_test_metrics": {
+        "dummy_mean": {
+          "model_name": "dummy_mean",
+          "mae": 37.042,
+          "rmse": 41.625,
+          "r2": -0.0005,
+          "nasa_score": 924228.58,
+          "sample_count": 3145
+        },
+        "ridge_regression": {
+          "model_name": "ridge_regression",
+          "mae": 17.899,
+          "rmse": 21.492,
+          "r2": 0.7333,
+          "nasa_score": 36023.48,
+          "sample_count": 3145
+        },
+        "random_forest_reg": {
+          "model_name": "random_forest_reg",
+          "mae": 14.702,
+          "rmse": 20.855,
+          "r2": 0.7488,
+          "nasa_score": 84724.77,
+          "sample_count": 3145
+        },
+        "xgboost_reg": {
+          "model_name": "xgboost_reg",
+          "mae": 14.519,
+          "rmse": 20.749,
+          "r2": 0.7514,
+          "nasa_score": 77075.4,
+          "sample_count": 3145
+        }
+      },
+      "official_benchmark_metrics": {
+        "dummy_mean": {
+          "model_name": "dummy_mean",
+          "mae": 34.83,
+          "rmse": 41.844,
+          "r2": -0.0903,
+          "nasa_score": 32276.69,
+          "sample_count": 100
+        },
+        "ridge_regression": {
+          "model_name": "ridge_regression",
+          "mae": 16.949,
+          "rmse": 21.508,
+          "r2": 0.7119,
+          "nasa_score": 1473.29,
+          "sample_count": 100
+        },
+        "random_forest_reg": {
+          "model_name": "random_forest_reg",
+          "mae": 13.21,
+          "rmse": 18.114,
+          "r2": 0.7957,
+          "nasa_score": 895.93,
+          "sample_count": 100
+        },
+        "xgboost_reg": {
+          "model_name": "xgboost_reg",
+          "mae": 12.836,
+          "rmse": 17.991,
+          "r2": 0.7985,
+          "nasa_score": 922.32,
+          "sample_count": 100
+        }
+      }
+    },
+    "controlled_synthetic_validation": {
+      "validation_type": "Controlled synthetic validation",
+      "target_machine": "M2",
+      "mean_baseline_probability": 0.9949,
+      "mean_degraded_probability": 0.9959,
+      "max_degraded_probability": 0.9978,
+      "degraded_window_alarms": 865,
+      "detected_configured_degradation": false
+    }
+  }
+}

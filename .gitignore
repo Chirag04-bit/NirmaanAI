@@ -72,6 +72,13 @@ data/external/*
 # ------------------------------------------------------------------------------
 # Model Artifacts & Checkpoints
 # ------------------------------------------------------------------------------
+models/**/*.pkl
+models/**/*.joblib
+models/**/*.pt
+models/**/*.pth
+models/**/*.onnx
+models/**/*.bin
+models/**/*.safetensors
 models/*.pkl
 models/*.joblib
 models/*.pt
@@ -79,7 +86,10 @@ models/*.pth
 models/*.onnx
 models/*.bin
 models/*.safetensors
-!models/.gitkeep
+!models/**/.gitkeep
+!models/**/*.json
+!models/**/*.yaml
+!models/**/*.md
 
 # ------------------------------------------------------------------------------
 # Vector DB & Embeddings
