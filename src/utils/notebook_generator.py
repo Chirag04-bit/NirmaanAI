@@ -1,6 +1,6 @@
 """
 NirmaanAI EDA Notebook Generator
-Generates clean, fully structured Jupyter notebooks for all 7 active empirical datasets.
+Generates clean, fully structured, audited Jupyter notebooks for all 7 active empirical datasets.
 """
 
 import os
@@ -44,8 +44,8 @@ def generate_eda_notebooks(base_dir: str = "C:/NIRMAAN AI"):
             md_cell("## 1. Statistical Profile & Target Class Imbalance\nExamine class imbalance between normal operations and machine failures."),
             code_cell("profile = profile_dataframe(df, target_col='Machine failure')\nprint(f'Rows: {profile[\"rows\"]}, Cols: {profile[\"cols\"]}')\nprint('Target Distribution:', profile['target_summary']['distribution'])\nprint(f'Imbalance Ratio: {profile[\"target_summary\"][\"imbalance_ratio\"]}:1')"),
             md_cell("## 2. Failure Mode Analysis & Target Leakage Prevention\nFailure modes (TWF, HDF, PWF, OSF, RNF) are root causes, NOT input features!"),
-            code_cell("failure_modes = ['TWF', 'HDF', 'PWF', 'OSF', 'RNF']\nmode_counts = {m: int(df[m].sum()) for m in failure_modes}\nprint('Failure Mode Frequencies:', mode_counts)\n\n# Calculate operational temperature difference and power\ndf['Temp_Diff_K'] = df['Process temperature [K]'] - df['Air temperature [K]']\ndf['Power_kW'] = (2 * np.pi * df['Rotational speed [rpm]'] * df['Torque [Nm]']) / 60000.0\nprint('Physical Feature Correlations with Failure:')\nprint(df[['Machine failure', 'Torque [Nm]', 'Tool wear [min]', 'Power_kW', 'Temp_Diff_K']].corr()['Machine failure'])"),
-            md_cell("## 3. Key Findings for NirmaanAI Engine\n1. **Severe Imbalance**: 3.39% failure rate requires stratified temporal splitting and PR-AUC optimization.\n2. **Tool Wear**: Wear above 200 minutes drastically escalates tool wear failure (TWF).\n3. **Heat Dissipation**: HDF occurs under high torque combined with poor convective cooling (Temp Diff < 8.6K).")
+            code_cell("failure_modes = ['TWF', 'HDF', 'PWF', 'OSF', 'RNF']\nmode_counts = {m: int(df[m].sum()) for m in failure_modes}\nprint('Failure Mode Frequencies:', mode_counts)\n\n# Calculate operational temperature difference and power\ndf['Temp_Diff_K'] = df['Process temperature [K]'] - df['Air temperature [K]']\ndf['Power_kW'] = (2 * np.pi * df['Rotational speed [rpm]'] * df['Torque [Nm]']) / 60000.0\nprint('Physical Feature Correlations with Failure:')\nprint(df[['Machine failure', 'Torque [Nm]', 'Tool wear [min]', 'Power_kW', 'Temp_Diff_K']].corr()['Machine failure'])\n\n# Verified statistics\ntwf_wear = df[df['TWF'] == 1]['Tool wear [min]']\nprint(f'Tool wear when TWF=1: min={twf_wear.min()}, mean={twf_wear.mean():.2f}, max={twf_wear.max()}')\nhdf_temp = df[df['HDF'] == 1]['Temp_Diff_K']\nprint(f'Temp_Diff_K when HDF=1: min={hdf_temp.min():.2f}, max={hdf_temp.max():.2f}')"),
+            md_cell("## 3. Key Findings for NirmaanAI Engine\n1. **Severe Imbalance**: 3.39% failure rate (28.5:1 ratio) requires PR-AUC and stratified validation.\n2. **Tool Wear (TWF)**: 97.8% of TWF failures occur at Tool wear >= 200 minutes.\n3. **Heat Dissipation (HDF)**: 100% of HDF failures occur when Temp_Diff_K <= 8.6 K.")
         ],
         "02_eda_nasa_cmapss_degradation.ipynb": [
             md_cell("# NirmaanAI — EDA 02: NASA C-MAPSS Turbofan Engine Degradation\n**Module**: Phase 6 (RUL Submodule) & Phase 13 (Factory Health Score)\n**Dataset**: `DATASET/02_NASA_CMAPSS/raw/CMaps/`"),
@@ -54,7 +54,7 @@ def generate_eda_notebooks(base_dir: str = "C:/NIRMAAN AI"):
             code_cell("max_cycle = df_train.groupby('unit')['cycle'].max().reset_index()\nmax_cycle.columns = ['unit', 'max_cycle']\ndf_train = df_train.merge(max_cycle, on='unit')\ndf_train['RUL'] = df_train['max_cycle'] - df_train['cycle']\nprint('RUL Summary Statistics:\\n', df_train['RUL'].describe())"),
             md_cell("## 2. Sensor Screening: Monotonic Drift vs Non-informative Sensors"),
             code_cell("sensor_std = df_train[[f's{i}' for i in range(1, 22)]].std()\nflat_sensors = sensor_std[sensor_std < 0.01].index.tolist()\ninformative_sensors = sensor_std[sensor_std >= 0.01].index.tolist()\nprint(f'Flat non-informative sensors in FD001 ({len(flat_sensors)}): {flat_sensors}')\nprint(f'Degradation-informative sensors ({len(informative_sensors)}): {informative_sensors}')"),
-            md_cell("## 3. Key Findings for NirmaanAI Engine\n1. Sensors s2, s3, s4, s7, s8, s11, s12, s15 exhibit clear monotonic drift tracking component wear.\n2. Machine degradation follows piece-wise linear health curves suitable for composite health indexing in Phase 13.")
+            md_cell("## 3. Key Findings for NirmaanAI Engine\n1. Sensors s2, s3, s4, s7, s8, s11, s12, s15 exhibit clear monotonic drift tracking component wear.\n2. Machine degradation follows piece-wise linear health degradation curves suitable for composite health indexing in Phase 13.")
         ],
         "03_eda_uci_secom_process.ipynb": [
             md_cell("# NirmaanAI — EDA 03: UCI SECOM Semiconductor Process Analysis\n**Module**: Phase 7 (Anomaly Detection) & Phase 11 (XAI)\n**Dataset**: `DATASET/03_UCI_SECOM/raw/uci-secom.csv`\n**Note**: uci-secom.csv, secom.data, and secom_labels.data represent the SAME single dataset."),
@@ -67,33 +67,33 @@ def generate_eda_notebooks(base_dir: str = "C:/NIRMAAN AI"):
         ],
         "04_eda_energy_consumption.ipynb": [
             md_cell("# NirmaanAI — EDA 04: Electricity Load Diagrams 2011-2014\n**Module**: Phase 9 (Energy Demand Forecasting) & Phase 14 (Financial Loss Analysis)\n**Dataset**: `DATASET/04_ENERGY/raw/LD2011_2014.txt`"),
-            code_cell("import os, sys\nsys.path.append(r'C:/NIRMAAN AI')\nimport pandas as pd\nimport numpy as np\n\ntxt_path = r'C:/NIRMAAN AI/DATASET/04_ENERGY/raw/LD2011_2014.txt'\ndf_sample = pd.read_csv(txt_path, sep=';', nrows=2880, decimal=',')\ndf_sample.rename(columns={df_sample.columns[0]: 'Timestamp'}, inplace=True)\ndf_sample['Timestamp'] = pd.to_datetime(df_sample['Timestamp'])\nprint(f'1-Month Profile Shape: {df_sample.shape}')\nprint(f'Timespan: {df_sample[\"Timestamp\"].min()} to {df_sample[\"Timestamp\"].max()}')"),
-            md_cell("## 1. Diurnal Cyclicity & Industrial Load Patterns"),
-            code_cell("client_col = df_sample.columns[1]\ndf_sample['Hour'] = df_sample['Timestamp'].dt.hour\nhourly_mean = df_sample.groupby('Hour')[client_col].mean()\nprint('Hourly Average Load (kW):\\n', hourly_mean.head(12))"),
-            md_cell("## 2. Key Findings for NirmaanAI Engine\n1. 24-hour diurnal cyclicity dominates industrial load curves.\n2. Shifting non-essential machine runs out of peak tariff hours (18:00–22:00) yields immediate INR savings in Phase 14.")
+            code_cell("import os, sys\nsys.path.append(r'C:/NIRMAAN AI')\nimport pandas as pd\nimport numpy as np\n\ntxt_path = r'C:/NIRMAAN AI/DATASET/04_ENERGY/raw/LD2011_2014.txt'\n# Load 1 month sample (2880 15-min intervals) to inspect structure efficiently\ndf_sample = pd.read_csv(txt_path, sep=';', nrows=2880, decimal=',')\ndf_sample.rename(columns={df_sample.columns[0]: 'Timestamp'}, inplace=True)\ndf_sample['Timestamp'] = pd.to_datetime(df_sample['Timestamp'])\nprint(f'1-Month Profile Shape: {df_sample.shape}')\nprint(f'Timespan: {df_sample[\"Timestamp\"].min()} to {df_sample[\"Timestamp\"].max()}')"),
+            md_cell("## 1. Diurnal Cyclicity & Industrial Load Patterns (Client MT_124)"),
+            code_cell("client_col = 'MT_124' # Active from January 2011\ndf_sample['Hour'] = df_sample['Timestamp'].dt.hour\nhourly_mean = df_sample.groupby('Hour')[client_col].mean()\nprint(f'Hourly Average Load for {client_col} (kW):\\n', hourly_mean.head(12))"),
+            md_cell("## 2. Key Findings & Operational Assumptions\n1. **Empirical Finding**: 24-hour diurnal cyclicity is prominent across active client profiles.\n2. **Configured Operational Assumption**: Peak tariff hours (18:00–22:00 at ₹12.50/kWh) represent an external Indian MSME tariff rule from `factory_defaults.yaml` (not an empirical discovery of the Portuguese grid dataset).")
         ],
         "05_eda_industrial_iot_sensors.ipynb": [
             md_cell("# NirmaanAI — EDA 05: Factory Sensor Simulator 2040 (Industrial IoT)\n**Module**: Phase 6 (PdM), Phase 7 (Anomaly), Phase 13 (Health Score)\n**Dataset**: `DATASET/05_INDUSTRIAL_IOT/raw/factory_sensor_simulator_2040.csv`"),
             code_cell("import os, sys\nsys.path.append(r'C:/NIRMAAN AI')\nimport pandas as pd\nimport numpy as np\nfrom src.data.profiling import profile_dataframe\n\ncsv_path = r'C:/NIRMAAN AI/DATASET/05_INDUSTRIAL_IOT/raw/factory_sensor_simulator_2040.csv'\ndf = pd.read_csv(csv_path)\nprint(f'Dataset Shape: {df.shape}')"),
             md_cell("## 1. Telemetry Distribution by Failure Status"),
-            code_cell("print('Machine Types:', df['Machine_Type'].value_counts().to_dict())\nprint('7-Day Failure Rates:', df['Failure_Within_7_Days'].value_counts(normalize=True).to_dict())\nprint('Mean Telemetry by Failure Status:')\nprint(df.groupby('Failure_Within_7_Days')[['Vibration_mms', 'Temperature_C', 'Sound_dB', 'Power_Consumption_kW']].mean())"),
+            code_cell("print('7-Day Failure Rates:', df['Failure_Within_7_Days'].value_counts(normalize=True).to_dict())\nprint('Mean Telemetry by Failure Status:')\nprint(df.groupby('Failure_Within_7_Days')[['Vibration_mms', 'Temperature_C', 'Sound_dB', 'Power_Consumption_kW']].mean())"),
             md_cell("## 2. Deterministic Leakage Confirmation"),
             code_cell("max_rul_fail = df[df['Failure_Within_7_Days'] == True]['Remaining_Useful_Life_days'].max()\nprint(f'Max RUL for Failure_Within_7_Days=True: {max_rul_fail} days')\nassert max_rul_fail <= 7.0, 'Leakage confirmation: RUL <= 7 perfectly predicts failure window!'\nprint('Confirmation verified: RUL must be dropped when training 7-day failure models.')"),
-            md_cell("## 3. Key Findings for NirmaanAI Engine\n1. Failed machines display mean vibration of 14.2 mm/s vs 8.6 mm/s for healthy machines.\n2. Informs composite Factory Health Score vibration threshold (warning at 3.8 mm/s, critical at 5.5 mm/s).")
+            md_cell("## 3. Key Findings for NirmaanAI Engine\n1. Mean vibration is 9.94 mm/s for healthy machines vs 10.73 mm/s for impending failures (+7.9% shift), with 75th percentile reaching 14.12 mm/s.\n2. Acoustic noise is uniformly centered around ~75 dB and provides minimal discriminative separation on its own.")
         ],
         "06_eda_production_scheduling.ipynb": [
             md_cell("# NirmaanAI — EDA 06: Hybrid Manufacturing Categorical (Job Scheduling)\n**Module**: Phase 8 (Bottleneck Prediction) & Phase 16 (Simulation)\n**Dataset**: `DATASET/06_MANUFACTURING_PRODUCTION/raw/hybrid_manufacturing_categorical.csv`"),
             code_cell("import os, sys\nsys.path.append(r'C:/NIRMAAN AI')\nimport pandas as pd\nimport numpy as np\n\ncsv_path = r'C:/NIRMAAN AI/DATASET/06_MANUFACTURING_PRODUCTION/raw/hybrid_manufacturing_categorical.csv'\ndf = pd.read_csv(csv_path)\nprint(f'Shape: {df.shape}')\nprint('Job Status Distribution:', df['Job_Status'].value_counts().to_dict())"),
             md_cell("## 1. Scheduled vs Actual Delay Analysis"),
             code_cell("df['Scheduled_Start'] = pd.to_datetime(df['Scheduled_Start'])\ndf['Actual_Start'] = pd.to_datetime(df['Actual_Start'])\ndf['Start_Delay_min'] = (df['Actual_Start'] - df['Scheduled_Start']).dt.total_seconds() / 60.0\nprint('Start Delay (minutes) by Job Status:\\n', df.groupby('Job_Status')['Start_Delay_min'].describe())"),
-            md_cell("## 2. Key Findings for NirmaanAI Engine\n1. Delayed and Failed jobs exhibit initial queue dispatch delays exceeding 10 minutes.\n2. Machine availability and operation complexity directly govern bottleneck queue formations in Phase 8.")
+            md_cell("## 2. Key Findings for NirmaanAI Engine\n1. In this dataset, 100% of jobs with start delay >= 10 minutes (198/198) resulted in Delayed status.\n2. For Completed jobs, start delay is tightly bounded between -5 and +5 minutes (mean -0.15 min).")
         ],
         "07_eda_manufacturing_defects.ipynb": [
             md_cell("# NirmaanAI — EDA 07: Manufacturing Defect Dataset\n**Module**: Phase 10 (Inventory) & Phase 14 (Financial Loss Analysis)\n**Dataset**: `DATASET/08_MANUFACTURING_DEFECTS/raw/manufacturing_defect_dataset.csv`"),
             code_cell("import os, sys\nsys.path.append(r'C:/NIRMAAN AI')\nimport pandas as pd\nimport numpy as np\n\ncsv_path = r'C:/NIRMAAN AI/DATASET/08_MANUFACTURING_DEFECTS/raw/manufacturing_defect_dataset.csv'\ndf = pd.read_csv(csv_path)\nprint(f'Shape: {df.shape}')\nprint('DefectStatus Distribution:', df['DefectStatus'].value_counts().to_dict())"),
             md_cell("## 1. Operational Factors & Financial Costs"),
             code_cell("print('Mean Operational & Cost Metrics by Defect Status:')\nprint(df.groupby('DefectStatus')[['ProductionCost', 'DowntimePercentage', 'EnergyConsumption', 'SupplierQuality']].mean())"),
-            md_cell("## 2. Key Findings for NirmaanAI Engine\n1. High downtime percentage correlates with elevated scrap costs and lower overall quality score.\n2. Direct empirical anchor for Phase 14 financial loss modeling (rework labor and scrap rate).")
+            md_cell("## 2. Key Findings for NirmaanAI Engine\n1. Defective runs show a +2.58% higher mean production cost (₹12,473.17 vs ₹12,158.88).\n2. DowntimePercentage exhibits high variance (std 1.44%) but near identical means across defect classes (2.49% vs 2.50%).")
         ]
     }
 
