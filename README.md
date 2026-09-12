@@ -94,7 +94,7 @@ C:\NIRMAAN AI
 | **Phase 6** | Predictive Maintenance (Failure Classification & RUL Regression) | **COMPLETED** |
 | **Phase 7** | Multi-Sensor Anomaly Detection (Unsupervised PCA & Baseline Benchmark) | **COMPLETED** |
 | **Phase 8** | Production Bottleneck Prediction & Flow Intelligence | **COMPLETED** |
-| **Phase 9** | Production & Energy Forecasting | Planned |
+| **Phase 9** | Production & Energy Forecasting | **COMPLETED** |
 | **Phase 10** | Smart Inventory Intelligence | Planned |
 | **Phase 11** | Explainable AI & SHAP Feature Attribution | Planned |
 | **Phase 12** | Root Cause Analysis Engine | Planned |
@@ -114,7 +114,7 @@ C:\NIRMAAN AI
 
 ---
 
-## Deployed Intelligence Subsystems (Phases 6–8)
+## Deployed Intelligence Subsystems (Phases 6–9)
 
 ### 1. Predictive Maintenance (Phase 6)
 - **Failure Classification**: XGBoost Champion (Precision: 0.9545, Recall: 0.8235, F1: 0.8842, ROC-AUC: 0.9831) on AI4I 2020. Strict leakage exclusion of tool wear modes and identifiers.
@@ -132,6 +132,12 @@ C:\NIRMAAN AI
 - **Zero-Lookahead Feature Engineering**: Strictly causal prior cycle ratios, dispatch delays, and 1-hour pre-dispatch sensor telemetry.
 - **Cold-Start Integrity**: Explicitly accounts for zero positive bottleneck cases during initial nominal operations, demonstrating why domain physical priors are essential prior to historical failure accumulation.
 - **Service Layer**: `BottleneckService` evaluating real-time line states (`NOMINAL_FLOW`, `MODERATE_CONGESTION`, `CRITICAL_BOTTLENECK`) and identifying active constraint stations.
+
+### 4. Production & Energy Forecasting (Phase 9)
+- **Empirical Grid Load Benchmark**: XGBoost Champion on UCI Electricity Load (Client `MT_124`, 1-hour resolution) achieving RMSE of 26.23 kW, WAPE of 6.50%, and $R^2$ of 0.9605 across 26,281 chronological timestamps.
+- **Shop-Floor Plant Power & Tariff Costing**: Multi-machine active power demand forecasting coupled with Indian MSME tariff rules (Base ₹8.50/kWh, Peak ₹12.50/kWh during 18:00–22:00) with 0.01% financial cost estimation error over holdout test data.
+- **Production Throughput**: Causal daily completed unit volume forecasting (Ridge Champion: 10.52 units RMSE, 0.77% WAPE, $R^2 = 0.9938$).
+- **Service Layer**: `ForecastingService` providing multi-horizon power forecasting, shift-level electricity expenditure projections (INR), and peak tariff operational alerts.
 
 ---
 

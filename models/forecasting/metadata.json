@@ -1,0 +1,307 @@
+{
+  "subsystem": "Production & Energy Forecasting",
+  "phase": "Phase 9",
+  "dataset_separation": {
+    "empirical_benchmark": "UCI Electricity Load Diagrams 2011-2014 (MT_124) - Real-world electrical grid load time series",
+    "synthetic_shop_floor": "Synthetic Factory 10 - Controlled simulation of 5-machine manufacturing floor",
+    "demarcation_note": "UCI meters represent electrical consumers on a utility grid and are NOT factory machines. Synthetic factory results represent generative simulation equations."
+  },
+  "tariff_assumptions": {
+    "type": "Configured MSME Simulation Assumption",
+    "base_electricity_rate_inr_per_kwh": 8.5,
+    "peak_electricity_rate_inr_per_kwh": 12.5,
+    "peak_hours_window": "18:00 - 22:00",
+    "source": "factory_defaults.yaml"
+  },
+  "temporal_specifications": {
+    "uci_energy": {
+      "native_frequency": "15-minute",
+      "resampled_frequency": "1-hour",
+      "target": "power_kw",
+      "semantic_lag_mapping": {
+        "lag_1h": "t - 1 step (1 hour prior)",
+        "lag_2h": "t - 2 steps (2 hours prior)",
+        "lag_3h": "t - 3 steps (3 hours prior)",
+        "lag_24h": "t - 24 steps (same hour previous day)",
+        "lag_168h": "t - 168 steps (same hour previous week)"
+      },
+      "split_counts": {
+        "train": 18279,
+        "val": 3917,
+        "test": 3917
+      }
+    },
+    "synthetic_plant_energy": {
+      "native_frequency": "5-minute telemetry",
+      "resampled_frequency": "1-hour",
+      "target": "plant_power_kw",
+      "split_counts": {
+        "train": 386,
+        "val": 83,
+        "test": 83
+      }
+    },
+    "synthetic_production": {
+      "native_frequency": "daily aggregated jobs",
+      "target": "target_completed_units",
+      "split_counts": {
+        "train": 16,
+        "val": 3,
+        "test": 4
+      }
+    }
+  },
+  "downstream_tariff_cost_validation": {
+    "test_window_hours": 83,
+    "actual": {
+      "total_kwh": 4980.08,
+      "peak_kwh": 900.17,
+      "base_kwh": 4079.91,
+      "peak_kwh_ratio": 0.1808,
+      "total_cost_inr": 45931.39,
+      "cost_base_inr": 34679.26,
+      "cost_peak_inr": 11252.14
+    },
+    "predicted": {
+      "total_kwh": 4979.13,
+      "peak_kwh": 899.53,
+      "base_kwh": 4079.6,
+      "peak_kwh_ratio": 0.1807,
+      "total_cost_inr": 45920.72,
+      "cost_base_inr": 34676.64,
+      "cost_peak_inr": 11244.08
+    },
+    "cost_prediction_error_pct": 0.02
+  },
+  "benchmark_records": [
+    {
+      "dataset_name": "UCI_Electricity_LD2011_2014 (MT_124)",
+      "target_variable": "power_kw",
+      "temporal_resolution": "1-hour average active power (kW)",
+      "model_name": "persistence_baseline",
+      "val_mae": 39.0596,
+      "val_rmse": 55.7104,
+      "val_r2": 0.81,
+      "val_wape": 0.1354,
+      "val_smape": 15.1616,
+      "test_mae": 37.5883,
+      "test_rmse": 58.8917,
+      "test_r2": 0.8008,
+      "test_wape": 0.1256,
+      "test_smape": 14.6177
+    },
+    {
+      "dataset_name": "UCI_Electricity_LD2011_2014 (MT_124)",
+      "target_variable": "power_kw",
+      "temporal_resolution": "1-hour average active power (kW)",
+      "model_name": "seasonal_diurnal_baseline",
+      "val_mae": 31.8592,
+      "val_rmse": 44.665,
+      "val_r2": 0.8779,
+      "val_wape": 0.1105,
+      "val_smape": 11.646,
+      "test_mae": 39.7643,
+      "test_rmse": 55.9922,
+      "test_r2": 0.8199,
+      "test_wape": 0.1329,
+      "test_smape": 14.5217
+    },
+    {
+      "dataset_name": "UCI_Electricity_LD2011_2014 (MT_124)",
+      "target_variable": "power_kw",
+      "temporal_resolution": "1-hour average active power (kW)",
+      "model_name": "ridge_regression",
+      "val_mae": 24.0548,
+      "val_rmse": 32.6748,
+      "val_r2": 0.9346,
+      "val_wape": 0.0834,
+      "val_smape": 9.4679,
+      "test_mae": 24.7017,
+      "test_rmse": 34.9934,
+      "test_r2": 0.9297,
+      "test_wape": 0.0825,
+      "test_smape": 9.7944
+    },
+    {
+      "dataset_name": "UCI_Electricity_LD2011_2014 (MT_124)",
+      "target_variable": "power_kw",
+      "temporal_resolution": "1-hour average active power (kW)",
+      "model_name": "random_forest",
+      "val_mae": 19.3177,
+      "val_rmse": 26.2656,
+      "val_r2": 0.9578,
+      "val_wape": 0.067,
+      "val_smape": 7.5989,
+      "test_mae": 20.4647,
+      "test_rmse": 27.9638,
+      "test_r2": 0.9551,
+      "test_wape": 0.0684,
+      "test_smape": 8.1011
+    },
+    {
+      "dataset_name": "UCI_Electricity_LD2011_2014 (MT_124)",
+      "target_variable": "power_kw",
+      "temporal_resolution": "1-hour average active power (kW)",
+      "model_name": "xgboost",
+      "val_mae": 18.6753,
+      "val_rmse": 25.364,
+      "val_r2": 0.9606,
+      "val_wape": 0.0647,
+      "val_smape": 7.5154,
+      "test_mae": 19.4566,
+      "test_rmse": 26.2275,
+      "test_r2": 0.9605,
+      "test_wape": 0.065,
+      "test_smape": 7.7905
+    },
+    {
+      "dataset_name": "Synthetic_Factory_Plant_Power",
+      "target_variable": "plant_power_kw",
+      "temporal_resolution": "1-hour total plant power (kW)",
+      "model_name": "persistence_baseline",
+      "val_mae": 0.2558,
+      "val_rmse": 0.321,
+      "val_r2": -0.9046,
+      "val_wape": 0.0043,
+      "val_smape": 0.4261,
+      "test_mae": 0.2699,
+      "test_rmse": 0.3204,
+      "test_r2": -0.9557,
+      "test_wape": 0.0045,
+      "test_smape": 0.4498
+    },
+    {
+      "dataset_name": "Synthetic_Factory_Plant_Power",
+      "target_variable": "plant_power_kw",
+      "temporal_resolution": "1-hour total plant power (kW)",
+      "model_name": "seasonal_diurnal_baseline",
+      "val_mae": 0.5031,
+      "val_rmse": 0.6451,
+      "val_r2": -6.69,
+      "val_wape": 0.0084,
+      "val_smape": 0.8338,
+      "test_mae": 0.7877,
+      "test_rmse": 0.8513,
+      "test_r2": -12.8087,
+      "test_wape": 0.0131,
+      "test_smape": 1.3043
+    },
+    {
+      "dataset_name": "Synthetic_Factory_Plant_Power",
+      "target_variable": "plant_power_kw",
+      "temporal_resolution": "1-hour total plant power (kW)",
+      "model_name": "ridge_regression",
+      "val_mae": 0.2313,
+      "val_rmse": 0.2929,
+      "val_r2": -0.5858,
+      "val_wape": 0.0039,
+      "val_smape": 0.3854,
+      "test_mae": 0.2648,
+      "test_rmse": 0.3424,
+      "test_r2": -1.2336,
+      "test_wape": 0.0044,
+      "test_smape": 0.442
+    },
+    {
+      "dataset_name": "Synthetic_Factory_Plant_Power",
+      "target_variable": "plant_power_kw",
+      "temporal_resolution": "1-hour total plant power (kW)",
+      "model_name": "random_forest",
+      "val_mae": 0.2241,
+      "val_rmse": 0.2801,
+      "val_r2": -0.4503,
+      "val_wape": 0.0037,
+      "val_smape": 0.3735,
+      "test_mae": 0.1903,
+      "test_rmse": 0.2384,
+      "test_r2": -0.0829,
+      "test_wape": 0.0032,
+      "test_smape": 0.3171
+    },
+    {
+      "dataset_name": "Synthetic_Factory_Plant_Power",
+      "target_variable": "plant_power_kw",
+      "temporal_resolution": "1-hour total plant power (kW)",
+      "model_name": "xgboost",
+      "val_mae": 0.2115,
+      "val_rmse": 0.2658,
+      "val_r2": -0.3058,
+      "val_wape": 0.0035,
+      "val_smape": 0.3524,
+      "test_mae": 0.1874,
+      "test_rmse": 0.2335,
+      "test_r2": -0.0391,
+      "test_wape": 0.0031,
+      "test_smape": 0.3124
+    },
+    {
+      "dataset_name": "Synthetic_Production_Throughput",
+      "target_variable": "target_completed_units",
+      "temporal_resolution": "Daily completed unit volume",
+      "model_name": "persistence_baseline",
+      "val_mae": 213.0,
+      "val_rmse": 245.3847,
+      "val_r2": -1.838,
+      "val_wape": 0.189,
+      "val_smape": 19.4371,
+      "test_mae": 171.0,
+      "test_rmse": 197.6828,
+      "test_r2": -1.174,
+      "test_wape": 0.1495,
+      "test_smape": 14.9572
+    },
+    {
+      "dataset_name": "Synthetic_Production_Throughput",
+      "target_variable": "target_completed_units",
+      "temporal_resolution": "Daily completed unit volume",
+      "model_name": "ridge_regression",
+      "val_mae": 14.4509,
+      "val_rmse": 15.0248,
+      "val_r2": 0.9894,
+      "val_wape": 0.0128,
+      "val_smape": 1.2587,
+      "test_mae": 8.8447,
+      "test_rmse": 10.5196,
+      "test_r2": 0.9938,
+      "test_wape": 0.0077,
+      "test_smape": 0.8303
+    },
+    {
+      "dataset_name": "Synthetic_Production_Throughput",
+      "target_variable": "target_completed_units",
+      "temporal_resolution": "Daily completed unit volume",
+      "model_name": "random_forest",
+      "val_mae": 46.1514,
+      "val_rmse": 54.2078,
+      "val_r2": 0.8615,
+      "val_wape": 0.041,
+      "val_smape": 4.3521,
+      "test_mae": 21.3662,
+      "test_rmse": 26.0939,
+      "test_r2": 0.9621,
+      "test_wape": 0.0187,
+      "test_smape": 1.992
+    },
+    {
+      "dataset_name": "Synthetic_Production_Throughput",
+      "target_variable": "target_completed_units",
+      "temporal_resolution": "Daily completed unit volume",
+      "model_name": "xgboost",
+      "val_mae": 26.7957,
+      "val_rmse": 35.1276,
+      "val_r2": 0.9418,
+      "val_wape": 0.0238,
+      "val_smape": 2.6085,
+      "test_mae": 7.323,
+      "test_rmse": 9.7209,
+      "test_r2": 0.9947,
+      "test_wape": 0.0064,
+      "test_smape": 0.5952
+    }
+  ],
+  "champion_models": {
+    "uci_energy": "xgboost",
+    "plant_energy": "xgboost",
+    "production_throughput": "ridge_regression"
+  }
+}
