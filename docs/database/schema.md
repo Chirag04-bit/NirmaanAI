@@ -2,7 +2,7 @@
 
 ## 1. Schema Overview
 
-The relational schema comprises **19 authoritative tables** organized into three domains:
+The relational schema comprises **19 Phase 17 Persistence Tables** organized into three domains:
 1. **Core Factory & Physical Plant** (`factories`, `machines`, `sensors`, `products`)
 2. **Operations & Telemetry** (`production_jobs`, `sensor_readings`, `machine_telemetry_snapshots`, `maintenance_records`, `inventory_items`)
 3. **AI & Decision Intelligence** (`ai_pdm_predictions`, `ai_anomaly_results`, `ai_bottleneck_results`, `ai_forecasting_results`, `ai_shap_explanations`, `ai_rca_results`, `ai_factory_health_scores`, `finance_loss_records`, `ai_recommendations`, `simulation_scenarios`)
@@ -10,6 +10,7 @@ The relational schema comprises **19 authoritative tables** organized into three
 ---
 
 ## 2. Table Specifications
+
 
 ### 2.1 Core Factory Tables
 
@@ -128,6 +129,6 @@ The relational schema comprises **19 authoritative tables** organized into three
 | `ai_shap_explanations` | Phase 11 | `feature_name`, `feature_value`, `shap_value`, `ranking`, `context_type` | Normalized feature attribution values |
 | `ai_rca_results` | Phase 12 | `primary_cause`, `cause_score`, `severity`, `evidence_strength` | Structured Bayesian root cause findings |
 | `ai_factory_health_scores` | Phase 13 | `health_score`, `health_state`, `vibration_health`, `temperature_health` | Locked bands: EXCELLENT (90-100), HEALTHY (75-89), WATCH (60-74), DEGRADED (40-59), CRITICAL (0-39) |
-| `finance_loss_records` | Phase 14 | `loss_type`, `downtime_loss_inr`, `scrap_loss_inr`, `opportunity_cost_inr`, `total_loss_inr` | Strict separation: REALIZED_LOSS (₹73,062.28) vs PROJECTED_OPPORTUNITY_COST (₹19,520) |
+| `finance_loss_records` | Phase 14 | `loss_type`, `downtime_loss_inr`, `scrap_loss_inr`, `opportunity_cost_inr`, `total_loss_inr` | Strict separation: REALIZED_LOSS (₹73,062.28) vs Baseline Opportunity Cost (₹24,320.00) vs Baseline Gross Exposure (₹97,382.28) vs Avoided Opportunity Cost (₹19,520.00) |
 | `ai_recommendations` | Phase 15 | `category`, `action`, `priority`, `urgency`, `evidence_strength`, `rationale` | Preserves closed 26-action taxonomy |
-| `simulation_scenarios` | Phase 16 | `scenario_id`, `decision_cutoff`, `intervention_list`, `projected_metrics`, `financial_projection` | Cutoff: 2026-01-21T12:00:00Z; Avoided breakdown loss: ₹9,420; Diagnostic KPIs = NOT_PROJECTABLE |
+| `simulation_scenarios` | Phase 16 | `scenario_id`, `decision_cutoff`, `baseline_*`, `net_avoided_downtime_minutes`, `net_counterfactual_benefit_inr`, `projected_*` | Cutoff: 2026-01-21T12:00:00Z; Net counterfactual benefit: ₹7,030; Avoided breakdown loss: ₹9,420; Diagnostic KPIs = NOT_PROJECTABLE |

@@ -361,7 +361,7 @@ class DatabaseSeeder:
         """Seeds Phase 6 Predictive Maintenance failure predictions with 0.91 threshold."""
         predictions_data = [
             ("M1", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.042, 0, 0.91),
-            ("M2", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.946, 1, 0.91),  # Exceeds 0.91 threshold!
+            ("M2", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.9959, 1, 0.91),  # Authoritative Phase 6/15/16 decision state!
             ("M3", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.021, 0, 0.91),
             ("M4", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.015, 0, 0.91),
             ("M5", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.018, 0, 0.91),
@@ -392,7 +392,7 @@ class DatabaseSeeder:
         """Seeds Phase 7 Anomaly detection results with PCA threshold 0.24050."""
         anomaly_data = [
             ("M1", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.085, 0.24050, "NORMAL"),
-            ("M2", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.582, 0.24050, "ANOMALOUS"),  # Exceeds threshold!
+            ("M2", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.3500, 0.24050, "ANOMALOUS"),  # Authoritative Phase 7/16 PCA reconstruction error!
             ("M3", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.064, 0.24050, "NORMAL"),
             ("M4", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.041, 0.24050, "NORMAL"),
             ("M5", datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc), 0.052, 0.24050, "NORMAL"),
@@ -577,13 +577,15 @@ class DatabaseSeeder:
         Seeds Phase 14 Financial Loss accounting records.
         Preserves strict separation between:
         - REALIZED_LOSS (M2: ₹73,062.28)
-        - PROJECTED_OPPORTUNITY_COST (M2: ₹19,520.00)
-        - GROSS_EXPOSURE (M2: ₹92,582.28)
+        - PROJECTED_OPPORTUNITY_COST (M2 baseline: ₹24,320.00, 76 delayed units @ ₹320/unit)
+        - GROSS_EXPOSURE (M2 baseline: ₹97,382.28)
+        - AVOIDED_OPPORTUNITY_COST (M2 Scenario D: ₹19,520.00, (76 - 15) delayed units @ ₹320/unit)
         """
         losses = [
             ("M2", "REALIZED_LOSS", 150.0, 11250.0, 51800.0, 6475.0, 420.0, 3117.28, 0.0, 73062.28, "OBSERVED_HISTORICAL"),
-            ("M2", "PROJECTED_OPPORTUNITY_COST", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19520.0, 19520.0, "PROJECTED_OPPORTUNITY_COST"),
-            ("M2", "GROSS_EXPOSURE", 150.0, 11250.0, 51800.0, 6475.0, 420.0, 3117.28, 19520.0, 92582.28, "AGGREGATE_BOUND"),
+            ("M2", "PROJECTED_OPPORTUNITY_COST", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 24320.0, 24320.0, "PROJECTED_OPPORTUNITY_COST"),
+            ("M2", "GROSS_EXPOSURE", 150.0, 11250.0, 51800.0, 6475.0, 420.0, 3117.28, 24320.0, 97382.28, "AGGREGATE_BOUND"),
+            ("M2", "AVOIDED_OPPORTUNITY_COST", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 19520.0, 19520.0, "PROJECTED_AVOIDED_OPPORTUNITY_COST"),
         ]
         count = 0
         for m_id, ltype, dt_min, dt_loss, scrap_loss, rew_loss, labor_loss, energy_loss, opp_loss, tot, epistemic in losses:
@@ -616,7 +618,7 @@ class DatabaseSeeder:
     def seed_recommendations(self) -> int:
         """
         Seeds Phase 15 Operational Recommendations.
-        Preserves closed 26-action taxonomy.
+        Preserves closed 26-action taxonomy and reconciled Phase 6/7 values.
         """
         recs = [
             (
@@ -627,8 +629,8 @@ class DatabaseSeeder:
                 "CRITICAL",
                 "IMMEDIATE",
                 "HIGH",
-                "Vibration velocity (4.25 mm/s) breaches alert boundary (3.8 mm/s); failure probability reaches 0.946.",
-                json.dumps(["vibration_4.25mms", "pdm_prob_0.946", "health_26.88"]),
+                "Machine M2 exhibits critical mechanical degradation: failure probability (0.9959) breaches locked threshold (0.91), anomaly score (0.3500) breaches reconstruction threshold (0.2405), and RCA identifies MECHANICAL_LOAD.",
+                json.dumps(["vibration_4.25mms", "pdm_prob_0.9959", "anomaly_0.3500", "health_26.88"]),
             ),
             (
                 "REC_M2_INVENTORY_002",
@@ -639,7 +641,7 @@ class DatabaseSeeder:
                 "NEXT_SHIFT",
                 "HIGH",
                 "Proactive maintenance will consume 1 bearing, leaving stock at 1.0 < safety stock 1.134. Expedited reorder required.",
-                json.dumps(["stock_post_service_1.0", "safety_stock_1.134", "lead_time_7d"]),
+                json.dumps(["stock_post_service_1.0", "safety_stock_1.134", "reorder_point_1.367", "lead_time_7d"]),
             ),
         ]
         count = 0
@@ -665,10 +667,13 @@ class DatabaseSeeder:
 
     def seed_simulation_scenarios(self) -> int:
         """
-        Seeds Phase 16 What-If Digital Twin Scenarios.
+        Seeds Phase 16 What-If Digital Twin Scenarios with fully normalized queryable fields.
         Preserves:
         - Decision cutoff: 2026-01-21T12:00:00Z
         - Avoided breakdown loss: ₹9,420
+        - Avoided labor: ₹420
+        - Avoided downtime: ₹9,000 (120 min net saved)
+        - Net counterfactual benefit: ₹7,030
         - Diagnostic KPIs under intervention: NOT_PROJECTABLE
         """
         scenarios = [
@@ -676,23 +681,30 @@ class DatabaseSeeder:
                 "SCENARIO_M2_PROACTIVE_SERVICE",
                 "M2",
                 "Scenario A: Proactive Spindle Bearing Replacement (Cutoff Jan 21)",
+                # Baseline
+                0.0,      # baseline_downtime_minutes
+                0.9959,   # baseline_failure_probability
+                0.35,     # baseline_anomaly_score
+                26.88,    # baseline_health_score
+                73062.28, # baseline_realized_loss_inr
+                97382.28, # baseline_gross_exposure_inr
+                # Execution
+                30.0,     # planned_service_downtime_minutes
+                120.0,    # net_avoided_downtime_minutes
+                # Financial Projections
+                9000.0,   # avoided_downtime_loss_inr
+                420.0,    # avoided_emergency_labor_inr
+                9420.0,   # projected_avoided_breakdown_loss_inr
+                2390.0,   # planned_service_cost_inr
+                7030.0,   # net_counterfactual_benefit_inr
+                87962.28, # remaining_gross_exposure_inr (97382.28 - 9420.00)
+                # Diagnostic KPIs
+                "NOT_PROJECTABLE",
+                "NOT_PROJECTABLE",
+                "NOT_PROJECTABLE",
+                "NOT_PROJECTABLE",
+                # Payloads & Semantics
                 json.dumps(["SCHEDULE_MAINTENANCE_WINDOW", "INSPECT_SPINDLE_BEARING", "ORDER_SPARE_PARTS"]),
-                json.dumps({
-                    "planned_service_downtime_minutes": 30.0,
-                    "retrospective_unplanned_halt_minutes": 150.0,
-                    "net_avoided_downtime_minutes": 120.0,
-                    "failure_probability": "NOT_PROJECTABLE",
-                    "anomaly_score": "NOT_PROJECTABLE",
-                    "health_score": "NOT_PROJECTABLE",
-                    "health_state": "NOT_PROJECTABLE",
-                }),
-                json.dumps({
-                    "avoided_downtime_loss_inr": 9000.0,
-                    "avoided_emergency_labor_inr": 420.0,
-                    "projected_avoided_breakdown_loss_inr": 9420.0,
-                    "planned_service_cost_inr": 2390.0,
-                    "net_counterfactual_benefit_inr": 7030.0,
-                }),
                 json.dumps({
                     "downtime_rate_hourly_inr": 4500.0,
                     "emergency_labor_rate_hourly_inr": 280.0,
@@ -704,20 +716,43 @@ class DatabaseSeeder:
             ),
         ]
         count = 0
-        for s_id, m_id, s_name, actions, metrics, fin, assumptions, t_sem, epistemic, diag_status in scenarios:
+        for (
+            s_id, m_id, s_name,
+            b_dt, b_fp, b_anom, b_h, b_loss, b_exp,
+            p_dt, net_dt,
+            av_dt_loss, av_lab_loss, av_bk_loss, p_cost, net_ben, rem_exp,
+            p_fp, p_anom, p_h, p_state,
+            actions, assumptions, t_sem, epistemic, diag_status
+        ) in scenarios:
             sim = SimulationScenario(
                 scenario_id=s_id,
                 machine_id=m_id,
                 scenario_name=s_name,
                 decision_cutoff=DECISION_CUTOFF,
-                intervention_list=actions,
-                projected_metrics=metrics,
-                financial_projection=fin,
-                configured_assumptions=assumptions,
+                baseline_downtime_minutes=b_dt,
+                baseline_failure_probability=b_fp,
+                baseline_anomaly_score=b_anom,
+                baseline_health_score=b_h,
+                baseline_realized_loss_inr=b_loss,
+                baseline_gross_exposure_inr=b_exp,
+                planned_service_downtime_minutes=p_dt,
+                net_avoided_downtime_minutes=net_dt,
+                avoided_downtime_loss_inr=av_dt_loss,
+                avoided_emergency_labor_inr=av_lab_loss,
+                projected_avoided_breakdown_loss_inr=av_bk_loss,
+                planned_service_cost_inr=p_cost,
+                net_counterfactual_benefit_inr=net_ben,
+                remaining_gross_exposure_inr=rem_exp,
+                projected_failure_probability=p_fp,
+                projected_anomaly_score=p_anom,
+                projected_health_score=p_h,
+                projected_health_state=p_state,
                 temporal_semantics=t_sem,
                 epistemic_status=epistemic,
                 diagnostic_kpi_status=diag_status,
                 provenance="COUNTERFACTUAL_PROJECTION",
+                intervention_list=actions,
+                configured_assumptions=assumptions,
             )
             self.session.add(sim)
             count += 1

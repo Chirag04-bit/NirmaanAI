@@ -278,6 +278,7 @@ class SimulationScenario(Base, TimestampMixin):
     - decision_cutoff is fixed at 2026-01-21T12:00:00Z.
     - Day-22 MAINT_0003 is evaluated retrospectively as RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH.
     - Unsupported causal intervention KPIs remain NOT_PROJECTABLE.
+    - Fully normalized queryable columns for baseline, intervention, and financial outcomes.
     """
     __tablename__ = "simulation_scenarios"
 
@@ -287,10 +288,34 @@ class SimulationScenario(Base, TimestampMixin):
     )
     scenario_name: Mapped[str] = mapped_column(String(100), nullable=False)
     decision_cutoff: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-    intervention_list: Mapped[str] = mapped_column(Text, nullable=False)
-    projected_metrics: Mapped[str] = mapped_column(Text, nullable=False)
-    financial_projection: Mapped[str] = mapped_column(Text, nullable=False)
-    configured_assumptions: Mapped[str] = mapped_column(Text, nullable=False)
+
+    # 1. Baseline State at Decision Cutoff (<= 2026-01-21T12:00:00Z)
+    baseline_downtime_minutes: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    baseline_failure_probability: Mapped[float] = mapped_column(Float, nullable=False, default=0.9959)
+    baseline_anomaly_score: Mapped[float] = mapped_column(Float, nullable=False, default=0.35)
+    baseline_health_score: Mapped[float] = mapped_column(Float, nullable=False, default=26.88)
+    baseline_realized_loss_inr: Mapped[float] = mapped_column(Float, nullable=False, default=73062.28)
+    baseline_gross_exposure_inr: Mapped[float] = mapped_column(Float, nullable=False, default=97382.28)
+
+    # 2. Operational Scenario Execution
+    planned_service_downtime_minutes: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    net_avoided_downtime_minutes: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+
+    # 3. Normalized Financial Projections
+    avoided_downtime_loss_inr: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    avoided_emergency_labor_inr: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    projected_avoided_breakdown_loss_inr: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    planned_service_cost_inr: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    net_counterfactual_benefit_inr: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    remaining_gross_exposure_inr: Mapped[float] = mapped_column(Float, nullable=False, default=97382.28)
+
+    # 4. Diagnostic KPI Governance (NOT_PROJECTABLE under Intervention)
+    projected_failure_probability: Mapped[str] = mapped_column(String(30), nullable=False, default="NOT_PROJECTABLE")
+    projected_anomaly_score: Mapped[str] = mapped_column(String(30), nullable=False, default="NOT_PROJECTABLE")
+    projected_health_score: Mapped[str] = mapped_column(String(30), nullable=False, default="NOT_PROJECTABLE")
+    projected_health_state: Mapped[str] = mapped_column(String(30), nullable=False, default="NOT_PROJECTABLE")
+
+    # 5. Metadata, Provenance, & Full Serialized Payloads
     temporal_semantics: Mapped[str] = mapped_column(
         String(60), nullable=False, default="COUNTERFACTUAL_EVALUATION"
     )
@@ -303,10 +328,15 @@ class SimulationScenario(Base, TimestampMixin):
     provenance: Mapped[str] = mapped_column(
         String(60), nullable=False, default="COUNTERFACTUAL_PROJECTION"
     )
+    intervention_list: Mapped[str] = mapped_column(Text, nullable=False)
+    projected_metrics: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    financial_projection: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    configured_assumptions: Mapped[str] = mapped_column(Text, nullable=False)
 
     __table_args__ = (
         Index("idx_sim_machine_cutoff", "machine_id", "decision_cutoff"),
+        Index("idx_sim_net_benefit", "net_counterfactual_benefit_inr"),
     )
 
     def __repr__(self) -> str:
-        return f"<SimulationScenario {self.scenario_id}: {self.scenario_name} on {self.machine_id}>"
+        return f"<SimulationScenario {self.scenario_id}: {self.scenario_name} on {self.machine_id} (Benefit: ₹{self.net_counterfactual_benefit_inr:,.2f})>"

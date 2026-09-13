@@ -256,11 +256,11 @@ def test_ai_outputs_persistence_roundtrip(memory_db):
     memory_db.add(factory)
     memory_db.commit()
 
-    # Phase 6: PdM with 0.91 threshold
+    # Phase 6: PdM with 0.91 threshold and authoritative 0.9959 probability
     pdm = PredictiveMaintenancePrediction(
         machine_id="M2",
         prediction_timestamp=DECISION_CUTOFF,
-        failure_probability=0.946,
+        failure_probability=0.9959,
         prediction_class=1,
         threshold=0.91,
         source="PHASE_06_XGBOOST",
@@ -270,11 +270,11 @@ def test_ai_outputs_persistence_roundtrip(memory_db):
     )
     memory_db.add(pdm)
 
-    # Phase 7: Anomaly with 0.24050 threshold
+    # Phase 7: Anomaly with 0.24050 threshold and authoritative 0.3500 score
     anomaly = AnomalyDetectionResult(
         machine_id="M2",
         timestamp=DECISION_CUTOFF,
-        anomaly_score=0.582,
+        anomaly_score=0.3500,
         threshold=0.24050,
         anomaly_status="ANOMALOUS",
         source="PHASE_07_PCA",
@@ -297,7 +297,7 @@ def test_ai_outputs_persistence_roundtrip(memory_db):
     )
     memory_db.add(health)
 
-    # Phase 14: Financial Loss (Realized ₹73,062.28 vs Opportunity Cost ₹19,520)
+    # Phase 14: Financial Loss (Realized ₹73,062.28, Baseline Opportunity ₹24,320.00, Gross ₹97,382.28)
     realized_loss = FinancialLossRecord(
         machine_id="M2",
         timestamp=DECISION_CUTOFF,
@@ -318,13 +318,23 @@ def test_ai_outputs_persistence_roundtrip(memory_db):
         machine_id="M2",
         timestamp=DECISION_CUTOFF,
         loss_type="PROJECTED_OPPORTUNITY_COST",
-        total_loss_inr=19520.0,
-        opportunity_cost_inr=19520.0,
+        total_loss_inr=24320.0,
+        opportunity_cost_inr=24320.0,
         epistemic_status="PROJECTED_OPPORTUNITY_COST",
         provenance="DERIVED_FROM_OBSERVED",
         as_of_timestamp=DECISION_CUTOFF,
     )
-    memory_db.add_all([realized_loss, opp_loss])
+    gross_loss = FinancialLossRecord(
+        machine_id="M2",
+        timestamp=DECISION_CUTOFF,
+        loss_type="GROSS_FINANCIAL_EXPOSURE",
+        total_loss_inr=97382.28,
+        opportunity_cost_inr=24320.0,
+        epistemic_status="PROJECTED_GROSS_EXPOSURE",
+        provenance="DERIVED_FROM_OBSERVED",
+        as_of_timestamp=DECISION_CUTOFF,
+    )
+    memory_db.add_all([realized_loss, opp_loss, gross_loss])
 
     # Phase 15: Operational Recommendation with closed taxonomy action
     rec = OperationalRecommendation(
@@ -335,19 +345,37 @@ def test_ai_outputs_persistence_roundtrip(memory_db):
         priority="CRITICAL",
         urgency="IMMEDIATE",
         evidence_strength="HIGH",
-        rationale="Alert threshold breached",
+        rationale="Alert threshold breached (pdm=0.9959, anomaly=0.3500)",
         as_of_timestamp=DECISION_CUTOFF,
         provenance="RULE_DERIVED",
     )
     memory_db.add(rec)
 
-    # Phase 16: Simulation Scenario with NOT_PROJECTABLE diagnostic KPIs
+    # Phase 16: Simulation Scenario with normalized queryable columns & NOT_PROJECTABLE diagnostic KPIs
     sim = SimulationScenario(
         scenario_id="SCENARIO_M2_A",
         machine_id="M2",
         scenario_name="Scenario A: Proactive Service",
         decision_cutoff=DECISION_CUTOFF,
         intervention_list=json.dumps(["INSPECT_SPINDLE_BEARING", "ORDER_SPARE_PARTS"]),
+        baseline_downtime_minutes=150.0,
+        baseline_failure_probability=0.9959,
+        baseline_anomaly_score=0.35,
+        baseline_health_score=26.88,
+        baseline_realized_loss_inr=73062.28,
+        baseline_gross_exposure_inr=97382.28,
+        planned_service_downtime_minutes=30.0,
+        net_avoided_downtime_minutes=120.0,
+        avoided_downtime_loss_inr=9000.0,
+        avoided_emergency_labor_inr=420.0,
+        projected_avoided_breakdown_loss_inr=9420.0,
+        planned_service_cost_inr=2390.0,
+        net_counterfactual_benefit_inr=7030.0,
+        remaining_gross_exposure_inr=77862.28,
+        projected_failure_probability="NOT_PROJECTABLE",
+        projected_anomaly_score="NOT_PROJECTABLE",
+        projected_health_score="NOT_PROJECTABLE",
+        projected_health_state="NOT_PROJECTABLE",
         projected_metrics=json.dumps({
             "net_avoided_downtime_minutes": 120.0,
             "failure_probability": "NOT_PROJECTABLE",
@@ -369,10 +397,11 @@ def test_ai_outputs_persistence_roundtrip(memory_db):
     # Assertions
     ret_pdm = memory_db.scalar(select(PredictiveMaintenancePrediction).where(PredictiveMaintenancePrediction.machine_id == "M2"))
     assert ret_pdm.threshold == 0.91
-    assert ret_pdm.failure_probability == 0.946
+    assert ret_pdm.failure_probability == 0.9959
 
     ret_anom = memory_db.scalar(select(AnomalyDetectionResult).where(AnomalyDetectionResult.machine_id == "M2"))
     assert ret_anom.threshold == 0.24050
+    assert ret_anom.anomaly_score == 0.3500
     assert ret_anom.anomaly_status == "ANOMALOUS"
 
     ret_health = memory_db.scalar(select(FactoryHealthScore).where(FactoryHealthScore.machine_id == "M2"))
@@ -387,8 +416,28 @@ def test_ai_outputs_persistence_roundtrip(memory_db):
     )
     assert ret_realized.total_loss_inr == 73062.28
 
+    ret_opp = memory_db.scalar(
+        select(FinancialLossRecord).where(
+            FinancialLossRecord.machine_id == "M2",
+            FinancialLossRecord.loss_type == "PROJECTED_OPPORTUNITY_COST",
+        )
+    )
+    assert ret_opp.total_loss_inr == 24320.0
+
+    ret_gross = memory_db.scalar(
+        select(FinancialLossRecord).where(
+            FinancialLossRecord.machine_id == "M2",
+            FinancialLossRecord.loss_type == "GROSS_FINANCIAL_EXPOSURE",
+        )
+    )
+    assert ret_gross.total_loss_inr == 97382.28
+
     ret_sim = memory_db.scalar(select(SimulationScenario).where(SimulationScenario.scenario_id == "SCENARIO_M2_A"))
     assert ret_sim.diagnostic_kpi_status == "NOT_PROJECTABLE"
+    assert ret_sim.projected_failure_probability == "NOT_PROJECTABLE"
+    assert ret_sim.net_counterfactual_benefit_inr == 7030.0
+    assert ret_sim.baseline_gross_exposure_inr == 97382.28
+    assert ret_sim.remaining_gross_exposure_inr == 77862.28
     assert ret_sim.temporal_semantics == "COUNTERFACTUAL_EVALUATION"
 
 
@@ -447,7 +496,7 @@ def test_deterministic_database_seeder(memory_db):
     assert counts["ai_pdm"] == 5
     assert counts["ai_anomaly"] == 5
     assert counts["ai_health"] == 5
-    assert counts["ai_loss"] == 3
+    assert counts["ai_loss"] == 4
     assert counts["ai_simulation"] == 1
 
 
@@ -488,9 +537,19 @@ def test_schema_required_columns_audit():
     maint_cols = {c.name for c in tables["maintenance_records"].columns}
     assert {"maintenance_id", "machine_id", "maintenance_type", "timestamp", "duration_minutes", "is_decision_input", "epistemic_status"}.issubset(maint_cols)
 
-    # Simulation
+    # Simulation - Normalized Columns
     sim_cols = {c.name for c in tables["simulation_scenarios"].columns}
-    assert {"scenario_id", "machine_id", "decision_cutoff", "temporal_semantics", "epistemic_status", "diagnostic_kpi_status"}.issubset(sim_cols)
+    assert {
+        "scenario_id", "machine_id", "decision_cutoff", "temporal_semantics",
+        "epistemic_status", "diagnostic_kpi_status", "baseline_downtime_minutes",
+        "baseline_failure_probability", "baseline_anomaly_score", "baseline_health_score",
+        "baseline_realized_loss_inr", "baseline_gross_exposure_inr",
+        "net_avoided_downtime_minutes", "avoided_downtime_loss_inr", "avoided_emergency_labor_inr",
+        "projected_avoided_breakdown_loss_inr", "planned_service_cost_inr",
+        "net_counterfactual_benefit_inr", "remaining_gross_exposure_inr",
+        "projected_failure_probability", "projected_anomaly_score",
+        "projected_health_score", "projected_health_state",
+    }.issubset(sim_cols)
 
 
 def test_crud_sensor_and_readings(memory_db):
@@ -585,6 +644,146 @@ def test_ai_individual_subsystems_persistence(memory_db):
     assert memory_db.scalar(select(RcaResult).where(RcaResult.rca_id == "RCA_SUB_001")).primary_cause == "Lubrication starvation"
 
 
+def test_phase6_phase7_authoritative_reconciliation(memory_db):
+    """
+    Blocker 2 Reconciliation Test:
+    - Phase 6 M2 failure probability must be exactly 0.9959 (exceeds locked 0.91 threshold).
+    - Phase 7 M2 anomaly score must be exactly 0.3500 (exceeds locked 0.24050 threshold).
+    - Full provenance, source, and as_of_timestamp metadata must be retained.
+    """
+    seeder = DatabaseSeeder(memory_db)
+    seeder.seed_factory()
+    seeder.seed_machines()
+    seeder.seed_pdm_predictions()
+    seeder.seed_anomaly_results()
+    memory_db.commit()
+
+    m2_pdm = memory_db.scalar(select(PredictiveMaintenancePrediction).where(PredictiveMaintenancePrediction.machine_id == "M2"))
+    assert m2_pdm is not None
+    assert m2_pdm.failure_probability == 0.9959
+    assert m2_pdm.threshold == 0.91
+    assert m2_pdm.prediction_class == 1
+    assert m2_pdm.source in ("PHASE_06_XGBOOST", "PHASE_06_XGBOOST_MODEL")
+    pdm_ts = m2_pdm.as_of_timestamp if m2_pdm.as_of_timestamp.tzinfo is not None else m2_pdm.as_of_timestamp.replace(tzinfo=timezone.utc)
+    assert pdm_ts == DECISION_CUTOFF
+
+    m2_anom = memory_db.scalar(select(AnomalyDetectionResult).where(AnomalyDetectionResult.machine_id == "M2"))
+    assert m2_anom is not None
+    assert m2_anom.anomaly_score == 0.3500
+    assert m2_anom.threshold == 0.24050
+    assert m2_anom.anomaly_status == "ANOMALOUS"
+    assert m2_anom.source in ("PHASE_07_PCA", "PHASE_07_PCA_ANOMALY_ENGINE")
+    anom_ts = m2_anom.as_of_timestamp if m2_anom.as_of_timestamp.tzinfo is not None else m2_anom.as_of_timestamp.replace(tzinfo=timezone.utc)
+    assert anom_ts == DECISION_CUTOFF
+
+
+def test_simulation_scenarios_normalized_queryable(memory_db):
+    """
+    Blocker 3 Simulation Persistence Test:
+    - Verifies simulation scenarios are queryable via normalized columns WITHOUT parsing JSON blobs.
+    - Asserts net_counterfactual_benefit_inr == 7030.0
+    - Asserts diagnostic KPIs are explicitly NOT_PROJECTABLE.
+    """
+    seeder = DatabaseSeeder(memory_db)
+    seeder.seed_factory()
+    seeder.seed_machines()
+    seeder.seed_simulation_scenarios()
+    memory_db.commit()
+
+    sim = memory_db.scalar(select(SimulationScenario).where(SimulationScenario.scenario_id == "SCENARIO_M2_PROACTIVE_SERVICE"))
+    assert sim is not None
+    assert sim.machine_id == "M2"
+    assert sim.baseline_failure_probability == 0.9959
+    assert sim.baseline_anomaly_score == 0.35
+    assert sim.baseline_health_score == 26.88
+    assert sim.baseline_realized_loss_inr == 73062.28
+    assert sim.baseline_gross_exposure_inr == 97382.28
+    assert sim.planned_service_downtime_minutes == 30.0
+    assert sim.net_avoided_downtime_minutes == 120.0
+    assert sim.avoided_downtime_loss_inr == 9000.0
+    assert sim.avoided_emergency_labor_inr == 420.0
+    assert sim.projected_avoided_breakdown_loss_inr == 9420.0
+    assert sim.planned_service_cost_inr == 2390.0
+    assert sim.net_counterfactual_benefit_inr == 7030.0
+    assert sim.remaining_gross_exposure_inr == 87962.28
+    assert sim.projected_failure_probability == "NOT_PROJECTABLE"
+    assert sim.projected_anomaly_score == "NOT_PROJECTABLE"
+    assert sim.projected_health_score == "NOT_PROJECTABLE"
+    assert sim.projected_health_state == "NOT_PROJECTABLE"
+    assert sim.temporal_semantics == "COUNTERFACTUAL_EVALUATION"
+
+
+def test_financial_baseline_vs_scenario_opportunity_cost(memory_db):
+    """
+    Blocker 4 Financial Semantics Reconciliation Test:
+    - Realized loss: ₹73,062.28
+    - Baseline projected opportunity cost: ₹24,320.00 (76 delayed units * ₹320/unit)
+    - Baseline gross financial exposure: ₹97,382.28 (73,062.28 + 24,320.00)
+    - Scenario D avoided opportunity cost: ₹19,520.00 ((76 - 15) * 320)
+    - Remaining gross exposure under Scenario D: ₹77,862.28 (97,382.28 - 19,520.00)
+    """
+    seeder = DatabaseSeeder(memory_db)
+    seeder.seed_factory()
+    seeder.seed_machines()
+    seeder.seed_financial_loss()
+    memory_db.commit()
+
+    records = {
+        r.loss_type: r
+        for r in memory_db.scalars(select(FinancialLossRecord).where(FinancialLossRecord.machine_id == "M2")).all()
+    }
+    assert "REALIZED_LOSS" in records
+    assert "PROJECTED_OPPORTUNITY_COST" in records
+    assert "GROSS_EXPOSURE" in records
+    assert "AVOIDED_OPPORTUNITY_COST" in records
+
+    realized = records["REALIZED_LOSS"]
+    baseline_opp = records["PROJECTED_OPPORTUNITY_COST"]
+    gross = records["GROSS_EXPOSURE"]
+    avoided_opp = records["AVOIDED_OPPORTUNITY_COST"]
+
+    assert realized.total_loss_inr == 73062.28
+    assert baseline_opp.total_loss_inr == 24320.0
+    assert gross.total_loss_inr == 97382.28
+    assert avoided_opp.total_loss_inr == 19520.0
+    assert round(realized.total_loss_inr + baseline_opp.total_loss_inr, 2) == gross.total_loss_inr
+    remaining_exposure = gross.total_loss_inr - avoided_opp.total_loss_inr
+    assert round(remaining_exposure, 2) == 77862.28
+
+
+def test_transaction_rollback_preserves_consistency(memory_db):
+    """Verify transaction rollback rolls back uncommitted changes."""
+    factory = Factory(
+        factory_id="F_ROLLBACK",
+        factory_code="FAC_RB",
+        name="Rollback Plant",
+        location="Kolkata",
+        industry="Machining",
+    )
+    memory_db.add(factory)
+    memory_db.commit()
+
+    # Attempt to insert an invalid machine inside a transaction and rollback
+    try:
+        invalid_machine = Machine(
+            machine_id="M_INVALID",
+            factory_id="F_NONEXISTENT",  # Foreign key violation or error
+            machine_code="MC_INV",
+            machine_name="Invalid Machine",
+            machine_type="VMC",
+            design_cycle_time_sec=40.0,
+            baseline_power_kw=15.0,
+        )
+        memory_db.add(invalid_machine)
+        memory_db.flush()
+    except Exception:
+        memory_db.rollback()
+
+    # Verify factory remains intact
+    retrieved = memory_db.scalar(select(Factory).where(Factory.factory_id == "F_ROLLBACK"))
+    assert retrieved is not None
+
+
 def test_alembic_migration_reproducibility():
     """Verify that Alembic migration environment has valid revision files and can produce DDL."""
     from alembic.config import Config
@@ -602,7 +801,7 @@ def test_alembic_migration_reproducibility():
 
 @pytest.mark.skipif(
     not is_postgres_available(),
-    reason="PostgreSQL server is not reachable at DATABASE_URL. Skipping live integration test cleanly."
+    reason="PostgreSQL server is not reachable at DATABASE_URL (localhost:5432). PostgreSQL integration = NOT VERIFIED."
 )
 def test_postgresql_live_integration():
     """
