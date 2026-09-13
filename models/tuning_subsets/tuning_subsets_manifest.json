@@ -1,0 +1,76 @@
+{
+  "manifest_version": "1.0.0",
+  "generated_at": "2026-09-13T15:21:23.245071+00:00",
+  "description": "NirmaanAI Data Volume Optimization & Tuning Subsample Registry",
+  "epistemic_status": "CONTROLLED_COMPUTATIONAL_SUBSET",
+  "canonical_data_policy": "Canonical datasets remain 100% full and immutable in models/processed/. Subsets are computational aids only.",
+  "optimized_datasets": {
+    "industrial_iot_failure": {
+      "status": "SUBSET_GENERATED",
+      "full_train_rows": 350000,
+      "subset_train_rows": 105000,
+      "retention_pct": 30.0,
+      "strategy": "Deterministic stratified joint class & machine type sampling",
+      "location": "models/tuning_subsets/industrial_iot_failure/"
+    },
+    "industrial_iot_rul": {
+      "status": "SUBSET_GENERATED",
+      "full_train_rows": 350000,
+      "subset_train_rows": 105000,
+      "retention_pct": 30.0,
+      "strategy": "Deterministic decile-binned distribution-aware regression sampling",
+      "location": "models/tuning_subsets/industrial_iot_rul/"
+    },
+    "electricity": {
+      "status": "SUBSET_GENERATED",
+      "full_train_rows": 18279,
+      "subset_train_rows": 9140,
+      "retention_pct": 50.0,
+      "strategy": "Deterministic contiguous chronological window",
+      "location": "models/tuning_subsets/electricity/"
+    },
+    "textile": {
+      "status": "SUBSET_GENERATED",
+      "full_train_rows": 30240,
+      "subset_train_rows": 15120,
+      "retention_pct": 50.0,
+      "strategy": "Deterministic synchronized temporal stride (stride=2 across looms)",
+      "location": "models/tuning_subsets/textile/"
+    },
+    "synthetic_factory": {
+      "status": "SUBSET_GENERATED",
+      "full_train_rows": 20415,
+      "subset_train_rows": 10210,
+      "retention_pct": 50.0,
+      "strategy": "Deterministic synchronized multi-station temporal stride (stride=2 across M1-M5)",
+      "location": "models/tuning_subsets/synthetic_factory/"
+    }
+  },
+  "non_reduced_datasets": {
+    "ai4i": {
+      "status": "KEPT_FULL",
+      "full_train_rows": 7000,
+      "reason": "Dataset size is already compact (7,000 train rows); volume reduction provides negligible gain while risking rare failure mode representation."
+    },
+    "cmapss": {
+      "status": "KEPT_FULL",
+      "full_train_rows": 14130,
+      "reason": "Engine-grouped physics trajectories must preserve complete run-to-failure curves across all 70 training engines (14,130 rows)."
+    },
+    "secom": {
+      "status": "KEPT_FULL",
+      "full_train_rows": 1096,
+      "reason": "Wafer defect dataset is already small (1,096 train rows) with only 6.6% defect prevalence."
+    },
+    "manufacturing_production": {
+      "status": "KEPT_FULL",
+      "full_train_rows": 700,
+      "reason": "Production dispatch log contains only 700 training rows; reduction would severely degrade ranking quality."
+    },
+    "manufacturing_defects": {
+      "status": "KEPT_FULL",
+      "full_train_rows": 2268,
+      "reason": "Batch quality dataset contains 2,268 training rows; highly compact and fast to train."
+    }
+  }
+}

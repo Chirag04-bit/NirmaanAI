@@ -1,0 +1,80 @@
+{
+  "dataset_name": "synthetic_factory",
+  "dataset_version": "1.0.0",
+  "source_rows": 20415,
+  "source_partition": "train.parquet",
+  "subset_rows": 10210,
+  "retention_ratio": 0.5001,
+  "sampling_method": "deterministic_synchronized_multi_station_temporal_stride",
+  "sampling_seed": 42,
+  "target_column": null,
+  "class_distribution_before": {},
+  "class_distribution_after": {},
+  "categorical_distribution_audit": {
+    "machine_id": {
+      "full_unique_count": 5,
+      "subset_unique_count": 5,
+      "full_top5_props": {
+        "M1": 0.2,
+        "M2": 0.2,
+        "M3": 0.2,
+        "M4": 0.2,
+        "M5": 0.2
+      },
+      "subset_top5_props": {
+        "M1": 0.2,
+        "M2": 0.2,
+        "M3": 0.2,
+        "M4": 0.2,
+        "M5": 0.2
+      },
+      "max_prop_drift": 0.0
+    }
+  },
+  "numerical_distribution_audit": {
+    "reading_id": {
+      "full_mean": 10208.0,
+      "subset_mean": 10208.0,
+      "mean_abs_diff": 0.0,
+      "ks_statistic": 0.0192,
+      "ks_p_value": 0.315388
+    },
+    "vibration_mms": {
+      "full_mean": 0.0,
+      "subset_mean": -0.005981,
+      "mean_abs_diff": 0.005981,
+      "ks_statistic": 0.0134,
+      "ks_p_value": 0.760472
+    },
+    "temperature_c": {
+      "full_mean": 0.0,
+      "subset_mean": 0.001183,
+      "mean_abs_diff": 0.001183,
+      "ks_statistic": 0.0094,
+      "ks_p_value": 0.979998
+    },
+    "ambient_temperature_c": {
+      "full_mean": 0.0,
+      "subset_mean": 0.000262,
+      "mean_abs_diff": 0.000262,
+      "ks_statistic": 0.0106,
+      "ks_p_value": 0.941502
+    },
+    "rotational_speed_rpm": {
+      "full_mean": -0.0,
+      "subset_mean": 0.007058,
+      "mean_abs_diff": 0.007058,
+      "ks_statistic": 0.0134,
+      "ks_p_value": 0.760472
+    }
+  },
+  "temporal_constraints": "Synchronized 10-minute cadence preserved across M1-M5 stations up to training cutoff 2026-01-15.",
+  "scenario_constraints": "M2 degradation event occurs downstream in Days 18-21 (validation/retrospective holdout). Training baseline represents pure nominal factory operating envelope.",
+  "excluded_columns": [],
+  "leakage_controls": "Sampled exclusively from pre-cutoff training partition. MAINT_0003 and Days 18-21 scenario rows remain strictly outside prospective training.",
+  "created_at": "2026-09-13T15:21:23.240050+00:00",
+  "pipeline_version": "post-phase-25-subsample-v1",
+  "source_checksum": "CB0582D155B1EE49F0C6739BDEA661CC",
+  "subset_checksum": "F3F4276E29E784CA0EBDB60C7BD20FE8",
+  "epistemic_status": "CONTROLLED_COMPUTATIONAL_SUBSET"
+}

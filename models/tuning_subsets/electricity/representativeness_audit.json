@@ -1,0 +1,421 @@
+{
+  "full_rows": 18279,
+  "subset_rows": 9139,
+  "retention_percentage": 49.9973,
+  "audit_timestamp": "2026-09-13T15:21:22.582527+00:00",
+  "verdict": "REPRESENTATIVE_COMPUTATIONAL_SUBSET",
+  "numerical_moments": {
+    "hour": {
+      "full_mean": 0.0,
+      "subset_mean": 9.9e-05,
+      "mean_abs_diff": 9.9e-05,
+      "full_std": 1.000027,
+      "subset_std": 1.000221,
+      "full_quantiles": {
+        "q25": -0.938549,
+        "q50": -0.071704,
+        "q75": 0.795141,
+        "q95": 1.517512
+      },
+      "subset_quantiles": {
+        "q25": -0.938549,
+        "q50": -0.071704,
+        "q75": 0.795141,
+        "q95": 1.517512
+      },
+      "ks_statistic": 0.0112,
+      "ks_p_value": 0.912466
+    },
+    "day_of_week": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000629,
+      "mean_abs_diff": 0.000629,
+      "full_std": 1.000027,
+      "subset_std": 0.996954,
+      "full_quantiles": {
+        "q25": -0.998258,
+        "q50": 0.001559,
+        "q75": 1.001376,
+        "q95": 1.501284
+      },
+      "subset_quantiles": {
+        "q25": -0.998258,
+        "q50": 0.001559,
+        "q75": 1.001376,
+        "q95": 1.501284
+      },
+      "ks_statistic": 0.0104,
+      "ks_p_value": 0.949728
+    },
+    "is_weekend": {
+      "full_mean": 0.0,
+      "subset_mean": -0.002874,
+      "mean_abs_diff": 0.002874,
+      "full_std": 1.000027,
+      "subset_std": 0.99868,
+      "full_quantiles": {
+        "q25": -0.63122,
+        "q50": -0.63122,
+        "q75": 1.584233,
+        "q95": 1.584233
+      },
+      "subset_quantiles": {
+        "q25": -0.63122,
+        "q50": -0.63122,
+        "q75": 1.584233,
+        "q95": 1.584233
+      },
+      "ks_statistic": 0.0058,
+      "ks_p_value": 0.999996
+    },
+    "month": {
+      "full_mean": 0.0,
+      "subset_mean": 0.00217,
+      "mean_abs_diff": 0.00217,
+      "full_std": 1.000027,
+      "subset_std": 0.997177,
+      "full_quantiles": {
+        "q25": -0.934747,
+        "q50": -0.086668,
+        "q75": 0.76141,
+        "q95": 1.609488
+      },
+      "subset_quantiles": {
+        "q25": -0.934747,
+        "q50": -0.086668,
+        "q75": 0.76141,
+        "q95": 1.609488
+      },
+      "ks_statistic": 0.01,
+      "ks_p_value": 0.963974
+    },
+    "is_peak_hours": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000163,
+      "mean_abs_diff": 0.000163,
+      "full_std": 1.000027,
+      "subset_std": 1.000172,
+      "full_quantiles": {
+        "q25": -0.512723,
+        "q50": -0.512723,
+        "q75": -0.512723,
+        "q95": 1.95037
+      },
+      "subset_quantiles": {
+        "q25": -0.512723,
+        "q50": -0.512723,
+        "q75": -0.512723,
+        "q95": 1.95037
+      },
+      "ks_statistic": 0.0154,
+      "ks_p_value": 0.593677
+    },
+    "hour_sin": {
+      "full_mean": 0.0,
+      "subset_mean": 0.000168,
+      "mean_abs_diff": 0.000168,
+      "full_std": 1.000027,
+      "subset_std": 0.999942,
+      "full_quantiles": {
+        "q25": -1.000594,
+        "q50": -0.000529,
+        "q75": 0.999536,
+        "q95": 1.365585
+      },
+      "subset_quantiles": {
+        "q25": -1.000594,
+        "q50": -0.000529,
+        "q75": 0.999536,
+        "q95": 1.365585
+      },
+      "ks_statistic": 0.011,
+      "ks_p_value": 0.922858
+    },
+    "hour_cos": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000329,
+      "mean_abs_diff": 0.000329,
+      "full_std": 1.000027,
+      "subset_std": 1.000167,
+      "full_quantiles": {
+        "q25": -0.999794,
+        "q50": 0.000142,
+        "q75": 1.000077,
+        "q95": 1.366079
+      },
+      "subset_quantiles": {
+        "q25": -0.999794,
+        "q50": 0.000142,
+        "q75": 1.000077,
+        "q95": 1.366079
+      },
+      "ks_statistic": 0.0122,
+      "ks_p_value": 0.850822
+    },
+    "lag_1h": {
+      "full_mean": 0.0,
+      "subset_mean": 0.014352,
+      "mean_abs_diff": 0.014352,
+      "full_std": 1.000027,
+      "subset_std": 1.007868,
+      "full_quantiles": {
+        "q25": -0.98581,
+        "q50": 0.223638,
+        "q75": 0.691811,
+        "q95": 1.501361
+      },
+      "subset_quantiles": {
+        "q25": -0.976057,
+        "q50": 0.223638,
+        "q75": 0.701565,
+        "q95": 1.550129
+      },
+      "ks_statistic": 0.0136,
+      "ks_p_value": 0.744274
+    },
+    "lag_2h": {
+      "full_mean": 0.0,
+      "subset_mean": 0.014279,
+      "mean_abs_diff": 0.014279,
+      "full_std": 1.000027,
+      "subset_std": 1.007819,
+      "full_quantiles": {
+        "q25": -0.985811,
+        "q50": 0.223605,
+        "q75": 0.691767,
+        "q95": 1.501295
+      },
+      "subset_quantiles": {
+        "q25": -0.976058,
+        "q50": 0.223605,
+        "q75": 0.70152,
+        "q95": 1.550062
+      },
+      "ks_statistic": 0.0124,
+      "ks_p_value": 0.836797
+    },
+    "lag_3h": {
+      "full_mean": 0.0,
+      "subset_mean": 0.014209,
+      "mean_abs_diff": 0.014209,
+      "full_std": 1.000027,
+      "subset_std": 1.007778,
+      "full_quantiles": {
+        "q25": -0.985817,
+        "q50": 0.223565,
+        "q75": 0.691713,
+        "q95": 1.501219
+      },
+      "subset_quantiles": {
+        "q25": -0.976064,
+        "q50": 0.223565,
+        "q75": 0.701466,
+        "q95": 1.549984
+      },
+      "ks_statistic": 0.0182,
+      "ks_p_value": 0.379103
+    },
+    "lag_4h": {
+      "full_mean": 0.0,
+      "subset_mean": 0.014087,
+      "mean_abs_diff": 0.014087,
+      "full_std": 1.000027,
+      "subset_std": 1.007694,
+      "full_quantiles": {
+        "q25": -0.985811,
+        "q50": 0.223495,
+        "q75": 0.691613,
+        "q95": 1.502043
+      },
+      "subset_quantiles": {
+        "q25": -0.976058,
+        "q50": 0.223495,
+        "q75": 0.701365,
+        "q95": 1.54983
+      },
+      "ks_statistic": 0.0242,
+      "ks_p_value": 0.106971
+    },
+    "lag_24h": {
+      "full_mean": 0.0,
+      "subset_mean": 0.013795,
+      "mean_abs_diff": 0.013795,
+      "full_std": 1.000027,
+      "subset_std": 1.007967,
+      "full_quantiles": {
+        "q25": -0.986181,
+        "q50": 0.223234,
+        "q75": 0.691395,
+        "q95": 1.501898
+      },
+      "subset_quantiles": {
+        "q25": -0.971551,
+        "q50": 0.223234,
+        "q75": 0.701148,
+        "q95": 1.549689
+      },
+      "ks_statistic": 0.0186,
+      "ks_p_value": 0.352691
+    },
+    "lag_168h": {
+      "full_mean": 0.0,
+      "subset_mean": 0.014424,
+      "mean_abs_diff": 0.014424,
+      "full_std": 1.000027,
+      "subset_std": 1.007449,
+      "full_quantiles": {
+        "q25": -0.99398,
+        "q50": 0.224668,
+        "q75": 0.692628,
+        "q95": 1.501811
+      },
+      "subset_quantiles": {
+        "q25": -0.974482,
+        "q50": 0.224668,
+        "q75": 0.702378,
+        "q95": 1.550557
+      },
+      "ks_statistic": 0.0206,
+      "ks_p_value": 0.239235
+    },
+    "rolling_mean_24h": {
+      "full_mean": -0.0,
+      "subset_mean": 0.04647,
+      "mean_abs_diff": 0.04647,
+      "full_std": 1.000027,
+      "subset_std": 1.030279,
+      "full_quantiles": {
+        "q25": -0.8214,
+        "q50": -0.017406,
+        "q75": 0.696508,
+        "q95": 1.660763
+      },
+      "subset_quantiles": {
+        "q25": -0.809299,
+        "q50": -0.012028,
+        "q75": 0.751632,
+        "q95": 1.919977
+      },
+      "ks_statistic": 0.0214,
+      "ks_p_value": 0.202374
+    },
+    "rolling_std_24h": {
+      "full_mean": -0.0,
+      "subset_mean": 0.030512,
+      "mean_abs_diff": 0.030512,
+      "full_std": 1.000027,
+      "subset_std": 1.043787,
+      "full_quantiles": {
+        "q25": -0.719148,
+        "q50": -0.166864,
+        "q75": 0.578895,
+        "q95": 1.843138
+      },
+      "subset_quantiles": {
+        "q25": -0.70289,
+        "q50": -0.200311,
+        "q75": 0.598749,
+        "q95": 2.0646
+      },
+      "ks_statistic": 0.0266,
+      "ks_p_value": 0.058149
+    },
+    "rolling_min_24h": {
+      "full_mean": -0.0,
+      "subset_mean": -0.027622,
+      "mean_abs_diff": 0.027622,
+      "full_std": 1.000027,
+      "subset_std": 1.013358,
+      "full_quantiles": {
+        "q25": -0.768847,
+        "q50": -0.291695,
+        "q75": 0.594443,
+        "q95": 1.889569
+      },
+      "subset_quantiles": {
+        "q25": -0.768847,
+        "q50": -0.428024,
+        "q75": 0.526279,
+        "q95": 2.094062
+      },
+      "ks_statistic": 0.0694,
+      "ks_p_value": 0.0
+    },
+    "rolling_max_24h": {
+      "full_mean": -0.0,
+      "subset_mean": 0.047236,
+      "mean_abs_diff": 0.047236,
+      "full_std": 1.000027,
+      "subset_std": 1.040574,
+      "full_quantiles": {
+        "q25": -0.828483,
+        "q50": 0.062192,
+        "q75": 0.71307,
+        "q95": 1.569489
+      },
+      "subset_quantiles": {
+        "q25": -0.811355,
+        "q50": 0.062192,
+        "q75": 0.730199,
+        "q95": 2.049083
+      },
+      "ks_statistic": 0.029,
+      "ks_p_value": 0.029836
+    },
+    "load_diff_1h": {
+      "full_mean": 0.0,
+      "subset_mean": 0.000158,
+      "mean_abs_diff": 0.000158,
+      "full_std": 1.000027,
+      "subset_std": 0.982162,
+      "full_quantiles": {
+        "q25": -0.615406,
+        "q50": -0.084834,
+        "q75": 0.445739,
+        "q95": 1.804005
+      },
+      "subset_quantiles": {
+        "q25": -0.636629,
+        "q50": -0.084834,
+        "q75": 0.466962,
+        "q95": 1.763681
+      },
+      "ks_statistic": 0.0156,
+      "ks_p_value": 0.577046
+    },
+    "load_diff_24h": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000915,
+      "mean_abs_diff": 0.000915,
+      "full_std": 1.000027,
+      "subset_std": 0.979935,
+      "full_quantiles": {
+        "q25": -0.448263,
+        "q50": 0.032719,
+        "q75": 0.561799,
+        "q95": 1.475664
+      },
+      "subset_quantiles": {
+        "q25": -0.464296,
+        "q50": 0.032719,
+        "q75": 0.561799,
+        "q95": 1.427566
+      },
+      "ks_statistic": 0.0272,
+      "ks_p_value": 0.049482
+    }
+  },
+  "target_distribution": {
+    "target_type": "continuous_regression",
+    "full_mean": 274.0039,
+    "subset_mean": 275.7583,
+    "mean_abs_diff": 1.7545,
+    "full_std": 122.6387,
+    "subset_std": 123.596,
+    "full_median": 301.4354,
+    "subset_median": 301.4354,
+    "min": 0.0,
+    "max": 716.5071770334928
+  },
+  "categorical_distributions": {}
+}

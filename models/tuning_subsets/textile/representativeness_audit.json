@@ -1,0 +1,388 @@
+{
+  "full_rows": 30240,
+  "subset_rows": 15120,
+  "retention_percentage": 50.0,
+  "audit_timestamp": "2026-09-13T15:21:22.804140+00:00",
+  "verdict": "REPRESENTATIVE_COMPUTATIONAL_SUBSET",
+  "numerical_moments": {
+    "reading_id": {
+      "full_mean": 15120.5,
+      "subset_mean": 15118.0,
+      "mean_abs_diff": 2.5,
+      "full_std": 8729.680407,
+      "subset_std": 8729.824397,
+      "full_quantiles": {
+        "q25": 7560.75,
+        "q50": 15120.5,
+        "q75": 22680.25,
+        "q95": 28728.05
+      },
+      "subset_quantiles": {
+        "q25": 7559.5,
+        "q50": 15118.0,
+        "q75": 22676.5,
+        "q95": 28724.05
+      },
+      "ks_statistic": 0.0084,
+      "ks_p_value": 0.994533
+    },
+    "vibration_mms": {
+      "full_mean": -0.0,
+      "subset_mean": -0.001213,
+      "mean_abs_diff": 0.001213,
+      "full_std": 1.000017,
+      "subset_std": 0.99855,
+      "full_quantiles": {
+        "q25": -0.667155,
+        "q50": -0.096632,
+        "q75": 0.464462,
+        "q95": 1.110505
+      },
+      "subset_quantiles": {
+        "q25": -0.66244,
+        "q50": -0.101347,
+        "q75": 0.467605,
+        "q95": 1.107283
+      },
+      "ks_statistic": 0.015,
+      "ks_p_value": 0.627218
+    },
+    "temperature_c": {
+      "full_mean": 0.0,
+      "subset_mean": 0.001266,
+      "mean_abs_diff": 0.001266,
+      "full_std": 1.000017,
+      "subset_std": 1.001043,
+      "full_quantiles": {
+        "q25": -0.904076,
+        "q50": -0.039117,
+        "q75": 0.79701,
+        "q95": 1.180306
+      },
+      "subset_quantiles": {
+        "q25": -0.905772,
+        "q50": -0.035725,
+        "q75": 0.79701,
+        "q95": 1.182087
+      },
+      "ks_statistic": 0.0144,
+      "ks_p_value": 0.677788
+    },
+    "ambient_temperature_c": {
+      "full_mean": 0.0,
+      "subset_mean": 0.001459,
+      "mean_abs_diff": 0.001459,
+      "full_std": 1.000017,
+      "subset_std": 1.000673,
+      "full_quantiles": {
+        "q25": -0.995567,
+        "q50": -0.001453,
+        "q75": 0.994676,
+        "q95": 1.397559
+      },
+      "subset_quantiles": {
+        "q25": -0.998085,
+        "q50": 0.001569,
+        "q75": 0.99669,
+        "q95": 1.399573
+      },
+      "ks_statistic": 0.0126,
+      "ks_p_value": 0.822301
+    },
+    "rotational_speed_rpm": {
+      "full_mean": 0.0,
+      "subset_mean": 4.6e-05,
+      "mean_abs_diff": 4.6e-05,
+      "full_std": 1.000017,
+      "subset_std": 1.000076,
+      "full_quantiles": {
+        "q25": -0.499758,
+        "q50": -0.498222,
+        "q75": -0.496008,
+        "q95": 2.060344
+      },
+      "subset_quantiles": {
+        "q25": -0.499739,
+        "q50": -0.498204,
+        "q75": -0.495956,
+        "q95": 2.060476
+      },
+      "ks_statistic": 0.0154,
+      "ks_p_value": 0.593677
+    },
+    "torque_nm": {
+      "full_mean": 0.0,
+      "subset_mean": -0.000298,
+      "mean_abs_diff": 0.000298,
+      "full_std": 1.000017,
+      "subset_std": 0.999857,
+      "full_quantiles": {
+        "q25": -0.704052,
+        "q50": -0.061017,
+        "q75": 0.761783,
+        "q95": 1.463656
+      },
+      "subset_quantiles": {
+        "q25": -0.705136,
+        "q50": -0.060242,
+        "q75": 0.761474,
+        "q95": 1.463347
+      },
+      "ks_statistic": 0.0094,
+      "ks_p_value": 0.979998
+    },
+    "sound_db": {
+      "full_mean": -0.0,
+      "subset_mean": -0.0002,
+      "mean_abs_diff": 0.0002,
+      "full_std": 1.000017,
+      "subset_std": 0.994614,
+      "full_quantiles": {
+        "q25": -0.473572,
+        "q50": -0.107859,
+        "q75": 0.257855,
+        "q95": 0.989282
+      },
+      "subset_quantiles": {
+        "q25": -0.473572,
+        "q50": -0.107859,
+        "q75": 0.257855,
+        "q95": 0.989282
+      },
+      "ks_statistic": 0.0104,
+      "ks_p_value": 0.949728
+    },
+    "power_consumption_kw": {
+      "full_mean": -0.0,
+      "subset_mean": 6e-06,
+      "mean_abs_diff": 6e-06,
+      "full_std": 1.000017,
+      "subset_std": 1.000144,
+      "full_quantiles": {
+        "q25": -0.754053,
+        "q50": -0.155006,
+        "q75": 0.380313,
+        "q95": 1.680373
+      },
+      "subset_quantiles": {
+        "q25": -0.754053,
+        "q50": -0.155006,
+        "q75": 0.380313,
+        "q95": 1.680373
+      },
+      "ks_statistic": 0.0106,
+      "ks_p_value": 0.941502
+    },
+    "oil_level_pct": {
+      "full_mean": 0.0,
+      "subset_mean": 0.000105,
+      "mean_abs_diff": 0.000105,
+      "full_std": 1.000017,
+      "subset_std": 0.99965,
+      "full_quantiles": {
+        "q25": -0.374505,
+        "q50": 0.119542,
+        "q75": 0.613589,
+        "q95": 1.008827
+      },
+      "subset_quantiles": {
+        "q25": -0.374505,
+        "q50": 0.119542,
+        "q75": 0.613589,
+        "q95": 1.008827
+      },
+      "ks_statistic": 0.0066,
+      "ks_p_value": 0.999909
+    },
+    "coolant_level_pct": {
+      "full_mean": 0.0,
+      "subset_mean": 0.0,
+      "mean_abs_diff": 0.0,
+      "full_std": 1.000017,
+      "subset_std": 1.000033,
+      "full_quantiles": {
+        "q25": -0.825723,
+        "q50": 0.0,
+        "q75": 0.825723,
+        "q95": 1.486301
+      },
+      "subset_quantiles": {
+        "q25": -0.825723,
+        "q50": 0.0,
+        "q75": 0.825723,
+        "q95": 1.486301
+      },
+      "ks_statistic": 0.0072,
+      "ks_p_value": 0.99949
+    },
+    "tool_wear_min": {
+      "full_mean": -0.0,
+      "subset_mean": -0.001147,
+      "mean_abs_diff": 0.001147,
+      "full_std": 1.000017,
+      "subset_std": 1.000032,
+      "full_quantiles": {
+        "q25": -0.866792,
+        "q50": -0.000546,
+        "q75": 0.8657,
+        "q95": 1.559958
+      },
+      "subset_quantiles": {
+        "q25": -0.867365,
+        "q50": -0.001693,
+        "q75": 0.86398,
+        "q95": 1.559958
+      },
+      "ks_statistic": 0.0136,
+      "ks_p_value": 0.744274
+    },
+    "temp_diff_c": {
+      "full_mean": -0.0,
+      "subset_mean": 7e-05,
+      "mean_abs_diff": 7e-05,
+      "full_std": 1.000017,
+      "subset_std": 1.000714,
+      "full_quantiles": {
+        "q25": -0.287744,
+        "q50": -0.182369,
+        "q75": -0.067697,
+        "q95": 0.15545
+      },
+      "subset_quantiles": {
+        "q25": -0.287744,
+        "q50": -0.182369,
+        "q75": -0.067697,
+        "q95": 0.161648
+      },
+      "ks_statistic": 0.0088,
+      "ks_p_value": 0.990283
+    },
+    "vibration_norm": {
+      "full_mean": -0.0,
+      "subset_mean": -0.001213,
+      "mean_abs_diff": 0.001213,
+      "full_std": 1.000017,
+      "subset_std": 0.99855,
+      "full_quantiles": {
+        "q25": -0.667155,
+        "q50": -0.096632,
+        "q75": 0.464462,
+        "q95": 1.110505
+      },
+      "subset_quantiles": {
+        "q25": -0.66244,
+        "q50": -0.101347,
+        "q75": 0.467605,
+        "q95": 1.107283
+      },
+      "ks_statistic": 0.015,
+      "ks_p_value": 0.627218
+    },
+    "vibration_roll_mean_5": {
+      "full_mean": -0.0,
+      "subset_mean": -0.000244,
+      "mean_abs_diff": 0.000244,
+      "full_std": 1.000017,
+      "subset_std": 0.999653,
+      "full_quantiles": {
+        "q25": -0.622159,
+        "q50": -0.087083,
+        "q75": 0.354592,
+        "q95": 0.989956
+      },
+      "subset_quantiles": {
+        "q25": -0.621201,
+        "q50": -0.086924,
+        "q75": 0.353953,
+        "q95": 0.988677
+      },
+      "ks_statistic": 0.0082,
+      "ks_p_value": 0.996035
+    },
+    "vibration_roll_max_15": {
+      "full_mean": -0.0,
+      "subset_mean": -5e-05,
+      "mean_abs_diff": 5e-05,
+      "full_std": 1.000017,
+      "subset_std": 0.999794,
+      "full_quantiles": {
+        "q25": -0.616092,
+        "q50": -0.101411,
+        "q75": 0.367723,
+        "q95": 0.96287
+      },
+      "subset_quantiles": {
+        "q25": -0.616092,
+        "q50": -0.102929,
+        "q75": 0.367723,
+        "q95": 0.96287
+      },
+      "ks_statistic": 0.0078,
+      "ks_p_value": 0.998075
+    },
+    "power_rpm_ratio": {
+      "full_mean": -0.0,
+      "subset_mean": -0.000297,
+      "mean_abs_diff": 0.000297,
+      "full_std": 1.000017,
+      "subset_std": 0.99986,
+      "full_quantiles": {
+        "q25": -0.704103,
+        "q50": -0.061056,
+        "q75": 0.761853,
+        "q95": 1.463751
+      },
+      "subset_quantiles": {
+        "q25": -0.705173,
+        "q50": -0.06019,
+        "q75": 0.761516,
+        "q95": 1.462908
+      },
+      "ks_statistic": 0.0092,
+      "ks_p_value": 0.984013
+    },
+    "acoustic_vibration_stress": {
+      "full_mean": 0.0,
+      "subset_mean": -0.001207,
+      "mean_abs_diff": 0.001207,
+      "full_std": 1.000017,
+      "subset_std": 0.998122,
+      "full_quantiles": {
+        "q25": -0.623296,
+        "q50": -0.109159,
+        "q75": 0.404348,
+        "q95": 0.994795
+      },
+      "subset_quantiles": {
+        "q25": -0.619398,
+        "q50": -0.114382,
+        "q75": 0.404397,
+        "q95": 0.993875
+      },
+      "ks_statistic": 0.0166,
+      "ks_p_value": 0.496232
+    }
+  },
+  "target_distribution": {},
+  "categorical_distributions": {
+    "machine_id": {
+      "full_unique_count": 5,
+      "subset_unique_count": 5,
+      "full_top5_props": {
+        "TX01": 0.2,
+        "TX02": 0.2,
+        "TX03": 0.2,
+        "TX04": 0.2,
+        "TX05": 0.2
+      },
+      "subset_top5_props": {
+        "TX01": 0.2,
+        "TX02": 0.2,
+        "TX03": 0.2,
+        "TX04": 0.2,
+        "TX05": 0.2
+      },
+      "max_prop_drift": 0.0
+    }
+  }
+}

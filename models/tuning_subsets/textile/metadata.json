@@ -1,0 +1,80 @@
+{
+  "dataset_name": "textile",
+  "dataset_version": "1.0.0",
+  "source_rows": 30240,
+  "source_partition": "train.parquet",
+  "subset_rows": 15120,
+  "retention_ratio": 0.5,
+  "sampling_method": "deterministic_synchronized_temporal_stride",
+  "sampling_seed": 42,
+  "target_column": null,
+  "class_distribution_before": {},
+  "class_distribution_after": {},
+  "categorical_distribution_audit": {
+    "machine_id": {
+      "full_unique_count": 5,
+      "subset_unique_count": 5,
+      "full_top5_props": {
+        "TX01": 0.2,
+        "TX02": 0.2,
+        "TX03": 0.2,
+        "TX04": 0.2,
+        "TX05": 0.2
+      },
+      "subset_top5_props": {
+        "TX01": 0.2,
+        "TX02": 0.2,
+        "TX03": 0.2,
+        "TX04": 0.2,
+        "TX05": 0.2
+      },
+      "max_prop_drift": 0.0
+    }
+  },
+  "numerical_distribution_audit": {
+    "reading_id": {
+      "full_mean": 15120.5,
+      "subset_mean": 15118.0,
+      "mean_abs_diff": 2.5,
+      "ks_statistic": 0.0084,
+      "ks_p_value": 0.994533
+    },
+    "vibration_mms": {
+      "full_mean": -0.0,
+      "subset_mean": -0.001213,
+      "mean_abs_diff": 0.001213,
+      "ks_statistic": 0.015,
+      "ks_p_value": 0.627218
+    },
+    "temperature_c": {
+      "full_mean": 0.0,
+      "subset_mean": 0.001266,
+      "mean_abs_diff": 0.001266,
+      "ks_statistic": 0.0144,
+      "ks_p_value": 0.677788
+    },
+    "ambient_temperature_c": {
+      "full_mean": 0.0,
+      "subset_mean": 0.001459,
+      "mean_abs_diff": 0.001459,
+      "ks_statistic": 0.0126,
+      "ks_p_value": 0.822301
+    },
+    "rotational_speed_rpm": {
+      "full_mean": 0.0,
+      "subset_mean": 4.6e-05,
+      "mean_abs_diff": 4.6e-05,
+      "ks_statistic": 0.0154,
+      "ks_p_value": 0.593677
+    }
+  },
+  "temporal_constraints": "Strict chronological alignment preserved per loom. Zero cross-time shuffling.",
+  "scenario_constraints": "Nominal loom operating manifold preserved across all machine IDs.",
+  "excluded_columns": [],
+  "leakage_controls": "Sampled exclusively from nominal training partition. Validation and test degradation intervals remain untouched.",
+  "created_at": "2026-09-13T15:21:22.978265+00:00",
+  "pipeline_version": "post-phase-25-subsample-v1",
+  "source_checksum": "9FD3CCAE03887224173C52D178B1A321",
+  "subset_checksum": "4C582AE19702A9579EFA95DB5F34A511",
+  "epistemic_status": "CONTROLLED_COMPUTATIONAL_SUBSET"
+}

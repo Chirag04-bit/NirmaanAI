@@ -1,0 +1,82 @@
+{
+  "dataset_name": "electricity",
+  "dataset_version": "1.0.0",
+  "source_rows": 18279,
+  "source_partition": "train.parquet",
+  "subset_rows": 9139,
+  "retention_ratio": 0.5,
+  "sampling_method": "deterministic_contiguous_chronological_window",
+  "sampling_seed": 42,
+  "target_column": "power_kw",
+  "class_distribution_before": {
+    "target_type": "continuous_regression",
+    "full_mean": 274.0039,
+    "subset_mean": 275.7583,
+    "mean_abs_diff": 1.7545,
+    "full_std": 122.6387,
+    "subset_std": 123.596,
+    "full_median": 301.4354,
+    "subset_median": 301.4354,
+    "min": 0.0,
+    "max": 716.5071770334928
+  },
+  "class_distribution_after": {
+    "target_type": "continuous_regression",
+    "full_mean": 274.0039,
+    "subset_mean": 275.7583,
+    "mean_abs_diff": 1.7545,
+    "full_std": 122.6387,
+    "subset_std": 123.596,
+    "full_median": 301.4354,
+    "subset_median": 301.4354,
+    "min": 0.0,
+    "max": 716.5071770334928
+  },
+  "categorical_distribution_audit": {},
+  "numerical_distribution_audit": {
+    "hour": {
+      "full_mean": 0.0,
+      "subset_mean": 9.9e-05,
+      "mean_abs_diff": 9.9e-05,
+      "ks_statistic": 0.0112,
+      "ks_p_value": 0.912466
+    },
+    "day_of_week": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000629,
+      "mean_abs_diff": 0.000629,
+      "ks_statistic": 0.0104,
+      "ks_p_value": 0.949728
+    },
+    "is_weekend": {
+      "full_mean": 0.0,
+      "subset_mean": -0.002874,
+      "mean_abs_diff": 0.002874,
+      "ks_statistic": 0.0058,
+      "ks_p_value": 0.999996
+    },
+    "month": {
+      "full_mean": 0.0,
+      "subset_mean": 0.00217,
+      "mean_abs_diff": 0.00217,
+      "ks_statistic": 0.01,
+      "ks_p_value": 0.963974
+    },
+    "is_peak_hours": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000163,
+      "mean_abs_diff": 0.000163,
+      "ks_statistic": 0.0154,
+      "ks_p_value": 0.593677
+    }
+  },
+  "temporal_constraints": "Strict chronological continuity preserved. Zero random shuffling. Causal lags intact.",
+  "scenario_constraints": "None",
+  "excluded_columns": [],
+  "leakage_controls": "Chronological windowing strictly from training timeline. Future validation and test partitions remain completely untouched.",
+  "created_at": "2026-09-13T15:21:22.752985+00:00",
+  "pipeline_version": "post-phase-25-subsample-v1",
+  "source_checksum": "0D01BB2FF32E3BBA824AAB8FE4F2F2ED",
+  "subset_checksum": "1B10BFAB8E2A62CC2131537977E2864A",
+  "epistemic_status": "CONTROLLED_COMPUTATIONAL_SUBSET"
+}

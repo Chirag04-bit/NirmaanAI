@@ -1,0 +1,105 @@
+{
+  "dataset_name": "industrial_iot_rul",
+  "dataset_version": "1.0.0",
+  "source_rows": 350000,
+  "source_partition": "train.parquet",
+  "subset_rows": 105000,
+  "retention_ratio": 0.3,
+  "sampling_method": "deterministic_distribution_aware_decile_binned_regression",
+  "sampling_seed": 42,
+  "target_column": "Remaining_Useful_Life_days",
+  "class_distribution_before": {
+    "target_type": "continuous_regression",
+    "full_mean": 452.5805,
+    "subset_mean": 452.5873,
+    "mean_abs_diff": 0.0068,
+    "full_std": 289.0312,
+    "subset_std": 289.1353,
+    "full_median": 451.0,
+    "subset_median": 451.0,
+    "min": 0.0,
+    "max": 1133.0
+  },
+  "class_distribution_after": {
+    "target_type": "continuous_regression",
+    "full_mean": 452.5805,
+    "subset_mean": 452.5873,
+    "mean_abs_diff": 0.0068,
+    "full_std": 289.0312,
+    "subset_std": 289.1353,
+    "full_median": 451.0,
+    "subset_median": 451.0,
+    "min": 0.0,
+    "max": 1133.0
+  },
+  "categorical_distribution_audit": {
+    "Machine_Type_encoded": {
+      "full_unique_count": 33,
+      "subset_unique_count": 33,
+      "full_top5_props": {
+        "-1.5751303212364778": 0.030769,
+        "1.2608556582267885": 0.030754,
+        "-0.629801661415389": 0.030723,
+        "0.31552699840569975": 0.030651,
+        "1.3658921759846874": 0.030651
+      },
+      "subset_top5_props": {
+        "-1.5751303212364778": 0.030771,
+        "1.2608556582267885": 0.030762,
+        "-0.629801661415389": 0.030733,
+        "0.10545396288990226": 0.030657,
+        "0.31552699840569975": 0.030648
+      },
+      "max_prop_drift": 1.7e-05
+    }
+  },
+  "numerical_distribution_audit": {
+    "Installation_Year": {
+      "full_mean": -0.0,
+      "subset_mean": 0.001801,
+      "mean_abs_diff": 0.001801,
+      "ks_statistic": 0.0118,
+      "ks_p_value": 0.877289
+    },
+    "Operational_Hours": {
+      "full_mean": -0.0,
+      "subset_mean": -0.000102,
+      "mean_abs_diff": 0.000102,
+      "ks_statistic": 0.0122,
+      "ks_p_value": 0.850822
+    },
+    "Temperature_C": {
+      "full_mean": 0.0,
+      "subset_mean": 0.003937,
+      "mean_abs_diff": 0.003937,
+      "ks_statistic": 0.0132,
+      "ks_p_value": 0.776418
+    },
+    "Vibration_mms": {
+      "full_mean": 0.0,
+      "subset_mean": 0.000199,
+      "mean_abs_diff": 0.000199,
+      "ks_statistic": 0.025,
+      "ks_p_value": 0.087865
+    },
+    "Sound_dB": {
+      "full_mean": 0.0,
+      "subset_mean": 0.002483,
+      "mean_abs_diff": 0.002483,
+      "ks_statistic": 0.022,
+      "ks_p_value": 0.177727
+    }
+  },
+  "temporal_constraints": "None (Cross-sectional fleet snapshot; exactly one record per Machine_ID; zero longitudinal sequence)",
+  "scenario_constraints": "None",
+  "excluded_columns": [
+    "Machine_ID",
+    "Failure_Within_7_Days"
+  ],
+  "leakage_controls": "Strict isolation: Machine_ID dropped; cross-target Failure_Within_7_Days quarantined; sampled strictly from training partition only.",
+  "created_at": "2026-09-13T15:21:22.503644+00:00",
+  "pipeline_version": "post-phase-25-subsample-v1",
+  "source_checksum": "F30BD1A419FCCA2D262AFBADE374E7E0",
+  "subset_checksum": "36FA1E3D1DDC571579EB5947ED569FD6",
+  "epistemic_status": "CONTROLLED_COMPUTATIONAL_SUBSET"
+}

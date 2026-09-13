@@ -1,0 +1,596 @@
+{
+  "full_rows": 350000,
+  "subset_rows": 105000,
+  "retention_percentage": 30.0,
+  "audit_timestamp": "2026-09-13T15:21:19.578946+00:00",
+  "verdict": "REPRESENTATIVE_COMPUTATIONAL_SUBSET",
+  "numerical_moments": {
+    "Installation_Year": {
+      "full_mean": -0.0,
+      "subset_mean": -0.000592,
+      "mean_abs_diff": 0.000592,
+      "full_std": 1.000001,
+      "subset_std": 1.000477,
+      "full_quantiles": {
+        "q25": -0.842877,
+        "q50": 0.002888,
+        "q75": 0.848653,
+        "q95": 1.525265
+      },
+      "subset_quantiles": {
+        "q25": -0.842877,
+        "q50": 0.002888,
+        "q75": 0.848653,
+        "q95": 1.525265
+      },
+      "ks_statistic": 0.0112,
+      "ks_p_value": 0.912466
+    },
+    "Operational_Hours": {
+      "full_mean": 0.0,
+      "subset_mean": 0.003052,
+      "mean_abs_diff": 0.003052,
+      "full_std": 1.000001,
+      "subset_std": 0.999217,
+      "full_quantiles": {
+        "q25": -0.864658,
+        "q50": -0.001782,
+        "q75": 0.866187,
+        "q95": 1.559397
+      },
+      "subset_quantiles": {
+        "q25": -0.861333,
+        "q50": 0.002444,
+        "q75": 0.867018,
+        "q95": 1.561891
+      },
+      "ks_statistic": 0.015,
+      "ks_p_value": 0.627218
+    },
+    "Temperature_C": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000157,
+      "mean_abs_diff": 0.000157,
+      "full_std": 1.000001,
+      "subset_std": 0.997388,
+      "full_quantiles": {
+        "q25": -0.675259,
+        "q50": -0.000747,
+        "q75": 0.671098,
+        "q95": 1.652873
+      },
+      "subset_quantiles": {
+        "q25": -0.671926,
+        "q50": -0.000747,
+        "q75": 0.668432,
+        "q95": 1.650873
+      },
+      "ks_statistic": 0.0116,
+      "ks_p_value": 0.889652
+    },
+    "Vibration_mms": {
+      "full_mean": -0.0,
+      "subset_mean": -0.003675,
+      "mean_abs_diff": 0.003675,
+      "full_std": 1.000001,
+      "subset_std": 1.00007,
+      "full_quantiles": {
+        "q25": -0.675247,
+        "q50": 0.00204,
+        "q75": 0.675319,
+        "q95": 1.643158
+      },
+      "subset_quantiles": {
+        "q25": -0.675247,
+        "q50": 3.6e-05,
+        "q75": 0.667304,
+        "q95": 1.635142
+      },
+      "ks_statistic": 0.0178,
+      "ks_p_value": 0.406718
+    },
+    "Sound_dB": {
+      "full_mean": 0.0,
+      "subset_mean": 0.003476,
+      "mean_abs_diff": 0.003476,
+      "full_std": 1.000001,
+      "subset_std": 0.998561,
+      "full_quantiles": {
+        "q25": -0.673358,
+        "q50": 0.00187,
+        "q75": 0.673096,
+        "q95": 1.644424
+      },
+      "subset_quantiles": {
+        "q25": -0.669357,
+        "q50": 0.005871,
+        "q75": 0.675097,
+        "q95": 1.645424
+      },
+      "ks_statistic": 0.0166,
+      "ks_p_value": 0.496232
+    },
+    "Oil_Level_pct": {
+      "full_mean": 0.0,
+      "subset_mean": 0.000881,
+      "mean_abs_diff": 0.000881,
+      "full_std": 1.000001,
+      "subset_std": 0.997906,
+      "full_quantiles": {
+        "q25": -0.684439,
+        "q50": 0.029996,
+        "q75": 0.747614,
+        "q95": 1.621166
+      },
+      "subset_quantiles": {
+        "q25": -0.681257,
+        "q50": 0.028405,
+        "q75": 0.748674,
+        "q95": 1.621166
+      },
+      "ks_statistic": 0.0154,
+      "ks_p_value": 0.593677
+    },
+    "Coolant_Level_pct": {
+      "full_mean": 0.0,
+      "subset_mean": -0.001924,
+      "mean_abs_diff": 0.001924,
+      "full_std": 1.000001,
+      "subset_std": 0.997482,
+      "full_quantiles": {
+        "q25": -0.69113,
+        "q50": 0.038016,
+        "q75": 0.766731,
+        "q95": 1.550336
+      },
+      "subset_quantiles": {
+        "q25": -0.690698,
+        "q50": 0.034126,
+        "q75": 0.762408,
+        "q95": 1.550336
+      },
+      "ks_statistic": 0.014,
+      "ks_p_value": 0.711289
+    },
+    "Power_Consumption_kW": {
+      "full_mean": -0.0,
+      "subset_mean": -0.000269,
+      "mean_abs_diff": 0.000269,
+      "full_std": 1.000001,
+      "subset_std": 1.002489,
+      "full_quantiles": {
+        "q25": -0.67262,
+        "q50": 5.9e-05,
+        "q75": 0.674238,
+        "q95": 1.642871
+      },
+      "subset_quantiles": {
+        "q25": -0.674871,
+        "q50": 0.000309,
+        "q75": 0.673738,
+        "q95": 1.648878
+      },
+      "ks_statistic": 0.0158,
+      "ks_p_value": 0.560541
+    },
+    "Last_Maintenance_Days_Ago": {
+      "full_mean": 0.0,
+      "subset_mean": 0.003937,
+      "mean_abs_diff": 0.003937,
+      "full_std": 1.000001,
+      "subset_std": 0.999012,
+      "full_quantiles": {
+        "q25": -0.864055,
+        "q50": -0.001615,
+        "q75": 0.870303,
+        "q95": 1.56215
+      },
+      "subset_quantiles": {
+        "q25": -0.854577,
+        "q50": -0.001615,
+        "q75": 0.870303,
+        "q95": 1.56215
+      },
+      "ks_statistic": 0.0126,
+      "ks_p_value": 0.822301
+    },
+    "Maintenance_History_Count": {
+      "full_mean": -0.0,
+      "subset_mean": 0.003239,
+      "mean_abs_diff": 0.003239,
+      "full_std": 1.000001,
+      "subset_std": 0.999838,
+      "full_quantiles": {
+        "q25": -0.893836,
+        "q50": -0.0005,
+        "q75": 0.446168,
+        "q95": 1.786172
+      },
+      "subset_quantiles": {
+        "q25": -0.893836,
+        "q50": -0.0005,
+        "q75": 0.446168,
+        "q95": 1.786172
+      },
+      "ks_statistic": 0.0158,
+      "ks_p_value": 0.560541
+    },
+    "Failure_History_Count": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000222,
+      "mean_abs_diff": 0.000222,
+      "full_std": 1.000001,
+      "subset_std": 0.998932,
+      "full_quantiles": {
+        "q25": -0.708577,
+        "q50": -0.000621,
+        "q75": 0.707335,
+        "q95": 2.123248
+      },
+      "subset_quantiles": {
+        "q25": -0.708577,
+        "q50": -0.000621,
+        "q75": 0.707335,
+        "q95": 2.123248
+      },
+      "ks_statistic": 0.0154,
+      "ks_p_value": 0.593677
+    },
+    "AI_Supervision": {
+      "full_mean": -0.0,
+      "subset_mean": -0.002756,
+      "mean_abs_diff": 0.002756,
+      "full_std": 1.000001,
+      "subset_std": 0.998798,
+      "full_quantiles": {
+        "q25": -0.654752,
+        "q50": -0.654752,
+        "q75": 1.527297,
+        "q95": 1.527297
+      },
+      "subset_quantiles": {
+        "q25": -0.654752,
+        "q50": -0.654752,
+        "q75": 1.527297,
+        "q95": 1.527297
+      },
+      "ks_statistic": 0.0044,
+      "ks_p_value": 1.0
+    },
+    "Error_Codes_Last_30_Days": {
+      "full_mean": 0.0,
+      "subset_mean": -0.001837,
+      "mean_abs_diff": 0.001837,
+      "full_std": 1.000001,
+      "subset_std": 0.999705,
+      "full_quantiles": {
+        "q25": -0.578551,
+        "q50": -0.00024,
+        "q75": 0.578072,
+        "q95": 1.734696
+      },
+      "subset_quantiles": {
+        "q25": -0.578551,
+        "q50": -0.00024,
+        "q75": 0.578072,
+        "q95": 1.734696
+      },
+      "ks_statistic": 0.0104,
+      "ks_p_value": 0.949728
+    },
+    "Laser_Intensity": {
+      "full_mean": -0.0,
+      "subset_mean": -0.001753,
+      "mean_abs_diff": 0.001753,
+      "full_std": 1.000001,
+      "subset_std": 0.990895,
+      "full_quantiles": {
+        "q25": -0.000559,
+        "q50": -0.000559,
+        "q75": -0.000559,
+        "q95": -0.000559
+      },
+      "subset_quantiles": {
+        "q25": -0.000559,
+        "q50": -0.000559,
+        "q75": -0.000559,
+        "q95": -0.000559
+      },
+      "ks_statistic": 0.0048,
+      "ks_p_value": 1.0
+    },
+    "Hydraulic_Pressure_bar": {
+      "full_mean": 0.0,
+      "subset_mean": 0.002181,
+      "mean_abs_diff": 0.002181,
+      "full_std": 1.000001,
+      "subset_std": 1.01538,
+      "full_quantiles": {
+        "q25": -0.002873,
+        "q50": -0.002873,
+        "q75": -0.002873,
+        "q95": -0.002873
+      },
+      "subset_quantiles": {
+        "q25": -0.002873,
+        "q50": -0.002873,
+        "q75": -0.002873,
+        "q95": -0.002873
+      },
+      "ks_statistic": 0.0074,
+      "ks_p_value": 0.999176
+    },
+    "Coolant_Flow_L_min": {
+      "full_mean": 0.0,
+      "subset_mean": -0.001606,
+      "mean_abs_diff": 0.001606,
+      "full_std": 1.000001,
+      "subset_std": 0.995517,
+      "full_quantiles": {
+        "q25": -0.000573,
+        "q50": -0.000573,
+        "q75": -0.000573,
+        "q95": -0.000573
+      },
+      "subset_quantiles": {
+        "q25": -0.000573,
+        "q50": -0.000573,
+        "q75": -0.000573,
+        "q95": -0.000573
+      },
+      "ks_statistic": 0.0038,
+      "ks_p_value": 1.0
+    },
+    "Heat_Index": {
+      "full_mean": -0.0,
+      "subset_mean": -0.000702,
+      "mean_abs_diff": 0.000702,
+      "full_std": 1.000001,
+      "subset_std": 0.996583,
+      "full_quantiles": {
+        "q25": 0.001101,
+        "q50": 0.001101,
+        "q75": 0.001101,
+        "q95": 0.001101
+      },
+      "subset_quantiles": {
+        "q25": 0.001101,
+        "q50": 0.001101,
+        "q75": 0.001101,
+        "q95": 0.001101
+      },
+      "ks_statistic": 0.0034,
+      "ks_p_value": 1.0
+    },
+    "AI_Override_Events": {
+      "full_mean": 0.0,
+      "subset_mean": -0.001753,
+      "mean_abs_diff": 0.001753,
+      "full_std": 1.000001,
+      "subset_std": 0.999665,
+      "full_quantiles": {
+        "q25": -0.499934,
+        "q50": -0.499934,
+        "q75": 0.330789,
+        "q95": 1.992235
+      },
+      "subset_quantiles": {
+        "q25": -0.499934,
+        "q50": -0.499934,
+        "q75": 0.330789,
+        "q95": 1.992235
+      },
+      "ks_statistic": 0.0046,
+      "ks_p_value": 1.0
+    },
+    "thermal_deviation_c": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000157,
+      "mean_abs_diff": 0.000157,
+      "full_std": 1.000001,
+      "subset_std": 0.997388,
+      "full_quantiles": {
+        "q25": -0.675259,
+        "q50": -0.000747,
+        "q75": 0.671098,
+        "q95": 1.652873
+      },
+      "subset_quantiles": {
+        "q25": -0.671926,
+        "q50": -0.000747,
+        "q75": 0.668432,
+        "q95": 1.650873
+      },
+      "ks_statistic": 0.0116,
+      "ks_p_value": 0.889652
+    },
+    "vibration_severity_ratio": {
+      "full_mean": -0.0,
+      "subset_mean": -0.003675,
+      "mean_abs_diff": 0.003675,
+      "full_std": 1.000001,
+      "subset_std": 1.00007,
+      "full_quantiles": {
+        "q25": -0.675247,
+        "q50": 0.00204,
+        "q75": 0.675319,
+        "q95": 1.643158
+      },
+      "subset_quantiles": {
+        "q25": -0.675247,
+        "q50": 3.6e-05,
+        "q75": 0.667304,
+        "q95": 1.635142
+      },
+      "ks_statistic": 0.0178,
+      "ks_p_value": 0.406718
+    },
+    "fluid_depletion_index": {
+      "full_mean": -0.0,
+      "subset_mean": 0.000937,
+      "mean_abs_diff": 0.000937,
+      "full_std": 1.000001,
+      "subset_std": 0.99898,
+      "full_quantiles": {
+        "q25": -0.717814,
+        "q50": -0.037094,
+        "q75": 0.676184,
+        "q95": 1.715725
+      },
+      "subset_quantiles": {
+        "q25": -0.717478,
+        "q50": -0.030717,
+        "q75": 0.673835,
+        "q95": 1.713711
+      },
+      "ks_statistic": 0.0112,
+      "ks_p_value": 0.912466
+    },
+    "thermo_vibration_stress": {
+      "full_mean": -0.0,
+      "subset_mean": -0.002967,
+      "mean_abs_diff": 0.002967,
+      "full_std": 1.000001,
+      "subset_std": 0.998854,
+      "full_quantiles": {
+        "q25": -0.702139,
+        "q50": -0.084302,
+        "q75": 0.61191,
+        "q95": 1.776897
+      },
+      "subset_quantiles": {
+        "q25": -0.703971,
+        "q50": -0.085643,
+        "q75": 0.609417,
+        "q95": 1.762102
+      },
+      "ks_statistic": 0.0206,
+      "ks_p_value": 0.239235
+    },
+    "hydraulic_pressure_deviation": {
+      "full_mean": -0.0,
+      "subset_mean": 0.003033,
+      "mean_abs_diff": 0.003033,
+      "full_std": 1.000001,
+      "subset_std": 1.026783,
+      "full_quantiles": {
+        "q25": -0.049451,
+        "q50": -0.049451,
+        "q75": -0.049451,
+        "q95": -0.049451
+      },
+      "subset_quantiles": {
+        "q25": -0.049451,
+        "q50": -0.049451,
+        "q75": -0.049451,
+        "q95": -0.049451
+      },
+      "ks_statistic": 0.0044,
+      "ks_p_value": 1.0
+    },
+    "error_rate_per_1k_hours": {
+      "full_mean": 0.0,
+      "subset_mean": 0.000956,
+      "mean_abs_diff": 0.000956,
+      "full_std": 1.000001,
+      "subset_std": 0.996214,
+      "full_quantiles": {
+        "q25": -0.138252,
+        "q50": -0.119712,
+        "q75": -0.077506,
+        "q95": 0.248718
+      },
+      "subset_quantiles": {
+        "q25": -0.138341,
+        "q50": -0.11991,
+        "q75": -0.077783,
+        "q95": 0.249661
+      },
+      "ks_statistic": 0.013,
+      "ks_p_value": 0.792067
+    },
+    "coolant_thermal_efficiency": {
+      "full_mean": 0.0,
+      "subset_mean": -0.001392,
+      "mean_abs_diff": 0.001392,
+      "full_std": 1.000001,
+      "subset_std": 0.978089,
+      "full_quantiles": {
+        "q25": -0.029213,
+        "q50": -0.029213,
+        "q75": -0.029213,
+        "q95": -0.029213
+      },
+      "subset_quantiles": {
+        "q25": -0.029213,
+        "q50": -0.029213,
+        "q75": -0.029213,
+        "q95": -0.029213
+      },
+      "ks_statistic": 0.004,
+      "ks_p_value": 1.0
+    },
+    "Machine_Type_encoded": {
+      "full_mean": 0.0,
+      "subset_mean": 2.1e-05,
+      "mean_abs_diff": 2.1e-05,
+      "full_std": 1.000001,
+      "subset_std": 1.00001,
+      "full_quantiles": {
+        "q25": -0.840574,
+        "q50": -0.000383,
+        "q75": 0.839808,
+        "q95": 1.574975
+      },
+      "subset_quantiles": {
+        "q25": -0.840574,
+        "q50": -0.000383,
+        "q75": 0.839808,
+        "q95": 1.574975
+      },
+      "ks_statistic": 0.011,
+      "ks_p_value": 0.922858
+    }
+  },
+  "target_distribution": {
+    "target_type": "discrete_classification",
+    "full_counts": {
+      "0": 328978,
+      "1": 21022
+    },
+    "subset_counts": {
+      "0": 98695,
+      "1": 6305
+    },
+    "full_proportions": {
+      "0": 0.939937,
+      "1": 0.060063
+    },
+    "subset_proportions": {
+      "0": 0.939952,
+      "1": 0.060048
+    },
+    "max_proportion_diff": 1.5e-05
+  },
+  "categorical_distributions": {
+    "Machine_Type_encoded": {
+      "full_unique_count": 33,
+      "subset_unique_count": 33,
+      "full_top5_props": {
+        "1.259903700996798": 0.031003,
+        "0.3146887599480619": 0.030726,
+        "0.9448320539805526": 0.030683,
+        "-1.5757411221494104": 0.030657,
+        "0.10464099527056496": 0.030623
+      },
+      "subset_top5_props": {
+        "1.259903700996798": 0.03101,
+        "0.3146887599480619": 0.030724,
+        "0.9448320539805526": 0.030676,
+        "-1.5757411221494104": 0.030657,
+        "0.10464099527056496": 0.030619
+      },
+      "max_prop_drift": 9e-06
+    }
+  }
+}
