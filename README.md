@@ -104,11 +104,11 @@ C:\NIRMAAN AI
 | **Phase 14** | Operational & Financial Loss Analysis (INR) | **COMPLETED** |
 | **Phase 15** | Prescriptive Recommendation Engine | **COMPLETED** |
 | **Phase 16** | Digital-Twin-Inspired What-If Simulation | **COMPLETED** |
-| **Phase 17** | PostgreSQL Data Persistence & Production Layer | **COMPLETED** |
-| **Phase 18** | FastAPI Asynchronous Backend Services | Planned |
-| **Phase 19** | Factory Knowledge Memory (RAG Ingestion) | Planned |
-| **Phase 20** | Grounded AI Factory Copilot | Planned |
-| **Phase 21** | React + Vite Executive Dashboard | Planned |
+| **Phase 17** | PostgreSQL Data Persistence & Production Layer | **VERIFIED (HOLD — ENV BLOCKED)** |
+| **Phase 18** | FastAPI Asynchronous Backend Services | **VERIFIED (HOLD — ENV BLOCKED)** |
+| **Phase 19** | Factory Knowledge Memory / Grounded RAG Engine | **COMPLETED & LOCKED** |
+| **Phase 20** | Grounded AI Factory Copilot Subsystem | **COMPLETED & LOCKED** |
+| **Phase 21** | React + Vite Executive Dashboard | Planned (Next Phase) |
 | **Phase 22** | Full End-to-End System Integration | Planned |
 | **Phase 23** | Comprehensive Testing & Validation | Planned |
 | **Phase 24** | Dockerization & Deployment Packaging | Planned |
@@ -196,6 +196,25 @@ C:\NIRMAAN AI
 - **Financial Semantic Separation**: Database-level distinction between Realized Loss (₹73,062.28), Baseline Opportunity Cost (₹24,320.00), Gross Financial Exposure (₹97,382.28), and Avoided Opportunity Cost (₹19,520.00).
 - **Alembic Migration & Deterministic Seeding**: Reproducible versioned DDL migrations and idempotent database seeder preserving complete upstream provenance and temporal causality.
 
+### 13. FastAPI Asynchronous Backend Services (Phase 18)
+- **17 Domain APIRouters**: Production REST API exposing factory topology, live telemetry streams, predictive maintenance alerts, SHAP explanations, RCA fault trees, and prescriptive interventions.
+- **Strict Pydantic v2 Contracts**: Full request/response validation with zero untyped JSON blobs, OpenAPI 3.1 documentation (`/docs`, `/redoc`), and robust CORS configuration.
+- **Zero-Latency In-Memory Execution**: Seamless fallback to cached in-process intelligence when database persistence is offline.
+
+### 14. Factory Knowledge Memory & Grounded RAG Engine (Phase 19)
+- **278 Knowledge Chunks Indexed**: Comprehensive cross-phase technical knowledge base with complete heading hierarchy (`H1 > H2 > H3`), SHA-256 checksums, and source traceability.
+- **Deterministic Dense Representation**: Unit-normalized 256-dimensional TF-IDF/SVD vector space ($0.70 \cdot \text{Dense} + 0.30 \cdot \text{Keyword}$) $\times W_{\text{authority}}$ with exact cosine dot-product indexing.
+- **Strict Temporal Governance**: Authoritative cutoff locked at `2026-01-21T12:00:00Z`. Isolates post-cutoff synthetic ground truth event `MAINT_0003` from prospective queries to prevent future knowledge leakage.
+- **8-Class Epistemic Taxonomy**: Rigorous tracking of `OBSERVED`, `DERIVED`, `MODEL_OUTPUT`, `CONTROLLED_SYNTHETIC`, `RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH`, `PROJECTED`, `NOT_PROJECTABLE`, and `UNKNOWN`.
+- **Anti-Hallucination Guardrails**: Rejects queries targeting unknown assets (`M99`, `FAC_99`), ungrounded events, or unprojectable causal metrics with `NO_SUFFICIENT_EVIDENCE`.
+
+### 15. Grounded AI Factory Copilot Subsystem (Phase 20)
+- **Controlled Decision-Support Interface**: Natural-language query interface returning structured, evidence-grounded answers with verbatim citations and confidence metrics.
+- **15 Deterministic Operational Intents**: Rule-based intent classification covering health checks, degradation causes, recommendations, inventory availability, financial exposure, and what-if simulation results.
+- **Source Authority & Financial Grounding**: Enforces authoritative Phase 14 financials (Realized Loss ₹73,062.28, Opportunity ₹24,320.00, Gross Exposure ₹97,382.28) while automatically filtering out superseded draft figures (₹92,582.28).
+- **Counterfactual Limitation Protection**: Rejects uncomputable post-intervention failure probabilities with explicit `NOT_PROJECTABLE` limitations.
+- **100% Benchmark Accuracy**: Evaluated across 14 domain and negative test cases with 100% positive accuracy and 100% negative refusal rate. Exposed via `POST /api/v1/copilot/ask`.
+
 ---
 
 ## Setup & Getting Started
@@ -214,8 +233,14 @@ cd "C:\NIRMAAN AI"
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run complete system test suite (248 tests across Phases 0-17)
-python -m pytest tests/ -v
+# Run complete system test suite (328 tests across Phases 0-20)
+python -m pytest tests/ -q
+
+# Run Phase 19 Knowledge Memory / RAG tests
+python -m pytest tests/test_knowledge_rag.py -v
+
+# Run Phase 20 AI Factory Copilot tests
+python -m pytest tests/test_copilot.py -v
 
 # Run targeted database persistence tests
 python -m pytest tests/test_database.py -v
