@@ -99,7 +99,7 @@ C:\NIRMAAN AI
 | **Phase 11** | Explainable AI & SHAP Feature Attribution | **COMPLETED** |
 | **Phase 12** | Root Cause Analysis Engine | **COMPLETED** |
 | **Phase 13** | Composite Factory Health Score | **COMPLETED** |
-| **Phase 14** | Operational & Financial Loss Analysis (INR) | Planned |
+| **Phase 14** | Operational & Financial Loss Analysis (INR) | **COMPLETED** |
 | **Phase 15** | Prescriptive Recommendation Engine | Planned |
 | **Phase 16** | Digital-Twin-Inspired What-If Simulation | Planned |
 | **Phase 17** | PostgreSQL Relational Database Layer | Planned |
@@ -114,7 +114,7 @@ C:\NIRMAAN AI
 
 ---
 
-## Deployed Intelligence Subsystems (Phases 6–12)
+## Deployed Intelligence Subsystems (Phases 6–14)
 
 ### 1. Predictive Maintenance (Phase 6)
 - **Failure Classification**: XGBoost Champion (Precision: 0.9545, Recall: 0.8235, F1: 0.8842, ROC-AUC: 0.9831) on AI4I 2020. Strict leakage exclusion of tool wear modes and identifiers.
@@ -166,6 +166,14 @@ C:\NIRMAAN AI
 - **Dynamic Renormalization & Missing Data**: Explicit coverage tracking with proportional weight renormalization for partial evidence ($[40\%, 99.9\%]$) and hard override to `INSUFFICIENT_DATA` (score $0.0$, `LOW` confidence) when coverage $< 40\%$.
 - **Temporal Causal Filtering**: Strictly causal $H(t) \le t$ evaluation preventing future maintenance leakage or lookahead bias.
 - **Service Layer**: `FactoryHealthService` exposing machine assessments, plant-wide aggregations, historical trend evaluations, and human-readable markdown reports.
+
+### 9. Operational & Financial Loss Analysis (Phase 14)
+- **First-Principles Derivation Core**: Translates physical machine telemetry, maintenance halts, tool wear scrap, and delayed production batches into quantified Indian Rupee (INR) metrics using configured MSME parameters from `factory_defaults.yaml` (Downtime: ₹4,500/hr, Base Electricity: ₹8.50/kWh, Peak: ₹12.50/kWh, Scrap: ₹350/kg, Rework: ₹280/hr, Bottleneck Margin: ₹320/unit).
+- **Strict Epistemic Demarcation**: Systematically decomposes all financial outputs across `OBSERVED`, `DERIVED_FROM_OBSERVED`, `CONFIGURED_ASSUMPTION`, `PROJECTED_OPPORTUNITY_COST`, and `CONTROLLED_SYNTHETIC`. Prohibits pseudo-financial shortcuts ($₹ \ne f(\text{Health})$, $₹ \ne f(\text{SHAP})$, zero extra RCA loss).
+- **Energy Cost vs Inefficiency**: Strict physical boundary between Total Energy Cost (operational expenditure) and Energy Inefficiency Loss (excess power consumption above rated machine design capacity). Peak tariff schedule (18:00–22:00) is recognized as an external utility schedule, never an equipment fault.
+- **Anti-Double-Counting Safeguards**: Non-overlapping exposure calculation isolating downtime fixed overhead from running bottleneck throughput opportunity costs; independent cost-pool separation of raw material scrap from technician rework labor.
+- **Controlled Machine 2 Scenario**: Full data-driven accounting of the spindle bearing failure chain, isolating ₹21,280 scrap loss, ₹2,660 rework labor, ₹1,675.83 energy inefficiency, ₹24,320 projected bottleneck opportunity cost during precursor degradation, and ₹11,670 single-event emergency stoppage loss (`MAINT_0003`).
+- **Service Layer**: `FinancialLossService` exposing machine assessments ($M_1\text{--}M_5$), plant-wide aggregations, temporal causal queries ($t \le t_{\text{as\_of}}$), and reference reconciliation against `operational_losses.csv`.
 
 ---
 

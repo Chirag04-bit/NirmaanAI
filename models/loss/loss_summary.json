@@ -1,0 +1,339 @@
+{
+  "phase": "Phase 14: Operational & Financial Loss Analysis (INR)",
+  "generated_at": "2026-09-13T07:49:20.283345+00:00",
+  "factory_summary": {
+    "timestamp": "2026-09-13T07:49:19.978507+00:00",
+    "evaluation_window_start": null,
+    "evaluation_window_end": null,
+    "machine_breakdowns": {
+      "M1": {
+        "machine_id": "M1",
+        "observed_unplanned_downtime_hours": 0.0,
+        "observed_unplanned_downtime_loss_inr": 0.0,
+        "observed_routine_maintenance_hours": 0.75,
+        "observed_routine_maintenance_cost_inr": 3375.0,
+        "observed_downtime_hours": 0.75,
+        "observed_downtime_loss_inr": 3375.0,
+        "scrap_quantity_units": 127,
+        "scrap_mass_kg": 101.6,
+        "scrap_loss_inr": 35560.0,
+        "rework_hours": 15.88,
+        "rework_loss_inr": 4445.0,
+        "total_energy_kwh": 10798.56,
+        "total_energy_cost_inr": 98987.01,
+        "base_energy_cost_inr": 76487.86,
+        "peak_energy_cost_inr": 22499.15,
+        "energy_inefficiency_kwh": 114.03,
+        "energy_inefficiency_loss_inr": 1044.87,
+        "delayed_throughput_units": 0.0,
+        "projected_opportunity_cost_inr": 0.0,
+        "realized_operational_loss_inr": 44424.87,
+        "gross_financial_exposure_inr": 44424.87,
+        "non_overlapping_financial_exposure_inr": 44424.87,
+        "items_count": 3,
+        "epistemic_summary": {
+          "OBSERVED": 118.22,
+          "DERIVED_FROM_OBSERVED": 142367.01,
+          "CONFIGURED_ASSUMPTION": 5130.0,
+          "PROJECTED_OPPORTUNITY_COST": 0.0
+        }
+      },
+      "M2": {
+        "machine_id": "M2",
+        "observed_unplanned_downtime_hours": 2.5,
+        "observed_unplanned_downtime_loss_inr": 11250.0,
+        "observed_routine_maintenance_hours": 0.0,
+        "observed_routine_maintenance_cost_inr": 0.0,
+        "observed_downtime_hours": 2.5,
+        "observed_downtime_loss_inr": 11250.0,
+        "scrap_quantity_units": 185,
+        "scrap_mass_kg": 148.0,
+        "scrap_loss_inr": 51800.0,
+        "rework_hours": 24.62,
+        "rework_loss_inr": 6895.0,
+        "total_energy_kwh": 16080.18,
+        "total_energy_cost_inr": 147402.17,
+        "base_energy_cost_inr": 113896.96,
+        "peak_energy_cost_inr": 33505.21,
+        "energy_inefficiency_kwh": 339.64,
+        "energy_inefficiency_loss_inr": 3117.28,
+        "delayed_throughput_units": 76.0,
+        "projected_opportunity_cost_inr": 24320.0,
+        "realized_operational_loss_inr": 73062.28,
+        "gross_financial_exposure_inr": 97382.28,
+        "non_overlapping_financial_exposure_inr": 97382.28,
+        "items_count": 3,
+        "epistemic_summary": {
+          "OBSERVED": 175.13,
+          "DERIVED_FROM_OBSERVED": 217347.17,
+          "CONFIGURED_ASSUMPTION": 5130.0,
+          "PROJECTED_OPPORTUNITY_COST": 24320.0
+        }
+      },
+      "M3": {
+        "machine_id": "M3",
+        "observed_unplanned_downtime_hours": 0.0,
+        "observed_unplanned_downtime_loss_inr": 0.0,
+        "observed_routine_maintenance_hours": 0.5,
+        "observed_routine_maintenance_cost_inr": 2250.0,
+        "observed_downtime_hours": 0.5,
+        "observed_downtime_loss_inr": 2250.0,
+        "scrap_quantity_units": 124,
+        "scrap_mass_kg": 99.2,
+        "scrap_loss_inr": 34720.0,
+        "rework_hours": 15.5,
+        "rework_loss_inr": 4340.0,
+        "total_energy_kwh": 7916.46,
+        "total_energy_cost_inr": 72560.09,
+        "base_energy_cost_inr": 56085.58,
+        "peak_energy_cost_inr": 16474.51,
+        "energy_inefficiency_kwh": 113.87,
+        "energy_inefficiency_loss_inr": 1037.22,
+        "delayed_throughput_units": 0.0,
+        "projected_opportunity_cost_inr": 0.0,
+        "realized_operational_loss_inr": 42347.22,
+        "gross_financial_exposure_inr": 42347.22,
+        "non_overlapping_financial_exposure_inr": 42347.22,
+        "items_count": 3,
+        "epistemic_summary": {
+          "OBSERVED": 115.2,
+          "DERIVED_FROM_OBSERVED": 113870.09,
+          "CONFIGURED_ASSUMPTION": 5130.0,
+          "PROJECTED_OPPORTUNITY_COST": 0.0
+        }
+      },
+      "M4": {
+        "machine_id": "M4",
+        "observed_unplanned_downtime_hours": 0.0,
+        "observed_unplanned_downtime_loss_inr": 0.0,
+        "observed_routine_maintenance_hours": 0.42,
+        "observed_routine_maintenance_cost_inr": 1875.0,
+        "observed_downtime_hours": 0.42,
+        "observed_downtime_loss_inr": 1875.0,
+        "scrap_quantity_units": 122,
+        "scrap_mass_kg": 97.6,
+        "scrap_loss_inr": 34160.0,
+        "rework_hours": 15.25,
+        "rework_loss_inr": 4270.0,
+        "total_energy_kwh": 3241.23,
+        "total_energy_cost_inr": 29710.36,
+        "base_energy_cost_inr": 22958.5,
+        "peak_energy_cost_inr": 6751.86,
+        "energy_inefficiency_kwh": 115.66,
+        "energy_inefficiency_loss_inr": 1061.24,
+        "delayed_throughput_units": 0.0,
+        "projected_opportunity_cost_inr": 0.0,
+        "realized_operational_loss_inr": 41366.24,
+        "gross_financial_exposure_inr": 41366.24,
+        "non_overlapping_financial_exposure_inr": 41366.24,
+        "items_count": 3,
+        "epistemic_summary": {
+          "OBSERVED": 113.27,
+          "DERIVED_FROM_OBSERVED": 70015.36,
+          "CONFIGURED_ASSUMPTION": 5130.0,
+          "PROJECTED_OPPORTUNITY_COST": 0.0
+        }
+      },
+      "M5": {
+        "machine_id": "M5",
+        "observed_unplanned_downtime_hours": 0.0,
+        "observed_unplanned_downtime_loss_inr": 0.0,
+        "observed_routine_maintenance_hours": 0.0,
+        "observed_routine_maintenance_cost_inr": 0.0,
+        "observed_downtime_hours": 0.0,
+        "observed_downtime_loss_inr": 0.0,
+        "scrap_quantity_units": 109,
+        "scrap_mass_kg": 87.2,
+        "scrap_loss_inr": 30520.0,
+        "rework_hours": 13.62,
+        "rework_loss_inr": 3815.0,
+        "total_energy_kwh": 5403.9,
+        "total_energy_cost_inr": 49529.84,
+        "base_energy_cost_inr": 38285.08,
+        "peak_energy_cost_inr": 11244.76,
+        "energy_inefficiency_kwh": 116.77,
+        "energy_inefficiency_loss_inr": 1069.93,
+        "delayed_throughput_units": 0.0,
+        "projected_opportunity_cost_inr": 0.0,
+        "realized_operational_loss_inr": 35404.93,
+        "gross_financial_exposure_inr": 35404.93,
+        "non_overlapping_financial_exposure_inr": 35404.93,
+        "items_count": 2,
+        "epistemic_summary": {
+          "OBSERVED": 100.82,
+          "DERIVED_FROM_OBSERVED": 83864.84,
+          "CONFIGURED_ASSUMPTION": 5130.0,
+          "PROJECTED_OPPORTUNITY_COST": 0.0
+        }
+      }
+    },
+    "total_realized_loss_inr": 236605.54,
+    "total_energy_cost_inr": 398189.47,
+    "total_projected_opportunity_cost_inr": 24320.0,
+    "gross_financial_exposure_inr": 260925.54,
+    "non_overlapping_financial_exposure_inr": 260925.54,
+    "by_category": {
+      "UNPLANNED_DOWNTIME": 11250.0,
+      "ROUTINE_MAINTENANCE": 7500.0,
+      "ENERGY_COST": 398189.47,
+      "ENERGY_INEFFICIENCY": 7330.54,
+      "SCRAP_MATERIAL": 186760.0,
+      "REWORK_LABOR": 23765.0,
+      "BOTTLENECK_OPPORTUNITY_COST": 24320.0
+    },
+    "by_epistemic_type": {
+      "OBSERVED": 622.64,
+      "DERIVED_FROM_OBSERVED": 627464.47,
+      "CONFIGURED_ASSUMPTION": 25650.0,
+      "PROJECTED_OPPORTUNITY_COST": 24320.0,
+      "CONTROLLED_SYNTHETIC": 0.0
+    },
+    "audit_safeguards_applied": [
+      "RULE_1_DOWNTIME_OPPORTUNITY_SEPARATION: Verified non-concurrency of idle overhead vs operating throughput delay",
+      "RULE_2_SCRAP_REWORK_SEPARATION: Discarded raw material cost isolated from technician salvage labor",
+      "RULE_3_ENERGY_DOWNTIME_ISOLATION: Zero operating load charged during machine stoppage",
+      "RULE_4_ZERO_DIAGNOSTIC_LOSS: Health score, SHAP values, and RCA candidates assigned 0.0 INR loss",
+      "RULE_5_TEMPORAL_CAUSALITY: Excluded all events after evaluation timestamp"
+    ],
+    "research_integrity_statement": "Financial parameters are configured simulation assumptions unless independently measured. Projected opportunity cost is an operational capacity model and not equivalent to realized accounting loss."
+  },
+  "machine_2_scenario": {
+    "machine_id": "M2",
+    "scenario_name": "Controlled Machine 2 Spindle Bearing Degradation Chain",
+    "epistemic_classification": "CONTROLLED_SYNTHETIC",
+    "emergency_maintenance_record": "MAINT_0003",
+    "emergency_maintenance_time": "2026-01-22T16:30:00Z",
+    "baseline_period_days_1_to_17": {
+      "observed_downtime_hours": 0.0,
+      "scrap_loss_inr": 21000.0,
+      "rework_loss_inr": 2625.0,
+      "energy_inefficiency_loss_inr": 573.85,
+      "projected_opportunity_cost_inr": 0.0,
+      "realized_loss_inr": 24198.85
+    },
+    "degradation_period_days_18_to_21_delta": {
+      "scrap_loss_inr": 21280.0,
+      "rework_loss_inr": 2660.0,
+      "energy_inefficiency_loss_inr": 1981.34,
+      "projected_opportunity_cost_inr": 24320.0
+    },
+    "emergency_halt_maint_0003": {
+      "downtime_minutes": 150.0,
+      "downtime_loss_inr": 11250.0,
+      "technician_rework_hours": 1.5,
+      "technician_rework_loss_inr": 420.0,
+      "single_event_halt_loss_inr": 11670.0
+    },
+    "full_month_totals": {
+      "realized_loss_inr": 73062.28,
+      "total_energy_cost_inr": 147402.17,
+      "projected_opportunity_cost_inr": 24320.0,
+      "gross_exposure_inr": 97382.28,
+      "non_overlapping_exposure_inr": 97382.28
+    }
+  },
+  "reference_reconciliation": {
+    "status": "RECONCILED",
+    "all_downtime_match": true,
+    "all_scrap_match": true,
+    "all_rework_match": true,
+    "machine_details": {
+      "M1": {
+        "calculated": {
+          "total_downtime_loss_inr": 3375.0,
+          "unplanned_downtime_loss_inr": 0.0,
+          "routine_maintenance_loss_inr": 3375.0,
+          "scrap_loss_inr": 35560.0,
+          "rework_loss_inr": 4445.0
+        },
+        "reference": {
+          "downtime_loss_inr": 3375.0,
+          "scrap_loss_inr": 35560.0,
+          "rework_loss_inr": 4445.0
+        },
+        "difference": {
+          "downtime_diff": 0.0,
+          "scrap_diff": 0.0,
+          "rework_diff": 0.0
+        }
+      },
+      "M2": {
+        "calculated": {
+          "total_downtime_loss_inr": 11250.0,
+          "unplanned_downtime_loss_inr": 11250.0,
+          "routine_maintenance_loss_inr": 0.0,
+          "scrap_loss_inr": 51800.0,
+          "rework_loss_inr": 6895.0
+        },
+        "reference": {
+          "downtime_loss_inr": 11250.0,
+          "scrap_loss_inr": 51800.0,
+          "rework_loss_inr": 6895.0
+        },
+        "difference": {
+          "downtime_diff": 0.0,
+          "scrap_diff": 0.0,
+          "rework_diff": 0.0
+        }
+      },
+      "M3": {
+        "calculated": {
+          "total_downtime_loss_inr": 2250.0,
+          "unplanned_downtime_loss_inr": 0.0,
+          "routine_maintenance_loss_inr": 2250.0,
+          "scrap_loss_inr": 34720.0,
+          "rework_loss_inr": 4340.0
+        },
+        "reference": {
+          "downtime_loss_inr": 2250.0,
+          "scrap_loss_inr": 34720.0,
+          "rework_loss_inr": 4340.0
+        },
+        "difference": {
+          "downtime_diff": 0.0,
+          "scrap_diff": 0.0,
+          "rework_diff": 0.0
+        }
+      },
+      "M4": {
+        "calculated": {
+          "total_downtime_loss_inr": 1875.0,
+          "unplanned_downtime_loss_inr": 0.0,
+          "routine_maintenance_loss_inr": 1875.0,
+          "scrap_loss_inr": 34160.0,
+          "rework_loss_inr": 4270.0
+        },
+        "reference": {
+          "downtime_loss_inr": 1875.0,
+          "scrap_loss_inr": 34160.0,
+          "rework_loss_inr": 4270.0
+        },
+        "difference": {
+          "downtime_diff": 0.0,
+          "scrap_diff": 0.0,
+          "rework_diff": 0.0
+        }
+      },
+      "M5": {
+        "calculated": {
+          "total_downtime_loss_inr": 0.0,
+          "unplanned_downtime_loss_inr": 0.0,
+          "routine_maintenance_loss_inr": 0.0,
+          "scrap_loss_inr": 30520.0,
+          "rework_loss_inr": 3815.0
+        },
+        "reference": {
+          "downtime_loss_inr": 0.0,
+          "scrap_loss_inr": 30520.0,
+          "rework_loss_inr": 3815.0
+        },
+        "difference": {
+          "downtime_diff": 0.0,
+          "scrap_diff": 0.0,
+          "rework_diff": 0.0
+        }
+      }
+    },
+    "reconciliation_notes": "Reference artifact operational_losses.csv recorded downtime, scrap, and rework losses. Phase 14 first-principles calculations achieve 100% exact numerical match with operational_losses.csv across all machines for total downtime, scrap, and rework losses, while additionally distinguishing unplanned halts from routine maintenance, and adding energy inefficiency and projected bottleneck opportunity costs."
+  }
+}
