@@ -39,10 +39,13 @@ def generate_simulation_markdown_report(summary: Dict[str, Any]) -> str:
     lines = [
         "# Phase 16: Digital-Twin-Inspired What-If Simulation — Evaluation Report",
         "",
-        f"**Generated UTC:** {summary['generated_at']}  ",
-        f"**Decision Evaluation Timestamp:** {summary['decision_timestamp']}  ",
-        "**System Classification:** DIGITAL-TWIN-INSPIRED WHAT-IF SIMULATION (Decision Support Only)  ",
-        "**Governance Notice:** Evaluates hypothetical interventions against configured assumptions. Human supervisor authorization is mandatory before executing physical actions.  ",
+        f"**Generated UTC:** {summary['generated_at']}",
+        "",
+        f"**Decision Evaluation Timestamp:** {summary['decision_timestamp']}",
+        "",
+        "**System Classification:** DIGITAL-TWIN-INSPIRED WHAT-IF SIMULATION (Decision Support Only)",
+        "",
+        "**Governance Notice:** Evaluates hypothetical interventions against configured assumptions. Human supervisor authorization is mandatory before executing physical actions.",
         "",
         "---",
         "",
@@ -55,12 +58,19 @@ def generate_simulation_markdown_report(summary: Dict[str, Any]) -> str:
         f"| **Factory Health Score ($H_m$)** | **{base['health_score']}** | `DERIVED_FROM_OBSERVED` | Phase 13 locked `CRITICAL` band ($< 40.0$) |",
         f"| **Production Cycle Ratio** | **{base['cycle_ratio']}** | `DERIVED_FROM_OBSERVED` | Phase 8 bottleneck target ($1.38 \\ge 1.20$) |",
         f"| **Delayed Throughput Units** | **{base['delayed_units']} units** | `OBSERVED` | Work-in-progress delay behind M2 constraint |",
-        f"| **Observed Current Bearing Stock** | **{base['observed_bearing_stock']} units** | `OBSERVED` | Phase 10 physical stock (**NOT a current stockout**) |",
-        f"| **Bearing Safety Stock Threshold** | **{base['safety_stock']} units** | `CONFIGURED_ASSUMPTION` | Phase 10 statistical safety buffer |",
+        f"| **Observed Current Bearing Stock** | **{base['observed_bearing_stock']} units** | `OBSERVED` | Phase 10 physical stock ($2.0 > 1.134$ SS, $2.0 > 1.367$ ROP; **NOT a stockout**) |",
+        f"| **Bearing Safety Stock Threshold** | **{base['safety_stock']} units** | `OBSERVED` | Phase 10 locked statistical safety buffer |",
+        f"| **Bearing Reorder Point (ROP)** | **{base['reorder_point']} units** | `OBSERVED` | Phase 10 locked ROP threshold ($2.0 > 1.367$; NOT below ROP) |",
         f"| **Supplier Lead Time** | **{base['lead_time_days']} days** | `CONFIGURED_ASSUMPTION` | Component procurement catalog parameter |",
         f"| **Realized Operational Loss (INR)** | **₹{base['realized_operational_loss_inr']:,.2f}** | `DERIVED_FROM_OBSERVED` | Phase 14 historical disruption accounting |",
         f"| **Projected Opportunity Cost (INR)** | **₹{base['projected_opportunity_cost_inr']:,.2f}** | `PROJECTED_OPPORTUNITY_COST` | 76 delayed units $\\times$ ₹320 contribution margin |",
         f"| **Gross Financial Exposure (INR)** | **₹{base['gross_financial_exposure_inr']:,.2f}** | `DERIVED_FROM_OBSERVED` | Realized Loss + Projected Opportunity Cost |",
+        "",
+        "> **Inventory Integrity Verification:**",
+        f"> - Current Stock ({base['observed_bearing_stock']}) > Safety Stock ({base['safety_stock']})",
+        f"> - Current Stock ({base['observed_bearing_stock']}) > Reorder Point ({base['reorder_point']})",
+        "> - Current stock is NOT below safety stock, NOT below reorder point; **no current-stockout claim is permitted**.",
+        f"> - Proactive reorder remains valid because post-action stock: $2.0 - 1.0 = 1.0 < {base['safety_stock']}$ (breaches safety stock).",
         "",
         "---",
         "",
@@ -72,8 +82,13 @@ def generate_simulation_markdown_report(summary: Dict[str, Any]) -> str:
 
     for s in comp["comparison_table"]:
         act_str = ", ".join(s["interventions"]) if s["interventions"] else "None (Baseline Continuation)"
+        health_disp = (
+            f"{s['health_score']} ({s['health_state']})"
+            if s["health_score"] != "NOT_PROJECTABLE"
+            else "`NOT_PROJECTABLE`"
+        )
         lines.append(
-            f"| `{s['scenario_id']}` | **{s['scenario_name']}** | {s['health_score']} ({s['health_state']}) | {s['unplanned_downtime_minutes']} min | {s['planned_downtime_minutes']} min | {s['delayed_units']} | {s['post_action_stock']} | {s['is_safety_breached']} | **₹{s['projected_avoided_loss_inr']:,.2f}** | ₹{s['projected_gross_exposure_inr']:,.2f} | `{s['confidence']}` |"
+            f"| `{s['scenario_id']}` | **{s['scenario_name']}** | {health_disp} | {s['unplanned_downtime_minutes']} min | {s['planned_downtime_minutes']} min | {s['delayed_units']} | {s['post_action_stock']} | {s['is_safety_breached']} | **₹{s['projected_avoided_loss_inr']:,.2f}** | ₹{s['projected_gross_exposure_inr']:,.2f} | `{s['confidence']}` |"
         )
 
     lines.extend([
@@ -82,6 +97,12 @@ def generate_simulation_markdown_report(summary: Dict[str, Any]) -> str:
         f"> {comp['ranking_narrative']}",
         "",
         f"**Recommended Scenario:** `{comp['recommended_scenario_id']}` (Broadest Modeled Mitigation Coverage)",
+        "",
+        "> [!NOTE]",
+        "> **Causal & Epistemic Audit Notes:**",
+        "> 1. **Health Score & Failure Probability:** Set to `NOT_PROJECTABLE` for Scenarios B, C, D, E because no intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset.",
+        "> 2. **Flow Delay Assumption:** Remaining delayed units = 15.0 in Scenarios D and E is strictly a `CONFIGURED_ASSUMPTION` (never called empirically validated).",
+        "> 3. **Avoided Opportunity Cost:** The financial calculation $(76 - 15) \\times ₹320 = ₹19,520$ is strictly a `PROJECTED_OPPORTUNITY_COST` mechanically derived from the delay reduction assumption; it is **never called realized savings**.",
         "",
         "---",
         "",
@@ -112,10 +133,15 @@ def generate_simulation_markdown_report(summary: Dict[str, Any]) -> str:
         "",
         "## 5. Research & Operational Integrity Audit Checklist",
         "",
+        "- [x] **M2 ROP Integrity:** M2 Reorder Point == 1.367 units (Phase 10 authoritative value; ungrounded 5.0 unit claim strictly eliminated).",
+        "- [x] **Stock Position Truthfulness:** Current stock 2.0 > ROP 1.367 and > Safety Stock 1.134; current stockout claim strictly prohibited.",
+        "- [x] **Post-Maintenance Breach:** Projected stock after 1 bearing consumed = 1.0 < Safety Stock 1.134; proactive expedite strictly justified.",
+        "- [x] **Causal Effect Audit:** Unsupported causal intervention effects (Health, P(fail), Anomaly) set to `NOT_PROJECTABLE`.",
+        "- [x] **Configured Delay Assumption:** Remaining delayed units = 15.0 classified strictly as `CONFIGURED_ASSUMPTION` (never empirical validation).",
+        "- [x] **Financial Provenance:** Delay financial impact ₹19,520 labeled strictly as `PROJECTED_OPPORTUNITY_COST` (never realized savings).",
         "- [x] **Temporal Causality:** Evaluated at decision cutoff $t = \\text{2026-01-21T12:00:00Z}$; Day 22 emergency halt, repair labor, and recovery strictly excluded from baseline.",
-        "- [x] **Inventory Truthfulness:** Current stock is 2.0 (above safety stock 1.134; never called a stockout); expedite scenario is explicitly justified by projected post-action stock (1.0).",
-        "- [x] **Financial Provenance:** Baseline realized loss (₹73,062.28) kept strictly distinct from projected avoided loss; zero pseudo-financial formulas ($₹ \\ne f(H)$, $₹ \\ne f(\\text{SHAP})$, $₹ \\ne f(\\text{RCA})$).",
-        "- [x] **Categorical Uncertainty:** Confidence expressed via standardized categorical taxonomy (`HIGH_EVIDENCE`, `MODERATE_EVIDENCE`, `ASSUMPTION_DEPENDENT`).",
+        "- [x] **Zero Diagnostic Coupling:** Zero pseudo-financial formulas ($₹ \\ne f(H)$, $₹ \\ne f(\\text{SHAP})$, $₹ \\ne f(\\text{RCA})$).",
+        "- [x] **Categorical Uncertainty:** Confidence expressed via standardized categorical taxonomy (`HIGH_EVIDENCE`, `ASSUMPTION_DEPENDENT`).",
         "- [x] **Decision Support Boundary:** What-if simulation evaluates hypothetical scenarios; zero autonomous machine commands are emitted.",
         "",
     ])

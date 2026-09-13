@@ -50,12 +50,13 @@ src/simulation/
 ## 3. Epistemic Provenance Integrity
 
 Every metric and scenario output strictly enforces epistemic demarcation:
-- `OBSERVED`: Measured sensor telemetry, actual scrap parts, observed on-hand stock ($2.0\text{ units}$).
+- `OBSERVED`: Measured sensor telemetry, actual scrap parts, physical on-hand stock ($2.0\text{ units}$), safety stock threshold ($1.134\text{ units}$), authoritative reorder point ($1.367\text{ units}$).
 - `DERIVED_FROM_OBSERVED`: Baseline predictive failure probability ($0.9959$), anomaly score ($0.35$), health score ($26.88$), baseline realized loss ($₹73,062.28$).
-- `CONFIGURED_ASSUMPTION`: Planned service downtime duration ($30\text{ min}$), contribution margin ($₹320/\text{unit}$), downtime rate ($₹4,500/\text{h}$), sensitivity bounds (LOW, BASE, HIGH).
-- `PROJECTED`: Projected post-action inventory stock ($1.0\text{ unit}$), projected avoided downtime ($120\text{ min}$).
-- `PROJECTED_OPPORTUNITY_COST`: Avoided margin loss from clearing bottleneck throughput delay ($₹19,520.00$).
-- `CONTROLLED_SYNTHETIC`: Scenario validation wrapper for simulated degradation chains.
+- `CONFIGURED_ASSUMPTION`: Planned service downtime duration ($30\text{ min}$), remaining delayed units ($15.0\text{ units}$), contribution margin ($₹320/\text{unit}$), downtime rate ($₹4,500/\text{h}$), sensitivity bounds (LOW, BASE, HIGH).
+- `PROJECTED`: Projected post-action inventory stock ($1.0\text{ unit}$), projected avoided downtime ($120\text{ min}$), projected avoided breakdown loss ($₹9,420.00$).
+- `PROJECTED_OPPORTUNITY_COST`: Avoided margin loss from clearing bottleneck throughput delay ($(76 - 15) \times ₹320 = ₹19,520.00$).
+- `CONTROLLED_SYNTHETIC`: Scenario validation wrapper for simulated degradation chains (Scenario A unmitigated Day 22 halt).
+- `NOT_PROJECTABLE`: Explicitly assigned when an empirical causal treatment effect is absent from the repository (preventive intervention mechanical health score, failure probability, and anomaly score).
 
 ---
 
@@ -66,8 +67,8 @@ Every metric and scenario output strictly enforces epistemic demarcation:
    Monetary calculations strictly follow Phase 14 physical accounting identities.
 2. **Realized vs Projected Separation:**
    - `realized_operational_loss_inr`: Historical disruption loss already incurred ($₹73,062.28$).
-   - `projected_opportunity_cost_inr`: Unearned margin from remaining delayed units.
-   - `projected_avoided_loss_inr`: Avoided losses resulting from the hypothetical intervention.
+   - `projected_opportunity_cost_inr`: Unearned margin from remaining delayed units ($15 \times ₹320 = ₹4,800.00$).
+   - `projected_avoided_loss_inr`: Avoided losses resulting from the hypothetical intervention (avoided breakdown loss ₹9,420 + avoided opportunity cost ₹19,520 = ₹28,940).
    - Projected avoided losses are **never** described as "realized savings".
 
 ---
@@ -75,7 +76,6 @@ Every metric and scenario output strictly enforces epistemic demarcation:
 ## 5. Categorical Uncertainty & Robustness
 
 Statistical confidence intervals are **not** fabricated where uncalibrated. The engine enforces categorical uncertainty:
-- `HIGH_EVIDENCE`: Grounded in observed historical transitions (e.g. baseline continuation in Scenario A).
-- `MODERATE_EVIDENCE`: Grounded in dual-phase analytical models and synthetic recovery trajectories (Scenarios B, C, D, E).
-- `ASSUMPTION_DEPENDENT`: Directly dependent on configured MSME parameters.
-- `NOT_PROJECTABLE`: Output when empirical or analytical evidence is insufficient (numbers are **never** fabricated).
+- `HIGH_EVIDENCE`: Grounded in observed historical transitions (e.g. baseline continuation in Scenario A, nominal invariance in Negative Control M1).
+- `ASSUMPTION_DEPENDENT`: Directly dependent on configured MSME parameters and hypothetical scenario assumptions (Scenarios B, C, D, E).
+- `NOT_PROJECTABLE`: Output when empirical or analytical evidence is insufficient (numbers are **never** fabricated). Reason: *"No intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset."*

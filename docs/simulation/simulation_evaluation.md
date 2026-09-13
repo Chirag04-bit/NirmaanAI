@@ -1,9 +1,12 @@
 # Phase 16: Digital-Twin-Inspired What-If Simulation — Evaluation Report
 
-**Generated UTC:** 2026-09-13T08:47:41.991598+00:00  
-**Decision Evaluation Timestamp:** 2026-01-21T12:00:00+00:00  
-**System Classification:** DIGITAL-TWIN-INSPIRED WHAT-IF SIMULATION (Decision Support Only)  
-**Governance Notice:** Evaluates hypothetical interventions against configured assumptions. Human supervisor authorization is mandatory before executing physical actions.  
+**Generated UTC:** 2026-09-13T09:06:49.328092+00:00
+
+**Decision Evaluation Timestamp:** 2026-01-21T12:00:00+00:00
+
+**System Classification:** DIGITAL-TWIN-INSPIRED WHAT-IF SIMULATION (Decision Support Only)
+
+**Governance Notice:** Evaluates hypothetical interventions against configured assumptions. Human supervisor authorization is mandatory before executing physical actions.
 
 ---
 
@@ -16,12 +19,19 @@
 | **Factory Health Score ($H_m$)** | **26.88** | `DERIVED_FROM_OBSERVED` | Phase 13 locked `CRITICAL` band ($< 40.0$) |
 | **Production Cycle Ratio** | **1.38** | `DERIVED_FROM_OBSERVED` | Phase 8 bottleneck target ($1.38 \ge 1.20$) |
 | **Delayed Throughput Units** | **76.0 units** | `OBSERVED` | Work-in-progress delay behind M2 constraint |
-| **Observed Current Bearing Stock** | **2.0 units** | `OBSERVED` | Phase 10 physical stock (**NOT a current stockout**) |
-| **Bearing Safety Stock Threshold** | **1.134 units** | `CONFIGURED_ASSUMPTION` | Phase 10 statistical safety buffer |
+| **Observed Current Bearing Stock** | **2.0 units** | `OBSERVED` | Phase 10 physical stock ($2.0 > 1.134$ SS, $2.0 > 1.367$ ROP; **NOT a stockout**) |
+| **Bearing Safety Stock Threshold** | **1.134 units** | `OBSERVED` | Phase 10 locked statistical safety buffer |
+| **Bearing Reorder Point (ROP)** | **1.367 units** | `OBSERVED` | Phase 10 locked ROP threshold ($2.0 > 1.367$; NOT below ROP) |
 | **Supplier Lead Time** | **7.0 days** | `CONFIGURED_ASSUMPTION` | Component procurement catalog parameter |
 | **Realized Operational Loss (INR)** | **₹73,062.28** | `DERIVED_FROM_OBSERVED` | Phase 14 historical disruption accounting |
 | **Projected Opportunity Cost (INR)** | **₹24,320.00** | `PROJECTED_OPPORTUNITY_COST` | 76 delayed units $\times$ ₹320 contribution margin |
 | **Gross Financial Exposure (INR)** | **₹97,382.28** | `DERIVED_FROM_OBSERVED` | Realized Loss + Projected Opportunity Cost |
+
+> **Inventory Integrity Verification:**
+> - Current Stock (2.0) > Safety Stock (1.134)
+> - Current Stock (2.0) > Reorder Point (1.367)
+> - Current stock is NOT below safety stock, NOT below reorder point; **no current-stockout claim is permitted**.
+> - Proactive reorder remains valid because post-action stock: $2.0 - 1.0 = 1.0 < 1.134$ (breaches safety stock).
 
 ---
 
@@ -30,15 +40,21 @@
 | Scenario ID | Name & Interventions | Projected Health | Unplanned DT | Planned DT | Delayed Units | Post-Action Stock | Safety Breached? | Projected Avoided Loss | Gross Exposure Delta | Confidence |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | `SCEN_M2_A_BASELINE` | **Scenario A: Baseline Continuation / No Intervention** | 21.73 (HealthState.CRITICAL) | 150.0 min | 0.0 min | 76.0 | 2.0 | False | **₹0.00** | ₹97,382.28 | `HIGH_EVIDENCE` |
-| `SCEN_M2_B_INSPECT` | **Scenario B: INSPECT_SPINDLE_BEARING** | 92.5 (HealthState.EXCELLENT) | 0.0 min | 30.0 min | 76.0 | 1.0 | True | **₹9,420.00** | ₹87,962.28 | `MODERATE_EVIDENCE` |
-| `SCEN_M2_C_INSPECT_EXPEDITE` | **Scenario C: INSPECT_SPINDLE_BEARING + EXPEDITE_CRITICAL_SPARE** | 92.5 (HealthState.EXCELLENT) | 0.0 min | 30.0 min | 76.0 | 1.0 | True | **₹9,420.00** | ₹87,962.28 | `MODERATE_EVIDENCE` |
-| `SCEN_M2_D_FLOW_MITIGATION` | **Scenario D: REDUCE_MACHINE_FEED_RATE + RESCHEDULE_PENDING_JOBS** | 38.5 (HealthState.CRITICAL) | 0.0 min | 0.0 min | 15.0 | 2.0 | False | **₹19,520.00** | ₹77,862.28 | `MODERATE_EVIDENCE` |
-| `SCEN_M2_E_FULL_PORTFOLIO` | **Scenario E: Full Mitigation Portfolio (Maintenance + Flow + Inventory)** | 94.5 (HealthState.EXCELLENT) | 0.0 min | 30.0 min | 15.0 | 1.0 | True | **₹28,940.00** | ₹68,442.28 | `MODERATE_EVIDENCE` |
+| `SCEN_M2_B_INSPECT` | **Scenario B: INSPECT_SPINDLE_BEARING** | `NOT_PROJECTABLE` | 0.0 min | 30.0 min | 76.0 | 1.0 | True | **₹9,420.00** | ₹87,962.28 | `ASSUMPTION_DEPENDENT` |
+| `SCEN_M2_C_INSPECT_EXPEDITE` | **Scenario C: INSPECT_SPINDLE_BEARING + EXPEDITE_CRITICAL_SPARE** | `NOT_PROJECTABLE` | 0.0 min | 30.0 min | 76.0 | 1.0 | True | **₹9,420.00** | ₹87,962.28 | `ASSUMPTION_DEPENDENT` |
+| `SCEN_M2_D_FLOW_MITIGATION` | **Scenario D: REDUCE_MACHINE_FEED_RATE + RESCHEDULE_PENDING_JOBS** | `NOT_PROJECTABLE` | 0.0 min | 0.0 min | 15.0 | 2.0 | False | **₹19,520.00** | ₹77,862.28 | `ASSUMPTION_DEPENDENT` |
+| `SCEN_M2_E_FULL_PORTFOLIO` | **Scenario E: Full Mitigation Portfolio (Maintenance + Flow + Inventory)** | `NOT_PROJECTABLE` | 0.0 min | 30.0 min | 15.0 | 1.0 | True | **₹28,940.00** | ₹68,442.28 | `ASSUMPTION_DEPENDENT` |
 
 ### Comparative Policy Narrative:
-> Comparative evaluation under configured MSME assumptions demonstrates that Scenario E provides the broadest modeled mitigation coverage. Scenario A results in unmitigated emergency halt (MAINT_0003). Scenario B eliminates 150 min unplanned downtime (saving ₹9,420 in breakdown losses) but leaves inventory breached at 1.0 unit. Scenario C resolves this by pairing proactive reordering. Scenario D targets the bottleneck queue (saving ₹19,520 in opportunity costs) but leaves the spindle bearing unserviced. Scenario E synthesizes maintenance, scheduling, and procurement for a total projected avoided financial exposure of ₹28,940. (Note: Scenario E is designated as providing the broadest modeled mitigation coverage under configured assumptions; no claim of unconstrained mathematical global optimality is made).
+> Comparative evaluation under configured MSME assumptions demonstrates that Scenario E provides the broadest modeled mitigation coverage. Scenario A results in unmitigated emergency halt (MAINT_0003). Scenario B eliminates 150 min unplanned downtime (avoiding ₹9,420 in projected breakdown losses) but leaves inventory breached at 1.0 unit. Scenario C resolves this by pairing proactive reordering. Scenario D targets the bottleneck queue (avoiding ₹19,520 in projected opportunity cost based on a configured hypothetical reduction to 15 delayed units; NOT realized savings) but leaves the spindle bearing unserviced. Scenario E synthesizes maintenance, scheduling, and procurement for a total projected avoided financial exposure of ₹28,940 (₹9,420 avoided breakdown loss + ₹19,520 avoided opportunity cost). Mechanical health score and failure probability under preventive interventions are classified as NOT_PROJECTABLE due to the absence of empirical causal treatment effect data in the repository. (Note: Scenario E is designated as providing the broadest modeled mitigation coverage under configured assumptions; no claim of unconstrained mathematical global optimality is made).
 
 **Recommended Scenario:** `SCEN_M2_E_FULL_PORTFOLIO` (Broadest Modeled Mitigation Coverage)
+
+> [!NOTE]
+> **Causal & Epistemic Audit Notes:**
+> 1. **Health Score & Failure Probability:** Set to `NOT_PROJECTABLE` for Scenarios B, C, D, E because no intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset.
+> 2. **Flow Delay Assumption:** Remaining delayed units = 15.0 in Scenarios D and E is strictly a `CONFIGURED_ASSUMPTION` (never called empirically validated).
+> 3. **Avoided Opportunity Cost:** The financial calculation $(76 - 15) \times ₹320 = ₹19,520$ is strictly a `PROJECTED_OPPORTUNITY_COST` mechanically derived from the delay reduction assumption; it is **never called realized savings**.
 
 ---
 
@@ -69,8 +85,13 @@
 
 ## 5. Research & Operational Integrity Audit Checklist
 
+- [x] **M2 ROP Integrity:** M2 Reorder Point == 1.367 units (Phase 10 authoritative value; ungrounded 5.0 unit claim strictly eliminated).
+- [x] **Stock Position Truthfulness:** Current stock 2.0 > ROP 1.367 and > Safety Stock 1.134; current stockout claim strictly prohibited.
+- [x] **Post-Maintenance Breach:** Projected stock after 1 bearing consumed = 1.0 < Safety Stock 1.134; proactive expedite strictly justified.
+- [x] **Causal Effect Audit:** Unsupported causal intervention effects (Health, P(fail), Anomaly) set to `NOT_PROJECTABLE`.
+- [x] **Configured Delay Assumption:** Remaining delayed units = 15.0 classified strictly as `CONFIGURED_ASSUMPTION` (never empirical validation).
+- [x] **Financial Provenance:** Delay financial impact ₹19,520 labeled strictly as `PROJECTED_OPPORTUNITY_COST` (never realized savings).
 - [x] **Temporal Causality:** Evaluated at decision cutoff $t = \text{2026-01-21T12:00:00Z}$; Day 22 emergency halt, repair labor, and recovery strictly excluded from baseline.
-- [x] **Inventory Truthfulness:** Current stock is 2.0 (above safety stock 1.134; never called a stockout); expedite scenario is explicitly justified by projected post-action stock (1.0).
-- [x] **Financial Provenance:** Baseline realized loss (₹73,062.28) kept strictly distinct from projected avoided loss; zero pseudo-financial formulas ($₹ \ne f(H)$, $₹ \ne f(\text{SHAP})$, $₹ \ne f(\text{RCA})$).
-- [x] **Categorical Uncertainty:** Confidence expressed via standardized categorical taxonomy (`HIGH_EVIDENCE`, `MODERATE_EVIDENCE`, `ASSUMPTION_DEPENDENT`).
+- [x] **Zero Diagnostic Coupling:** Zero pseudo-financial formulas ($₹ \ne f(H)$, $₹ \ne f(\text{SHAP})$, $₹ \ne f(\text{RCA})$).
+- [x] **Categorical Uncertainty:** Confidence expressed via standardized categorical taxonomy (`HIGH_EVIDENCE`, `ASSUMPTION_DEPENDENT`).
 - [x] **Decision Support Boundary:** What-if simulation evaluates hypothetical scenarios; zero autonomous machine commands are emitted.

@@ -29,13 +29,27 @@
 
 ## 2. Machine 2 What-If Scenarios Catalog
 
-| Scenario ID | Name | Interventions | Core Assumptions | Avoided Loss (INR) | Post-Action Stock |
-| :--- | :--- | :--- | :--- | :---: | :---: |
-| **`SCEN_M2_A_BASELINE`** | Scenario A: Baseline Continuation | None | Unmitigated progression to Day 22 halt (MAINT_0003) | ₹0.00 | 2.0 (no consumption) |
-| **`SCEN_M2_B_INSPECT`** | Scenario B: Spindle Inspection | `INSPECT_SPINDLE_BEARING` | 30m planned service replaces 150m unplanned halt; consumes 1 spare | ₹9,420.00 | 1.0 (safety breached) |
-| **`SCEN_M2_C_INSPECT_EXPEDITE`** | Scenario C: Inspection + Expedite | `INSPECT_SPINDLE_BEARING`, `EXPEDITE_CRITICAL_SPARE` | Preempts halt + places PO for 12 units under 7-day lead time | ₹9,420.00 | 1.0 (reorder active) |
-| **`SCEN_M2_D_FLOW_MITIGATION`** | Scenario D: Flow Rebalancing | `REDUCE_MACHINE_FEED_RATE`, `RESCHEDULE_PENDING_JOBS` | Offloads batches; reduces delayed units from 76 to 15 | ₹19,520.00 | 2.0 (no consumption) |
-| **`SCEN_M2_E_FULL_PORTFOLIO`** | Scenario E: Full Portfolio | `INSPECT_SPINDLE_BEARING`, `REDUCE_MACHINE_FEED_RATE`, `RESCHEDULE_PENDING_JOBS`, `EXPEDITE_CRITICAL_SPARE` | Preempts halt + clears queue + reorders spare | ₹28,940.00 | 1.0 (reorder active) |
+| Scenario ID | Name | Interventions | Core Assumptions | Avoided Loss (INR) | Post-Action Stock | Epistemic Provenance |
+| :--- | :--- | :--- | :--- | :---: | :---: | :--- |
+| **`SCEN_M2_A_BASELINE`** | Scenario A: Baseline Continuation | None | Unmitigated progression to Day 22 halt (MAINT_0003) | ₹0.00 | 2.0 (no consumption) | `CONTROLLED_SYNTHETIC` |
+| **`SCEN_M2_B_INSPECT`** | Scenario B: Spindle Inspection | `INSPECT_SPINDLE_BEARING` | 30m planned service replaces 150m unplanned halt; consumes 1 spare | ₹9,420.00 | 1.0 (safety breached) | `CONFIGURED_ASSUMPTION` / `PROJECTED` |
+| **`SCEN_M2_C_INSPECT_EXPEDITE`** | Scenario C: Inspection + Expedite | `INSPECT_SPINDLE_BEARING`, `EXPEDITE_CRITICAL_SPARE` | Preempts halt + places PO for 12 units under 7-day lead time | ₹9,420.00 | 1.0 (reorder active) | `CONFIGURED_ASSUMPTION` / `PROJECTED` |
+| **`SCEN_M2_D_FLOW_MITIGATION`** | Scenario D: Flow Rebalancing | `REDUCE_MACHINE_FEED_RATE`, `RESCHEDULE_PENDING_JOBS` | Offloads batches; reduces delayed units from 76 to 15 (hypothetical) | ₹19,520.00 | 2.0 (no consumption) | `CONFIGURED_ASSUMPTION` / `PROJECTED_OPPORTUNITY_COST` |
+| **`SCEN_M2_E_FULL_PORTFOLIO`** | Scenario E: Full Portfolio | `INSPECT_SPINDLE_BEARING`, `REDUCE_MACHINE_FEED_RATE`, `RESCHEDULE_PENDING_JOBS`, `EXPEDITE_CRITICAL_SPARE` | Preempts halt + clears queue + reorders spare | ₹28,940.00 | 1.0 (reorder active) | `CONFIGURED_ASSUMPTION` / `PROJECTED` |
+
+> [!IMPORTANT]
+> **Authoritative Inventory & Epistemic Distinctions:**
+> 1. **M2 Bearing Buffer Integrity:**
+>    - Current physical stock = **2.0 units**
+>    - Authoritative Safety Stock ($SS$) = **1.134 units**
+>    - Authoritative Reorder Point ($ROP$) = **1.367 units**
+>    - Because $2.0 > 1.134$ and $2.0 > 1.367$, current stock is **NOT** below safety stock and **NOT** below reorder point. No current stockout claim is permitted.
+>    - Consuming 1 spare bearing results in $2.0 - 1.0 = 1.0\text{ unit} < 1.134\text{ units}$, breaching safety stock and justifying proactive reorder in Scenarios C and E.
+> 2. **Unsupported Causal Effects (`NOT_PROJECTABLE`):**
+>    - Mechanical Health Score, Failure Probability $P(\text{fail})$, and Anomaly Score under preventive interventions are classified as `NOT_PROJECTABLE` because no intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset.
+> 3. **Configured Delay Assumption vs Opportunity Cost:**
+>    - Remaining delayed units = $15.0$ in Scenarios D and E is strictly a `CONFIGURED_ASSUMPTION` (never called empirical validation).
+>    - Avoided margin loss $(76 - 15) \times ₹320 = ₹19,520$ is strictly a `PROJECTED_OPPORTUNITY_COST`, never realized savings.
 
 ---
 
@@ -45,4 +59,6 @@
   - **Asset:** Machine M1 at Day 17 (`2026-01-17T12:00:00Z`).
   - **Interventions:** None (Nominal operation).
   - **Projected Effect:** Delta = 0.0 across all KPIs; avoided loss = ₹0.00.
+  - **Epistemic Classification:** `DERIVED_FROM_OBSERVED`
+  - **Confidence:** `HIGH_EVIDENCE`
   - **Purpose:** Verifies simulator invariance when no physical degradation is present.

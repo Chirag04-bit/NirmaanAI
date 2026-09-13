@@ -143,13 +143,14 @@ class WhatIfSimulationEngine:
         avoided_emergency_labor = 420.00  # 1.5h @ 280/h avoided overtime
         total_avoided_loss = round(avoided_downtime_loss + avoided_emergency_labor, 2)
 
-        # Mechanical recovery: replacing bearing restores health toward nominal
-        # Modeled after Day 23 post-maintenance overhaul recovery in health_summary.json
+        # Mechanical recovery: Health, Failure Probability, and Anomaly Score
+        # Classified as NOT_PROJECTABLE because no empirical causal treatment effect is available
+        # in the existing synthetic dataset for preventive bearing service on Day 21.
         projected = OperationalKPIVector(
-            failure_probability=0.08,
-            anomaly_score=0.06,
-            health_score=92.50,  # Post-overhaul mechanical recovery
-            health_state=HealthState.EXCELLENT,
+            failure_probability="NOT_PROJECTABLE",
+            anomaly_score="NOT_PROJECTABLE",
+            health_score="NOT_PROJECTABLE",
+            health_state="NOT_PROJECTABLE",
             cycle_ratio=1.38,  # Flow queue is not yet rebalanced
             delayed_throughput_units=76.0,
             is_bottleneck=True,
@@ -207,16 +208,17 @@ class WhatIfSimulationEngine:
             assumptions=assumptions,
             projected_state=projected,
             delta=delta,
-            confidence=ProjectionConfidence.MODERATE_EVIDENCE,
-            epistemic_classification=EpistemicClassification.CONTROLLED_SYNTHETIC,
+            confidence=ProjectionConfidence.ASSUMPTION_DEPENDENT,
+            epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             evidence_basis=[
-                "Phase 13 post-overhaul recovery trajectory (Day 23)",
                 "Phase 14 downtime valuation rate (INR 4,500/h)",
+                "Phase 14 emergency technician labor rate (INR 280/h)",
                 "Phase 10 critical spare SKU buffer parameters",
             ],
             limitations=[
-                "Breaches safety stock buffer (projected stock 1.0 < 1.134) without accompanying spare reorder",
-                "Does not rebalance bottleneck line flow or clear queued delayed units",
+                "No intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset for mechanical health score or failure probability.",
+                "Breaches safety stock buffer (projected stock 1.0 < 1.134) without accompanying spare reorder.",
+                "Does not rebalance bottleneck line flow or clear queued delayed units.",
             ],
         )
 
@@ -265,16 +267,16 @@ class WhatIfSimulationEngine:
             assumptions=assumptions,
             projected_state=projected,
             delta=delta,
-            confidence=ProjectionConfidence.MODERATE_EVIDENCE,
-            epistemic_classification=EpistemicClassification.CONTROLLED_SYNTHETIC,
+            confidence=ProjectionConfidence.ASSUMPTION_DEPENDENT,
+            epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             evidence_basis=[
                 "Phase 10 SKU_SPINDLE_BEARING_M2 EOQ and safety stock parameters",
-                "Phase 13 post-overhaul recovery trajectory",
                 "Phase 14 downtime and labor loss equations",
             ],
             limitations=[
-                "Supplier lead time is 7.0 days; expedited order protects subsequent cycles but does not accelerate immediate maintenance",
-                "Bottleneck WIP queue remains unmitigated on the production line",
+                "No intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset for mechanical health score or failure probability.",
+                "Supplier lead time is 7.0 days; expedited order protects subsequent cycles but does not accelerate immediate maintenance.",
+                "Bottleneck WIP queue remains unmitigated on the production line.",
             ],
         )
 
@@ -285,7 +287,7 @@ class WhatIfSimulationEngine:
         Scenario D: REDUCE_MACHINE_FEED_RATE + RESCHEDULE_PENDING_JOBS.
         Production flow mitigation: throttles feed rate and offloads queued batches to parallel lines.
         Mitigates delayed throughput units (76 -> 15 units) and avoids margin loss.
-        Does NOT repair mechanical spindle bearing (health remains degraded/critical).
+        Does NOT repair mechanical spindle bearing. Health/failure risk are NOT_PROJECTABLE.
         """
         baseline = get_m2_baseline_kpi_vector()
 
@@ -297,14 +299,15 @@ class WhatIfSimulationEngine:
 
         avoided_units = 76.0 - delayed_units_post
         avoided_opportunity_cost = round(avoided_units * CONTRIBUTION_MARGIN_PER_UNIT_INR, 2)
+        remaining_opportunity_cost = round(delayed_units_post * CONTRIBUTION_MARGIN_PER_UNIT_INR, 2)
 
-        # Mechanical state remains distressed because spindle bearing is not replaced
+        # Mechanical state remains distressed; health & failure risk are NOT_PROJECTABLE
         projected = OperationalKPIVector(
-            failure_probability=0.88,  # Slight reduction from lower thermal/mechanical load
-            anomaly_score=0.28,  # Slightly lower vibration from lower feed rate, but still anomalous
-            health_score=38.50,  # Stays in CRITICAL/DEGRADED band (< 40.0)
-            health_state=HealthState.CRITICAL,
-            cycle_ratio=1.05,  # Throttled & rescheduled jobs rebalance cycle ratio toward nominal
+            failure_probability="NOT_PROJECTABLE",
+            anomaly_score="NOT_PROJECTABLE",
+            health_score="NOT_PROJECTABLE",
+            health_state="NOT_PROJECTABLE",
+            cycle_ratio=1.05,  # Configured rebalanced cycle ratio assumption
             delayed_throughput_units=delayed_units_post,
             is_bottleneck=False,  # Flow constraint relieved
             unplanned_downtime_minutes=0.0,
@@ -317,8 +320,8 @@ class WhatIfSimulationEngine:
             projected_post_action_stock=2.0,  # Zero bearing consumed
             is_safety_stock_breached=False,
             realized_operational_loss_inr=73062.28,
-            projected_opportunity_cost_inr=round(delayed_units_post * CONTRIBUTION_MARGIN_PER_UNIT_INR, 2),
-            gross_financial_exposure_inr=round(97382.28 - avoided_opportunity_cost, 2),
+            projected_opportunity_cost_inr=remaining_opportunity_cost,
+            gross_financial_exposure_inr=round(73062.28 + remaining_opportunity_cost, 2),
             projected_avoided_loss_inr=avoided_opportunity_cost,
         )
 
@@ -328,7 +331,7 @@ class WhatIfSimulationEngine:
                 parameter_name="delayed_units_after_rescheduling",
                 configured_value=delayed_units_post,
                 unit="units",
-                rationale="Rerouting batches to parallel machine capacity clears 80% of bottleneck delay",
+                rationale="Configured hypothetical scenario assumption: rerouting batches to parallel machine capacity clears 80% of bottleneck delay (NOT empirically validated)",
                 epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             ),
             ScenarioAssumption(
@@ -336,7 +339,7 @@ class WhatIfSimulationEngine:
                 parameter_name="contribution_margin_per_unit_inr",
                 configured_value=CONTRIBUTION_MARGIN_PER_UNIT_INR,
                 unit="INR/unit",
-                rationale="Locked MSME financial assumption from factory_defaults.yaml",
+                rationale="Locked MSME financial assumption from factory_defaults.yaml; mechanically derives projected opportunity cost (NOT realized savings)",
                 epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             ),
         ]
@@ -356,15 +359,17 @@ class WhatIfSimulationEngine:
             assumptions=assumptions,
             projected_state=projected,
             delta=delta,
-            confidence=ProjectionConfidence.MODERATE_EVIDENCE,
-            epistemic_classification=EpistemicClassification.CONTROLLED_SYNTHETIC,
+            confidence=ProjectionConfidence.ASSUMPTION_DEPENDENT,
+            epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             evidence_basis=[
                 "Phase 8 bottleneck queue simulation",
                 "Phase 14 opportunity cost contribution margin (INR 320/unit)",
             ],
             limitations=[
-                "Spindle bearing remains mechanically degraded; failure risk remains high (0.88)",
-                "Temporary production flow mitigation cannot substitute for mechanical bearing overhaul",
+                "No intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset for mechanical health score or failure probability.",
+                "Remaining delayed units (15.0) is a configured hypothetical scenario assumption, not empirically validated.",
+                "Projected avoided opportunity cost (INR 19,520) is unearned margin preservation, never realized savings.",
+                "Temporary production flow mitigation cannot substitute for mechanical bearing overhaul.",
             ],
         )
 
@@ -388,10 +393,10 @@ class WhatIfSimulationEngine:
         )
 
         projected = OperationalKPIVector(
-            failure_probability=0.06,
-            anomaly_score=0.05,
-            health_score=94.50,  # Full mechanical overhaul + cleared bottleneck
-            health_state=HealthState.EXCELLENT,
+            failure_probability="NOT_PROJECTABLE",
+            anomaly_score="NOT_PROJECTABLE",
+            health_score="NOT_PROJECTABLE",
+            health_state="NOT_PROJECTABLE",
             cycle_ratio=1.05,
             delayed_throughput_units=float(scen_d.projected_state.delayed_throughput_units),
             is_bottleneck=False,
@@ -428,16 +433,18 @@ class WhatIfSimulationEngine:
             assumptions=assumptions,
             projected_state=projected,
             delta=delta,
-            confidence=ProjectionConfidence.MODERATE_EVIDENCE,
-            epistemic_classification=EpistemicClassification.CONTROLLED_SYNTHETIC,
+            confidence=ProjectionConfidence.ASSUMPTION_DEPENDENT,
+            epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             evidence_basis=[
-                "Phase 10 inventory replenishment model",
-                "Phase 13 post-overhaul recovery trajectory",
+                "Phase 10 SKU_SPINDLE_BEARING_M2 inventory replenishment model",
                 "Phase 14 downtime and opportunity loss models",
             ],
             limitations=[
-                "Requires simultaneous operator intervention across maintenance, scheduling, and procurement",
-                "Dependent on 7-day supplier lead time for bearing inventory replenishment",
+                "No intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset for mechanical health score or failure probability.",
+                "Delay reduction to 15 units is a configured hypothetical scenario assumption, not empirically validated.",
+                "Avoided financial exposure combines avoided breakdown loss (INR 9,420; projected) and avoided opportunity cost (INR 19,520; projected opportunity cost, NOT realized savings).",
+                "Requires simultaneous operator intervention across maintenance, scheduling, and procurement.",
+                "Dependent on 7-day supplier lead time for bearing inventory replenishment.",
             ],
         )
 
@@ -496,12 +503,15 @@ class WhatIfSimulationEngine:
         ranking_narrative = (
             "Comparative evaluation under configured MSME assumptions demonstrates that Scenario E provides "
             "the broadest modeled mitigation coverage. Scenario A results in unmitigated emergency halt (MAINT_0003). "
-            "Scenario B eliminates 150 min unplanned downtime (saving ₹9,420 in breakdown losses) but leaves inventory "
+            "Scenario B eliminates 150 min unplanned downtime (avoiding ₹9,420 in projected breakdown losses) but leaves inventory "
             "breached at 1.0 unit. Scenario C resolves this by pairing proactive reordering. Scenario D targets the "
-            "bottleneck queue (saving ₹19,520 in opportunity costs) but leaves the spindle bearing unserviced. "
-            "Scenario E synthesizes maintenance, scheduling, and procurement for a total projected avoided financial "
-            "exposure of ₹28,940. (Note: Scenario E is designated as providing the broadest modeled mitigation coverage "
-            "under configured assumptions; no claim of unconstrained mathematical global optimality is made)."
+            "bottleneck queue (avoiding ₹19,520 in projected opportunity cost based on a configured hypothetical reduction to 15 delayed units; "
+            "NOT realized savings) but leaves the spindle bearing unserviced. Scenario E synthesizes maintenance, scheduling, "
+            "and procurement for a total projected avoided financial exposure of ₹28,940 (₹9,420 avoided breakdown loss + ₹19,520 avoided opportunity cost). "
+            "Mechanical health score and failure probability under preventive interventions are classified as NOT_PROJECTABLE "
+            "due to the absence of empirical causal treatment effect data in the repository. "
+            "(Note: Scenario E is designated as providing the broadest modeled mitigation coverage under configured assumptions; "
+            "no claim of unconstrained mathematical global optimality is made)."
         )
 
         return ScenarioComparisonReport(

@@ -126,7 +126,7 @@ def test_closed_intervention_taxonomy():
 
 
 # ==============================================================================
-# 3. M2 BASELINE RECONSTRUCTION & INVENTORY INTEGRITY
+# 3. M2 BASELINE RECONSTRUCTION & INVENTORY INTEGRITY (BLOCKER 1 & 7)
 # ==============================================================================
 
 def test_m2_baseline_reconstruction():
@@ -144,8 +144,22 @@ def test_m2_baseline_reconstruction():
     assert base.gross_financial_exposure_inr == 97382.28
 
 
-def test_m2_bearing_current_stock_not_reported_as_stockout():
-    """Asserts M2 current stock is 2.0, above safety stock 1.134 (never a current stockout)."""
+def test_m2_rop_equals_authoritative_1_367():
+    """Guarantee 1: M2 Reorder Point == 1.367 units (Phase 10 authoritative value)."""
+    base = get_m2_baseline_kpi_vector()
+    assert base.reorder_point == 1.367
+
+
+def test_m2_current_stock_greater_than_rop():
+    """Guarantee 2: M2 current stock 2.0 > ROP 1.367 (never below ROP)."""
+    base = get_m2_baseline_kpi_vector()
+    assert base.observed_current_stock == 2.0
+    assert base.reorder_point == 1.367
+    assert base.observed_current_stock > base.reorder_point
+
+
+def test_m2_current_stock_greater_than_safety_stock():
+    """Guarantee 3: M2 current stock 2.0 > safety stock 1.134 (no stockout claim permitted)."""
     base = get_m2_baseline_kpi_vector()
     assert base.observed_current_stock == 2.0
     assert base.safety_stock == 1.134
@@ -153,22 +167,92 @@ def test_m2_bearing_current_stock_not_reported_as_stockout():
     assert base.is_safety_stock_breached is False
 
 
-def test_m2_projected_post_action_stock_breaches_safety_in_scenario_b(engine):
-    """Asserts that consuming 1 spare drops projected stock to 1.0, breaching safety stock."""
+def test_projected_stock_after_consuming_bearing_is_one(engine):
+    """Guarantee 4: Projected stock after consuming one bearing = 1.0."""
+    dt = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
+    scen_b = engine.simulate_m2_scenario_b(dt)
+    assert scen_b.projected_state.observed_current_stock == 2.0
+    assert scen_b.projected_state.projected_post_action_stock == 1.0
+
+
+def test_projected_stock_one_is_less_than_safety_stock(engine):
+    """Guarantee 5: Projected stock 1.0 < safety stock 1.134 (breaches safety stock)."""
     dt = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
     scen_b = engine.simulate_m2_scenario_b(dt)
     proj = scen_b.projected_state
-    assert proj.observed_current_stock == 2.0  # Physical current stock remains 2.0
-    assert proj.projected_post_action_stock == 1.0  # 2.0 - 1.0 = 1.0
-    assert proj.is_safety_stock_breached is True  # 1.0 < 1.134
+    assert proj.projected_post_action_stock < proj.safety_stock
+    assert proj.is_safety_stock_breached is True
+
+
+def test_no_rop_five_in_phase_16_outputs():
+    """Guarantee 6: No occurrence of ROP = 5.0 exists in Phase 16 models or documentation."""
+    root = get_project_root()
+    phase16_files = [
+        root / "models" / "simulation" / "simulation_summary.json",
+        root / "docs" / "simulation" / "simulation_engine.md",
+        root / "docs" / "simulation" / "scenario_catalog.md",
+        root / "docs" / "simulation" / "simulation_evaluation.md",
+        root / "docs" / "simulation" / "m2_what_if_walkthrough.md",
+    ]
+    for p in phase16_files:
+        assert p.exists(), f"File missing: {p}"
+        content = p.read_text(encoding="utf-8")
+        assert "ROP = 5.0" not in content
+        assert "ROP=5.0" not in content
+        assert "reorder point = 5.0" not in content.lower()
+        assert "reorder point of 5.0" not in content.lower()
+
+
+def test_unsupported_causal_intervention_effects_are_not_projectable(engine):
+    """Guarantee 7: Unsupported causal intervention effects become NOT_PROJECTABLE."""
+    dt = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
+    for scen_fn in [
+        engine.simulate_m2_scenario_b,
+        engine.simulate_m2_scenario_c,
+        engine.simulate_m2_scenario_d,
+        engine.simulate_m2_scenario_e,
+    ]:
+        scen = scen_fn(dt)
+        proj = scen.projected_state
+        assert proj.failure_probability == "NOT_PROJECTABLE"
+        assert proj.anomaly_score == "NOT_PROJECTABLE"
+        assert proj.health_score == "NOT_PROJECTABLE"
+        assert proj.health_state == "NOT_PROJECTABLE"
+        assert scen.delta.health_state_change == "NOT_PROJECTABLE"
+        assert any(
+            "No intervention-specific empirical treatment effect is available" in lim
+            for lim in scen.limitations
+        )
+
+
+def test_configured_assumption_never_reported_as_empirical_validation(engine):
+    """Guarantee 8: CONFIGURED_ASSUMPTION is never reported as empirical validation."""
+    dt = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
+    scen_d = engine.simulate_m2_scenario_d(dt)
+    assert scen_d.epistemic_classification == EpistemicClassification.CONFIGURED_ASSUMPTION
+    assert scen_d.confidence == ProjectionConfidence.ASSUMPTION_DEPENDENT
+    delay_assump = next(a for a in scen_d.assumptions if a.parameter_name == "delayed_units_after_rescheduling")
+    assert delay_assump.configured_value == 15.0
+    assert delay_assump.epistemic_classification == EpistemicClassification.CONFIGURED_ASSUMPTION
+    assert "NOT empirically validated" in delay_assump.rationale
+
+
+def test_projected_opportunity_cost_never_labelled_realized_savings(engine):
+    """Guarantee 9: Projected opportunity cost is never labelled realized savings."""
+    dt = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
+    scen_d = engine.simulate_m2_scenario_d(dt)
+    assert scen_d.projected_state.projected_avoided_loss_inr == 19520.00
+    assert any("never realized savings" in lim for lim in scen_d.limitations)
+    margin_assump = next(a for a in scen_d.assumptions if a.parameter_name == "contribution_margin_per_unit_inr")
+    assert "NOT realized savings" in margin_assump.rationale
 
 
 # ==============================================================================
-# 4. TEMPORAL CAUSALITY & DAY 22 EXCLUSION
+# 4. TEMPORAL CAUSALITY & DAY 22 EXCLUSION (GUARANTEE 11)
 # ==============================================================================
 
 def test_temporal_causality_and_day22_exclusion():
-    """Validates baseline state excludes future Day 22 emergency halt, repair labor, and recovery."""
+    """Guarantee 11: Validates baseline state excludes future Day 22 emergency halt, repair labor, and recovery."""
     base = get_m2_baseline_kpi_vector()
     # Baseline at Day 21 must have 0.0 unplanned downtime
     assert base.unplanned_downtime_minutes == 0.0
@@ -179,7 +263,7 @@ def test_temporal_causality_and_day22_exclusion():
 
 
 # ==============================================================================
-# 5. FINANCIAL SIMULATION STANDARDS (PHASE 14 COMPLIANCE)
+# 5. FINANCIAL SIMULATION STANDARDS (GUARANTEE 10)
 # ==============================================================================
 
 def test_realized_vs_projected_loss_separation(engine):
@@ -199,7 +283,7 @@ def test_realized_vs_projected_loss_separation(engine):
 
 
 def test_no_money_derived_from_diagnostics(engine):
-    """Asserts no pseudo-financial formula (Health * money, SHAP * money) exists in calculations."""
+    """Guarantee 10: Asserts no pseudo-financial formula (Health * money, SHAP * money) exists in calculations."""
     dt = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
     scen_d = engine.simulate_m2_scenario_d(dt)
 
@@ -238,7 +322,9 @@ def test_m2_scenarios_comparison_consistency(engine):
     # Scenario E combines breakdown avoidance (₹9,420) and bottleneck delay avoidance (₹19,520) = ₹28,940
     scen_e = next(s for s in report.scenarios if s.scenario_id == "SCEN_M2_E_FULL_PORTFOLIO")
     assert scen_e.projected_state.projected_avoided_loss_inr == 28940.00
-    assert scen_e.projected_state.health_state == HealthState.EXCELLENT
+    assert scen_e.projected_state.health_state == "NOT_PROJECTABLE"
+    assert scen_e.projected_state.health_score == "NOT_PROJECTABLE"
+    assert scen_e.projected_state.failure_probability == "NOT_PROJECTABLE"
 
 
 # ==============================================================================

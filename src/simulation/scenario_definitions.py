@@ -20,7 +20,7 @@ SCIENTIFIC INTEGRITY:
 """
 
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from src.decision.loss_models import EpistemicClassification
 from src.health.health_models import HealthState
@@ -117,7 +117,12 @@ def compute_kpi_delta(baseline: OperationalKPIVector, projected: OperationalKPIV
         health_delta = round(float(projected.health_score) - float(baseline.health_score), 2)
 
     # Health state change
-    health_change = f"{baseline.health_state} -> {projected.health_state}" if baseline.health_state != projected.health_state else "UNCHANGED"
+    if str(projected.health_state) == "NOT_PROJECTABLE" or str(baseline.health_state) == "NOT_PROJECTABLE":
+        health_change = "NOT_PROJECTABLE"
+    elif baseline.health_state != projected.health_state:
+        health_change = f"{baseline.health_state} -> {projected.health_state}"
+    else:
+        health_change = "UNCHANGED"
 
     # Cycle ratio delta
     cycle_delta: Union[float, str] = "NOT_PROJECTABLE"
