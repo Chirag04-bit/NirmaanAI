@@ -1,0 +1,796 @@
+{
+  "phase": "Phase 16: What-If / Digital-Twin-Inspired Simulation Engine",
+  "generated_at": "2026-09-13T08:47:41.991598+00:00",
+  "decision_timestamp": "2026-01-21T12:00:00+00:00",
+  "governance": {
+    "system_classification": "DIGITAL-TWIN-INSPIRED WHAT-IF SIMULATION",
+    "is_physical_digital_twin": false,
+    "is_physics_validated_simulator": false,
+    "is_autonomous_controller": false,
+    "decision_support_only": true,
+    "human_operator_authorization_mandatory": true
+  },
+  "m2_baseline_state": {
+    "as_of_timestamp": "2026-01-21T12:00:00+00:00",
+    "machine_id": "M2",
+    "failure_probability": 0.9959,
+    "anomaly_score": 0.35,
+    "health_score": 26.88,
+    "health_state": "CRITICAL",
+    "cycle_ratio": 1.38,
+    "delayed_units": 76.0,
+    "is_bottleneck": true,
+    "observed_bearing_stock": 2.0,
+    "safety_stock": 1.134,
+    "reorder_point": 1.367,
+    "lead_time_days": 7.0,
+    "realized_operational_loss_inr": 73062.28,
+    "projected_opportunity_cost_inr": 24320.0,
+    "gross_financial_exposure_inr": 97382.28
+  },
+  "scenarios_evaluated": [
+    {
+      "scenario_id": "SCEN_M2_A_BASELINE",
+      "scenario_name": "Scenario A: Baseline Continuation / No Intervention",
+      "machine_id": "M2",
+      "as_of_timestamp": "2026-01-21T12:00:00Z",
+      "interventions": [],
+      "baseline_state": {
+        "failure_probability": 0.9959,
+        "anomaly_score": 0.35,
+        "health_score": 26.88,
+        "health_state": "CRITICAL",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 0.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 2.0,
+        "is_safety_stock_breached": false,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 97382.28,
+        "projected_avoided_loss_inr": 0.0
+      },
+      "assumptions": [
+        {
+          "assumption_id": "ASSUMP_M2_A_01",
+          "parameter_name": "unmitigated_halt_downtime_minutes",
+          "configured_value": 150.0,
+          "unit": "minutes",
+          "rationale": "Reflects the actual historical Day 22 emergency halt (MAINT_0003) if no intervention occurs",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_A_02",
+          "parameter_name": "unmitigated_emergency_labor_hours",
+          "configured_value": 1.5,
+          "unit": "hours",
+          "rationale": "Reflects the actual historical Day 22 emergency technician overhaul labor (MAINT_0003)",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        }
+      ],
+      "projected_state": {
+        "failure_probability": 0.9959,
+        "anomaly_score": 0.35,
+        "health_score": 21.73,
+        "health_state": "CRITICAL",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 150.0,
+        "planned_downtime_minutes": 0.0,
+        "scrap_units": 185.0,
+        "rework_hours": 24.62,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 2.0,
+        "is_safety_stock_breached": false,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 97382.28,
+        "projected_avoided_loss_inr": 0.0
+      },
+      "delta": {
+        "failure_probability_delta": 0.0,
+        "anomaly_score_delta": 0.0,
+        "health_score_delta": -5.15,
+        "health_state_change": "UNCHANGED",
+        "cycle_ratio_delta": 0.0,
+        "delayed_units_delta": 0.0,
+        "unplanned_downtime_delta_minutes": 150.0,
+        "planned_downtime_delta_minutes": 0.0,
+        "scrap_units_delta": 0.0,
+        "rework_hours_delta": 1.5,
+        "stock_delta_units": 0.0,
+        "projected_avoided_loss_inr": 0.0,
+        "gross_exposure_delta_inr": 0.0
+      },
+      "confidence": "HIGH_EVIDENCE",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC",
+      "evidence_basis": [
+        "Phase 5 historical maintenance records (MAINT_0003)",
+        "Phase 14 realized loss models"
+      ],
+      "limitations": [
+        "Assumes factory operating conditions remain unadjusted through Day 22 halt"
+      ]
+    },
+    {
+      "scenario_id": "SCEN_M2_B_INSPECT",
+      "scenario_name": "Scenario B: INSPECT_SPINDLE_BEARING",
+      "machine_id": "M2",
+      "as_of_timestamp": "2026-01-21T12:00:00Z",
+      "interventions": [
+        "INSPECT_SPINDLE_BEARING"
+      ],
+      "baseline_state": {
+        "failure_probability": 0.9959,
+        "anomaly_score": 0.35,
+        "health_score": 26.88,
+        "health_state": "CRITICAL",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 0.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 2.0,
+        "is_safety_stock_breached": false,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 97382.28,
+        "projected_avoided_loss_inr": 0.0
+      },
+      "assumptions": [
+        {
+          "assumption_id": "ASSUMP_M2_B_01",
+          "parameter_name": "preemptive_planned_downtime_minutes",
+          "configured_value": 30.0,
+          "unit": "minutes",
+          "rationale": "Controlled maintenance stoppage to inspect and replace spindle bearing assembly",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_B_02",
+          "parameter_name": "avoided_unplanned_emergency_downtime_minutes",
+          "configured_value": 150.0,
+          "unit": "minutes",
+          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_B_03",
+          "parameter_name": "bearing_consumption_units",
+          "configured_value": 1.0,
+          "unit": "units",
+          "rationale": "One replacement bearing consumed from physical buffer, leaving 1.0 unit on hand",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        }
+      ],
+      "projected_state": {
+        "failure_probability": 0.08,
+        "anomaly_score": 0.06,
+        "health_score": 92.5,
+        "health_state": "EXCELLENT",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 30.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 1.0,
+        "is_safety_stock_breached": true,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 87962.28,
+        "projected_avoided_loss_inr": 9420.0
+      },
+      "delta": {
+        "failure_probability_delta": -0.9159,
+        "anomaly_score_delta": -0.29,
+        "health_score_delta": 65.62,
+        "health_state_change": "HealthState.CRITICAL -> HealthState.EXCELLENT",
+        "cycle_ratio_delta": 0.0,
+        "delayed_units_delta": 0.0,
+        "unplanned_downtime_delta_minutes": 0.0,
+        "planned_downtime_delta_minutes": 30.0,
+        "scrap_units_delta": 0.0,
+        "rework_hours_delta": 0.0,
+        "stock_delta_units": -1.0,
+        "projected_avoided_loss_inr": 9420.0,
+        "gross_exposure_delta_inr": -9420.0
+      },
+      "confidence": "MODERATE_EVIDENCE",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC",
+      "evidence_basis": [
+        "Phase 13 post-overhaul recovery trajectory (Day 23)",
+        "Phase 14 downtime valuation rate (INR 4,500/h)",
+        "Phase 10 critical spare SKU buffer parameters"
+      ],
+      "limitations": [
+        "Breaches safety stock buffer (projected stock 1.0 < 1.134) without accompanying spare reorder",
+        "Does not rebalance bottleneck line flow or clear queued delayed units"
+      ]
+    },
+    {
+      "scenario_id": "SCEN_M2_C_INSPECT_EXPEDITE",
+      "scenario_name": "Scenario C: INSPECT_SPINDLE_BEARING + EXPEDITE_CRITICAL_SPARE",
+      "machine_id": "M2",
+      "as_of_timestamp": "2026-01-21T12:00:00Z",
+      "interventions": [
+        "INSPECT_SPINDLE_BEARING",
+        "EXPEDITE_CRITICAL_SPARE"
+      ],
+      "baseline_state": {
+        "failure_probability": 0.9959,
+        "anomaly_score": 0.35,
+        "health_score": 26.88,
+        "health_state": "CRITICAL",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 0.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 2.0,
+        "is_safety_stock_breached": false,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 97382.28,
+        "projected_avoided_loss_inr": 0.0
+      },
+      "assumptions": [
+        {
+          "assumption_id": "ASSUMP_M2_B_01",
+          "parameter_name": "preemptive_planned_downtime_minutes",
+          "configured_value": 30.0,
+          "unit": "minutes",
+          "rationale": "Controlled maintenance stoppage to inspect and replace spindle bearing assembly",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_B_02",
+          "parameter_name": "avoided_unplanned_emergency_downtime_minutes",
+          "configured_value": 150.0,
+          "unit": "minutes",
+          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_B_03",
+          "parameter_name": "bearing_consumption_units",
+          "configured_value": 1.0,
+          "unit": "units",
+          "rationale": "One replacement bearing consumed from physical buffer, leaving 1.0 unit on hand",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_C_01",
+          "parameter_name": "expedited_spare_order_quantity",
+          "configured_value": 12.0,
+          "unit": "units",
+          "rationale": "Triggers Phase 10 EOQ reorder (12.31 units rounded) with supplier lead time of 7.0 days",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        }
+      ],
+      "projected_state": {
+        "failure_probability": 0.08,
+        "anomaly_score": 0.06,
+        "health_score": 92.5,
+        "health_state": "EXCELLENT",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 30.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 1.0,
+        "is_safety_stock_breached": true,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 87962.28,
+        "projected_avoided_loss_inr": 9420.0
+      },
+      "delta": {
+        "failure_probability_delta": -0.9159,
+        "anomaly_score_delta": -0.29,
+        "health_score_delta": 65.62,
+        "health_state_change": "HealthState.CRITICAL -> HealthState.EXCELLENT",
+        "cycle_ratio_delta": 0.0,
+        "delayed_units_delta": 0.0,
+        "unplanned_downtime_delta_minutes": 0.0,
+        "planned_downtime_delta_minutes": 30.0,
+        "scrap_units_delta": 0.0,
+        "rework_hours_delta": 0.0,
+        "stock_delta_units": -1.0,
+        "projected_avoided_loss_inr": 9420.0,
+        "gross_exposure_delta_inr": -9420.0
+      },
+      "confidence": "MODERATE_EVIDENCE",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC",
+      "evidence_basis": [
+        "Phase 10 SKU_SPINDLE_BEARING_M2 EOQ and safety stock parameters",
+        "Phase 13 post-overhaul recovery trajectory",
+        "Phase 14 downtime and labor loss equations"
+      ],
+      "limitations": [
+        "Supplier lead time is 7.0 days; expedited order protects subsequent cycles but does not accelerate immediate maintenance",
+        "Bottleneck WIP queue remains unmitigated on the production line"
+      ]
+    },
+    {
+      "scenario_id": "SCEN_M2_D_FLOW_MITIGATION",
+      "scenario_name": "Scenario D: REDUCE_MACHINE_FEED_RATE + RESCHEDULE_PENDING_JOBS",
+      "machine_id": "M2",
+      "as_of_timestamp": "2026-01-21T12:00:00Z",
+      "interventions": [
+        "REDUCE_MACHINE_FEED_RATE",
+        "RESCHEDULE_PENDING_JOBS"
+      ],
+      "baseline_state": {
+        "failure_probability": 0.9959,
+        "anomaly_score": 0.35,
+        "health_score": 26.88,
+        "health_state": "CRITICAL",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 0.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 2.0,
+        "is_safety_stock_breached": false,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 97382.28,
+        "projected_avoided_loss_inr": 0.0
+      },
+      "assumptions": [
+        {
+          "assumption_id": "ASSUMP_M2_D_01",
+          "parameter_name": "delayed_units_after_rescheduling",
+          "configured_value": 15.0,
+          "unit": "units",
+          "rationale": "Rerouting batches to parallel machine capacity clears 80% of bottleneck delay",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_D_02",
+          "parameter_name": "contribution_margin_per_unit_inr",
+          "configured_value": 320.0,
+          "unit": "INR/unit",
+          "rationale": "Locked MSME financial assumption from factory_defaults.yaml",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        }
+      ],
+      "projected_state": {
+        "failure_probability": 0.88,
+        "anomaly_score": 0.28,
+        "health_score": 38.5,
+        "health_state": "CRITICAL",
+        "cycle_ratio": 1.05,
+        "delayed_throughput_units": 15.0,
+        "is_bottleneck": false,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 0.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 2.0,
+        "is_safety_stock_breached": false,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 4800.0,
+        "gross_financial_exposure_inr": 77862.28,
+        "projected_avoided_loss_inr": 19520.0
+      },
+      "delta": {
+        "failure_probability_delta": -0.1159,
+        "anomaly_score_delta": -0.07,
+        "health_score_delta": 11.62,
+        "health_state_change": "UNCHANGED",
+        "cycle_ratio_delta": -0.33,
+        "delayed_units_delta": -61.0,
+        "unplanned_downtime_delta_minutes": 0.0,
+        "planned_downtime_delta_minutes": 0.0,
+        "scrap_units_delta": 0.0,
+        "rework_hours_delta": 0.0,
+        "stock_delta_units": 0.0,
+        "projected_avoided_loss_inr": 19520.0,
+        "gross_exposure_delta_inr": -19520.0
+      },
+      "confidence": "MODERATE_EVIDENCE",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC",
+      "evidence_basis": [
+        "Phase 8 bottleneck queue simulation",
+        "Phase 14 opportunity cost contribution margin (INR 320/unit)"
+      ],
+      "limitations": [
+        "Spindle bearing remains mechanically degraded; failure risk remains high (0.88)",
+        "Temporary production flow mitigation cannot substitute for mechanical bearing overhaul"
+      ]
+    },
+    {
+      "scenario_id": "SCEN_M2_E_FULL_PORTFOLIO",
+      "scenario_name": "Scenario E: Full Mitigation Portfolio (Maintenance + Flow + Inventory)",
+      "machine_id": "M2",
+      "as_of_timestamp": "2026-01-21T12:00:00Z",
+      "interventions": [
+        "INSPECT_SPINDLE_BEARING",
+        "REDUCE_MACHINE_FEED_RATE",
+        "RESCHEDULE_PENDING_JOBS",
+        "EXPEDITE_CRITICAL_SPARE"
+      ],
+      "baseline_state": {
+        "failure_probability": 0.9959,
+        "anomaly_score": 0.35,
+        "health_score": 26.88,
+        "health_state": "CRITICAL",
+        "cycle_ratio": 1.38,
+        "delayed_throughput_units": 76.0,
+        "is_bottleneck": true,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 0.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 2.0,
+        "is_safety_stock_breached": false,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "gross_financial_exposure_inr": 97382.28,
+        "projected_avoided_loss_inr": 0.0
+      },
+      "assumptions": [
+        {
+          "assumption_id": "ASSUMP_M2_B_01",
+          "parameter_name": "preemptive_planned_downtime_minutes",
+          "configured_value": 30.0,
+          "unit": "minutes",
+          "rationale": "Controlled maintenance stoppage to inspect and replace spindle bearing assembly",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_B_02",
+          "parameter_name": "avoided_unplanned_emergency_downtime_minutes",
+          "configured_value": 150.0,
+          "unit": "minutes",
+          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_B_03",
+          "parameter_name": "bearing_consumption_units",
+          "configured_value": 1.0,
+          "unit": "units",
+          "rationale": "One replacement bearing consumed from physical buffer, leaving 1.0 unit on hand",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_C_01",
+          "parameter_name": "expedited_spare_order_quantity",
+          "configured_value": 12.0,
+          "unit": "units",
+          "rationale": "Triggers Phase 10 EOQ reorder (12.31 units rounded) with supplier lead time of 7.0 days",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_D_01",
+          "parameter_name": "delayed_units_after_rescheduling",
+          "configured_value": 15.0,
+          "unit": "units",
+          "rationale": "Rerouting batches to parallel machine capacity clears 80% of bottleneck delay",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        {
+          "assumption_id": "ASSUMP_M2_D_02",
+          "parameter_name": "contribution_margin_per_unit_inr",
+          "configured_value": 320.0,
+          "unit": "INR/unit",
+          "rationale": "Locked MSME financial assumption from factory_defaults.yaml",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        }
+      ],
+      "projected_state": {
+        "failure_probability": 0.06,
+        "anomaly_score": 0.05,
+        "health_score": 94.5,
+        "health_state": "EXCELLENT",
+        "cycle_ratio": 1.05,
+        "delayed_throughput_units": 15.0,
+        "is_bottleneck": false,
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 30.0,
+        "scrap_units": 185.0,
+        "rework_hours": 23.12,
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "projected_post_action_stock": 1.0,
+        "is_safety_stock_breached": true,
+        "realized_operational_loss_inr": 73062.28,
+        "projected_opportunity_cost_inr": 4800.0,
+        "gross_financial_exposure_inr": 68442.28,
+        "projected_avoided_loss_inr": 28940.0
+      },
+      "delta": {
+        "failure_probability_delta": -0.9359,
+        "anomaly_score_delta": -0.3,
+        "health_score_delta": 67.62,
+        "health_state_change": "HealthState.CRITICAL -> HealthState.EXCELLENT",
+        "cycle_ratio_delta": -0.33,
+        "delayed_units_delta": -61.0,
+        "unplanned_downtime_delta_minutes": 0.0,
+        "planned_downtime_delta_minutes": 30.0,
+        "scrap_units_delta": 0.0,
+        "rework_hours_delta": 0.0,
+        "stock_delta_units": -1.0,
+        "projected_avoided_loss_inr": 28940.0,
+        "gross_exposure_delta_inr": -28940.0
+      },
+      "confidence": "MODERATE_EVIDENCE",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC",
+      "evidence_basis": [
+        "Phase 10 inventory replenishment model",
+        "Phase 13 post-overhaul recovery trajectory",
+        "Phase 14 downtime and opportunity loss models"
+      ],
+      "limitations": [
+        "Requires simultaneous operator intervention across maintenance, scheduling, and procurement",
+        "Dependent on 7-day supplier lead time for bearing inventory replenishment"
+      ]
+    }
+  ],
+  "scenario_comparison": {
+    "comparison_id": "COMP_M2_20260121_120000",
+    "ranking_narrative": "Comparative evaluation under configured MSME assumptions demonstrates that Scenario E provides the broadest modeled mitigation coverage. Scenario A results in unmitigated emergency halt (MAINT_0003). Scenario B eliminates 150 min unplanned downtime (saving \u20b99,420 in breakdown losses) but leaves inventory breached at 1.0 unit. Scenario C resolves this by pairing proactive reordering. Scenario D targets the bottleneck queue (saving \u20b919,520 in opportunity costs) but leaves the spindle bearing unserviced. Scenario E synthesizes maintenance, scheduling, and procurement for a total projected avoided financial exposure of \u20b928,940. (Note: Scenario E is designated as providing the broadest modeled mitigation coverage under configured assumptions; no claim of unconstrained mathematical global optimality is made).",
+    "recommended_scenario_id": "SCEN_M2_E_FULL_PORTFOLIO",
+    "comparison_table": [
+      {
+        "scenario_id": "SCEN_M2_A_BASELINE",
+        "scenario_name": "Scenario A: Baseline Continuation / No Intervention",
+        "interventions": [],
+        "health_score": 21.73,
+        "health_state": "CRITICAL",
+        "unplanned_downtime_minutes": 150.0,
+        "planned_downtime_minutes": 0.0,
+        "delayed_units": 76.0,
+        "post_action_stock": 2.0,
+        "is_safety_breached": false,
+        "projected_avoided_loss_inr": 0.0,
+        "projected_gross_exposure_inr": 97382.28,
+        "confidence": "HIGH_EVIDENCE"
+      },
+      {
+        "scenario_id": "SCEN_M2_B_INSPECT",
+        "scenario_name": "Scenario B: INSPECT_SPINDLE_BEARING",
+        "interventions": [
+          "INSPECT_SPINDLE_BEARING"
+        ],
+        "health_score": 92.5,
+        "health_state": "EXCELLENT",
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 30.0,
+        "delayed_units": 76.0,
+        "post_action_stock": 1.0,
+        "is_safety_breached": true,
+        "projected_avoided_loss_inr": 9420.0,
+        "projected_gross_exposure_inr": 87962.28,
+        "confidence": "MODERATE_EVIDENCE"
+      },
+      {
+        "scenario_id": "SCEN_M2_C_INSPECT_EXPEDITE",
+        "scenario_name": "Scenario C: INSPECT_SPINDLE_BEARING + EXPEDITE_CRITICAL_SPARE",
+        "interventions": [
+          "INSPECT_SPINDLE_BEARING",
+          "EXPEDITE_CRITICAL_SPARE"
+        ],
+        "health_score": 92.5,
+        "health_state": "EXCELLENT",
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 30.0,
+        "delayed_units": 76.0,
+        "post_action_stock": 1.0,
+        "is_safety_breached": true,
+        "projected_avoided_loss_inr": 9420.0,
+        "projected_gross_exposure_inr": 87962.28,
+        "confidence": "MODERATE_EVIDENCE"
+      },
+      {
+        "scenario_id": "SCEN_M2_D_FLOW_MITIGATION",
+        "scenario_name": "Scenario D: REDUCE_MACHINE_FEED_RATE + RESCHEDULE_PENDING_JOBS",
+        "interventions": [
+          "REDUCE_MACHINE_FEED_RATE",
+          "RESCHEDULE_PENDING_JOBS"
+        ],
+        "health_score": 38.5,
+        "health_state": "CRITICAL",
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 0.0,
+        "delayed_units": 15.0,
+        "post_action_stock": 2.0,
+        "is_safety_breached": false,
+        "projected_avoided_loss_inr": 19520.0,
+        "projected_gross_exposure_inr": 77862.28,
+        "confidence": "MODERATE_EVIDENCE"
+      },
+      {
+        "scenario_id": "SCEN_M2_E_FULL_PORTFOLIO",
+        "scenario_name": "Scenario E: Full Mitigation Portfolio (Maintenance + Flow + Inventory)",
+        "interventions": [
+          "INSPECT_SPINDLE_BEARING",
+          "REDUCE_MACHINE_FEED_RATE",
+          "RESCHEDULE_PENDING_JOBS",
+          "EXPEDITE_CRITICAL_SPARE"
+        ],
+        "health_score": 94.5,
+        "health_state": "EXCELLENT",
+        "unplanned_downtime_minutes": 0.0,
+        "planned_downtime_minutes": 30.0,
+        "delayed_units": 15.0,
+        "post_action_stock": 1.0,
+        "is_safety_breached": true,
+        "projected_avoided_loss_inr": 28940.0,
+        "projected_gross_exposure_inr": 68442.28,
+        "confidence": "MODERATE_EVIDENCE"
+      }
+    ]
+  },
+  "negative_control": {
+    "scenario_id": "SCEN_M1_NEGATIVE_CONTROL",
+    "scenario_name": "Healthy Machine Negative Control (Machine M1)",
+    "machine_id": "M1",
+    "as_of_timestamp": "2026-01-17T12:00:00Z",
+    "interventions": [],
+    "baseline_state": {
+      "failure_probability": 0.02,
+      "anomaly_score": 0.04,
+      "health_score": 97.47,
+      "health_state": "EXCELLENT",
+      "cycle_ratio": 1.0,
+      "delayed_throughput_units": 0.0,
+      "is_bottleneck": false,
+      "unplanned_downtime_minutes": 0.0,
+      "planned_downtime_minutes": 0.0,
+      "scrap_units": 0.0,
+      "rework_hours": 0.0,
+      "observed_current_stock": 12.0,
+      "safety_stock": 0.233,
+      "reorder_point": 1.033,
+      "projected_post_action_stock": 12.0,
+      "is_safety_stock_breached": false,
+      "realized_operational_loss_inr": 0.0,
+      "projected_opportunity_cost_inr": 0.0,
+      "gross_financial_exposure_inr": 0.0,
+      "projected_avoided_loss_inr": 0.0
+    },
+    "assumptions": [
+      {
+        "assumption_id": "ASSUMP_NEG_01",
+        "parameter_name": "nominal_state_invariance",
+        "configured_value": true,
+        "unit": null,
+        "rationale": "Healthy asset operating under nominal baselines requires no intervention; state remains stable",
+        "epistemic_classification": "DERIVED_FROM_OBSERVED"
+      }
+    ],
+    "projected_state": {
+      "failure_probability": 0.02,
+      "anomaly_score": 0.04,
+      "health_score": 97.47,
+      "health_state": "EXCELLENT",
+      "cycle_ratio": 1.0,
+      "delayed_throughput_units": 0.0,
+      "is_bottleneck": false,
+      "unplanned_downtime_minutes": 0.0,
+      "planned_downtime_minutes": 0.0,
+      "scrap_units": 0.0,
+      "rework_hours": 0.0,
+      "observed_current_stock": 12.0,
+      "safety_stock": 0.233,
+      "reorder_point": 1.033,
+      "projected_post_action_stock": 12.0,
+      "is_safety_stock_breached": false,
+      "realized_operational_loss_inr": 0.0,
+      "projected_opportunity_cost_inr": 0.0,
+      "gross_financial_exposure_inr": 0.0,
+      "projected_avoided_loss_inr": 0.0
+    },
+    "delta": {
+      "failure_probability_delta": 0.0,
+      "anomaly_score_delta": 0.0,
+      "health_score_delta": 0.0,
+      "health_state_change": "UNCHANGED",
+      "cycle_ratio_delta": 0.0,
+      "delayed_units_delta": 0.0,
+      "unplanned_downtime_delta_minutes": 0.0,
+      "planned_downtime_delta_minutes": 0.0,
+      "scrap_units_delta": 0.0,
+      "rework_hours_delta": 0.0,
+      "stock_delta_units": 0.0,
+      "projected_avoided_loss_inr": 0.0,
+      "gross_exposure_delta_inr": 0.0
+    },
+    "confidence": "HIGH_EVIDENCE",
+    "epistemic_classification": "DERIVED_FROM_OBSERVED",
+    "evidence_basis": [
+      "Phase 13 nominal baseline telemetry",
+      "Phase 6 failure classifier zero-risk output"
+    ],
+    "limitations": [
+      "Demonstrates negative control validity; zero degradation present to mitigate"
+    ]
+  },
+  "sensitivity_analysis": {
+    "analysis_name": "CONFIGURED SENSITIVITY ANALYSIS (Scenario E Robustness)",
+    "decision_timestamp": "2026-01-21T12:00:00+00:00",
+    "target_machine": "M2",
+    "epistemic_classification": "CONFIGURED_ASSUMPTION",
+    "disclaimer": "CONFIGURED SENSITIVITY ANALYSIS: Parameters represent configured bounds, not statistically validated uncertainty intervals.",
+    "tiers": {
+      "LOW_PESSIMISTIC": {
+        "tier": "LOW",
+        "planned_service_downtime_minutes": 45.0,
+        "avoided_emergency_downtime_minutes": 120.0,
+        "delayed_units_remaining": 25.0,
+        "projected_avoided_loss_inr": 22365.0,
+        "projected_gross_exposure_inr": 75017.28
+      },
+      "BASE_NOMINAL": {
+        "tier": "BASE",
+        "planned_service_downtime_minutes": 30.0,
+        "avoided_emergency_downtime_minutes": 150.0,
+        "delayed_units_remaining": 15.0,
+        "projected_avoided_loss_inr": 28940.0,
+        "projected_gross_exposure_inr": 68442.28
+      },
+      "HIGH_OPTIMISTIC": {
+        "tier": "HIGH",
+        "planned_service_downtime_minutes": 20.0,
+        "avoided_emergency_downtime_minutes": 180.0,
+        "delayed_units_remaining": 5.0,
+        "projected_avoided_loss_inr": 35140.0,
+        "projected_gross_exposure_inr": 62242.28
+      }
+    }
+  },
+  "research_integrity_verification": {
+    "zero_lookahead_enforced": true,
+    "day_22_emergency_halt_excluded_from_baseline": true,
+    "m2_bearing_current_stock_not_reported_as_stockout": true,
+    "financial_losses_separated_realized_vs_projected": true,
+    "no_pseudo_financial_coupling": true,
+    "no_fabricated_causal_coefficients": true,
+    "reference_dataset_md5_unmodified": true
+  }
+}
