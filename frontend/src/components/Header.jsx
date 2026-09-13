@@ -46,9 +46,9 @@ export default function Header({ factoryInfo, kpis }) {
           <div className="shift-val">{factoryInfo.active_shift.split(" ")[1]}</div>
           <div className="shift-status mono">
             {factoryInfo.is_live ? (
-              <span className="live-pill active">LIVE FASTAPI</span>
+              <span className="live-pill active">LIVE BACKEND DATA</span>
             ) : (
-              <span className="live-pill fallback">STANDALONE RESILIENT</span>
+              <span className="live-pill fallback">OFFLINE DEMO / FALLBACK DATA</span>
             )}
           </div>
         </div>

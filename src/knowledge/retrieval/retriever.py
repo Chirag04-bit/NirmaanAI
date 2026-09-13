@@ -161,6 +161,8 @@ class KnowledgeRetriever:
             "what", "is", "the", "of", "and", "in", "to", "for", "a", "an", "on", "was", "during",
             "retrieve", "happened", "occurred", "tell", "show", "give", "me", "how", "why", "when",
             "where", "which", "are", "were", "been", "being", "have", "has", "had", "does", "did",
+            "should", "done", "about", "do", "can", "could", "would", "be", "we", "i", "one",
+            "current", "currently",
         }
         # Topical anchor terms exclude generic filler words and pure digits
         informative_terms = {

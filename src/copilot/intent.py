@@ -72,7 +72,8 @@ INTENT_RULES: List[Tuple[CopilotIntent, List[str]]] = [
     (
         CopilotIntent.RECOMMENDATION,
         [
-            r"\bwhat should (i|we) do\b",
+            r"\bwhat should (be done|we do|i do|one do)\b",
+            r"\bwhat to do\b",
             r"\bmaintenance action\b",
             r"\brecommend(ation|ed)?\b",
             r"\bmitigat(e|ion)\b",
