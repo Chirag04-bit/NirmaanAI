@@ -1,0 +1,177 @@
+{
+  "index_version": "v0.19.0",
+  "build_timestamp": "2026-09-13T10:28:59.097896+00:00",
+  "representation_type": "TF-IDF/SVD Dense Retrieval Representation (Deterministic Statistical Baseline)",
+  "dimension": 256,
+  "total_chunks": 278,
+  "sources": [
+    {
+      "source_id": "DOC_PHASE_03_EDA",
+      "file_path": "docs/eda/eda_summary_report.md",
+      "md5": "88b1826c81a3066960959b04a82c63e0",
+      "chunk_count": 15,
+      "phase": 3
+    },
+    {
+      "source_id": "DOC_PHASE_04_SCHEMA",
+      "file_path": "docs/schema/unified_factory_schema.md",
+      "md5": "41491e1146fdb67484a1b354eea96fc4",
+      "chunk_count": 9,
+      "phase": 4
+    },
+    {
+      "source_id": "DOC_PHASE_05_SYNTHETIC",
+      "file_path": "docs/data/synthetic_data_specification.md",
+      "md5": "f8fd4107c308bb9dea72d01a9051f719",
+      "chunk_count": 10,
+      "phase": 5
+    },
+    {
+      "source_id": "DOC_PHASE_06_PDM",
+      "file_path": "docs/models/predictive_maintenance_report.md",
+      "md5": "f467d66680d0e27f0d5016d8d45a996c",
+      "chunk_count": 21,
+      "phase": 6
+    },
+    {
+      "source_id": "DOC_PHASE_07_ANOMALY",
+      "file_path": "docs/models/anomaly_detection_report.md",
+      "md5": "4c31ac3c3bcc394ad534e3596d89a1e3",
+      "chunk_count": 24,
+      "phase": 7
+    },
+    {
+      "source_id": "DOC_PHASE_08_BOTTLENECK",
+      "file_path": "docs/models/bottleneck_prediction_report.md",
+      "md5": "ead097f8eb522b28799b04e5cf910a5e",
+      "chunk_count": 19,
+      "phase": 8
+    },
+    {
+      "source_id": "DOC_PHASE_09_FORECASTING",
+      "file_path": "docs/models/forecasting_report.md",
+      "md5": "3f91ee61f155d3a9b9bd1271580c47d9",
+      "chunk_count": 19,
+      "phase": 9
+    },
+    {
+      "source_id": "DOC_PHASE_10_INVENTORY",
+      "file_path": "docs/models/inventory_intelligence_report.md",
+      "md5": "2bf3c12cd0cc65692d146014c87b25d8",
+      "chunk_count": 24,
+      "phase": 10
+    },
+    {
+      "source_id": "DOC_PHASE_11_SHAP",
+      "file_path": "docs/explainability/shap_report.md",
+      "md5": "ff23f95c0cbc2d03e72641553792c3ca",
+      "chunk_count": 18,
+      "phase": 11
+    },
+    {
+      "source_id": "DOC_PHASE_12_RCA",
+      "file_path": "docs/rca/root_cause_analysis_report.md",
+      "md5": "400b5f81889d3733b16568660cb98216",
+      "chunk_count": 14,
+      "phase": 12
+    },
+    {
+      "source_id": "DOC_PHASE_13_HEALTH",
+      "file_path": "docs/health/factory_health_score_report.md",
+      "md5": "80c592425ec9ac1244d573d59901248a",
+      "chunk_count": 23,
+      "phase": 13
+    },
+    {
+      "source_id": "DOC_PHASE_14_FINANCIAL_LOSS",
+      "file_path": "docs/loss/operational_loss_report.md",
+      "md5": "777b0d210442475ac174adb7d785c32c",
+      "chunk_count": 15,
+      "phase": 14
+    },
+    {
+      "source_id": "DOC_PHASE_15_RECOMMENDATIONS",
+      "file_path": "docs/recommendations/recommendation_engine.md",
+      "md5": "458c0e2e7bb4396efedb6f525751c935",
+      "chunk_count": 6,
+      "phase": 15
+    },
+    {
+      "source_id": "DOC_PHASE_15_RULES",
+      "file_path": "docs/recommendations/recommendation_rules.md",
+      "md5": "a26ddd6626a74eae95c0818f149c0e4d",
+      "chunk_count": 4,
+      "phase": 15
+    },
+    {
+      "source_id": "DOC_PHASE_16_SIMULATION",
+      "file_path": "docs/simulation/simulation_engine.md",
+      "md5": "b863bebecd4151fa100ff3474091b4d6",
+      "chunk_count": 9,
+      "phase": 16
+    },
+    {
+      "source_id": "DOC_PHASE_16_SCENARIOS",
+      "file_path": "docs/simulation/scenario_catalog.md",
+      "md5": "b346da2a7237c6bc13e0b8ba33aab0ef",
+      "chunk_count": 5,
+      "phase": 16
+    },
+    {
+      "source_id": "DOC_PHASE_17_DATABASE",
+      "file_path": "docs/database/architecture.md",
+      "md5": "118cd9a4abd64a534c496d1a998dee1c",
+      "chunk_count": 4,
+      "phase": 17
+    },
+    {
+      "source_id": "DOC_PHASE_18_API",
+      "file_path": "docs/api/architecture.md",
+      "md5": "f9c2b02f94d8e8a389f4d49df073459f",
+      "chunk_count": 6,
+      "phase": 18
+    },
+    {
+      "source_id": "SUMMARY_PHASE_13_HEALTH",
+      "file_path": "models/health/health_summary.json",
+      "md5": "82140aa8ecabd7f92d909b7206de244a",
+      "chunk_count": 7,
+      "phase": 13
+    },
+    {
+      "source_id": "SUMMARY_PHASE_14_LOSS",
+      "file_path": "models/loss/loss_summary.json",
+      "md5": "aad98c96b5881cf24eeaf6e1507b46fc",
+      "chunk_count": 4,
+      "phase": 14
+    },
+    {
+      "source_id": "SUMMARY_PHASE_12_RCA",
+      "file_path": "models/rca/rca_summary.json",
+      "md5": "8fce659e1194e559cb5e9872a207d1a1",
+      "chunk_count": 3,
+      "phase": 12
+    },
+    {
+      "source_id": "SUMMARY_PHASE_15_RECOMMENDATIONS",
+      "file_path": "models/recommendations/recommendation_summary.json",
+      "md5": "435f0263f3a765f4d7c14aebd93a58da",
+      "chunk_count": 8,
+      "phase": 15
+    },
+    {
+      "source_id": "SUMMARY_PHASE_16_SIMULATION",
+      "file_path": "models/simulation/simulation_summary.json",
+      "md5": "e6e3c2a12c55fac8e0d98e52d02b9384",
+      "chunk_count": 10,
+      "phase": 16
+    },
+    {
+      "source_id": "EVENT_MAINT_0003_RETROSPECTIVE",
+      "file_path": "docs/data/synthetic_data_specification.md",
+      "md5": "f8fd4107c308bb9dea72d01a9051f719",
+      "chunk_count": 1,
+      "phase": 5
+    }
+  ]
+}
