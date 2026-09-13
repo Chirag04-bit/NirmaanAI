@@ -68,6 +68,7 @@ data/external/*
 !DATASET/**/*.yml
 !DATASET/**/LICENSE*
 !DATASET/**/README*
+!models/features/**/feature_dictionary.csv
 
 # ------------------------------------------------------------------------------
 # Model Artifacts & Checkpoints

@@ -1,0 +1,10 @@
+{
+  "dataset_name": "Manufacturing_Defects",
+  "total_batches": 3240,
+  "total_columns": 24,
+  "engineered_features_count": 7,
+  "target_column": "DefectStatus",
+  "defect_count": 2723,
+  "defect_rate": 0.8404320987654321,
+  "status": "EXTRACTED_AND_AUDITED"
+}

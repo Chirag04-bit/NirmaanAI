@@ -1,0 +1,18 @@
+{
+  "dataset_name": "Synthetic_Factory_AutoComponents",
+  "epistemic_classification": "CONTROLLED_SYNTHETIC",
+  "total_sensor_ticks": 43200,
+  "total_columns": 25,
+  "stations": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5"
+  ],
+  "temporal_decision_cutoff_utc": "2026-01-21T12:00:00+00:00",
+  "pre_cutoff_records": 29165,
+  "post_cutoff_records": 14035,
+  "engineered_features_count": 10,
+  "status": "EXTRACTED_AND_AUDITED"
+}

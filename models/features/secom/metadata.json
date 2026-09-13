@@ -1,0 +1,12 @@
+{
+  "dataset_name": "UCI_SECOM",
+  "total_wafers": 1567,
+  "raw_sensor_channels": 590,
+  "kept_sensor_channels": 436,
+  "dropped_missing_channels": 28,
+  "dropped_constant_channels": 126,
+  "defect_count": 104,
+  "defect_rate": 0.06636885768985322,
+  "max_allowed_missing_rate": 0.5,
+  "status": "EXTRACTED_AND_AUDITED"
+}

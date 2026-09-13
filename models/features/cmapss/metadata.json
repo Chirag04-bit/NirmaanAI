@@ -1,0 +1,19 @@
+{
+  "dataset_name": "NASA_CMAPSS_FD001",
+  "total_rows": 20631,
+  "total_engines": 100,
+  "total_columns": 99,
+  "informative_sensors_count": 14,
+  "constant_sensors_dropped": [
+    "s1",
+    "s5",
+    "s10",
+    "s16",
+    "s18",
+    "s19"
+  ],
+  "engineered_features_count": 71,
+  "target_clipped_value": 125,
+  "mean_rul_cycles": 86.82928602588338,
+  "status": "EXTRACTED_AND_AUDITED"
+}

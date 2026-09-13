@@ -1,0 +1,11 @@
+{
+  "dataset_name": "UCI_Electricity_Load",
+  "client_id": "MT_124",
+  "resample_frequency": "1h",
+  "total_hourly_records": 26113,
+  "total_columns": 21,
+  "max_lag_lookback_hours": 168,
+  "mean_power_kw": 279.95524420273534,
+  "std_power_kw": 125.22436251543435,
+  "status": "EXTRACTED_AND_AUDITED"
+}

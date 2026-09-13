@@ -1,0 +1,11 @@
+{
+  "dataset_name": "Industrial_IoT_2040",
+  "total_records": 500000,
+  "total_columns": 29,
+  "engineered_features_count": 7,
+  "failure_target_col": "Failure_Within_7_Days",
+  "rul_target_col": "Remaining_Useful_Life_days",
+  "failure_rate": 0.060064,
+  "mean_rul_days": 452.422338,
+  "status": "EXTRACTED_AND_AUDITED"
+}

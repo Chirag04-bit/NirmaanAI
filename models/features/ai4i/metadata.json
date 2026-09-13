@@ -1,0 +1,19 @@
+{
+  "dataset_name": "AI4I_2020",
+  "total_rows": 10000,
+  "total_columns": 22,
+  "raw_columns_count": 14,
+  "engineered_features_count": 8,
+  "target_column": "machine_failure",
+  "leakage_features_excluded": [
+    "TWF",
+    "HDF",
+    "PWF",
+    "OSF",
+    "RNF",
+    "UDI",
+    "Product ID"
+  ],
+  "positive_class_ratio": 0.0339,
+  "status": "EXTRACTED_AND_AUDITED"
+}

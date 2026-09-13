@@ -1,0 +1,9 @@
+{
+  "dataset_name": "Textile_Manufacturing_Synthetic",
+  "epistemic_classification": "CONTROLLED_SYNTHETIC",
+  "total_sensor_ticks": 43200,
+  "total_columns": 20,
+  "machines_count": 5,
+  "engineered_features_count": 6,
+  "status": "EXTRACTED_AND_AUDITED"
+}
