@@ -66,8 +66,10 @@ C:\NIRMAAN AI
 │   ├── models\                   # ML models (Classification, Regression, Forecasting)
 │   ├── explainability\           # SHAP explainability & attribution modules
 │   ├── decision\                 # Health scores, loss calculators, recommendation rules
+│   ├── db\                       # PostgreSQL & SQLAlchemy persistence models & seeder
 │   └── utils\                    # Logging, config loaders, and reproducibility helpers
 │
+├── alembic\                      # Alembic schema migrations & versioned DDL
 ├── models\                       # Serialized trained model weights & scalers
 ├── backend\                      # FastAPI backend application & API routes
 ├── frontend\                     # React + Vite dashboard web application
@@ -100,9 +102,9 @@ C:\NIRMAAN AI
 | **Phase 12** | Root Cause Analysis Engine | **COMPLETED** |
 | **Phase 13** | Composite Factory Health Score | **COMPLETED** |
 | **Phase 14** | Operational & Financial Loss Analysis (INR) | **COMPLETED** |
-| **Phase 15** | Prescriptive Recommendation Engine | Planned |
-| **Phase 16** | Digital-Twin-Inspired What-If Simulation | Planned |
-| **Phase 17** | PostgreSQL Relational Database Layer | Planned |
+| **Phase 15** | Prescriptive Recommendation Engine | **COMPLETED** |
+| **Phase 16** | Digital-Twin-Inspired What-If Simulation | **COMPLETED** |
+| **Phase 17** | PostgreSQL Data Persistence & Production Layer | **COMPLETED** |
 | **Phase 18** | FastAPI Asynchronous Backend Services | Planned |
 | **Phase 19** | Factory Knowledge Memory (RAG Ingestion) | Planned |
 | **Phase 20** | Grounded AI Factory Copilot | Planned |
@@ -114,7 +116,7 @@ C:\NIRMAAN AI
 
 ---
 
-## Deployed Intelligence Subsystems (Phases 6–14)
+## Deployed Intelligence Subsystems (Phases 6–17)
 
 ### 1. Predictive Maintenance (Phase 6)
 - **Failure Classification**: XGBoost Champion (Precision: 0.9545, Recall: 0.8235, F1: 0.8842, ROC-AUC: 0.9831) on AI4I 2020. Strict leakage exclusion of tool wear modes and identifiers.
@@ -175,12 +177,32 @@ C:\NIRMAAN AI
 - **Controlled Machine 2 Scenario**: Full data-driven accounting of the spindle bearing failure chain, isolating ₹21,280 scrap loss, ₹2,660 rework labor, ₹1,675.83 energy inefficiency, ₹24,320 projected bottleneck opportunity cost during precursor degradation, and ₹11,670 single-event emergency stoppage loss (`MAINT_0003`).
 - **Service Layer**: `FinancialLossService` exposing machine assessments ($M_1\text{--}M_5$), plant-wide aggregations, temporal causal queries ($t \le t_{\text{as\_of}}$), and reference reconciliation against `operational_losses.csv`.
 
+### 10. Operational Recommendation Engine (Phase 15)
+- **Evidence-Grounded Prescriptive Engine**: Generates transparent, deterministic operational recommendations using a closed 26-action taxonomy across 5 operational categories (`PREVENTIVE_MAINTENANCE`, `PROCESS_OPTIMIZATION`, `INVENTORY_REPLENISHMENT`, `QUALITY_CONTROL`, `ENERGY_MANAGEMENT`).
+- **Multi-Signal Rule Activation**: Evaluates Phase 6 failure probability ($\tau=0.91$), Phase 7 PCA anomaly ($\tau=0.24050$), Phase 13 health state (`CRITICAL`, `DEGRADED`, `WATCH`), and Phase 10 inventory contracts (ROP $1.367$, SS $1.134$).
+- **Priority & Urgency Matrix**: Actionable ranking across Priority (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`) and Urgency (`IMMEDIATE`, `SCHEDULED`, `DEFERRED`) with full physical evidence references.
+- **Service Layer**: `RecommendationService` exposing single-machine evaluation, plant-wide filtering, and reproducible rule execution.
+
+### 11. What-If / Digital-Twin-Inspired Simulation Engine (Phase 16)
+- **Counterfactual Decision Support**: Evaluates "what would likely happen if a proposed intervention were executed" prior to shop-floor commitment.
+- **Strict Temporal Demarcation**: Decision cutoff fixed strictly at `2026-01-21T12:00:00Z`. Retrospective evaluation against Day-22 synthetic ground truth (`MAINT_0003`, 2026-01-22T16:30:00Z).
+- **Counterfactual Net Benefit**: Quantifies avoided breakdown losses (₹9,420 avoided loss: ₹9,000 downtime + ₹420 emergency labor) offset by planned service downtime and technician labor (₹2,390), yielding a net counterfactual benefit of **₹7,030**.
+- **Epistemic Integrity**: Diagnostic KPIs under intervention (`failure_probability`, `anomaly_score`, `health_score`) are explicitly governed as `NOT_PROJECTABLE` without an empirical physics twin.
+- **Service Layer**: `SimulationService` providing scenario generation, comparative cost-benefit evaluation, and markdown executive briefings.
+
+### 12. PostgreSQL Persistence & Production Data Layer (Phase 17)
+- **19 Phase 17 Persistence Tables**: Full declarative SQLAlchemy 2.0 schema spanning Core Factory, Operations/Telemetry, and AI/Decision Intelligence.
+- **Normalized Simulation Storage**: Dedicated queryable columns for counterfactual metrics and net financial benefit (`net_counterfactual_benefit_inr`, `projected_avoided_breakdown_loss_inr`), eliminating reliance on opaque JSON blobs.
+- **Financial Semantic Separation**: Database-level distinction between Realized Loss (₹73,062.28), Baseline Opportunity Cost (₹24,320.00), Gross Financial Exposure (₹97,382.28), and Avoided Opportunity Cost (₹19,520.00).
+- **Alembic Migration & Deterministic Seeding**: Reproducible versioned DDL migrations and idempotent database seeder preserving complete upstream provenance and temporal causality.
+
 ---
 
 ## Setup & Getting Started
 
 ### Prerequisites
 - Python 3.14+ (or Python 3.10+)
+- PostgreSQL 15+ (optional for production persistence; SQLite supported in-memory for testing)
 - Node.js v20+ & npm
 - Git
 
@@ -192,16 +214,28 @@ cd "C:\NIRMAAN AI"
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Run complete system test suite (143 tests across Phases 0-13)
+# Run complete system test suite (248 tests across Phases 0-17)
 python -m pytest tests/ -v
 
+# Run targeted database persistence tests
+python -m pytest tests/test_database.py -v
+
+# Apply database migrations (PostgreSQL / SQLite)
+python -m alembic upgrade head
+
+# Seed database with deterministic historical factory data
+python -m src.db.seed.seeder
+
 # Train / Evaluate individual intelligence subsystems
-python -m src.models.train_pdm            # Phase 6: Predictive Maintenance
-python -m src.models.train_anomaly        # Phase 7: Anomaly Detection
-python -m src.models.train_bottleneck     # Phase 8: Bottleneck Prediction
-python -m src.models.train_forecaster     # Phase 9: Production & Energy Forecasting
-python -m src.models.train_inventory      # Phase 10: Smart Inventory Intelligence
-python -m src.models.train_explainability # Phase 11: Explainable AI & SHAP
-python -m src.models.evaluate_rca         # Phase 12: Root Cause Analysis
-python -m src.models.evaluate_health      # Phase 13: Factory Health Score
+python -m src.models.train_pdm                 # Phase 6: Predictive Maintenance
+python -m src.models.train_anomaly             # Phase 7: Anomaly Detection
+python -m src.models.train_bottleneck          # Phase 8: Bottleneck Prediction
+python -m src.models.train_forecaster          # Phase 9: Production & Energy Forecasting
+python -m src.models.train_inventory           # Phase 10: Smart Inventory Intelligence
+python -m src.models.train_explainability      # Phase 11: Explainable AI & SHAP
+python -m src.models.evaluate_rca              # Phase 12: Root Cause Analysis
+python -m src.models.evaluate_health           # Phase 13: Factory Health Score
+python -m src.decision.loss_service            # Phase 14: Financial Loss Accounting
+python -m src.models.evaluate_recommendations  # Phase 15: Recommendation Engine
+python -m src.models.evaluate_simulation       # Phase 16: What-If Simulation
 ```
