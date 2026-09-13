@@ -1,0 +1,54 @@
+# ==============================================================================
+# NirmaanAI Root .dockerignore (Phase 24)
+# Excludes local caches, secrets, virtual environments, and temporary artifacts
+# ==============================================================================
+
+# Git & IDE metadata
+.git/
+.gitignore
+.gitattributes
+.agents/
+.gemini/
+.vscode/
+.idea/
+
+# Environment files and credentials (CRITICAL: NEVER BAKE SECRETS)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Node & Frontend local build artifacts
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+build/
+
+# Scratch, test logs, and temporary artifacts
+scratch/
+*.log
+logs/
+.tempmediaStorage/
+*.webp
+*.mp4
+*.png
+*.jpg

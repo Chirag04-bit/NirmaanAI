@@ -1,0 +1,90 @@
+# ==============================================================================
+# NirmaanAI Backend Service Dockerfile (Phase 24)
+# Multi-Stage, Security-Hardened Production Image for FastAPI & Intelligence Engines
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Stage 1: Build & Dependency Wheel Cache
+# ------------------------------------------------------------------------------
+FROM python:3.12-slim AS builder
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /build
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    gcc \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+
+# Install dependencies into dedicated virtualenv
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install -r requirements.txt
+
+# ------------------------------------------------------------------------------
+# Stage 2: Minimal Production Runtime
+# ------------------------------------------------------------------------------
+FROM python:3.12-slim AS runner
+
+LABEL maintainer="NirmaanAI Core Platform Team <engineering@nirmaanai.internal>" \
+      version="0.24.0" \
+      description="Production container for NirmaanAI Factory Intelligence API & Copilot"
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="/opt/venv/bin:$PATH" \
+    PYTHONPATH="/app" \
+    APP_ENV="production" \
+    PORT=8000
+
+# Install runtime PostgreSQL client library and netcat for readiness polling
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    netcat-openbsd \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Security: Create non-root system group and user
+RUN groupadd -g 10001 nirmaan && \
+    useradd -u 10001 -g nirmaan -s /bin/sh -M -d /app nirmaan
+
+WORKDIR /app
+
+# Copy virtualenv from builder stage
+COPY --from=builder /opt/venv /opt/venv
+
+# Copy application source directories and configuration
+COPY --chown=nirmaan:nirmaan app/ /app/app/
+COPY --chown=nirmaan:nirmaan backend/ /app/backend/
+COPY --chown=nirmaan:nirmaan src/ /app/src/
+COPY --chown=nirmaan:nirmaan configs/ /app/configs/
+COPY --chown=nirmaan:nirmaan data/ /app/data/
+COPY --chown=nirmaan:nirmaan models/ /app/models/
+COPY --chown=nirmaan:nirmaan alembic.ini /app/alembic.ini
+COPY --chown=nirmaan:nirmaan scripts/ /app/scripts/
+
+# Ensure entrypoint script is executable
+RUN chmod +x /app/scripts/*.sh && \
+    mkdir -p /app/logs && chown -R nirmaan:nirmaan /app/logs
+
+# Switch to non-root user
+USER nirmaan:nirmaan
+
+EXPOSE 8000
+
+# Healthcheck probing the FastAPI health endpoint
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+    CMD curl -f http://127.0.0.1:8000/api/v1/health || exit 1
+
+ENTRYPOINT ["/app/scripts/entrypoint.sh"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
