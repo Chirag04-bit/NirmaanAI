@@ -33,6 +33,28 @@ from src.decision.loss_engine import (
     verify_no_pseudo_financial_coupling,
 )
 from src.decision.loss_service import FinancialLossService
+from src.decision.recommendation_models import (
+    ActionUrgency,
+    EvidenceDomain,
+    EvidenceItem,
+    EvidenceStrength,
+    FinancialEvidenceContext,
+    InventoryEvidenceContext,
+    OperationalRecommendation,
+    RecommendationAction,
+    RecommendationCategory,
+    RecommendationPriority,
+)
+from src.decision.recommendation_rules import (
+    P6_CONFIGURED_WARNING_THRESHOLD,
+    P6_LOCKED_FAILURE_THRESHOLD,
+    P7_LOCKED_ANOMALY_THRESHOLD,
+    P8_LOCKED_CYCLE_RATIO_TARGET,
+    P14_CONFIGURED_MATERIALITY_THRESHOLD_INR,
+    calculate_evidence_strength,
+)
+from src.decision.recommendation_engine import OperationalRecommendationEngine
+from src.decision.recommendation_service import RecommendationService
 
 __all__ = [
     "EpistemicClassification",
@@ -61,4 +83,24 @@ __all__ = [
     "DEFAULT_CONTRIBUTION_MARGIN_PER_UNIT_INR",
     "DEFAULT_UNIT_MASS_KG",
     "DOCUMENTED_POWER_BASELINES_KW",
+    # Phase 15 Recommendation Engine
+    "RecommendationCategory",
+    "RecommendationAction",
+    "RecommendationPriority",
+    "ActionUrgency",
+    "EvidenceStrength",
+    "EvidenceDomain",
+    "EvidenceItem",
+    "InventoryEvidenceContext",
+    "FinancialEvidenceContext",
+    "OperationalRecommendation",
+    "OperationalRecommendationEngine",
+    "RecommendationService",
+    "P6_LOCKED_FAILURE_THRESHOLD",
+    "P6_CONFIGURED_WARNING_THRESHOLD",
+    "P7_LOCKED_ANOMALY_THRESHOLD",
+    "P8_LOCKED_CYCLE_RATIO_TARGET",
+    "P14_CONFIGURED_MATERIALITY_THRESHOLD_INR",
+    "calculate_evidence_strength",
 ]
+

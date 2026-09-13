@@ -1,0 +1,1055 @@
+{
+  "phase": "Phase 15: Recommendation Engine",
+  "generated_at": "2026-09-13T08:36:46.408224+00:00",
+  "decision_timestamp": "2026-01-21T12:00:00+00:00",
+  "governance": {
+    "decision_support_only": true,
+    "autonomous_control_enabled": false,
+    "human_in_the_loop_mandatory": true,
+    "all_recommendations_require_operator_verification": true
+  },
+  "locked_upstream_thresholds": {
+    "phase_6_xgboost_decision_threshold": 0.91,
+    "phase_6_configured_warning_boundary": 0.75,
+    "phase_7_pca_anomaly_decision_threshold": 0.2405,
+    "phase_8_cycle_ratio_target": 1.2,
+    "phase_13_health_bands": {
+      "EXCELLENT": [
+        90.0,
+        100.0
+      ],
+      "HEALTHY": [
+        75.0,
+        89.9
+      ],
+      "WATCH": [
+        60.0,
+        74.9
+      ],
+      "DEGRADED": [
+        40.0,
+        59.9
+      ],
+      "CRITICAL": [
+        0.0,
+        39.9
+      ]
+    },
+    "phase_14_m2_financial_exposure_inr": 97382.28
+  },
+  "inventory_governance": {
+    "m2_spindle_bearing_sku": "SKU_SPINDLE_BEARING_M2",
+    "observed_current_stock": 2.0,
+    "safety_stock": 1.134,
+    "reorder_point": 1.367,
+    "lead_time_days": 7.0,
+    "is_current_stock_below_safety": false,
+    "hypothetical_consumption_units": 1.0,
+    "projected_post_action_stock": 1.0,
+    "is_projected_stock_below_safety": true,
+    "narrative_justification": "Current stock is 2.0 and above safety stock. Recommendation to expedite is proactive because projected post-maintenance stock (1.0) breaches safety stock (1.134) with a 7-day supplier lead time."
+  },
+  "portfolio_summary": {
+    "total_recommendations": 8,
+    "by_category": {
+      "MONITORING": 4,
+      "MAINTENANCE": 1,
+      "PRODUCTION_FLOW": 2,
+      "INVENTORY": 1
+    },
+    "by_priority": {
+      "MONITOR": 4,
+      "CRITICAL": 1,
+      "HIGH": 3
+    },
+    "by_urgency": {
+      "ROUTINE": 4,
+      "IMMEDIATE": 1,
+      "SAME_DAY": 3
+    },
+    "by_evidence_strength": {
+      "INSUFFICIENT": 4,
+      "STRONG": 1,
+      "WEAK": 3
+    }
+  },
+  "m2_controlled_scenario": {
+    "scenario_name": "Machine 2 Controlled Degradation Scenario",
+    "machine_id": "M2",
+    "decision_timestamp": "2026-01-21T12:00:00+00:00",
+    "epistemic_classification": "CONTROLLED_SYNTHETIC",
+    "operational_inputs": {
+      "failure_probability": 0.9959,
+      "normalized_anomaly_score": 0.35,
+      "rca_primary_candidate": "MECHANICAL_LOAD",
+      "is_bottleneck": true,
+      "cycle_ratio": 1.38,
+      "delayed_units": 76.0,
+      "health_score": 26.88,
+      "health_state": "CRITICAL",
+      "inventory_observed_current_stock": 2.0,
+      "inventory_safety_stock": 1.134,
+      "inventory_hypothetical_consumption": 1.0,
+      "inventory_projected_post_action_stock": 1.0,
+      "inventory_lead_time_days": 7.0
+    },
+    "recommendation_count": 4,
+    "recommendations": [
+      {
+        "recommendation_id": "REC_M2_MAINT_001",
+        "timestamp": "2026-01-21T12:00:00Z",
+        "machine_id": "M2",
+        "category": "MAINTENANCE",
+        "action": "INSPECT_SPINDLE_BEARING",
+        "priority": "CRITICAL",
+        "urgency": "IMMEDIATE",
+        "evidence_strength": "STRONG",
+        "reason": "Machine M2 exhibits critical mechanical degradation: failure probability (0.9959) breaches locked threshold (0.91), anomaly score (0.3500) breaches reconstruction threshold (0.2405), and RCA identifies MECHANICAL_LOAD.",
+        "evidence": [
+          {
+            "evidence_id": "EVID_P06_FAIL_M2",
+            "source_phase": "Phase 6",
+            "source_module": "AI4I_XGBoostClassifier",
+            "domain": "PREDICTIVE_FAILURE",
+            "metric": "failure_probability",
+            "value": 0.9959,
+            "unit": null,
+            "threshold_applied": 0.91,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Failure probability 0.9959 exceeds locked operational threshold 0.91",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P07_ANOM_M2",
+            "source_phase": "Phase 7",
+            "source_module": "PCAReconstructionDetector",
+            "domain": "TELEMETRY_ANOMALY",
+            "metric": "normalized_reconstruction_error",
+            "value": 0.35,
+            "unit": null,
+            "threshold_applied": 0.2405,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Normalized anomaly score 0.3500 exceeds calibrated threshold 0.2405",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P12_RCA_M2",
+            "source_phase": "Phase 12",
+            "source_module": "RootCauseAnalysisEngine",
+            "domain": "DIAGNOSTIC_RCA",
+            "metric": "primary_candidate_cause",
+            "value": "MECHANICAL_LOAD",
+            "unit": null,
+            "threshold_applied": null,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Diagnostic evidence is operationally consistent with mechanical overload and torque surge on spindle assembly",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          }
+        ],
+        "source_phases": [
+          "Phase 6",
+          "Phase 7",
+          "Phase 12"
+        ],
+        "operational_impact": "Imminent uncommanded spindle seizure causing complete unplanned line shutdown and tool breakage.",
+        "financial_context": {
+          "realized_loss_inr": 73062.28,
+          "gross_exposure_inr": 97382.28,
+          "projected_opportunity_cost_inr": 24320.0,
+          "is_material_exposure": true,
+          "materiality_threshold_inr": 25000.0,
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        "inventory_context": null,
+        "expected_benefit": "Preempts catastrophic spindle seizure and avoids extended unplanned repair downtime.",
+        "requires_operator_verification": true,
+        "rule_id": "R-M01",
+        "epistemic_classification": "CONTROLLED_SYNTHETIC"
+      },
+      {
+        "recommendation_id": "REC_M2_FLOW_FEED_001",
+        "timestamp": "2026-01-21T12:00:00Z",
+        "machine_id": "M2",
+        "category": "PRODUCTION_FLOW",
+        "action": "REDUCE_MACHINE_FEED_RATE",
+        "priority": "HIGH",
+        "urgency": "SAME_DAY",
+        "evidence_strength": "WEAK",
+        "reason": "Machine M2 is an active bottleneck with cycle ratio 1.38 (exceeding target 1.2) and 76 delayed units. Reducing feed rate prevents thermal torque buildup and mechanical seizure.",
+        "evidence": [
+          {
+            "evidence_id": "EVID_P08_BOTTLENECK_M2",
+            "source_phase": "Phase 8",
+            "source_module": "BottleneckPredictor",
+            "domain": "PRODUCTION_FLOW",
+            "metric": "is_bottleneck",
+            "value": true,
+            "unit": null,
+            "threshold_applied": null,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Machine M2 is classified as an active production flow constraint",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P08_CYCLE_M2",
+            "source_phase": "Phase 8",
+            "source_module": "FlowIntelligenceService",
+            "domain": "PRODUCTION_FLOW",
+            "metric": "cycle_ratio",
+            "value": 1.38,
+            "unit": null,
+            "threshold_applied": 1.2,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Actual cycle time expanded to 1.38x of nominal design cycle time",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P08_DELAY_M2",
+            "source_phase": "Phase 8",
+            "source_module": "JobScheduler",
+            "domain": "PRODUCTION_FLOW",
+            "metric": "delayed_throughput_units",
+            "value": 76.0,
+            "unit": "units",
+            "threshold_applied": 0.0,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Delayed throughput of 76 units accumulated behind bottleneck",
+            "epistemic_classification": "OBSERVED"
+          }
+        ],
+        "source_phases": [
+          "Phase 8"
+        ],
+        "operational_impact": "Severe line starvation downstream and order delivery slippage.",
+        "financial_context": {
+          "realized_loss_inr": 73062.28,
+          "gross_exposure_inr": 97382.28,
+          "projected_opportunity_cost_inr": 24320.0,
+          "is_material_exposure": true,
+          "materiality_threshold_inr": 25000.0,
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        "inventory_context": null,
+        "expected_benefit": "Stabilizes machine mechanical stress while relieving downstream starvation.",
+        "requires_operator_verification": true,
+        "rule_id": "R-P01",
+        "epistemic_classification": "CONTROLLED_SYNTHETIC"
+      },
+      {
+        "recommendation_id": "REC_M2_FLOW_RESCHED_001",
+        "timestamp": "2026-01-21T12:00:00Z",
+        "machine_id": "M2",
+        "category": "PRODUCTION_FLOW",
+        "action": "RESCHEDULE_PENDING_JOBS",
+        "priority": "HIGH",
+        "urgency": "SAME_DAY",
+        "evidence_strength": "WEAK",
+        "reason": "Reschedule pending jobs queued on bottleneck M2 to rebalance factory cycle time and avoid margin loss.",
+        "evidence": [
+          {
+            "evidence_id": "EVID_P08_BOTTLENECK_M2",
+            "source_phase": "Phase 8",
+            "source_module": "BottleneckPredictor",
+            "domain": "PRODUCTION_FLOW",
+            "metric": "is_bottleneck",
+            "value": true,
+            "unit": null,
+            "threshold_applied": null,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Machine M2 is classified as an active production flow constraint",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P08_CYCLE_M2",
+            "source_phase": "Phase 8",
+            "source_module": "FlowIntelligenceService",
+            "domain": "PRODUCTION_FLOW",
+            "metric": "cycle_ratio",
+            "value": 1.38,
+            "unit": null,
+            "threshold_applied": 1.2,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Actual cycle time expanded to 1.38x of nominal design cycle time",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P08_DELAY_M2",
+            "source_phase": "Phase 8",
+            "source_module": "JobScheduler",
+            "domain": "PRODUCTION_FLOW",
+            "metric": "delayed_throughput_units",
+            "value": 76.0,
+            "unit": "units",
+            "threshold_applied": 0.0,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Delayed throughput of 76 units accumulated behind bottleneck",
+            "epistemic_classification": "OBSERVED"
+          }
+        ],
+        "source_phases": [
+          "Phase 8"
+        ],
+        "operational_impact": "WIP queue buildup and delivery backlog.",
+        "financial_context": {
+          "realized_loss_inr": 73062.28,
+          "gross_exposure_inr": 97382.28,
+          "projected_opportunity_cost_inr": 24320.0,
+          "is_material_exposure": true,
+          "materiality_threshold_inr": 25000.0,
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        "inventory_context": null,
+        "expected_benefit": "Reduces work-in-progress congestion and clears order backlog.",
+        "requires_operator_verification": true,
+        "rule_id": "R-P01",
+        "epistemic_classification": "CONTROLLED_SYNTHETIC"
+      },
+      {
+        "recommendation_id": "REC_M2_INV_EXPEDITE_001",
+        "timestamp": "2026-01-21T12:00:00Z",
+        "machine_id": "M2",
+        "category": "INVENTORY",
+        "action": "EXPEDITE_CRITICAL_SPARE",
+        "priority": "HIGH",
+        "urgency": "SAME_DAY",
+        "evidence_strength": "WEAK",
+        "reason": "Current stock of SKU_SPINDLE_BEARING_M2 is 2.0 units and above safety stock (1.134). However, executing the recommended spindle bearing replacement consumes 1.0 unit, projecting post-action stock to 1.0 units, which breaches the safety stock buffer. Because supplier lead time is 7.0 days, replenishment must be expedited proactively.",
+        "evidence": [
+          {
+            "evidence_id": "EVID_P10_STOCK_SKU_SPINDLE_BEARING_M2",
+            "source_phase": "Phase 10",
+            "source_module": "InventoryOptimizer",
+            "domain": "INVENTORY_SPARE",
+            "metric": "observed_current_stock",
+            "value": 2.0,
+            "unit": "units",
+            "threshold_applied": 1.134,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Current on-hand stock is 2.0 units (above safety stock 1.134)",
+            "epistemic_classification": "OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P10_PROJ_SKU_SPINDLE_BEARING_M2",
+            "source_phase": "Phase 10",
+            "source_module": "DecisionSupportInventoryProjection",
+            "domain": "INVENTORY_SPARE",
+            "metric": "projected_post_action_stock",
+            "value": 1.0,
+            "unit": "units",
+            "threshold_applied": 1.134,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Projected post-maintenance stock (1.0 units) falls below safety stock (1.134 units) after consuming 1.0 unit",
+            "epistemic_classification": "PROJECTED"
+          },
+          {
+            "evidence_id": "EVID_P10_LEAD_SKU_SPINDLE_BEARING_M2",
+            "source_phase": "Phase 10",
+            "source_module": "SupplierLeadTimeCatalog",
+            "domain": "INVENTORY_SPARE",
+            "metric": "supplier_lead_time_days",
+            "value": 7.0,
+            "unit": "days",
+            "threshold_applied": null,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M2",
+            "interpretation": "Supplier replenishment lead time is 7.0 days; delivery is not instantaneous",
+            "epistemic_classification": "CONFIGURED_ASSUMPTION"
+          }
+        ],
+        "source_phases": [
+          "Phase 10"
+        ],
+        "operational_impact": "Exhaustion of safety buffer leaves factory exposed to unrecoverable downtime if secondary failure occurs.",
+        "financial_context": {
+          "realized_loss_inr": 73062.28,
+          "gross_exposure_inr": 97382.28,
+          "projected_opportunity_cost_inr": 24320.0,
+          "is_material_exposure": true,
+          "materiality_threshold_inr": 25000.0,
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        "inventory_context": {
+          "sku_id": "SKU_SPINDLE_BEARING_M2",
+          "observed_current_stock": 2.0,
+          "safety_stock": 1.134,
+          "reorder_point": 1.367,
+          "supplier_lead_time_days": 7.0,
+          "is_current_stock_below_safety": false,
+          "hypothetical_consumption_units": 1.0,
+          "projected_post_action_stock": 1.0,
+          "is_projected_stock_below_safety": true,
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        },
+        "expected_benefit": "Guarantees spare availability for subsequent maintenance cycles without causing machine downtime.",
+        "requires_operator_verification": true,
+        "rule_id": "R-I01",
+        "epistemic_classification": "CONTROLLED_SYNTHETIC"
+      }
+    ]
+  },
+  "negative_control_scenario": {
+    "scenario_name": "Healthy Machine Negative Control Scenario",
+    "machine_id": "M1",
+    "decision_timestamp": "2026-01-21T12:00:00+00:00",
+    "epistemic_classification": "DERIVED_FROM_OBSERVED",
+    "operational_inputs": {
+      "health_score": 97.47,
+      "health_state": "EXCELLENT",
+      "normalized_anomaly_score": 0.04,
+      "failure_probability": 0.02,
+      "is_bottleneck": false
+    },
+    "recommendation_count": 1,
+    "recommendations": [
+      {
+        "recommendation_id": "REC_M1_MONITOR_001",
+        "timestamp": "2026-01-21T12:00:00Z",
+        "machine_id": "M1",
+        "category": "MONITORING",
+        "action": "CONTINUE_NOMINAL_MONITORING",
+        "priority": "MONITOR",
+        "urgency": "ROUTINE",
+        "evidence_strength": "INSUFFICIENT",
+        "reason": "Machine M1 operates within all nominal baselines: Health Score (97.5) is in healthy band, anomaly score (0.0400) is sub-threshold, and failure risk is negligible.",
+        "evidence": [
+          {
+            "evidence_id": "EVID_P13_HEALTH_M1",
+            "source_phase": "Phase 13",
+            "source_module": "FactoryHealthScoreEngine",
+            "domain": "TELEMETRY_ANOMALY",
+            "metric": "health_score",
+            "value": 97.47,
+            "unit": null,
+            "threshold_applied": 75.0,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M1",
+            "interpretation": "Machine health score 97.47 is in locked HEALTHY/EXCELLENT band (>= 75.0)",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P07_ANOM_NOM_M1",
+            "source_phase": "Phase 7",
+            "source_module": "PCAReconstructionDetector",
+            "domain": "TELEMETRY_ANOMALY",
+            "metric": "normalized_reconstruction_error",
+            "value": 0.04,
+            "unit": null,
+            "threshold_applied": 0.2405,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M1",
+            "interpretation": "Anomaly score 0.0400 is within nominal noise envelope (< 0.2405)",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          },
+          {
+            "evidence_id": "EVID_P06_FAIL_NOM_M1",
+            "source_phase": "Phase 6",
+            "source_module": "AI4I_XGBoostClassifier",
+            "domain": "PREDICTIVE_FAILURE",
+            "metric": "failure_probability",
+            "value": 0.02,
+            "unit": null,
+            "threshold_applied": 0.75,
+            "timestamp": "2026-01-21T12:00:00Z",
+            "machine_id": "M1",
+            "interpretation": "Failure probability 0.0200 is well below warning threshold (< 0.75)",
+            "epistemic_classification": "DERIVED_FROM_OBSERVED"
+          }
+        ],
+        "source_phases": [
+          "Phase 6",
+          "Phase 7",
+          "Phase 13"
+        ],
+        "operational_impact": "Nominal operation; zero physical intervention required.",
+        "financial_context": null,
+        "inventory_context": null,
+        "expected_benefit": "Avoids unnecessary machine shutdowns, false alarm fatigue, and unwarranted procurement.",
+        "requires_operator_verification": true,
+        "rule_id": "R-O01",
+        "epistemic_classification": "DERIVED_FROM_OBSERVED"
+      }
+    ]
+  },
+  "all_active_recommendations": [
+    {
+      "recommendation_id": "REC_M1_MONITOR_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M1",
+      "category": "MONITORING",
+      "action": "CONTINUE_NOMINAL_MONITORING",
+      "priority": "MONITOR",
+      "urgency": "ROUTINE",
+      "evidence_strength": "INSUFFICIENT",
+      "reason": "Machine M1 operates within all nominal baselines: Health Score (97.5) is in healthy band, anomaly score (0.0400) is sub-threshold, and failure risk is negligible.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P13_HEALTH_M1",
+          "source_phase": "Phase 13",
+          "source_module": "FactoryHealthScoreEngine",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "health_score",
+          "value": 97.47,
+          "unit": null,
+          "threshold_applied": 75.0,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M1",
+          "interpretation": "Machine health score 97.47 is in locked HEALTHY/EXCELLENT band (>= 75.0)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P07_ANOM_NOM_M1",
+          "source_phase": "Phase 7",
+          "source_module": "PCAReconstructionDetector",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "normalized_reconstruction_error",
+          "value": 0.04,
+          "unit": null,
+          "threshold_applied": 0.2405,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M1",
+          "interpretation": "Anomaly score 0.0400 is within nominal noise envelope (< 0.2405)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P06_FAIL_NOM_M1",
+          "source_phase": "Phase 6",
+          "source_module": "AI4I_XGBoostClassifier",
+          "domain": "PREDICTIVE_FAILURE",
+          "metric": "failure_probability",
+          "value": 0.02,
+          "unit": null,
+          "threshold_applied": 0.75,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M1",
+          "interpretation": "Failure probability 0.0200 is well below warning threshold (< 0.75)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        }
+      ],
+      "source_phases": [
+        "Phase 6",
+        "Phase 7",
+        "Phase 13"
+      ],
+      "operational_impact": "Nominal operation; zero physical intervention required.",
+      "financial_context": null,
+      "inventory_context": null,
+      "expected_benefit": "Avoids unnecessary machine shutdowns, false alarm fatigue, and unwarranted procurement.",
+      "requires_operator_verification": true,
+      "rule_id": "R-O01",
+      "epistemic_classification": "DERIVED_FROM_OBSERVED"
+    },
+    {
+      "recommendation_id": "REC_M2_MAINT_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M2",
+      "category": "MAINTENANCE",
+      "action": "INSPECT_SPINDLE_BEARING",
+      "priority": "CRITICAL",
+      "urgency": "IMMEDIATE",
+      "evidence_strength": "STRONG",
+      "reason": "Machine M2 exhibits critical mechanical degradation: failure probability (0.9959) breaches locked threshold (0.91), anomaly score (0.3500) breaches reconstruction threshold (0.2405), and RCA identifies MECHANICAL_LOAD.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P06_FAIL_M2",
+          "source_phase": "Phase 6",
+          "source_module": "AI4I_XGBoostClassifier",
+          "domain": "PREDICTIVE_FAILURE",
+          "metric": "failure_probability",
+          "value": 0.9959,
+          "unit": null,
+          "threshold_applied": 0.91,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Failure probability 0.9959 exceeds locked operational threshold 0.91",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P07_ANOM_M2",
+          "source_phase": "Phase 7",
+          "source_module": "PCAReconstructionDetector",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "normalized_reconstruction_error",
+          "value": 0.35,
+          "unit": null,
+          "threshold_applied": 0.2405,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Normalized anomaly score 0.3500 exceeds calibrated threshold 0.2405",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P12_RCA_M2",
+          "source_phase": "Phase 12",
+          "source_module": "RootCauseAnalysisEngine",
+          "domain": "DIAGNOSTIC_RCA",
+          "metric": "primary_candidate_cause",
+          "value": "MECHANICAL_LOAD",
+          "unit": null,
+          "threshold_applied": null,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Diagnostic evidence is operationally consistent with mechanical overload and torque surge on spindle assembly",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        }
+      ],
+      "source_phases": [
+        "Phase 6",
+        "Phase 7",
+        "Phase 12"
+      ],
+      "operational_impact": "Imminent uncommanded spindle seizure causing complete unplanned line shutdown and tool breakage.",
+      "financial_context": {
+        "realized_loss_inr": 73062.28,
+        "gross_exposure_inr": 97382.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "is_material_exposure": true,
+        "materiality_threshold_inr": 25000.0,
+        "epistemic_classification": "DERIVED_FROM_OBSERVED"
+      },
+      "inventory_context": null,
+      "expected_benefit": "Preempts catastrophic spindle seizure and avoids extended unplanned repair downtime.",
+      "requires_operator_verification": true,
+      "rule_id": "R-M01",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC"
+    },
+    {
+      "recommendation_id": "REC_M2_FLOW_FEED_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M2",
+      "category": "PRODUCTION_FLOW",
+      "action": "REDUCE_MACHINE_FEED_RATE",
+      "priority": "HIGH",
+      "urgency": "SAME_DAY",
+      "evidence_strength": "WEAK",
+      "reason": "Machine M2 is an active bottleneck with cycle ratio 1.38 (exceeding target 1.2) and 76 delayed units. Reducing feed rate prevents thermal torque buildup and mechanical seizure.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P08_BOTTLENECK_M2",
+          "source_phase": "Phase 8",
+          "source_module": "BottleneckPredictor",
+          "domain": "PRODUCTION_FLOW",
+          "metric": "is_bottleneck",
+          "value": true,
+          "unit": null,
+          "threshold_applied": null,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Machine M2 is classified as an active production flow constraint",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P08_CYCLE_M2",
+          "source_phase": "Phase 8",
+          "source_module": "FlowIntelligenceService",
+          "domain": "PRODUCTION_FLOW",
+          "metric": "cycle_ratio",
+          "value": 1.38,
+          "unit": null,
+          "threshold_applied": 1.2,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Actual cycle time expanded to 1.38x of nominal design cycle time",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P08_DELAY_M2",
+          "source_phase": "Phase 8",
+          "source_module": "JobScheduler",
+          "domain": "PRODUCTION_FLOW",
+          "metric": "delayed_throughput_units",
+          "value": 76.0,
+          "unit": "units",
+          "threshold_applied": 0.0,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Delayed throughput of 76 units accumulated behind bottleneck",
+          "epistemic_classification": "OBSERVED"
+        }
+      ],
+      "source_phases": [
+        "Phase 8"
+      ],
+      "operational_impact": "Severe line starvation downstream and order delivery slippage.",
+      "financial_context": {
+        "realized_loss_inr": 73062.28,
+        "gross_exposure_inr": 97382.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "is_material_exposure": true,
+        "materiality_threshold_inr": 25000.0,
+        "epistemic_classification": "DERIVED_FROM_OBSERVED"
+      },
+      "inventory_context": null,
+      "expected_benefit": "Stabilizes machine mechanical stress while relieving downstream starvation.",
+      "requires_operator_verification": true,
+      "rule_id": "R-P01",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC"
+    },
+    {
+      "recommendation_id": "REC_M2_FLOW_RESCHED_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M2",
+      "category": "PRODUCTION_FLOW",
+      "action": "RESCHEDULE_PENDING_JOBS",
+      "priority": "HIGH",
+      "urgency": "SAME_DAY",
+      "evidence_strength": "WEAK",
+      "reason": "Reschedule pending jobs queued on bottleneck M2 to rebalance factory cycle time and avoid margin loss.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P08_BOTTLENECK_M2",
+          "source_phase": "Phase 8",
+          "source_module": "BottleneckPredictor",
+          "domain": "PRODUCTION_FLOW",
+          "metric": "is_bottleneck",
+          "value": true,
+          "unit": null,
+          "threshold_applied": null,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Machine M2 is classified as an active production flow constraint",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P08_CYCLE_M2",
+          "source_phase": "Phase 8",
+          "source_module": "FlowIntelligenceService",
+          "domain": "PRODUCTION_FLOW",
+          "metric": "cycle_ratio",
+          "value": 1.38,
+          "unit": null,
+          "threshold_applied": 1.2,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Actual cycle time expanded to 1.38x of nominal design cycle time",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P08_DELAY_M2",
+          "source_phase": "Phase 8",
+          "source_module": "JobScheduler",
+          "domain": "PRODUCTION_FLOW",
+          "metric": "delayed_throughput_units",
+          "value": 76.0,
+          "unit": "units",
+          "threshold_applied": 0.0,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Delayed throughput of 76 units accumulated behind bottleneck",
+          "epistemic_classification": "OBSERVED"
+        }
+      ],
+      "source_phases": [
+        "Phase 8"
+      ],
+      "operational_impact": "WIP queue buildup and delivery backlog.",
+      "financial_context": {
+        "realized_loss_inr": 73062.28,
+        "gross_exposure_inr": 97382.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "is_material_exposure": true,
+        "materiality_threshold_inr": 25000.0,
+        "epistemic_classification": "DERIVED_FROM_OBSERVED"
+      },
+      "inventory_context": null,
+      "expected_benefit": "Reduces work-in-progress congestion and clears order backlog.",
+      "requires_operator_verification": true,
+      "rule_id": "R-P01",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC"
+    },
+    {
+      "recommendation_id": "REC_M2_INV_EXPEDITE_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M2",
+      "category": "INVENTORY",
+      "action": "EXPEDITE_CRITICAL_SPARE",
+      "priority": "HIGH",
+      "urgency": "SAME_DAY",
+      "evidence_strength": "WEAK",
+      "reason": "Current stock of SKU_SPINDLE_BEARING_M2 is 2.0 units and above safety stock (1.134). However, executing the recommended spindle bearing replacement consumes 1.0 unit, projecting post-action stock to 1.0 units, which breaches the safety stock buffer. Because supplier lead time is 7.0 days, replenishment must be expedited proactively.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P10_STOCK_SKU_SPINDLE_BEARING_M2",
+          "source_phase": "Phase 10",
+          "source_module": "InventoryOptimizer",
+          "domain": "INVENTORY_SPARE",
+          "metric": "observed_current_stock",
+          "value": 2.0,
+          "unit": "units",
+          "threshold_applied": 1.134,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Current on-hand stock is 2.0 units (above safety stock 1.134)",
+          "epistemic_classification": "OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P10_PROJ_SKU_SPINDLE_BEARING_M2",
+          "source_phase": "Phase 10",
+          "source_module": "DecisionSupportInventoryProjection",
+          "domain": "INVENTORY_SPARE",
+          "metric": "projected_post_action_stock",
+          "value": 1.0,
+          "unit": "units",
+          "threshold_applied": 1.134,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Projected post-maintenance stock (1.0 units) falls below safety stock (1.134 units) after consuming 1.0 unit",
+          "epistemic_classification": "PROJECTED"
+        },
+        {
+          "evidence_id": "EVID_P10_LEAD_SKU_SPINDLE_BEARING_M2",
+          "source_phase": "Phase 10",
+          "source_module": "SupplierLeadTimeCatalog",
+          "domain": "INVENTORY_SPARE",
+          "metric": "supplier_lead_time_days",
+          "value": 7.0,
+          "unit": "days",
+          "threshold_applied": null,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M2",
+          "interpretation": "Supplier replenishment lead time is 7.0 days; delivery is not instantaneous",
+          "epistemic_classification": "CONFIGURED_ASSUMPTION"
+        }
+      ],
+      "source_phases": [
+        "Phase 10"
+      ],
+      "operational_impact": "Exhaustion of safety buffer leaves factory exposed to unrecoverable downtime if secondary failure occurs.",
+      "financial_context": {
+        "realized_loss_inr": 73062.28,
+        "gross_exposure_inr": 97382.28,
+        "projected_opportunity_cost_inr": 24320.0,
+        "is_material_exposure": true,
+        "materiality_threshold_inr": 25000.0,
+        "epistemic_classification": "DERIVED_FROM_OBSERVED"
+      },
+      "inventory_context": {
+        "sku_id": "SKU_SPINDLE_BEARING_M2",
+        "observed_current_stock": 2.0,
+        "safety_stock": 1.134,
+        "reorder_point": 1.367,
+        "supplier_lead_time_days": 7.0,
+        "is_current_stock_below_safety": false,
+        "hypothetical_consumption_units": 1.0,
+        "projected_post_action_stock": 1.0,
+        "is_projected_stock_below_safety": true,
+        "epistemic_classification": "CONFIGURED_ASSUMPTION"
+      },
+      "expected_benefit": "Guarantees spare availability for subsequent maintenance cycles without causing machine downtime.",
+      "requires_operator_verification": true,
+      "rule_id": "R-I01",
+      "epistemic_classification": "CONTROLLED_SYNTHETIC"
+    },
+    {
+      "recommendation_id": "REC_M3_MONITOR_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M3",
+      "category": "MONITORING",
+      "action": "CONTINUE_NOMINAL_MONITORING",
+      "priority": "MONITOR",
+      "urgency": "ROUTINE",
+      "evidence_strength": "INSUFFICIENT",
+      "reason": "Machine M3 operates within all nominal baselines: Health Score (97.5) is in healthy band, anomaly score (0.0400) is sub-threshold, and failure risk is negligible.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P13_HEALTH_M3",
+          "source_phase": "Phase 13",
+          "source_module": "FactoryHealthScoreEngine",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "health_score",
+          "value": 97.47,
+          "unit": null,
+          "threshold_applied": 75.0,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M3",
+          "interpretation": "Machine health score 97.47 is in locked HEALTHY/EXCELLENT band (>= 75.0)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P07_ANOM_NOM_M3",
+          "source_phase": "Phase 7",
+          "source_module": "PCAReconstructionDetector",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "normalized_reconstruction_error",
+          "value": 0.04,
+          "unit": null,
+          "threshold_applied": 0.2405,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M3",
+          "interpretation": "Anomaly score 0.0400 is within nominal noise envelope (< 0.2405)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P06_FAIL_NOM_M3",
+          "source_phase": "Phase 6",
+          "source_module": "AI4I_XGBoostClassifier",
+          "domain": "PREDICTIVE_FAILURE",
+          "metric": "failure_probability",
+          "value": 0.02,
+          "unit": null,
+          "threshold_applied": 0.75,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M3",
+          "interpretation": "Failure probability 0.0200 is well below warning threshold (< 0.75)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        }
+      ],
+      "source_phases": [
+        "Phase 6",
+        "Phase 7",
+        "Phase 13"
+      ],
+      "operational_impact": "Nominal operation; zero physical intervention required.",
+      "financial_context": null,
+      "inventory_context": null,
+      "expected_benefit": "Avoids unnecessary machine shutdowns, false alarm fatigue, and unwarranted procurement.",
+      "requires_operator_verification": true,
+      "rule_id": "R-O01",
+      "epistemic_classification": "DERIVED_FROM_OBSERVED"
+    },
+    {
+      "recommendation_id": "REC_M4_MONITOR_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M4",
+      "category": "MONITORING",
+      "action": "CONTINUE_NOMINAL_MONITORING",
+      "priority": "MONITOR",
+      "urgency": "ROUTINE",
+      "evidence_strength": "INSUFFICIENT",
+      "reason": "Machine M4 operates within all nominal baselines: Health Score (97.5) is in healthy band, anomaly score (0.0400) is sub-threshold, and failure risk is negligible.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P13_HEALTH_M4",
+          "source_phase": "Phase 13",
+          "source_module": "FactoryHealthScoreEngine",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "health_score",
+          "value": 97.47,
+          "unit": null,
+          "threshold_applied": 75.0,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M4",
+          "interpretation": "Machine health score 97.47 is in locked HEALTHY/EXCELLENT band (>= 75.0)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P07_ANOM_NOM_M4",
+          "source_phase": "Phase 7",
+          "source_module": "PCAReconstructionDetector",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "normalized_reconstruction_error",
+          "value": 0.04,
+          "unit": null,
+          "threshold_applied": 0.2405,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M4",
+          "interpretation": "Anomaly score 0.0400 is within nominal noise envelope (< 0.2405)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P06_FAIL_NOM_M4",
+          "source_phase": "Phase 6",
+          "source_module": "AI4I_XGBoostClassifier",
+          "domain": "PREDICTIVE_FAILURE",
+          "metric": "failure_probability",
+          "value": 0.02,
+          "unit": null,
+          "threshold_applied": 0.75,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M4",
+          "interpretation": "Failure probability 0.0200 is well below warning threshold (< 0.75)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        }
+      ],
+      "source_phases": [
+        "Phase 6",
+        "Phase 7",
+        "Phase 13"
+      ],
+      "operational_impact": "Nominal operation; zero physical intervention required.",
+      "financial_context": null,
+      "inventory_context": null,
+      "expected_benefit": "Avoids unnecessary machine shutdowns, false alarm fatigue, and unwarranted procurement.",
+      "requires_operator_verification": true,
+      "rule_id": "R-O01",
+      "epistemic_classification": "DERIVED_FROM_OBSERVED"
+    },
+    {
+      "recommendation_id": "REC_M5_MONITOR_001",
+      "timestamp": "2026-01-21T12:00:00Z",
+      "machine_id": "M5",
+      "category": "MONITORING",
+      "action": "CONTINUE_NOMINAL_MONITORING",
+      "priority": "MONITOR",
+      "urgency": "ROUTINE",
+      "evidence_strength": "INSUFFICIENT",
+      "reason": "Machine M5 operates within all nominal baselines: Health Score (97.5) is in healthy band, anomaly score (0.0400) is sub-threshold, and failure risk is negligible.",
+      "evidence": [
+        {
+          "evidence_id": "EVID_P13_HEALTH_M5",
+          "source_phase": "Phase 13",
+          "source_module": "FactoryHealthScoreEngine",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "health_score",
+          "value": 97.47,
+          "unit": null,
+          "threshold_applied": 75.0,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M5",
+          "interpretation": "Machine health score 97.47 is in locked HEALTHY/EXCELLENT band (>= 75.0)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P07_ANOM_NOM_M5",
+          "source_phase": "Phase 7",
+          "source_module": "PCAReconstructionDetector",
+          "domain": "TELEMETRY_ANOMALY",
+          "metric": "normalized_reconstruction_error",
+          "value": 0.04,
+          "unit": null,
+          "threshold_applied": 0.2405,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M5",
+          "interpretation": "Anomaly score 0.0400 is within nominal noise envelope (< 0.2405)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        },
+        {
+          "evidence_id": "EVID_P06_FAIL_NOM_M5",
+          "source_phase": "Phase 6",
+          "source_module": "AI4I_XGBoostClassifier",
+          "domain": "PREDICTIVE_FAILURE",
+          "metric": "failure_probability",
+          "value": 0.02,
+          "unit": null,
+          "threshold_applied": 0.75,
+          "timestamp": "2026-01-21T12:00:00Z",
+          "machine_id": "M5",
+          "interpretation": "Failure probability 0.0200 is well below warning threshold (< 0.75)",
+          "epistemic_classification": "DERIVED_FROM_OBSERVED"
+        }
+      ],
+      "source_phases": [
+        "Phase 6",
+        "Phase 7",
+        "Phase 13"
+      ],
+      "operational_impact": "Nominal operation; zero physical intervention required.",
+      "financial_context": null,
+      "inventory_context": null,
+      "expected_benefit": "Avoids unnecessary machine shutdowns, false alarm fatigue, and unwarranted procurement.",
+      "requires_operator_verification": true,
+      "rule_id": "R-O01",
+      "epistemic_classification": "DERIVED_FROM_OBSERVED"
+    }
+  ]
+}
