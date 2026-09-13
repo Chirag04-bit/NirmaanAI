@@ -111,8 +111,8 @@ C:\NIRMAAN AI
 | **Phase 21** | React + Vite Executive Dashboard | **COMPLETED & LOCKED** |
 | **Phase 22** | Full End-to-End System Integration | **COMPLETED & LOCKED (HOLD — ENV BLOCKED)** |
 | **Phase 23** | Comprehensive Testing & Validation | **COMPLETED & LOCKED (HOLD — ENV BLOCKED)** |
-| **Phase 24** | Dockerization & Deployment Packaging | **COMPLETED & LOCKED (HOLD — ENV BLOCKED)** |
-| **Phase 25** | Final Documentation & Research Packaging | Planned (Next Phase) |
+| **Phase 25** | Final Documentation & Research Packaging | **COMPLETED & LOCKED** |
+
 
 ---
 
@@ -272,3 +272,19 @@ python -m src.decision.loss_service            # Phase 14: Financial Loss Accoun
 python -m src.models.evaluate_recommendations  # Phase 15: Recommendation Engine
 python -m src.models.evaluate_simulation       # Phase 16: What-If Simulation
 ```
+
+---
+
+## Master Documentation & Research Deliverables (Phase 25)
+
+The final research and engineering artifacts are published in `docs/final/` and `docs/phase25/`:
+
+- **[Master Project Report](file:///C:/NIRMAAN%20AI/docs/final/NIRMAANAI_FINAL_PROJECT_REPORT.md)**: Academic-grade comprehensive 51-section project report detailing complete theoretical formulations, architectures, and empirical findings.
+- **[Research Paper](file:///C:/NIRMAAN%20AI/docs/final/NIRMAANAI_RESEARCH_PAPER.md)**: IEEE-style research publication documenting the end-to-end NirmaanAI methodology, benchmarks, and epistemic taxonomy.
+- **[Presentation Deck](file:///C:/NIRMAAN%20AI/docs/final/PRESENTATION_CONTENT.md)**: 24-slide technical defense presentation guide with talking points, metric highlights, and visual recommendations.
+- **[Viva Voce & Defense Guide](file:///C:/NIRMAAN%20AI/docs/final/VIVA_QUESTIONS_AND_ANSWERS.md)**: 65 exhaustive oral defense questions and authoritative answers spanning every subsystem.
+- **[Dataset & Model Inventory](file:///C:/NIRMAAN%20AI/docs/final/DATASET_MODEL_INVENTORY.md)**: Complete audit tables for all datasets, models, targets, thresholds, metrics, and phase milestones.
+- **[Reproducibility Checklist](file:///C:/NIRMAAN%20AI/docs/final/REPRODUCIBILITY_CHECKLIST.md)**: Deterministic step-by-step reproduction guide and runbook.
+- **[Limitations & Future Work](file:///C:/NIRMAAN%20AI/docs/final/LIMITATIONS_AND_FUTURE_WORK.md)**: Formal register of technical and host environment limitations and future research roadmap.
+- **[Phase 25 Final Report](file:///C:/NIRMAAN%20AI/docs/phase25/PHASE25_FINAL_REPORT.md)**: Official phase closure and verification audit report.
+
