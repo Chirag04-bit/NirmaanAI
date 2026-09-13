@@ -22,6 +22,7 @@ from src.api.routes.health_scores import router as health_scores_router
 from src.api.routes.finance import router as finance_router
 from src.api.routes.recommendations import router as recommendations_router
 from src.api.routes.simulations import router as simulations_router
+from src.copilot.router import router as copilot_router
 
 api_v1_router = APIRouter(prefix="/api/v1")
 
@@ -42,3 +43,4 @@ api_v1_router.include_router(health_scores_router)
 api_v1_router.include_router(finance_router)
 api_v1_router.include_router(recommendations_router)
 api_v1_router.include_router(simulations_router)
+api_v1_router.include_router(copilot_router)
