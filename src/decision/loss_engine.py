@@ -159,11 +159,23 @@ def calculate_rework_loss(
     rework_rate_inr: float = DEFAULT_REWORK_RATE_INR_PER_HOUR
 ) -> float:
     """
-    Calculates secondary technician correction / rework labor loss.
+    Calculates secondary technician correction / parts rework labor loss.
     rework_loss = rework_hours * rework_rate_inr
     """
     validate_non_negative(rework_hours=rework_hours, rework_rate_inr=rework_rate_inr)
     return round_inr(rework_hours * rework_rate_inr)
+
+
+def calculate_emergency_maintenance_labor_loss(
+    labor_hours: float,
+    labor_rate_inr: float = DEFAULT_REWORK_RATE_INR_PER_HOUR
+) -> float:
+    """
+    Calculates emergency technician overhaul labor cost incurred during unscheduled breakdowns.
+    labor_loss = labor_hours * labor_rate_inr (e.g. 1.5 hrs * ₹280 = ₹420.00)
+    """
+    validate_non_negative(labor_hours=labor_hours, labor_rate_inr=labor_rate_inr)
+    return round_inr(labor_hours * labor_rate_inr)
 
 
 def calculate_bottleneck_opportunity_cost(

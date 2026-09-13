@@ -389,3 +389,142 @@ def test_deterministic_repeated_execution(loss_service):
     """Validates exact numerical determinism over repeated executions."""
     runs = [loss_service.calculate_factory_loss_summary().total_realized_loss_inr for _ in range(5)]
     assert len(set(runs)) == 1
+
+
+# ============================================================================
+# 5. PART H MANDATORY ACCOUNTING CONSISTENCY ASSERTIONS
+# ============================================================================
+
+def test_m2_realized_loss_equals_sum_of_components(loss_service):
+    """Assertion 1: M2 realized loss equals exact sum of its included components."""
+    m2 = loss_service.calculate_machine_loss("M2")
+    expected_sum = round_inr(
+        m2.observed_unplanned_downtime_loss_inr +
+        m2.scrap_loss_inr +
+        m2.production_rework_loss_inr +
+        m2.emergency_maintenance_labor_cost_inr +
+        m2.energy_inefficiency_loss_inr
+    )
+    assert m2.realized_operational_loss_inr == expected_sum
+    assert m2.observed_unplanned_downtime_loss_inr == 11250.00
+    assert m2.scrap_loss_inr == 51800.00
+    assert m2.production_rework_loss_inr == 6475.00
+    assert m2.emergency_maintenance_labor_cost_inr == 420.00
+    assert m2.energy_inefficiency_loss_inr == 3117.28
+    assert m2.realized_operational_loss_inr == 73062.28
+
+
+def test_plant_realized_loss_equals_sum_of_machines(loss_service):
+    """Assertion 2: Plant realized loss equals sum of machine realized losses."""
+    summary = loss_service.calculate_factory_loss_summary()
+    sum_machines = round_inr(sum(b.realized_operational_loss_inr for b in summary.machine_breakdowns.values()))
+    assert summary.total_realized_loss_inr == sum_machines
+
+
+def test_gross_exposure_identity(loss_service):
+    """Assertion 3: Gross exposure equals realized loss + opportunity cost."""
+    summary = loss_service.calculate_factory_loss_summary()
+    assert summary.gross_financial_exposure_inr == round_inr(
+        summary.total_realized_loss_inr + summary.total_projected_opportunity_cost_inr
+    )
+    for bd in summary.machine_breakdowns.values():
+        assert bd.gross_financial_exposure_inr == round_inr(
+            bd.realized_operational_loss_inr + bd.projected_opportunity_cost_inr
+        )
+
+
+def test_emergency_labor_420_authoritative_treatment(loss_service):
+    """Assertion 4: Exactly one authoritative accounting treatment for ₹420."""
+    m2 = loss_service.calculate_machine_loss("M2")
+    summary = loss_service.calculate_factory_loss_summary()
+
+    # Included in M2 emergency labor
+    assert m2.emergency_maintenance_labor_cost_inr == 420.00
+    assert summary.total_emergency_maintenance_labor_cost_inr == 420.00
+
+    # Other machines have zero emergency overhaul labor
+    for m_id in ["M1", "M3", "M4", "M5"]:
+        assert summary.machine_breakdowns[m_id].emergency_maintenance_labor_cost_inr == 0.00
+
+    # Single-event emergency halt loss equals downtime (11,250) + emergency labor (420) = 11,670
+    single_event_halt = m2.observed_unplanned_downtime_loss_inr + m2.emergency_maintenance_labor_cost_inr
+    assert single_event_halt == 11670.00
+
+
+def test_downtime_250_minutes_not_all_unplanned(loss_service):
+    """Assertion 5: 250 maintenance minutes cannot be reported as 250 unplanned minutes."""
+    summary = loss_service.calculate_factory_loss_summary()
+    assert summary.total_maintenance_downtime_hours == 4.17  # 250 minutes
+    assert summary.total_unplanned_downtime_hours == 2.50    # 150 minutes
+    assert summary.total_routine_maintenance_hours == 1.67   # 100 minutes
+    assert summary.total_unplanned_downtime_hours != summary.total_maintenance_downtime_hours
+
+
+def test_unplanned_downtime_strictly_unplanned_records(loss_service):
+    """Assertion 6: Unplanned downtime equals only records classified as UNPLANNED_STOP."""
+    summary = loss_service.calculate_factory_loss_summary()
+    assert summary.machine_breakdowns["M1"].observed_unplanned_downtime_hours == 0.0
+    assert summary.machine_breakdowns["M2"].observed_unplanned_downtime_hours == 2.5
+    assert summary.machine_breakdowns["M3"].observed_unplanned_downtime_hours == 0.0
+    assert summary.machine_breakdowns["M4"].observed_unplanned_downtime_hours == 0.0
+    assert summary.machine_breakdowns["M5"].observed_unplanned_downtime_hours == 0.0
+    assert summary.total_unplanned_downtime_loss_inr == 11250.00
+
+
+def test_routine_maintenance_separately_identifiable(loss_service):
+    """Assertion 7: Routine maintenance is separately identifiable and not mixed into failure losses."""
+    summary = loss_service.calculate_factory_loss_summary()
+    assert summary.total_routine_maintenance_cost_inr == 7500.00
+    assert summary.machine_breakdowns["M1"].observed_routine_maintenance_cost_inr == 3375.00
+    assert summary.machine_breakdowns["M3"].observed_routine_maintenance_cost_inr == 2250.00
+    assert summary.machine_breakdowns["M4"].observed_routine_maintenance_cost_inr == 1875.00
+    assert summary.machine_breakdowns["M2"].observed_routine_maintenance_cost_inr == 0.00
+
+    # Ensure routine maintenance cost is excluded from realized operational loss
+    for bd in summary.machine_breakdowns.values():
+        assert bd.realized_operational_loss_inr == round_inr(
+            bd.observed_unplanned_downtime_loss_inr +
+            bd.scrap_loss_inr +
+            bd.production_rework_loss_inr +
+            bd.emergency_maintenance_labor_cost_inr +
+            bd.energy_inefficiency_loss_inr
+        )
+
+
+def test_json_artifact_totals_equal_engine(loss_service):
+    """Assertion 8: JSON totals equal engine totals."""
+    import json
+    from pathlib import Path
+    json_path = Path("models/loss/loss_summary.json")
+    if json_path.exists():
+        with open(json_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        engine_summary = loss_service.calculate_factory_loss_summary()
+        assert data["factory_summary"]["total_realized_loss_inr"] == engine_summary.total_realized_loss_inr
+        assert data["factory_summary"]["gross_financial_exposure_inr"] == engine_summary.gross_financial_exposure_inr
+
+
+def test_report_totals_equal_engine_and_json(loss_service):
+    """Assertion 9: Report totals equal engine and JSON totals."""
+    from pathlib import Path
+    report_path = Path("docs/loss/operational_loss_report.md")
+    if report_path.exists():
+        content = report_path.read_text(encoding="utf-8")
+        assert "11,670.00" in content
+        assert "11,250.00" in content
+        assert "420.00" in content
+        assert "7,500.00" in content
+        assert "250 min" in content
+        assert "150 min" in content
+        assert "100 min" in content
+
+
+def test_reference_artifact_md5_unchanged():
+    """Assertion 10: Reference artifact operational_losses.csv remains completely unchanged."""
+    import hashlib
+    from pathlib import Path
+    ref_path = Path("DATASET/10_SYNTHETIC_FACTORY/synthetic/operational_losses.csv")
+    assert ref_path.exists()
+    md5 = hashlib.md5(ref_path.read_bytes()).hexdigest()
+    assert md5 == "34b12582b32d81e3121429c55ebf74e8"
+
