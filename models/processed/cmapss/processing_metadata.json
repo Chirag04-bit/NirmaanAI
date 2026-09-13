@@ -1,0 +1,12 @@
+{
+  "dataset_id": "cmapss",
+  "target": "rul_clipped",
+  "rows_raw": 20631,
+  "rows_cleaned": 20631,
+  "rows_train": 14130,
+  "rows_val": 3210,
+  "rows_test": 3291,
+  "total_engines": 100,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

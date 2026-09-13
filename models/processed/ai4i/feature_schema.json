@@ -1,0 +1,37 @@
+{
+  "dataset": "ai4i",
+  "target_column": "machine_failure",
+  "features": [
+    "product_type",
+    "air_temperature_k",
+    "process_temperature_k",
+    "rotational_speed_rpm",
+    "torque_nm",
+    "tool_wear_min",
+    "temp_diff_k",
+    "temp_ratio",
+    "mechanical_power_kw",
+    "torque_speed_ratio",
+    "torque_speed_product",
+    "tool_wear_risk_index",
+    "power_temp_ratio",
+    "product_type_encoded"
+  ],
+  "feature_types": {
+    "product_type": "str",
+    "air_temperature_k": "float64",
+    "process_temperature_k": "float64",
+    "rotational_speed_rpm": "int64",
+    "torque_nm": "float64",
+    "tool_wear_min": "int64",
+    "machine_failure": "int64",
+    "temp_diff_k": "float64",
+    "temp_ratio": "float64",
+    "mechanical_power_kw": "float64",
+    "torque_speed_ratio": "float64",
+    "torque_speed_product": "float64",
+    "tool_wear_risk_index": "float64",
+    "power_temp_ratio": "float64",
+    "product_type_encoded": "int64"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "dataset_id": "textile",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "rows_raw": 43200,
+  "rows_cleaned": 43200,
+  "rows_train": 30240,
+  "rows_val": 6480,
+  "rows_test": 6480,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

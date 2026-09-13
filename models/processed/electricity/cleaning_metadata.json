@@ -1,0 +1,22 @@
+{
+  "dataset": "electricity",
+  "rows_before": 26113,
+  "rows_after": 26113,
+  "columns_before": 21,
+  "columns_after": 21,
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 0,
+  "missing_values_after": 0,
+  "negative_load_records": 0,
+  "invalid_values_found": 0,
+  "invalid_values_removed": 0,
+  "outliers_detected": 0,
+  "outliers_removed": 0,
+  "outliers_flagged": 0,
+  "features_removed": [],
+  "reason_for_each_removal": {},
+  "cleaning_method": "CHRONOLOGICAL_TIME_SERIES_SORTING_AND_INTEGRITY_AUDIT",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

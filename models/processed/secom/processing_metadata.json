@@ -1,0 +1,13 @@
+{
+  "dataset_id": "secom",
+  "target": "target_defect",
+  "rows_raw": 1567,
+  "rows_cleaned": 1567,
+  "rows_train": 1096,
+  "rows_val": 235,
+  "rows_test": 236,
+  "rows_train_sampled": 2046,
+  "retained_sensor_channels": 436,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

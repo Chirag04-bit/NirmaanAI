@@ -1,0 +1,33 @@
+{
+  "dataset": "manufacturing_production",
+  "target_column": "target_is_bottleneck",
+  "features": [
+    "Material_Used",
+    "Processing_Time",
+    "Energy_Consumption",
+    "Machine_Availability",
+    "planned_duration_min",
+    "scheduled_hour",
+    "scheduled_day_of_week",
+    "planned_energy_rate",
+    "material_intensity",
+    "machine_unavailability_pct",
+    "operation_type_code",
+    "machine_id_encoded"
+  ],
+  "feature_types": {
+    "Material_Used": "float64",
+    "Processing_Time": "int64",
+    "Energy_Consumption": "float64",
+    "Machine_Availability": "int64",
+    "planned_duration_min": "float64",
+    "scheduled_hour": "int32",
+    "scheduled_day_of_week": "int32",
+    "planned_energy_rate": "float64",
+    "material_intensity": "float64",
+    "machine_unavailability_pct": "float64",
+    "operation_type_code": "int64",
+    "target_is_bottleneck": "int64",
+    "machine_id_encoded": "int64"
+  }
+}

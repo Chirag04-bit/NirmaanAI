@@ -1,0 +1,26 @@
+{
+  "dataset": "industrial_iot_rul",
+  "task": "rul",
+  "target_column": "Remaining_Useful_Life_days",
+  "quarantined_cross_target": "Failure_Within_7_Days",
+  "rows_before": 500000,
+  "rows_after": 500000,
+  "columns_before": 29,
+  "columns_after": 27,
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 2787702,
+  "missing_values_after": 0,
+  "features_removed": [
+    "Machine_ID",
+    "Failure_Within_7_Days",
+    "Machine_Type"
+  ],
+  "reason_for_each_removal": {
+    "Machine_ID": "IDENTIFIER",
+    "Failure_Within_7_Days": "CROSS_TARGET_LEAKAGE_ELIMINATION"
+  },
+  "cleaning_method": "CROSS_TARGET_QUARANTINE_AND_NUMERICAL_INTEGRITY",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

@@ -1,0 +1,12 @@
+{
+  "dataset_id": "industrial_iot_failure",
+  "task": "failure",
+  "target": "Failure_Within_7_Days",
+  "rows_raw": 500000,
+  "rows_cleaned": 500000,
+  "rows_train": 350000,
+  "rows_val": 75000,
+  "rows_test": 75000,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

@@ -1,0 +1,11 @@
+{
+  "dataset_id": "electricity",
+  "target": "power_kw",
+  "rows_raw": 26113,
+  "rows_cleaned": 26113,
+  "rows_train": 18279,
+  "rows_val": 3917,
+  "rows_test": 3917,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

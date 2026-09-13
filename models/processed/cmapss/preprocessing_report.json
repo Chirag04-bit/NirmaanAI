@@ -1,0 +1,25 @@
+{
+  "dataset": "cmapss",
+  "split_method": "Engine-Grouped 70/15/15 (Engines 1-70 train, 71-85 val, 86-100 test)",
+  "train_engines": 70,
+  "val_engines": 15,
+  "test_engines": 15,
+  "train_rows": 14130,
+  "val_rows": 3210,
+  "test_rows": 3291,
+  "features_scaled_count": 95,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_ENGINES_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "rul_cap": 125,
+  "sampling_decision": {
+    "dataset": "cmapss",
+    "task": "remaining_useful_life_regression",
+    "is_sampling_required": false,
+    "sampling_decision": "SAMPLING_NOT_REQUIRED",
+    "reason": "NASA C-MAPSS is a temporal run-to-failure continuous regression dataset. Synthetic sampling, row deletion, cycle shuffling, or SMOTE is scientifically invalid and strictly prohibited as it destroys temporal degradation trajectories.",
+    "sampling_allowed": false,
+    "applied_to": "NONE",
+    "validation_and_test_untouched": true
+  }
+}

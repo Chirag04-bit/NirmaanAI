@@ -1,0 +1,23 @@
+{
+  "dataset": "industrial_iot_rul",
+  "task": "rul",
+  "target": "Remaining_Useful_Life_days",
+  "split_method": "Random 70/15/15",
+  "train_rows": 350000,
+  "val_rows": 75000,
+  "test_rows": 75000,
+  "features_scaled_count": 26,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "sampling_decision": {
+    "dataset": "industrial_iot_rul",
+    "task": "rul_regression",
+    "is_sampling_required": false,
+    "sampling_decision": "SAMPLING_NOT_REQUIRED",
+    "reason": "Industrial IoT RUL is a continuous regression target; class sampling is not applicable.",
+    "sampling_allowed": false,
+    "applied_to": "NONE",
+    "validation_and_test_untouched": true
+  }
+}

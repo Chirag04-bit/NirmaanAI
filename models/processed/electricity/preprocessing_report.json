@@ -1,0 +1,27 @@
+{
+  "dataset": "electricity",
+  "split_method": "Strictly Chronological 70/15/15",
+  "train_timeline_start": "2012-01-08 00:00:00",
+  "train_timeline_end": "2014-02-07 14:00:00",
+  "val_timeline_start": "2014-02-07 15:00:00",
+  "val_timeline_end": "2014-07-20 19:00:00",
+  "test_timeline_start": "2014-07-20 20:00:00",
+  "test_timeline_end": "2014-12-31 00:00:00",
+  "train_rows": 18279,
+  "val_rows": 3917,
+  "test_rows": 3917,
+  "features_scaled_count": 19,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_TIMELINE_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "sampling_decision": {
+    "dataset": "electricity",
+    "task": "hourly_load_forecasting",
+    "is_sampling_required": false,
+    "sampling_decision": "SAMPLING_NOT_REQUIRED",
+    "reason": "UCI Electricity (MT_124) is a continuous chronological time series. Random sampling, cycle deletion, SMOTE, or synthetic timestamp injection destroys temporal autocorrelation, seasonality, and causality.",
+    "sampling_allowed": false,
+    "applied_to": "NONE",
+    "validation_and_test_untouched": true
+  }
+}

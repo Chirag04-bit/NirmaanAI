@@ -1,0 +1,11 @@
+{
+  "dataset_id": "manufacturing_production",
+  "target": "target_is_bottleneck",
+  "rows_raw": 1000,
+  "rows_cleaned": 1000,
+  "rows_train": 700,
+  "rows_val": 150,
+  "rows_test": 150,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

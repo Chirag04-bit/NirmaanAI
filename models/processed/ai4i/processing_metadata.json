@@ -1,0 +1,21 @@
+{
+  "dataset_id": "ai4i",
+  "target": "machine_failure",
+  "rows_raw": 10000,
+  "rows_cleaned": 10000,
+  "rows_train": 7000,
+  "rows_val": 1500,
+  "rows_test": 1500,
+  "rows_train_sampled": 13526,
+  "leakage_features_excluded": [
+    "UDI",
+    "Product ID",
+    "TWF",
+    "HDF",
+    "PWF",
+    "OSF",
+    "RNF"
+  ],
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

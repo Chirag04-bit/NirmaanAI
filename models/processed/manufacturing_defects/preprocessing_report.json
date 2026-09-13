@@ -1,0 +1,21 @@
+{
+  "dataset": "manufacturing_defects",
+  "split_method": "Stratified 70/15/15",
+  "train_rows": 2268,
+  "val_rows": 486,
+  "test_rows": 486,
+  "features_scaled_count": 23,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "sampling_decision": {
+    "dataset": "manufacturing_defects",
+    "task": "defect_classification",
+    "is_sampling_required": false,
+    "sampling_decision": "SAMPLING_NOT_REQUIRED",
+    "reason": "Defect rate is 84.0% (1906/2268); pass rate is 16.0%. Minority class has ample support (360+ observations in train). Class weighting (ratio ~5.26 for class 0) is recommended during training without synthetic alteration.",
+    "sampling_allowed": false,
+    "applied_to": "NONE",
+    "validation_and_test_untouched": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "dataset": "manufacturing_production",
+  "split_method": "Job-Sequence Chronological 70/15/15",
+  "train_rows": 700,
+  "val_rows": 150,
+  "test_rows": 150,
+  "features_scaled_count": 12,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "quarantined_post_event_features": [
+    "realized_start_delay_min",
+    "realized_completion_delay_min",
+    "realized_cycle_ratio",
+    "Job_Status",
+    "actual_start",
+    "actual_end",
+    "Actual_Start",
+    "Actual_End",
+    "Actual_Start_dt",
+    "Actual_End_dt",
+    "realized_duration_min",
+    "is_delayed_completion"
+  ],
+  "sampling_decision": {
+    "dataset": "manufacturing_production",
+    "task": "prospective_bottleneck_prediction",
+    "is_sampling_required": false,
+    "sampling_decision": "SAMPLING_NOT_REQUIRED",
+    "reason": "Bottleneck occurrence is moderate (227/700 = 32.4%). Class weighting (ratio ~2.06) or threshold adjustment is preferred over synthetic resampling, which could disrupt discrete production sequence dependencies.",
+    "sampling_allowed": false,
+    "applied_to": "NONE",
+    "validation_and_test_untouched": true
+  }
+}

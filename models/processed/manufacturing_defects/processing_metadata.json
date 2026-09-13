@@ -1,0 +1,11 @@
+{
+  "dataset_id": "manufacturing_defects",
+  "target": "DefectStatus",
+  "rows_raw": 3240,
+  "rows_cleaned": 3240,
+  "rows_train": 2268,
+  "rows_val": 486,
+  "rows_test": 486,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

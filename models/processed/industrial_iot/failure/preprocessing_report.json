@@ -1,0 +1,34 @@
+{
+  "dataset": "industrial_iot_failure",
+  "task": "failure",
+  "target": "Failure_Within_7_Days",
+  "split_method": "Stratified 70/15/15",
+  "train_rows": 350000,
+  "val_rows": 75000,
+  "test_rows": 75000,
+  "features_scaled_count": 26,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "sampling_decision": {
+    "dataset": "industrial_iot_failure",
+    "task": "failure_classification",
+    "is_sampling_required": true,
+    "reason": "Class imbalance: 21022 failures (6.01%) in 350000 training records.",
+    "target_distribution_train_raw": {
+      "class_0_healthy": 328978,
+      "class_1_failure": 21022,
+      "failure_rate": 0.06006285714285714
+    },
+    "scientifically_plausible_methods": [
+      "Class Weighting (e.g. scale_pos_weight ~15.7)",
+      "Random Over-Sampling (Train Only)",
+      "Subsampling healthy machines to match operational shifts"
+    ],
+    "risks": "Synthetic boundary artifacts; large scale (350k train rows) makes class weighting computationally lighter than oversampling.",
+    "sampling_allowed": true,
+    "applied_to": "TRAIN_PARTITION_ONLY",
+    "validation_and_test_untouched": true,
+    "sampled_train_rows": 657956
+  }
+}

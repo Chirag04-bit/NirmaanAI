@@ -1,0 +1,16 @@
+{
+  "dataset": "manufacturing_defects",
+  "rows_before": 3240,
+  "rows_after": 3240,
+  "columns_before": 24,
+  "columns_after": 24,
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 0,
+  "missing_values_after": 0,
+  "features_removed": [],
+  "reason_for_each_removal": {},
+  "cleaning_method": "CATEGORICAL_ENCODING_AND_NUMERICAL_AUDIT",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

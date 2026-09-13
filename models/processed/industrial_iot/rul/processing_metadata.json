@@ -1,0 +1,12 @@
+{
+  "dataset_id": "industrial_iot_rul",
+  "task": "rul",
+  "target": "Remaining_Useful_Life_days",
+  "rows_raw": 500000,
+  "rows_cleaned": 500000,
+  "rows_train": 350000,
+  "rows_val": 75000,
+  "rows_test": 75000,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

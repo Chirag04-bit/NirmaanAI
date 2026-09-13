@@ -1,0 +1,23 @@
+{
+  "dataset": "cmapss",
+  "rows_before": 20631,
+  "rows_after": 20631,
+  "columns_before": 99,
+  "columns_after": 99,
+  "total_engines": 100,
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 0,
+  "missing_values_after": 0,
+  "invalid_values_found": 0,
+  "invalid_values_removed": 0,
+  "trajectory_continuity_breaks": 0,
+  "outliers_detected": 0,
+  "outliers_removed": 0,
+  "outliers_flagged": 0,
+  "features_removed": [],
+  "reason_for_each_removal": {},
+  "cleaning_method": "TEMPORAL_CYCLE_ORDERING_AND_ENGINE_INTEGRITY_VERIFICATION",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

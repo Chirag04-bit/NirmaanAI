@@ -1,0 +1,11 @@
+{
+  "dataset_id": "synthetic_factory",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "rows_raw": 43200,
+  "rows_cleaned": 43200,
+  "rows_train": 20415,
+  "rows_val": 8750,
+  "rows_test": 14035,
+  "random_seed": 42,
+  "status": "PROCESSED_AND_VERIFIED"
+}

@@ -1,0 +1,21 @@
+{
+  "dataset": "secom",
+  "rows_before": 1567,
+  "rows_after": 1567,
+  "columns_before": 438,
+  "columns_after": 438,
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 0,
+  "missing_values_after": 0,
+  "invalid_values_found": 0,
+  "invalid_values_removed": 0,
+  "outliers_detected": "SECOM_HEAVY_TAILS_RETAINED_FOR_ROBUST_SCALING",
+  "outliers_removed": 0,
+  "outliers_flagged": 0,
+  "features_removed": [],
+  "reason_for_each_removal": {},
+  "cleaning_method": "HIGH_DIMENSIONAL_SCREENING_VERIFICATION",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

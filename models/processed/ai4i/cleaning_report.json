@@ -1,0 +1,37 @@
+{
+  "dataset": "ai4i",
+  "rows_before": 10000,
+  "rows_after": 10000,
+  "columns_before": 22,
+  "columns_after": 15,
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 0,
+  "missing_values_after": 0,
+  "invalid_values_found": 0,
+  "invalid_values_removed": 0,
+  "outliers_detected": 0,
+  "outliers_removed": 0,
+  "outliers_flagged": 0,
+  "features_removed": [
+    "UDI",
+    "Product ID",
+    "TWF",
+    "HDF",
+    "PWF",
+    "OSF",
+    "RNF"
+  ],
+  "reason_for_each_removal": {
+    "UDI": "TARGET_OR_IDENTITY_LEAKAGE",
+    "Product ID": "TARGET_OR_IDENTITY_LEAKAGE",
+    "TWF": "TARGET_OR_IDENTITY_LEAKAGE",
+    "HDF": "TARGET_OR_IDENTITY_LEAKAGE",
+    "PWF": "TARGET_OR_IDENTITY_LEAKAGE",
+    "OSF": "TARGET_OR_IDENTITY_LEAKAGE",
+    "RNF": "TARGET_OR_IDENTITY_LEAKAGE"
+  },
+  "cleaning_method": "LEAKAGE_PRUNING_AND_INTEGRITY_VERIFICATION",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

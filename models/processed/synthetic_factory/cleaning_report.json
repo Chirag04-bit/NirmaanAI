@@ -1,0 +1,29 @@
+{
+  "dataset": "synthetic_factory",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "rows_before": 43200,
+  "rows_after": 43200,
+  "columns_before": 25,
+  "columns_after": 25,
+  "stations_monitored": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5"
+  ],
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 0,
+  "missing_values_after": 0,
+  "controlled_scenario_degradation_preserved": "M2_VMC_BEARING_DAYS_18_TO_21",
+  "outliers_detected": 0,
+  "outliers_removed": 0,
+  "outliers_flagged": 0,
+  "temporal_cutoff_applied": "2026-01-21 12:00:00",
+  "features_removed": [],
+  "reason_for_each_removal": {},
+  "cleaning_method": "STATION_CHRONOLOGICAL_SORTING_AND_SCENARIO_PRESERVATION",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

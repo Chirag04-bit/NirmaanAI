@@ -1,0 +1,23 @@
+{
+  "dataset": "textile",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "split_method": "Per-Machine Chronological 70/15/15",
+  "train_rows": 30240,
+  "val_rows": 6480,
+  "test_rows": 6480,
+  "features_scaled_count": 16,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "sampling_decision": {
+    "dataset": "textile",
+    "epistemic_status": "CONTROLLED_SYNTHETIC",
+    "task": "loom_telemetry_monitoring",
+    "is_sampling_required": false,
+    "sampling_decision": "SAMPLING_NOT_REQUIRED",
+    "reason": "Textile loom telemetry is continuous chronological sensor stream data. Random sampling, row dropping, or synthetic resampling breaks temporal continuity.",
+    "sampling_allowed": false,
+    "applied_to": "NONE",
+    "validation_and_test_untouched": true
+  }
+}

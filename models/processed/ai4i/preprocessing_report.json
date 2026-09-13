@@ -1,0 +1,48 @@
+{
+  "dataset": "ai4i",
+  "split_method": "Stratified 70/15/15",
+  "train_rows": 7000,
+  "val_rows": 1500,
+  "test_rows": 1500,
+  "features_scaled": [
+    "air_temperature_k",
+    "process_temperature_k",
+    "rotational_speed_rpm",
+    "torque_nm",
+    "tool_wear_min",
+    "temp_diff_k",
+    "temp_ratio",
+    "mechanical_power_kw",
+    "torque_speed_ratio",
+    "torque_speed_product",
+    "tool_wear_risk_index",
+    "power_temp_ratio",
+    "product_type_encoded"
+  ],
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "sampling_decision": {
+    "dataset": "ai4i",
+    "task": "machine_failure_classification",
+    "is_sampling_required": true,
+    "reason": "Severe class imbalance: 237 failures (3.39%) in 7000 training records.",
+    "target_distribution_train_raw": {
+      "class_0": 6763,
+      "class_1": 237,
+      "positive_rate": 0.033857142857142856
+    },
+    "scientifically_plausible_methods": [
+      "Class Weighting (e.g. scale_pos_weight = 28.5)",
+      "Random Over-Sampling (Train Only)",
+      "SMOTE / Synthetic Sampling (Train Only)",
+      "Focal Loss Formulation"
+    ],
+    "risks": "Synthetic boundary distortion, overfitting on minority duplicates if not regularized.",
+    "sampling_allowed": true,
+    "applied_to": "TRAIN_PARTITION_ONLY",
+    "validation_and_test_untouched": true,
+    "sampled_train_rows": 13526,
+    "sampled_train_pos_rate": 0.5
+  }
+}

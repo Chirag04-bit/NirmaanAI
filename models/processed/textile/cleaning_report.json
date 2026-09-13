@@ -1,0 +1,20 @@
+{
+  "dataset": "textile",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "rows_before": 43200,
+  "rows_after": 43200,
+  "columns_before": 20,
+  "columns_after": 20,
+  "duplicates_found": 0,
+  "duplicates_removed": 0,
+  "missing_values_before": 0,
+  "missing_values_after": 0,
+  "outliers_detected": 0,
+  "outliers_removed": 0,
+  "outliers_flagged": 0,
+  "features_removed": [],
+  "reason_for_each_removal": {},
+  "cleaning_method": "MACHINE_CHRONOLOGICAL_SORTING_AND_SYNTHETIC_DEGRADATION_PRESERVATION",
+  "random_seed": 42,
+  "validation_status": "PASS"
+}

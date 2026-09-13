@@ -1,0 +1,24 @@
+{
+  "dataset": "synthetic_factory",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "split_method": "Temporal Decision Cutoff Split (Train: pre-cutoff 70%, Val: pre-cutoff 30%, Test: post-cutoff incident)",
+  "decision_cutoff_utc": "2026-01-21 12:00:00",
+  "train_rows": 20415,
+  "val_rows": 8750,
+  "test_rows": 14035,
+  "features_scaled_count": 20,
+  "scaler_type": "StandardScaler",
+  "fit_scope": "TRAIN_PRE_CUTOFF_BASELINE_ONLY",
+  "transform_scope": "TRAIN_VAL_TEST",
+  "sampling_decision": {
+    "dataset": "synthetic_factory",
+    "epistemic_status": "CONTROLLED_SYNTHETIC",
+    "task": "factory_health_and_degradation_tracking",
+    "is_sampling_required": false,
+    "sampling_decision": "SAMPLING_NOT_REQUIRED",
+    "reason": "Synthetic Factory is a controlled scenario time series spanning 5 discrete stations. Synthetic resampling would invalidate physical continuity and distort baseline statistics.",
+    "sampling_allowed": false,
+    "applied_to": "NONE",
+    "validation_and_test_untouched": true
+  }
+}

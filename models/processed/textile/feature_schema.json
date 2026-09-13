@@ -1,0 +1,43 @@
+{
+  "dataset": "textile",
+  "features": [
+    "vibration_mms",
+    "temperature_c",
+    "ambient_temperature_c",
+    "rotational_speed_rpm",
+    "torque_nm",
+    "sound_db",
+    "power_consumption_kw",
+    "oil_level_pct",
+    "coolant_level_pct",
+    "tool_wear_min",
+    "temp_diff_c",
+    "vibration_norm",
+    "vibration_roll_mean_5",
+    "vibration_roll_max_15",
+    "power_rpm_ratio",
+    "acoustic_vibration_stress"
+  ],
+  "feature_types": {
+    "reading_id": "int64",
+    "machine_id": "str",
+    "timestamp": "str",
+    "vibration_mms": "float64",
+    "temperature_c": "float64",
+    "ambient_temperature_c": "float64",
+    "rotational_speed_rpm": "float64",
+    "torque_nm": "float64",
+    "sound_db": "float64",
+    "power_consumption_kw": "float64",
+    "oil_level_pct": "float64",
+    "coolant_level_pct": "float64",
+    "tool_wear_min": "float64",
+    "timestamp_dt": "datetime64[us, UTC]",
+    "temp_diff_c": "float64",
+    "vibration_norm": "float64",
+    "vibration_roll_mean_5": "float64",
+    "vibration_roll_max_15": "float64",
+    "power_rpm_ratio": "float64",
+    "acoustic_vibration_stress": "float64"
+  }
+}
