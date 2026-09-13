@@ -58,7 +58,7 @@ Every diagnostic output is mapped through a strict validation gate. Unsupervised
 2. A formal 8-tier epistemic taxonomy implemented directly in database schemas and API response envelopes.
 3. An audit-grade activity-based operational loss engine that mathematically isolates realized historic losses from projected opportunity losses.
 4. An inventory-conditioned recommendation engine preventing dangerous "repair immediately" directives when replacement parts are depleted.
-5. A deterministic, zero-hallucination hybrid RAG copilot operating with sub-26 ms latency without external LLM API cost or privacy exposure.
+5. A deterministic, evidence-grounded Factory Copilot with anti-hallucination guardrails operating with sub-26 ms latency without external LLM API cost or privacy exposure.
 
 #### Q7: Why is NirmaanAI designed with deterministic rules rather than end-to-end deep reinforcement learning or generative agents?
 **Answer:**  
@@ -423,8 +423,8 @@ A true 3D/Physics Digital Twin requires real-time finite element analysis (FEA),
 
 #### Q54: What architecture powers NirmaanAI's Factory Knowledge RAG engine?
 **Answer:**  
-The RAG engine indexes 278 structured chunks across 18 authoritative engineering documents (OEM machine manuals, ISO 10816 vibration standards, standard operating procedures, failure mode handbooks). It utilizes a deterministic **hybrid retrieval model**:
-- **Dense Representation:** 64-dimensional truncated SVD over TF-IDF n-grams (sub-millisecond cosine similarity).
+The RAG engine indexes 278 structured chunks across 18 authoritative documents in the validated NirmaanAI knowledge base. It utilizes a deterministic **hybrid retrieval model**:
+- **Dense Representation:** 256-dimensional truncated SVD over TF-IDF n-grams (sub-millisecond cosine similarity).
 - **Sparse Representation:** BM25/keyword frequency scoring.
 - **Hybrid Score:** $0.70 \times \text{Dense} + 0.30 \times \text{Sparse}$, weighted by document authority level.
 
@@ -440,8 +440,8 @@ Across the 16-query industrial benchmark:
 #### Q56: Why does NirmaanAI use TF-IDF/SVD rather than massive proprietary LLMs (e.g., GPT-4)?
 **Answer:**  
 1. **Determinism:** TF-IDF/SVD vector spaces produce 100% reproducible retrieval without temperature drift.
-2. **Zero Hallucination:** Answers are synthesized strictly from retrieved manual chunks; speculative fabrication is mathematically impossible.
-3. **Air-Gapped Privacy:** Manufacturing telemetry and OEM maintenance manuals never leave the factory LAN.
+2. **Anti-Hallucination Guardrails:** Answers are synthesized strictly from retrieved knowledge base chunks and verified against plant entity boundaries.
+3. **Air-Gapped Privacy:** Manufacturing telemetry and validated knowledge documents never leave the factory LAN.
 4. **Latency & Cost:** $22\text{ ms}$ latency on commodity CPU with zero API subscription overhead.
 
 #### Q57: How does the AI Factory Copilot classify user intents?

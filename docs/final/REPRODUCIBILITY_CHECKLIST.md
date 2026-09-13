@@ -88,7 +88,7 @@ All models in NirmaanAI were trained with fixed random seeds (`random_state=42`)
 | **RUL Prognostics** | `models/rul_rf.pkl` | `models/rul_scaler.pkl` | $RUL_{\text{max}} = 125$ |
 | **Anomaly Detection** | `models/pca_anomaly.pkl` | `models/pca_scaler.pkl` | $\tau_{\text{recon}} = 0.24050$ |
 | **Energy Forecasting** | `models/energy_lgbm.txt` | `models/energy_scaler.pkl` | Regression ($N=24$) |
-| **Knowledge Retrieval (RAG)** | `models/rag_svd_matrix.npy` | `models/tfidf_vectorizer.pkl` | Top-5 cosine ranking |
+| **Knowledge Retrieval (RAG)** | `models/knowledge/vector_index.npy` | `models/knowledge/dense_embedder.joblib` | Top-5 cosine ranking (256d) |
 
 ### Re-running Model Evaluation Scripts
 To independently verify metric outputs without retraining:

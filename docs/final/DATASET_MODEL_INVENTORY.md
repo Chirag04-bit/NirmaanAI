@@ -16,7 +16,7 @@
 | **UCI Appliances Energy** | UCI Machine Learning Repository | Multivariate Environmental Time Series | 19,735 records (10-minute intervals over 4.5 months) | Appliances energy [Wh], light [Wh], T1–T9, RH1–RH9, weather variables | Scaling, cyclical temporal encoding, lag creation | Auxiliary energy & multi-variate environmental modeling | Real sensor telemetry | Benchmark comparison |
 | **Controlled 5-Station Factory Dataset** | NirmaanAI Synthetic Generator | Synchronized Sensor & Production Telemetry | 30 days, 43,200 sensor rows (1-min ticks), 300 production jobs | Vibration [mm/s], acoustic [dB], motor current [A], power [kW], tool wear [min], cycle time [s], scrap, rework | 1-minute temporal aggregation, sliding window statistics, unit conversion, event alignment | End-to-end integration, temporal cutoff enforcement, validation | Controlled Synthetic | Benchmark demonstration & integration |
 | **Operational Losses Ledger (`operational_losses.csv`)** | Phase 14 / Financial Accounting Engine | Structured Ledger | 30 days shop floor financial records | Downtime hours, scrap count, rework units, technician hours, energy waste, unit financial losses | Currency conversion (INR), rate multiplication, realized vs. projected segregation | Financial impact quantification & ROI baseline | Controlled Synthetic | Baseline financial ledger (MD5: `34B12582B32D81E3121429C55EBF74E8`) |
-| **Factory Maintenance Knowledge Corpus** | Phase 19 / Curated Industrial Manuals | Semi-Structured Technical Text | 18 documents, 278 chunks | Equipment manuals, ISO 10816 standards, maintenance SOPs, failure catalogs | Markdown parsing, semantic chunking (200–500 tokens), metadata extraction, authority scoring | RAG knowledge retrieval & Copilot ground truth | Curated Domain Knowledge | Retrieval corpus (100% indexed) |
+| **Factory Maintenance Knowledge Corpus** | Phase 19 / Validated NirmaanAI Knowledge Base | Semi-Structured Technical Text | 18 documents, 278 chunks | Cross-phase specifications, schemas, model summaries, and operational documentation | Markdown parsing, semantic chunking (200–500 tokens), metadata extraction, authority scoring | RAG knowledge retrieval & Copilot ground truth | Curated Domain Knowledge | Retrieval corpus (100% indexed) |
 
 ---
 
@@ -57,8 +57,8 @@
 
 | Component | Parameter / Specification | Validated Metric / Value | Epistemic Role |
 | :--- | :--- | :--- | :--- |
-| **Corpus Volume** | 18 engineering manuals & standards | 278 indexed text chunks | Grounded Industrial Knowledge Base |
-| **Vector Space** | Truncated SVD over TF-IDF n-grams | 64-dimensional dense representation | Deterministic, zero-hallucination semantic search |
+| **Corpus Volume** | 18 cross-phase documents in validated knowledge base | 278 indexed text chunks | Grounded Industrial Knowledge Base |
+| **Vector Space** | Truncated SVD over TF-IDF n-grams | 256-dimensional dense representation | Deterministic, evidence-grounded search with anti-hallucination guardrails |
 | **Hybrid Retrieval Weight** | $0.70 \times \text{Dense} + 0.30 \times \text{Sparse}$ | Formulaic balance between semantic concepts and OEM part numbers | Multi-modal ranking |
 | **Retrieval Recall@5** | 16-query domain benchmark | **1.0000 (100% recall)** | Retrieval Completeness |
 | **Mean Reciprocal Rank (MRR)** | 16-query domain benchmark | **0.8125** | Top-rank Precision |

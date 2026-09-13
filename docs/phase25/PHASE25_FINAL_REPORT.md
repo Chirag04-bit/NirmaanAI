@@ -11,10 +11,13 @@
 
 $$\mathbf{PHASE\ 25\ COMPLETE\ —\ FINAL\ DOCUMENTATION\ \&\ RESEARCH\ PACKAGE\ LOCKED}$$
 
-All final documentation, academic research publications, oral defense packages, presentation decks, data/model inventories, reproducibility runbooks, and limitation registers have been fully authored, verified, and locked.
+All 25 development and research phases are complete, validated to the extent supported by the available execution environment, packaged, and locked.
 
 In strict compliance with project governance:
-- **Zero fabricated claims**: Host environment limitations (absence of native PostgreSQL daemon and Docker Desktop daemon on the Windows workstation) are explicitly preserved as `HOLD — ENVIRONMENT BLOCKED`.
+- **Zero fabricated claims**: Host environment limitations are explicitly preserved:
+  - Native PostgreSQL daemon is unavailable on the Windows host.
+  - Docker Desktop / Docker Engine daemon is unavailable on the Windows host.
+  - Live container-chain execution was not verified on host hardware.
 - **Zero altered results**: All locked metrics, model weights, financial figures, inventory equations, and decision thresholds from Phases 0–24 are strictly preserved.
 - **Strict Epistemic Taxonomy**: The 8-tier epistemic classification (`OBSERVED`, `DERIVED`, `MODEL_OUTPUT`, `CONTROLLED_SYNTHETIC`, `RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH`, `PROJECTED`, `NOT_PROJECTABLE`, `UNKNOWN`) is systematically maintained across all documents.
 - **Retrospective Event Isolation**: Maintenance event `MAINT_0003` (occurring at `2026-01-22 16:30:00 UTC`, 28.5 hours after temporal cutoff `2026-01-21 12:00:00 UTC`) is strictly treated as retrospective ground truth and never as a prospective model input.
@@ -55,7 +58,7 @@ The following master documentation assets were generated in `docs/final/` and `d
 | **Anomaly Detection** | PCA Reconstruction Error | $\tau_{\text{recon}} = 0.24050$ | **ROC-AUC: 0.9992**, **PR-AUC: 0.9965**, **Precision: 0.9722**, **Recall: 1.0000**, **F1: 0.9859**, **Lead Time: 106.5 hrs** | Locked |
 | **Bottleneck Detection** | Flow-Ratio Decision Boundary | $\tau = 0.4000$ (Post-hoc) | **Precision: 0.7778**, **Recall: 0.8750**, **F1: 0.8235**, **ROC-AUC: 0.9882**, **PR-AUC: 0.8040**, **FPR: 0.0164** | Locked |
 | **Energy Forecasting** | LightGBM Regressor | 24-hr horizon | **WAPE: 6.50%**, **sMAPE: 6.37%**, **RMSE: 26.23 kW**, **MAE: 13.80 kW**, **$R^2$: 0.9605** | Locked |
-| **Knowledge Retrieval (RAG)** | Hybrid TF-IDF/SVD (64d) | $0.70 \text{Dense} + 0.30 \text{Sparse}$ | **Recall@5: 1.0000**, **MRR: 0.8125**, **Precision: 0.4750**, **Anti-Hallucination: 1.0000**, **Latency: 21.97 ms** | Locked |
+| **Knowledge Retrieval (RAG)** | Hybrid TF-IDF/SVD (256d) | $0.70 \text{Dense} + 0.30 \text{Sparse}$ | **Recall@5: 1.0000**, **MRR: 0.8125**, **Precision: 0.4750**, **Anti-Hallucination: 1.0000**, **Latency: 21.97 ms** | Locked |
 | **Factory Copilot** | 15 Deterministic Intents | Rule Classifier | **100% Intent Accuracy** across 14 regression benchmarks | Locked |
 
 ---
@@ -127,8 +130,9 @@ The following master documentation assets were generated in `docs/final/` and `d
 ## 6. Git Governance & Final Status
 
 - **Branch:** `master`
-- **Pre-Phase 25 Commit:** `f7bc653` (`feat(phase-24): dockerize and package nirmaanai`)
-- **Phase 25 Commit Message:** `docs(phase-25): finalize research and project documentation`
+- **Pre-Phase 25 Baseline Commit:** `f7bc653` (`feat(phase-24): dockerize and package nirmaanai`)
+- **Phase 25 Master Documentation Commit:** `65c87ea` (`docs(phase-25): finalize research and project documentation`)
+- **Phase 25 Audit & Correction Commit:** `7b162cf` (`docs(phase-25): audit final research package`)
 - **Working Tree:** Clean.
 
 ---

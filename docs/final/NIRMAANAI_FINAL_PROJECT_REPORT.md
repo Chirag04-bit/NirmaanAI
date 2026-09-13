@@ -188,7 +188,7 @@ The system architecture spans five horizontal operational tiers:
    └── Counterfactual Digital Twin Simulation Studio (Scenarios A through E, NOT_PROJECTABLE Guardrails)
                        │
 [ Tier 5: Knowledge Memory, AI Copilot & Executive Presentation ]
-   ├── Factory Knowledge Memory (278 Chunks, Hybrid TF-IDF/SVD 64d Dense Retrieval, Recall@5=1.000)
+   ├── Factory Knowledge Memory (278 Chunks, Hybrid TF-IDF/SVD 256d Dense Retrieval, Recall@5=1.000)
    ├── Grounded AI Factory Copilot (15 Operational Intents, Epistemic Tagging, Temporal Boundary Isolation)
    ├── FastAPI Production Service Layer (40 Endpoints, Pydantic v2 Contracts, 503 Resilient Fallback)
    ├── React 19 + Vite Executive Dashboard (Real-Time KPI Cards, SHAP Waterfall, Copilot Chat)
@@ -454,7 +454,7 @@ To prevent false causal certainty, physical diagnostic states post-intervention 
 
 ## 36. Factory Knowledge Memory / RAG
 - **Corpus**: 278 authoritative knowledge chunks across 18 source documents covering all project phases.
-- **Embedding Architecture**: Deterministic TF-IDF + TruncatedSVD dense representation (64 dimensions) paired with topical keyword overlap scoring.
+- **Embedding Architecture**: Deterministic TF-IDF + TruncatedSVD dense representation (256 dimensions) paired with topical keyword overlap scoring.
 - **Scoring**: Hybrid formula:
   $$\text{Score} = (0.70 \times \text{Dense}) + (0.30 \times \text{Keyword}) \times \text{Authority Weight}$$
 - **Retrieval Metrics**:
@@ -553,7 +553,7 @@ Across all phases, baseline-first comparisons were strictly executed:
 
 ## 45. Limitations
 1. **Discrete State Simulations**: The digital twin does not model continuous finite-element physical stress or thermal dynamics.
-2. **Lexical RAG Representation**: Deterministic TF-IDF/SVD 64d representation achieves fast, zero-dependency inference but exhibits lower semantic flexibility compared to large neural sentence-transformers.
+2. **Lexical RAG Representation**: Deterministic TF-IDF/SVD 256d representation achieves fast, zero-dependency inference but exhibits lower semantic flexibility compared to large neural sentence-transformers.
 3. **Exploratory Bottleneck Calibration**: The bottleneck cutoff was post-hoc calibrated on synthetic shop-floor queues.
 
 ---

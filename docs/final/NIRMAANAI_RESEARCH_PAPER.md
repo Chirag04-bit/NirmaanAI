@@ -137,7 +137,7 @@ NirmaanAI quantifies machine failure into Indian Rupee operational losses:
 ---
 
 ## X. KNOWLEDGE RETRIEVAL AND AI FACTORY COPILOT
-The Phase 19 knowledge store indexes 278 chunks using a hybrid 64-dimensional TF-IDF/SVD dense representation and topical keyword overlap.
+The Phase 19 knowledge store indexes 278 chunks using a hybrid 256-dimensional TF-IDF/SVD dense representation and topical keyword overlap.
 - **Recall@5**: **1.0000** | **MRR**: **0.8125** | **Anti-Hallucination Rejection**: **1.0000**
 - **Query Latency**: Median **26.28 ms**, P99 **36.12 ms**.
 - **Copilot Grounding**: Evaluated across 10 representative operational inquiries with 100% intent classification accuracy.

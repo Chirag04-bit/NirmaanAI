@@ -235,13 +235,13 @@
 ### Slide 19: Factory Knowledge Memory & Copilot (Phases 19 & 20)
 - **Slide Title**: Grounded RAG & AI Factory Copilot
 - **Bullet Points**:
-  - 278 authoritative knowledge chunks indexed via hybrid TF-IDF/SVD (64d) + topical keyword overlap.
+  - 278 authoritative knowledge chunks indexed via hybrid TF-IDF/SVD (256d) + topical keyword overlap.
   - Recall@5: **1.000**, MRR: **0.8125**, Anti-Hallucination Rejection: **1.000**.
   - Natural language Copilot answers operational queries in **21.97 ms average latency**.
   - Strictly enforces 8-tier epistemic taxonomy and rejects unknown entities (`M99`).
 - **Recommended Visual**: Screenshot of the interactive Copilot chat drawer displaying citations and epistemic badges.
 - **Important Metric**: 100% precision across 10 representative queries; median latency 26.28 ms.
-- **Speaker Emphasis**: *"Our Copilot cannot hallucinate. If an entity is outside the plant topology, it rejects the query in 0.09 ms."*
+- **Speaker Emphasis**: *"Our Copilot enforces strict deterministic anti-hallucination guardrails. If an entity is outside the plant topology, it rejects the query in 0.09 ms."*
 
 ---
 
