@@ -1,0 +1,27 @@
+{
+  "dataset_id": "industrial_iot_failure",
+  "task": "machine_failure_classification_7day",
+  "epistemic_status": "CONTROLLED_INDUSTRIAL_SIMULATOR",
+  "features_count": 26,
+  "quarantined_columns": [
+    "Remaining_Useful_Life_days",
+    "Machine_ID"
+  ],
+  "train_rows": 350000,
+  "train_sampled_rows": 657956,
+  "val_rows": 75000,
+  "test_rows": 75000,
+  "configurations_evaluated": 20,
+  "champion_model": "LR_C10.0_ROS",
+  "decision_status": "BASELINE_RETAINED",
+  "baseline_val_score": 0.7521847953606936,
+  "tuned_val_score": 0.7521852103711061,
+  "baseline_test_score": 0.7596051118426719,
+  "tuned_test_score": 0.7596036018588165,
+  "val_abs_improvement": 4.1501041248004356e-07,
+  "val_rel_improvement_pct": 5.517399647529893e-05,
+  "test_abs_delta": -1.5099838553966904e-06,
+  "test_rel_delta_pct": -0.00019878537306492424,
+  "timestamp": "2026-09-13 14:40:18 UTC",
+  "tuning_status": "COMPLETED"
+}

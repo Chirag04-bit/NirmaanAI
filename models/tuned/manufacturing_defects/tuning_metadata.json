@@ -1,0 +1,22 @@
+{
+  "dataset_id": "manufacturing_defects",
+  "task": "manufacturing_defects_classification",
+  "epistemic_status": "REAL_MANUFACTURING_METRICS",
+  "features_count": 23,
+  "train_rows": 2268,
+  "val_rows": 486,
+  "test_rows": 486,
+  "configurations_evaluated": 24,
+  "champion_model": "RF_n100_dNone_l4",
+  "decision_status": "TUNED_MODEL_ACCEPTED",
+  "baseline_val_score": 0.8183564601657511,
+  "tuned_val_score": 0.8389483377258439,
+  "baseline_test_score": 0.8674585218702866,
+  "tuned_test_score": 0.8935394670688789,
+  "val_abs_improvement": 0.02059187756009273,
+  "val_rel_improvement_pct": 2.516247938694346,
+  "test_abs_delta": 0.026080945198592276,
+  "test_rel_delta_pct": 3.006592769687751,
+  "timestamp": "2026-09-13 14:58:38 UTC",
+  "tuning_status": "COMPLETED"
+}

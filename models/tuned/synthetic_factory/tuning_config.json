@@ -1,0 +1,21 @@
+{
+  "dataset_id": "synthetic_factory",
+  "primary_metric": "masi",
+  "metric_definition": "Multi-Station Anomaly Separation Index (MASI) = |mu_nom - mu_tail| / (sigma_nom + sigma_tail + eps)",
+  "champion_model_name": "IF_n100_cauto_f1.0",
+  "model_type": "IsolationForest",
+  "model_params": {
+    "bootstrap": "False",
+    "contamination": "auto",
+    "max_features": "1.0",
+    "max_samples": "auto",
+    "n_estimators": "100",
+    "n_jobs": "-1",
+    "random_state": "42",
+    "verbose": "0",
+    "warm_start": "False"
+  },
+  "random_seed": 42,
+  "tuning_performed": true,
+  "configurations_evaluated": 22
+}

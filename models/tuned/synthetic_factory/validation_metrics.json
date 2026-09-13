@@ -1,0 +1,200 @@
+[
+  {
+    "candidate_name": "IF_n100_cauto_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.477692881431262,
+    "mean_val_score": -0.539132523288021,
+    "std_val_score": 0.06281320142491043,
+    "p95_val_score": -0.4824087551244013,
+    "p5_val_score": -0.7005152115154942
+  },
+  {
+    "candidate_name": "IF_n100_cauto_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.728848401737378,
+    "mean_val_score": -0.5417424295363203,
+    "std_val_score": 0.0632891027310264,
+    "p95_val_score": -0.4873166409567986,
+    "p5_val_score": -0.7071497128962829
+  },
+  {
+    "candidate_name": "IF_n100_c0.02_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.477692881431262,
+    "mean_val_score": -0.539132523288021,
+    "std_val_score": 0.06281320142491043,
+    "p95_val_score": -0.4824087551244013,
+    "p5_val_score": -0.7005152115154942
+  },
+  {
+    "candidate_name": "IF_n100_c0.02_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.728848401737378,
+    "mean_val_score": -0.5417424295363203,
+    "std_val_score": 0.0632891027310264,
+    "p95_val_score": -0.4873166409567986,
+    "p5_val_score": -0.7071497128962829
+  },
+  {
+    "candidate_name": "IF_n100_c0.05_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.477692881431262,
+    "mean_val_score": -0.539132523288021,
+    "std_val_score": 0.06281320142491043,
+    "p95_val_score": -0.4824087551244013,
+    "p5_val_score": -0.7005152115154942
+  },
+  {
+    "candidate_name": "IF_n100_c0.05_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.728848401737378,
+    "mean_val_score": -0.5417424295363203,
+    "std_val_score": 0.0632891027310264,
+    "p95_val_score": -0.4873166409567986,
+    "p5_val_score": -0.7071497128962829
+  },
+  {
+    "candidate_name": "IF_n150_cauto_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.492389134228627,
+    "mean_val_score": -0.5400420610616247,
+    "std_val_score": 0.060849816987426864,
+    "p95_val_score": -0.48801435078595273,
+    "p5_val_score": -0.6956608801410779
+  },
+  {
+    "candidate_name": "IF_n150_cauto_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.699338672986962,
+    "mean_val_score": -0.5399544007813755,
+    "std_val_score": 0.06423360828693817,
+    "p95_val_score": -0.4859324594226958,
+    "p5_val_score": -0.706190085365231
+  },
+  {
+    "candidate_name": "IF_n150_c0.02_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.492389134228627,
+    "mean_val_score": -0.5400420610616247,
+    "std_val_score": 0.060849816987426864,
+    "p95_val_score": -0.48801435078595273,
+    "p5_val_score": -0.6956608801410779
+  },
+  {
+    "candidate_name": "IF_n150_c0.02_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.699338672986962,
+    "mean_val_score": -0.5399544007813755,
+    "std_val_score": 0.06423360828693817,
+    "p95_val_score": -0.4859324594226958,
+    "p5_val_score": -0.706190085365231
+  },
+  {
+    "candidate_name": "IF_n150_c0.05_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.492389134228627,
+    "mean_val_score": -0.5400420610616247,
+    "std_val_score": 0.060849816987426864,
+    "p95_val_score": -0.48801435078595273,
+    "p5_val_score": -0.6956608801410779
+  },
+  {
+    "candidate_name": "IF_n150_c0.05_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.699338672986962,
+    "mean_val_score": -0.5399544007813755,
+    "std_val_score": 0.06423360828693817,
+    "p95_val_score": -0.4859324594226958,
+    "p5_val_score": -0.706190085365231
+  },
+  {
+    "candidate_name": "IF_n200_cauto_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.711115877095279,
+    "mean_val_score": -0.5403547893598368,
+    "std_val_score": 0.0633723543014002,
+    "p95_val_score": -0.48788420690236856,
+    "p5_val_score": -0.705146373462696
+  },
+  {
+    "candidate_name": "IF_n200_cauto_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.603478661221357,
+    "mean_val_score": -0.5402301138657755,
+    "std_val_score": 0.06260166051081996,
+    "p95_val_score": -0.48701908455780746,
+    "p5_val_score": -0.7016530200619748
+  },
+  {
+    "candidate_name": "IF_n200_c0.02_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.711115877095279,
+    "mean_val_score": -0.5403547893598368,
+    "std_val_score": 0.0633723543014002,
+    "p95_val_score": -0.48788420690236856,
+    "p5_val_score": -0.705146373462696
+  },
+  {
+    "candidate_name": "IF_n200_c0.02_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.603478661221357,
+    "mean_val_score": -0.5402301138657755,
+    "std_val_score": 0.06260166051081996,
+    "p95_val_score": -0.48701908455780746,
+    "p5_val_score": -0.7016530200619748
+  },
+  {
+    "candidate_name": "IF_n200_c0.05_f0.8",
+    "model_family": "IsolationForest",
+    "masi": 4.711115877095279,
+    "mean_val_score": -0.5403547893598368,
+    "std_val_score": 0.0633723543014002,
+    "p95_val_score": -0.48788420690236856,
+    "p5_val_score": -0.705146373462696
+  },
+  {
+    "candidate_name": "IF_n200_c0.05_f1.0",
+    "model_family": "IsolationForest",
+    "masi": 4.603478661221357,
+    "mean_val_score": -0.5402301138657755,
+    "std_val_score": 0.06260166051081996,
+    "p95_val_score": -0.48701908455780746,
+    "p5_val_score": -0.7016530200619748
+  },
+  {
+    "candidate_name": "PCA_comp4",
+    "model_family": "PCAReconstruction",
+    "masi": 1.7442482264281463,
+    "mean_val_score": -3.5799206959257694,
+    "std_val_score": 11.484663156897064,
+    "p95_val_score": -0.06241186801317454,
+    "p5_val_score": -29.919856268888672
+  },
+  {
+    "candidate_name": "PCA_comp6",
+    "model_family": "PCAReconstruction",
+    "masi": 1.8427112329622521,
+    "mean_val_score": -1.74617612227724,
+    "std_val_score": 5.407808797976535,
+    "p95_val_score": -0.021693582563664243,
+    "p5_val_score": -14.59726329883561
+  },
+  {
+    "candidate_name": "PCA_comp8",
+    "model_family": "PCAReconstruction",
+    "masi": 1.333815259808433,
+    "mean_val_score": -0.45898406683371407,
+    "std_val_score": 1.6275383726777206,
+    "p95_val_score": -0.001961843919162996,
+    "p5_val_score": -3.485843315175266
+  },
+  {
+    "candidate_name": "Robust_ZScore",
+    "model_family": "RobustZScore",
+    "masi": 3.8832001834819305,
+    "mean_val_score": -4950.212958980528,
+    "std_val_score": 10392.822218110274,
+    "p95_val_score": -1.359386247175734,
+    "p5_val_score": -30595.112260274283
+  }
+]

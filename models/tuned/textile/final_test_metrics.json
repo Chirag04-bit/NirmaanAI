@@ -1,0 +1,11 @@
+{
+  "champion_model": "PCA_comp6",
+  "primary_selection_metric": "adcr",
+  "test_adcr": 2.8024312944762144,
+  "mean_anomaly_score": -0.1894919285967672,
+  "std_anomaly_score": 0.13461147337679732,
+  "p95_anomaly_score": -0.02250290428966375,
+  "p5_anomaly_score": -0.45004269496027344,
+  "min_anomaly_score": -0.844139377944088,
+  "max_anomaly_score": -0.00031007428369086857
+}

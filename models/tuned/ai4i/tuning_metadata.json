@@ -1,0 +1,33 @@
+{
+  "dataset_id": "ai4i",
+  "task": "machine_failure_classification",
+  "epistemic_status": "REAL_PHYSICAL_SIMULATOR",
+  "features_count": 13,
+  "quarantined_columns": [
+    "UDI",
+    "Product ID",
+    "product_type",
+    "TWF",
+    "HDF",
+    "PWF",
+    "OSF",
+    "RNF"
+  ],
+  "train_rows": 7000,
+  "train_sampled_rows": 13526,
+  "val_rows": 1500,
+  "test_rows": 1500,
+  "configurations_evaluated": 62,
+  "champion_model": "RF_n200_d8_l1_None_Nat",
+  "decision_status": "BASELINE_RETAINED",
+  "baseline_val_score": 0.905093764226254,
+  "tuned_val_score": 0.9081330436733485,
+  "baseline_test_score": 0.9099594282140974,
+  "tuned_test_score": 0.9134783657749301,
+  "val_abs_improvement": 0.0030392794470944784,
+  "val_rel_improvement_pct": 0.3357971922050193,
+  "test_abs_delta": 0.003518937560832769,
+  "test_rel_delta_pct": 0.3867136766459026,
+  "timestamp": "2026-09-13 14:41:06 UTC",
+  "tuning_status": "COMPLETED"
+}

@@ -1,0 +1,22 @@
+{
+  "dataset_id": "manufacturing_production",
+  "task": "prospective_bottleneck_prediction",
+  "epistemic_status": "PROSPECTIVE_DISPATCH_RECORD",
+  "features_count": 12,
+  "train_rows": 700,
+  "val_rows": 150,
+  "test_rows": 150,
+  "configurations_evaluated": 54,
+  "champion_model": "LR_C0.1_balanced",
+  "decision_status": "BASELINE_RETAINED",
+  "baseline_val_score": 0.4020514527695554,
+  "tuned_val_score": 0.39931046454797836,
+  "baseline_test_score": 0.3141066728881188,
+  "tuned_test_score": 0.2717252055378995,
+  "val_abs_improvement": -0.0027409882215770343,
+  "val_rel_improvement_pct": -0.6817506074646847,
+  "test_abs_delta": -0.042381467350219304,
+  "test_rel_delta_pct": -13.492698821242522,
+  "timestamp": "2026-09-13 14:34:40 UTC",
+  "tuning_status": "COMPLETED"
+}

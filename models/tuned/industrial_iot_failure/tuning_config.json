@@ -1,0 +1,27 @@
+{
+  "dataset_id": "industrial_iot_failure",
+  "target": "Failure_Within_7_Days",
+  "primary_metric": "pr_auc",
+  "champion_model_name": "LR_C10.0_ROS",
+  "model_type": "LogisticRegression",
+  "model_params": {
+    "C": "10.0",
+    "class_weight": "None",
+    "dual": "False",
+    "fit_intercept": "True",
+    "intercept_scaling": "1",
+    "l1_ratio": "0.0",
+    "max_iter": "500",
+    "n_jobs": "None",
+    "penalty": "deprecated",
+    "random_state": "42",
+    "solver": "lbfgs",
+    "tol": "0.0001",
+    "verbose": "0",
+    "warm_start": "False"
+  },
+  "frozen_operating_threshold": 0.9,
+  "random_seed": 42,
+  "tuning_performed": true,
+  "configurations_evaluated": 20
+}

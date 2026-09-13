@@ -1,0 +1,14 @@
+{
+  "dataset_id": "textile",
+  "primary_metric": "adcr",
+  "metric_definition": "Anomaly Degradation Contrast Ratio (ADCR) = |mu_nom - mu_tail| / (sigma_nom + sigma_tail + eps)",
+  "champion_model_name": "PCA_comp6",
+  "model_type": "PCAReconstructionModel",
+  "model_params": {
+    "n_components": "6",
+    "random_state": "42"
+  },
+  "random_seed": 42,
+  "tuning_performed": true,
+  "configurations_evaluated": 22
+}

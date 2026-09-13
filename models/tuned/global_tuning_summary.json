@@ -1,0 +1,407 @@
+{
+  "compilation_timestamp": "2026-09-13 15:01:17 UTC",
+  "total_tasks": 10,
+  "tasks_accepted": 5,
+  "tasks_retained": 5,
+  "tasks": {
+    "manufacturing_production": {
+      "task_name": "prospective_bottleneck_prediction",
+      "epistemic_status": "PROSPECTIVE_DISPATCH_RECORD",
+      "champion_model": "LR_C0.1_balanced",
+      "decision_status": "BASELINE_RETAINED",
+      "configurations_evaluated": 54,
+      "baseline_val_score": 0.4020514527695554,
+      "tuned_val_score": 0.39931046454797836,
+      "val_abs_improvement": -0.0027409882215770343,
+      "val_rel_improvement_pct": -0.6817506074646847,
+      "baseline_test_score": 0.3141066728881188,
+      "tuned_test_score": 0.2717252055378995,
+      "test_abs_delta": -0.042381467350219304,
+      "test_rel_delta_pct": -13.492698821242522,
+      "final_test_metrics": {
+        "accuracy": 0.47333333333333333,
+        "precision": 0.27631578947368424,
+        "recall": 0.4666666666666667,
+        "f1": 0.34710743801652894,
+        "operating_threshold": 0.5,
+        "roc_auc": 0.43005291005291,
+        "pr_auc": 0.2717252055378995,
+        "confusion_matrix": [
+          [
+            50,
+            55
+          ],
+          [
+            24,
+            21
+          ]
+        ],
+        "champion_model": "LR_C0.1_balanced",
+        "primary_selection_metric": "pr_auc",
+        "optimized_threshold_metrics": {
+          "accuracy": 0.3,
+          "precision": 0.2972972972972973,
+          "recall": 0.9777777777777777,
+          "f1": 0.45595854922279794,
+          "operating_threshold": 0.35,
+          "roc_auc": 0.43005291005291,
+          "pr_auc": 0.2717252055378995,
+          "confusion_matrix": [
+            [
+              1,
+              104
+            ],
+            [
+              1,
+              44
+            ]
+          ]
+        }
+      }
+    },
+    "secom": {
+      "task_name": "semiconductor_wafer_defect_classification",
+      "epistemic_status": "REAL_SEMICONDUCTOR_INLINE_SENSORS",
+      "champion_model": "XGB_d4_lr0.08_col0.5_spw10_Nat",
+      "decision_status": "TUNED_MODEL_ACCEPTED",
+      "configurations_evaluated": 66,
+      "baseline_val_score": 0.2668729208693856,
+      "tuned_val_score": 0.47331736644878153,
+      "val_abs_improvement": 0.20644444557939595,
+      "val_rel_improvement_pct": 77.35683519589278,
+      "baseline_test_score": 0.13736704720592152,
+      "tuned_test_score": 0.1963737854632028,
+      "test_abs_delta": 0.05900673825728128,
+      "test_rel_delta_pct": 42.9555264217237,
+      "final_test_metrics": {
+        "accuracy": 0.9279661016949152,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "operating_threshold": 0.5,
+        "roc_auc": 0.7056818181818182,
+        "pr_auc": 0.1963737854632028,
+        "confusion_matrix": [
+          [
+            219,
+            1
+          ],
+          [
+            16,
+            0
+          ]
+        ],
+        "champion_model": "XGB_d4_lr0.08_col0.5_spw10_Nat",
+        "primary_selection_metric": "pr_auc",
+        "optimized_threshold_metrics": {
+          "accuracy": 0.9067796610169492,
+          "precision": 0.2857142857142857,
+          "recall": 0.25,
+          "f1": 0.26666666666666666,
+          "operating_threshold": 0.2,
+          "roc_auc": 0.7056818181818182,
+          "pr_auc": 0.1963737854632028,
+          "confusion_matrix": [
+            [
+              210,
+              10
+            ],
+            [
+              12,
+              4
+            ]
+          ]
+        }
+      }
+    },
+    "industrial_iot_failure": {
+      "task_name": "machine_failure_classification_7day",
+      "epistemic_status": "CONTROLLED_INDUSTRIAL_SIMULATOR",
+      "champion_model": "LR_C10.0_ROS",
+      "decision_status": "BASELINE_RETAINED",
+      "configurations_evaluated": 20,
+      "baseline_val_score": 0.7521847953606936,
+      "tuned_val_score": 0.7521852103711061,
+      "val_abs_improvement": 4.1501041248004356e-07,
+      "val_rel_improvement_pct": 5.517399647529893e-05,
+      "baseline_test_score": 0.7596051118426719,
+      "tuned_test_score": 0.7596036018588165,
+      "test_abs_delta": -1.5099838553966904e-06,
+      "test_rel_delta_pct": -0.00019878537306492424,
+      "final_test_metrics": {
+        "accuracy": 0.9283466666666667,
+        "precision": 0.4548289843019025,
+        "recall": 0.9711431742508324,
+        "f1": 0.6195128858680261,
+        "operating_threshold": 0.5,
+        "roc_auc": 0.9832457855694461,
+        "pr_auc": 0.7596036018588165,
+        "confusion_matrix": [
+          [
+            65251,
+            5244
+          ],
+          [
+            130,
+            4375
+          ]
+        ],
+        "champion_model": "LR_C10.0_ROS",
+        "primary_selection_metric": "pr_auc",
+        "optimized_threshold_metrics": {
+          "accuracy": 0.9622533333333333,
+          "precision": 0.6542572797640988,
+          "recall": 0.7880133185349611,
+          "f1": 0.7149330379619374,
+          "operating_threshold": 0.9,
+          "roc_auc": 0.9832457855694461,
+          "pr_auc": 0.7596036018588165,
+          "confusion_matrix": [
+            [
+              68619,
+              1876
+            ],
+            [
+              955,
+              3550
+            ]
+          ]
+        }
+      }
+    },
+    "ai4i": {
+      "task_name": "machine_failure_classification",
+      "epistemic_status": "REAL_PHYSICAL_SIMULATOR",
+      "champion_model": "RF_n200_d8_l1_None_Nat",
+      "decision_status": "BASELINE_RETAINED",
+      "configurations_evaluated": 62,
+      "baseline_val_score": 0.905093764226254,
+      "tuned_val_score": 0.9081330436733485,
+      "val_abs_improvement": 0.0030392794470944784,
+      "val_rel_improvement_pct": 0.3357971922050193,
+      "baseline_test_score": 0.9099594282140974,
+      "tuned_test_score": 0.9134783657749301,
+      "test_abs_delta": 0.003518937560832769,
+      "test_rel_delta_pct": 0.3867136766459026,
+      "final_test_metrics": {
+        "accuracy": 0.99,
+        "precision": 0.9736842105263158,
+        "recall": 0.7254901960784313,
+        "f1": 0.8314606741573034,
+        "operating_threshold": 0.5,
+        "roc_auc": 0.982909105671254,
+        "pr_auc": 0.9134783657749301,
+        "confusion_matrix": [
+          [
+            1448,
+            1
+          ],
+          [
+            14,
+            37
+          ]
+        ],
+        "champion_model": "RF_n200_d8_l1_None_Nat",
+        "primary_selection_metric": "pr_auc",
+        "optimized_threshold_metrics": {
+          "accuracy": 0.9893333333333333,
+          "precision": 0.8070175438596491,
+          "recall": 0.9019607843137255,
+          "f1": 0.8518518518518519,
+          "operating_threshold": 0.2,
+          "roc_auc": 0.982909105671254,
+          "pr_auc": 0.9134783657749301,
+          "confusion_matrix": [
+            [
+              1438,
+              11
+            ],
+            [
+              5,
+              46
+            ]
+          ]
+        }
+      }
+    },
+    "cmapss": {
+      "task_name": "turbofan_rul_regression",
+      "epistemic_status": "HIGH_FIDELITY_PHYSICS_SIMULATION",
+      "champion_model": "XGB_n150_d6_lr0.03",
+      "decision_status": "TUNED_MODEL_ACCEPTED",
+      "configurations_evaluated": 35,
+      "baseline_val_score": 12.898348808288574,
+      "tuned_val_score": 11.464330673217773,
+      "val_abs_improvement": 1.4340181350708008,
+      "val_rel_improvement_pct": 11.117842728437381,
+      "baseline_test_score": 13.325089454650879,
+      "tuned_test_score": 13.07941722869873,
+      "test_abs_delta": 0.24567222595214844,
+      "test_rel_delta_pct": 1.8436816262152826,
+      "final_test_metrics": {
+        "mae": 9.627811431884766,
+        "rmse": 13.07941722869873,
+        "r2": 0.9002351760864258,
+        "wape": 0.1080481855574573,
+        "smape": 0.1475858684414732,
+        "champion_model": "XGB_n150_d6_lr0.03",
+        "primary_selection_metric": "rmse"
+      }
+    },
+    "electricity": {
+      "task_name": "electricity_consumption_forecasting",
+      "epistemic_status": "REAL_INDUSTRIAL_TELEMETRY",
+      "champion_model": "XGB_n200_d8_lr0.03_mcw1",
+      "decision_status": "TUNED_MODEL_ACCEPTED",
+      "configurations_evaluated": 54,
+      "baseline_val_score": 0.06517493256165907,
+      "tuned_val_score": 0.061991014422514305,
+      "val_abs_improvement": 0.003183918139144766,
+      "val_rel_improvement_pct": 4.885188237260705,
+      "baseline_test_score": 0.06625769150387288,
+      "tuned_test_score": 0.0627481503889448,
+      "test_abs_delta": 0.003509541114928086,
+      "test_rel_delta_pct": 5.296805601388854,
+      "final_test_metrics": {
+        "mae": 18.777448369085885,
+        "rmse": 25.564808759567324,
+        "r2": 0.9624614244396121,
+        "wape": 0.0627481503889448,
+        "smape": 0.07497920594870189,
+        "champion_model": "XGB_n200_d8_lr0.03_mcw1",
+        "primary_selection_metric": "wape"
+      }
+    },
+    "industrial_iot_rul": {
+      "task_name": "remaining_useful_life_regression_days",
+      "epistemic_status": "CONTROLLED_INDUSTRIAL_SIMULATOR",
+      "champion_model": "XGB_d6_lr0.05_n150",
+      "decision_status": "BASELINE_RETAINED",
+      "configurations_evaluated": 16,
+      "baseline_val_score": 48.48867343879053,
+      "tuned_val_score": 48.319236427868034,
+      "val_abs_improvement": 0.16943701092249341,
+      "val_rel_improvement_pct": 0.34943626811399886,
+      "baseline_test_score": 48.59795010141137,
+      "tuned_test_score": 48.379805300395375,
+      "test_abs_delta": 0.21814480101599543,
+      "test_rel_delta_pct": 0.4488765484156916,
+      "final_test_metrics": {
+        "mae": 38.218115267366976,
+        "rmse": 48.379805300395375,
+        "r2": 0.9718213639016982,
+        "wape": 0.08444024477809424,
+        "smape": 0.25764323999006755,
+        "champion_model": "XGB_d6_lr0.05_n150",
+        "primary_selection_metric": "rmse"
+      }
+    },
+    "manufacturing_defects": {
+      "task_name": "manufacturing_defects_classification",
+      "epistemic_status": "REAL_MANUFACTURING_METRICS",
+      "champion_model": "RF_n100_dNone_l4",
+      "decision_status": "TUNED_MODEL_ACCEPTED",
+      "configurations_evaluated": 24,
+      "baseline_val_score": 0.8183564601657511,
+      "tuned_val_score": 0.8389483377258439,
+      "val_abs_improvement": 0.02059187756009273,
+      "val_rel_improvement_pct": 2.516247938694346,
+      "baseline_test_score": 0.8674585218702866,
+      "tuned_test_score": 0.8935394670688789,
+      "test_abs_delta": 0.026080945198592276,
+      "test_rel_delta_pct": 3.006592769687751,
+      "final_test_metrics": {
+        "accuracy": 0.9629629629629629,
+        "precision": 0.9599056603773585,
+        "recall": 0.9975490196078431,
+        "f1": 0.9783653846153846,
+        "operating_threshold": 0.5,
+        "roc_auc": 0.8935394670688789,
+        "pr_auc": 0.9665837410592579,
+        "confusion_matrix": [
+          [
+            61,
+            17
+          ],
+          [
+            1,
+            407
+          ]
+        ],
+        "champion_model": "RF_n100_dNone_l4",
+        "primary_selection_metric": "roc_auc",
+        "optimized_threshold_metrics": {
+          "accuracy": 0.9629629629629629,
+          "precision": 0.9599056603773585,
+          "recall": 0.9975490196078431,
+          "f1": 0.9783653846153846,
+          "operating_threshold": 0.49999999999999994,
+          "roc_auc": 0.8935394670688789,
+          "pr_auc": 0.9665837410592579,
+          "confusion_matrix": [
+            [
+              61,
+              17
+            ],
+            [
+              1,
+              407
+            ]
+          ]
+        }
+      }
+    },
+    "textile": {
+      "task_name": "loom_telemetry_anomaly_tracking",
+      "epistemic_status": "CONTROLLED_SYNTHETIC",
+      "champion_model": "PCA_comp6",
+      "decision_status": "TUNED_MODEL_ACCEPTED",
+      "configurations_evaluated": 22,
+      "baseline_val_score": 0.8552889309917965,
+      "tuned_val_score": 2.0617630523519908,
+      "val_abs_improvement": 1.2064741213601944,
+      "val_rel_improvement_pct": 141.06041568445906,
+      "baseline_test_score": 0.9431395762095427,
+      "tuned_test_score": 2.8024312944762144,
+      "test_abs_delta": 1.8592917182666717,
+      "test_rel_delta_pct": 197.13855352556877,
+      "final_test_metrics": {
+        "champion_model": "PCA_comp6",
+        "primary_selection_metric": "adcr",
+        "test_adcr": 2.8024312944762144,
+        "mean_anomaly_score": -0.1894919285967672,
+        "std_anomaly_score": 0.13461147337679732,
+        "p95_anomaly_score": -0.02250290428966375,
+        "p5_anomaly_score": -0.45004269496027344,
+        "min_anomaly_score": -0.844139377944088,
+        "max_anomaly_score": -0.00031007428369086857
+      }
+    },
+    "synthetic_factory": {
+      "task_name": "factory_telemetry_anomaly_tracking",
+      "epistemic_status": "CONTROLLED_SYNTHETIC",
+      "champion_model": "IF_n100_cauto_f1.0",
+      "decision_status": "BASELINE_RETAINED",
+      "configurations_evaluated": 22,
+      "baseline_val_score": 4.728848401737378,
+      "tuned_val_score": 4.728848401737378,
+      "val_abs_improvement": 0.0,
+      "val_rel_improvement_pct": 0.0,
+      "baseline_test_score": 2.1023814134877425,
+      "tuned_test_score": 2.1023814134877425,
+      "test_abs_delta": 0.0,
+      "test_rel_delta_pct": 0.0,
+      "final_test_metrics": {
+        "champion_model": "IF_n100_cauto_f1.0",
+        "primary_selection_metric": "masi",
+        "test_masi": 2.1023814134877425,
+        "mean_anomaly_score": -0.5335838554056292,
+        "std_anomaly_score": 0.04516074122797193,
+        "p95_anomaly_score": -0.4873415698955299,
+        "p5_anomaly_score": -0.6168903949488549,
+        "min_anomaly_score": -0.7197718809952445,
+        "max_anomaly_score": -0.4678753866958205
+      }
+    }
+  }
+}

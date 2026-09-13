@@ -1,0 +1,23 @@
+{
+  "dataset_id": "textile",
+  "task": "loom_telemetry_anomaly_tracking",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "features_count": 16,
+  "train_rows": 30240,
+  "val_rows": 6480,
+  "test_rows": 6480,
+  "configurations_evaluated": 22,
+  "champion_model": "PCA_comp6",
+  "decision_status": "TUNED_MODEL_ACCEPTED",
+  "metric_name": "ADCR",
+  "baseline_val_score": 0.8552889309917965,
+  "tuned_val_score": 2.0617630523519908,
+  "baseline_test_score": 0.9431395762095427,
+  "tuned_test_score": 2.8024312944762144,
+  "val_abs_improvement": 1.2064741213601944,
+  "val_rel_improvement_pct": 141.06041568445906,
+  "test_abs_delta": 1.8592917182666717,
+  "test_rel_delta_pct": 197.13855352556877,
+  "timestamp": "2026-09-13 15:02:59 UTC",
+  "tuning_status": "COMPLETED"
+}

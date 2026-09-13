@@ -1,0 +1,22 @@
+{
+  "dataset_id": "electricity",
+  "task": "electricity_consumption_forecasting",
+  "epistemic_status": "REAL_INDUSTRIAL_TELEMETRY",
+  "features_count": 19,
+  "train_rows": 18279,
+  "val_rows": 3917,
+  "test_rows": 3917,
+  "configurations_evaluated": 54,
+  "champion_model": "XGB_n200_d8_lr0.03_mcw1",
+  "decision_status": "TUNED_MODEL_ACCEPTED",
+  "baseline_val_score_wape": 0.06517493256165907,
+  "tuned_val_score_wape": 0.061991014422514305,
+  "baseline_test_score_wape": 0.06625769150387288,
+  "tuned_test_score_wape": 0.0627481503889448,
+  "val_abs_improvement": 0.003183918139144766,
+  "val_rel_improvement_pct": 4.885188237260705,
+  "test_abs_delta": 0.003509541114928086,
+  "test_rel_delta_pct": 5.296805601388854,
+  "timestamp": "2026-09-13 14:48:43 UTC",
+  "tuning_status": "COMPLETED"
+}

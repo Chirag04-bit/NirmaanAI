@@ -1,0 +1,40 @@
+{
+  "accuracy": 0.47333333333333333,
+  "precision": 0.27631578947368424,
+  "recall": 0.4666666666666667,
+  "f1": 0.34710743801652894,
+  "operating_threshold": 0.5,
+  "roc_auc": 0.43005291005291,
+  "pr_auc": 0.2717252055378995,
+  "confusion_matrix": [
+    [
+      50,
+      55
+    ],
+    [
+      24,
+      21
+    ]
+  ],
+  "champion_model": "LR_C0.1_balanced",
+  "primary_selection_metric": "pr_auc",
+  "optimized_threshold_metrics": {
+    "accuracy": 0.3,
+    "precision": 0.2972972972972973,
+    "recall": 0.9777777777777777,
+    "f1": 0.45595854922279794,
+    "operating_threshold": 0.35,
+    "roc_auc": 0.43005291005291,
+    "pr_auc": 0.2717252055378995,
+    "confusion_matrix": [
+      [
+        1,
+        104
+      ],
+      [
+        1,
+        44
+      ]
+    ]
+  }
+}

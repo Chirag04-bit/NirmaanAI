@@ -1,0 +1,26 @@
+{
+  "dataset_id": "synthetic_factory",
+  "task": "factory_telemetry_anomaly_tracking",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "features_count": 20,
+  "quarantined_columns": [
+    "MAINT_0003 (excluded from prospective training)"
+  ],
+  "train_rows": 20415,
+  "val_rows": 8750,
+  "test_rows": 14035,
+  "configurations_evaluated": 22,
+  "champion_model": "IF_n100_cauto_f1.0",
+  "decision_status": "BASELINE_RETAINED",
+  "metric_name": "MASI",
+  "baseline_val_score": 4.728848401737378,
+  "tuned_val_score": 4.728848401737378,
+  "baseline_test_score": 2.1023814134877425,
+  "tuned_test_score": 2.1023814134877425,
+  "val_abs_improvement": 0.0,
+  "val_rel_improvement_pct": 0.0,
+  "test_abs_delta": 0.0,
+  "test_rel_delta_pct": 0.0,
+  "timestamp": "2026-09-13 15:03:19 UTC",
+  "tuning_status": "COMPLETED"
+}

@@ -1,0 +1,32 @@
+{
+  "dataset_id": "manufacturing_defects",
+  "target": "DefectStatus",
+  "primary_metric": "roc_auc",
+  "champion_model_name": "RF_n100_dNone_l4",
+  "model_type": "RandomForestClassifier",
+  "model_params": {
+    "bootstrap": "True",
+    "ccp_alpha": "0.0",
+    "class_weight": "None",
+    "criterion": "gini",
+    "max_depth": "None",
+    "max_features": "sqrt",
+    "max_leaf_nodes": "None",
+    "max_samples": "None",
+    "min_impurity_decrease": "0.0",
+    "min_samples_leaf": "4",
+    "min_samples_split": "2",
+    "min_weight_fraction_leaf": "0.0",
+    "monotonic_cst": "None",
+    "n_estimators": "100",
+    "n_jobs": "-1",
+    "oob_score": "False",
+    "random_state": "42",
+    "verbose": "0",
+    "warm_start": "False"
+  },
+  "frozen_operating_threshold": 0.49999999999999994,
+  "random_seed": 42,
+  "tuning_performed": true,
+  "configurations_evaluated": 24
+}

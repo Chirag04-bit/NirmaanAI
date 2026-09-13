@@ -1,0 +1,27 @@
+{
+  "dataset_id": "manufacturing_production",
+  "target": "target_is_bottleneck",
+  "primary_metric": "pr_auc",
+  "champion_model_name": "LR_C0.1_balanced",
+  "model_type": "LogisticRegression",
+  "model_params": {
+    "C": "0.1",
+    "class_weight": "balanced",
+    "dual": "False",
+    "fit_intercept": "True",
+    "intercept_scaling": "1",
+    "l1_ratio": "0.0",
+    "max_iter": "1000",
+    "n_jobs": "None",
+    "penalty": "deprecated",
+    "random_state": "42",
+    "solver": "lbfgs",
+    "tol": "0.0001",
+    "verbose": "0",
+    "warm_start": "False"
+  },
+  "frozen_operating_threshold": 0.35,
+  "random_seed": 42,
+  "tuning_performed": true,
+  "configurations_evaluated": 54
+}

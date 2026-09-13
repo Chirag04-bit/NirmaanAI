@@ -1,0 +1,23 @@
+{
+  "dataset_id": "secom",
+  "task": "semiconductor_wafer_defect_classification",
+  "epistemic_status": "REAL_SEMICONDUCTOR_INLINE_SENSORS",
+  "features_count": 436,
+  "train_rows": 1096,
+  "train_sampled_rows": 2046,
+  "val_rows": 235,
+  "test_rows": 236,
+  "configurations_evaluated": 66,
+  "champion_model": "XGB_d4_lr0.08_col0.5_spw10_Nat",
+  "decision_status": "TUNED_MODEL_ACCEPTED",
+  "baseline_val_score": 0.2668729208693856,
+  "tuned_val_score": 0.47331736644878153,
+  "baseline_test_score": 0.13736704720592152,
+  "tuned_test_score": 0.1963737854632028,
+  "val_abs_improvement": 0.20644444557939595,
+  "val_rel_improvement_pct": 77.35683519589278,
+  "test_abs_delta": 0.05900673825728128,
+  "test_rel_delta_pct": 42.9555264217237,
+  "timestamp": "2026-09-13 14:37:18 UTC",
+  "tuning_status": "COMPLETED"
+}

@@ -1,0 +1,13 @@
+{
+  "baseline_val": 12.898348808288574,
+  "tuned_val": 11.464330673217773,
+  "val_abs_improvement": 1.4340181350708008,
+  "val_rel_improvement_pct": 11.117842728437381,
+  "baseline_test": 13.325089454650879,
+  "tuned_test": 13.07941722869873,
+  "test_abs_delta": 0.24567222595214844,
+  "test_rel_delta_pct": 1.8436816262152826,
+  "higher_is_better": false,
+  "decision_status": "TUNED_MODEL_ACCEPTED",
+  "meaningful_improvement_threshold_cycles": 0.25
+}
