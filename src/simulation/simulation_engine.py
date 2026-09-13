@@ -54,6 +54,10 @@ class WhatIfSimulationEngine:
         """
         Scenario A: Baseline Continuation / No Intervention.
         Unmitigated progression toward Day 22 emergency halt (MAINT_0003: 150 min downtime, 1.5h overhaul labor).
+        TEMPORAL SEMANTICS:
+        - Baseline state at cutoff (2026-01-21T12:00:00Z) contains strictly DECISION_TIME_INPUT data (<= cutoff).
+        - Day 22 emergency halt (MAINT_0003 at 2026-01-22T16:30:00Z) is a FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION.
+        - In Scenario A, MAINT_0003 is evaluated strictly as RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH.
         """
         baseline = get_m2_baseline_kpi_vector()
 
@@ -87,7 +91,7 @@ class WhatIfSimulationEngine:
                 parameter_name="unmitigated_halt_downtime_minutes",
                 configured_value=150.0,
                 unit="minutes",
-                rationale="Reflects the actual historical Day 22 emergency halt (MAINT_0003) if no intervention occurs",
+                rationale="Reflects actual Day 22 emergency halt (MAINT_0003: RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH; NOT a decision-time input at Jan-21 cutoff)",
                 epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             ),
             ScenarioAssumption(
@@ -95,7 +99,7 @@ class WhatIfSimulationEngine:
                 parameter_name="unmitigated_emergency_labor_hours",
                 configured_value=1.5,
                 unit="hours",
-                rationale="Reflects the actual historical Day 22 emergency technician overhaul labor (MAINT_0003)",
+                rationale="Reflects actual Day 22 overhaul labor (MAINT_0003: RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH; NOT a decision-time input at Jan-21 cutoff)",
                 epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             ),
         ]
@@ -114,8 +118,14 @@ class WhatIfSimulationEngine:
             delta=delta,
             confidence=ProjectionConfidence.HIGH_EVIDENCE,
             epistemic_classification=EpistemicClassification.CONTROLLED_SYNTHETIC,
-            evidence_basis=["Phase 5 historical maintenance records (MAINT_0003)", "Phase 14 realized loss models"],
-            limitations=["Assumes factory operating conditions remain unadjusted through Day 22 halt"],
+            evidence_basis=[
+                "Phase 5 historical maintenance records (MAINT_0003: Retrospective Controlled Synthetic Ground Truth; NOT_DECISION_INPUT)",
+                "Phase 14 realized loss models",
+            ],
+            limitations=[
+                "At decision cutoff 2026-01-21T12:00:00Z, MAINT_0003 is a FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION.",
+                "Assumes factory operating conditions remain unadjusted through Day 22 halt.",
+            ],
         )
 
     def simulate_m2_scenario_b(
@@ -125,6 +135,9 @@ class WhatIfSimulationEngine:
         Scenario B: INSPECT_SPINDLE_BEARING.
         Preempts catastrophic spindle seizure: planned 30 min service replaces 150 min unplanned halt.
         Consumes 1 spare bearing: projected stock drops to 1.0 (breaching safety stock 1.134).
+        TEMPORAL SEMANTICS:
+        - Avoided downtime is evaluated retrospectively against the controlled synthetic ground truth MAINT_0003.
+        - Decision-time baseline inputs strictly exclude MAINT_0003.
         """
         baseline = get_m2_baseline_kpi_vector()
 
@@ -183,7 +196,7 @@ class WhatIfSimulationEngine:
                 parameter_name="avoided_unplanned_emergency_downtime_minutes",
                 configured_value=unplanned_avoided_min,
                 unit="minutes",
-                rationale="Eliminates the catastrophic 150-minute uncommanded stoppage",
+                rationale="Eliminates the catastrophic 150-minute uncommanded stoppage observed in retrospective ground truth MAINT_0003 (NOT a decision-time input at Jan-21 cutoff)",
                 epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             ),
             ScenarioAssumption(
@@ -211,11 +224,13 @@ class WhatIfSimulationEngine:
             confidence=ProjectionConfidence.ASSUMPTION_DEPENDENT,
             epistemic_classification=EpistemicClassification.CONFIGURED_ASSUMPTION,
             evidence_basis=[
+                "Phase 5 maintenance record MAINT_0003 (Retrospective Controlled Synthetic Ground Truth reference)",
                 "Phase 14 downtime valuation rate (INR 4,500/h)",
                 "Phase 14 emergency technician labor rate (INR 280/h)",
                 "Phase 10 critical spare SKU buffer parameters",
             ],
             limitations=[
+                "At decision cutoff 2026-01-21T12:00:00Z, MAINT_0003 is a FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION; avoided breakdown loss of INR 9,420 is a retrospective counterfactual evaluation, never realized savings.",
                 "No intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset for mechanical health score or failure probability.",
                 "Breaches safety stock buffer (projected stock 1.0 < 1.134) without accompanying spare reorder.",
                 "Does not rebalance bottleneck line flow or clear queued delayed units.",

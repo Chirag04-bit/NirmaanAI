@@ -40,11 +40,20 @@ DOWNTIME_HOURLY_RATE_INR = 4500.00
 REWORK_HOURLY_RATE_INR = 280.00
 CONTRIBUTION_MARGIN_PER_UNIT_INR = 320.00
 
+# Authoritative Temporal Semantics Boundaries
+# Decision-Time: Engine operates strictly with information available on or before the cutoff.
+M2_DECISION_CUTOFF_TIMESTAMP = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
+
+# Future Event: Catastrophic emergency halt recorded in synthetic dataset 28.5 hours after cutoff.
+# NOT a decision-time input; used ONLY as RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH in counterfactuals.
+MAINT_0003_EVENT_TIMESTAMP = datetime(2026, 1, 22, 16, 30, 0, tzinfo=timezone.utc)
+
 
 def get_m2_baseline_kpi_vector() -> OperationalKPIVector:
     """
     Authoritative baseline state vector of Machine 2 at t = 2026-01-21T12:00:00Z.
-    Strictly causal: excludes future Day 22 emergency halt, MAINT_0003, and recovery.
+    Strictly causal (DECISION_TIME_INPUT): excludes future Day 22 emergency halt (MAINT_0003),
+    emergency repair labor (1.5h), and post-maintenance recovery.
     """
     return OperationalKPIVector(
         failure_probability=0.9959,

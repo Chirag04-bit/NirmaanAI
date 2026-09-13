@@ -17,12 +17,17 @@ At Day 21 ($t = \text{2026-01-21T12:00:00Z}$), Machine M2 is in severe mechanica
 - **Bearing Inventory:** Observed current stock is $2.0\text{ units}$, Safety Stock is $1.134\text{ units}$, and Reorder Point ($ROP$) is $1.367\text{ units}$. Because $2.0 > 1.134$ and $2.0 > 1.367$, current stock is **NOT** below safety stock and **NOT** below reorder point (**no current-stockout claim permitted**).
 - **Gross Financial Exposure:** $₹97,382.28$ ($₹73,062.28\text{ realized loss} + ₹24,320.00\text{ opportunity cost}$).
 
+> **Temporal Semantics Boundary:**
+> - All baseline metrics at $t = \text{2026-01-21T12:00:00Z}$ are strictly `DECISION_TIME_INPUT` features ($t \le t_{\text{cutoff}}$).
+> - Event `MAINT_0003` occurs on Day 22 ($\text{2026-01-22T16:30:00Z}$) and is `FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION` / `NOT_DECISION_INPUT`.
+> - It is referenced strictly post-decision as `RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH` to benchmark the counterfactual scenarios.
+
 ---
 
 ## 2. Walkthrough of What-If Scenarios
 
 ### Scenario A: Baseline Continuation (No Intervention)
-- **Operational Reality:** If no action is taken, M2 runs unmitigated until catastrophic bearing seizure occurs at Day 22T16:30 (`MAINT_0003`).
+- **Operational Reality:** If no action is taken, M2 runs unmitigated until catastrophic bearing seizure occurs at Day 22T16:30 (`MAINT_0003`: `RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH`).
 - **Projected Result:**
   - $150\text{ min}$ unplanned emergency downtime ($₹11,250.00\text{ loss}$).
   - $1.5\text{ h}$ emergency technician overhaul overtime ($₹420.00\text{ cost}$).

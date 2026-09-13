@@ -1,6 +1,6 @@
 # Phase 16: Digital-Twin-Inspired What-If Simulation — Evaluation Report
 
-**Generated UTC:** 2026-09-13T09:06:49.328092+00:00
+**Generated UTC:** 2026-09-13T09:13:27.107411+00:00
 
 **Decision Evaluation Timestamp:** 2026-01-21T12:00:00+00:00
 
@@ -33,6 +33,12 @@
 > - Current stock is NOT below safety stock, NOT below reorder point; **no current-stockout claim is permitted**.
 > - Proactive reorder remains valid because post-action stock: $2.0 - 1.0 = 1.0 < 1.134$ (breaches safety stock).
 
+### 1.1 Temporal Semantics: Decision Cutoff vs Retrospective Ground Truth
+- **Decision Cutoff Timestamp:** `2026-01-21T12:00:00+00:00`
+- **Decision-Time Inputs (`DECISION_TIME_INPUT`):** All telemetry, diagnostic inferences, inventory levels, and loss accounting inputs are strictly computed using data available on or before the cutoff timestamp.
+- **Future Event (`FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION` / `NOT_DECISION_INPUT`):** The Day-22 emergency halt (`MAINT_0003` at `2026-01-22T16:30:00+00:00`) occurs 28.5 hours after the cutoff. It is **NOT** a decision-time feature and was **NOT** known to the system at decision time.
+- **Retrospective Counterfactual Role (`RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH`):** `MAINT_0003` is referenced strictly post-cutoff as controlled synthetic ground truth to benchmark counterfactual scenarios (e.g. evaluating the ₹9,420 avoided breakdown loss).
+
 ---
 
 ## 2. Machine 2 What-If Scenarios Comparison Table
@@ -55,6 +61,7 @@
 > 1. **Health Score & Failure Probability:** Set to `NOT_PROJECTABLE` for Scenarios B, C, D, E because no intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset.
 > 2. **Flow Delay Assumption:** Remaining delayed units = 15.0 in Scenarios D and E is strictly a `CONFIGURED_ASSUMPTION` (never called empirically validated).
 > 3. **Avoided Opportunity Cost:** The financial calculation $(76 - 15) \times ₹320 = ₹19,520$ is strictly a `PROJECTED_OPPORTUNITY_COST` mechanically derived from the delay reduction assumption; it is **never called realized savings**.
+> 4. **Temporal Counterfactual Distinction:** MAINT_0003 is a `FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION` at Jan-21. Avoided breakdown loss (₹9,420) is a retrospective counterfactual evaluation against controlled synthetic ground truth, not real-time foresight or realized savings.
 
 ---
 
@@ -91,6 +98,7 @@
 - [x] **Causal Effect Audit:** Unsupported causal intervention effects (Health, P(fail), Anomaly) set to `NOT_PROJECTABLE`.
 - [x] **Configured Delay Assumption:** Remaining delayed units = 15.0 classified strictly as `CONFIGURED_ASSUMPTION` (never empirical validation).
 - [x] **Financial Provenance:** Delay financial impact ₹19,520 labeled strictly as `PROJECTED_OPPORTUNITY_COST` (never realized savings).
+- [x] **Temporal Semantics Enforcement:** Decision-time inputs strictly <= 2026-01-21T12:00:00Z; Day-22 MAINT_0003 is NOT a decision-time input and is classified strictly as RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH.
 - [x] **Temporal Causality:** Evaluated at decision cutoff $t = \text{2026-01-21T12:00:00Z}$; Day 22 emergency halt, repair labor, and recovery strictly excluded from baseline.
 - [x] **Zero Diagnostic Coupling:** Zero pseudo-financial formulas ($₹ \ne f(H)$, $₹ \ne f(\text{SHAP})$, $₹ \ne f(\text{RCA})$).
 - [x] **Categorical Uncertainty:** Confidence expressed via standardized categorical taxonomy (`HIGH_EVIDENCE`, `ASSUMPTION_DEPENDENT`).

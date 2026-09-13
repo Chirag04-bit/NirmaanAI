@@ -18,6 +18,7 @@ Validates:
 13. Human-in-the-loop decision-support governance (no autonomous machine commands).
 """
 
+import csv
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -260,6 +261,67 @@ def test_temporal_causality_and_day22_exclusion():
     assert base.rework_hours == 23.12
     # Baseline health is 26.88 (excludes Day 23 post-maintenance recovery = 96.91)
     assert base.health_score == 26.88
+
+
+def test_decision_time_vs_retrospective_counterfactual_temporal_integrity(engine):
+    """
+    Enforces the strict temporal distinction:
+    1. DECISION_TIME_INPUT: At cutoff 2026-01-21T12:00:00Z, inputs contain ONLY evidence <= cutoff.
+       The Day-22 MAINT_0003 event (2026-01-22T16:30:00Z) is a FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION
+       and is NOT a decision input.
+    2. RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH: The same MAINT_0003 event MAY be referenced
+       later for evaluating counterfactual interventions (Scenario A, B, C, E) without leaking
+       into or contaminating the baseline decision-time metrics.
+    """
+    root = get_project_root()
+    cutoff = datetime(2026, 1, 21, 12, 0, 0, tzinfo=timezone.utc)
+
+    # 1. Inspect actual maintenance_records.csv to verify MAINT_0003 timestamp
+    maint_csv = root / "DATASET" / "10_SYNTHETIC_FACTORY" / "synthetic" / "maintenance_records.csv"
+    assert maint_csv.exists()
+
+    maint_0003_ts = None
+    with open(maint_csv, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if row["record_id"] == "MAINT_0003":
+                maint_0003_ts = datetime.fromisoformat(row["timestamp"])
+                break
+
+    assert maint_0003_ts is not None, "MAINT_0003 not found in maintenance records"
+    assert maint_0003_ts > cutoff, f"MAINT_0003 timestamp {maint_0003_ts} must be strictly after cutoff {cutoff}"
+
+    # Verify time gap: MAINT_0003 is 28.5 hours in the future
+    time_delta = maint_0003_ts - cutoff
+    assert time_delta.total_seconds() == 28.5 * 3600
+
+    # 2. Verify DECISION_TIME_INPUT: Baseline state at cutoff excludes future event
+    base = get_m2_baseline_kpi_vector()
+    assert base.unplanned_downtime_minutes == 0.0  # Zero downtime at Jan-21 12:00
+    assert base.rework_hours == 23.12  # Excludes 1.5h emergency overhaul labor from MAINT_0003
+    assert base.health_score == 26.88  # Excludes Day-23 post-maintenance recovery (96.91)
+    assert base.realized_operational_loss_inr == 73062.28  # Excludes MAINT_0003 downtime (₹11,250) and labor (₹420)
+
+    # 3. Verify RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH in What-If Scenarios
+    scen_a = engine.simulate_m2_scenario_a(cutoff)
+    scen_b = engine.simulate_m2_scenario_b(cutoff)
+
+    # Scenario A (unmitigated continuation) references MAINT_0003 in projected state
+    assert scen_a.projected_state.unplanned_downtime_minutes == 150.0
+    assert scen_a.projected_state.rework_hours == 24.62  # 23.12 + 1.5h
+    assert any("RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH" in a.rationale for a in scen_a.assumptions)
+    assert any("NOT_DECISION_INPUT" in ev for ev in scen_a.evidence_basis)
+
+    # Scenario B (counterfactual intervention) benchmarks preemption against MAINT_0003 ground truth
+    assert scen_b.projected_state.unplanned_downtime_minutes == 0.0
+    assert scen_b.projected_state.planned_downtime_minutes == 30.0
+    assert scen_b.projected_state.projected_avoided_loss_inr == 9420.00  # (150 - 30)/60 * 4500 + 1.5 * 280
+
+    # 4. Critical Invariance: Retrospective ground truth MUST NOT contaminate decision-time baseline
+    assert scen_b.baseline_state.unplanned_downtime_minutes == 0.0
+    assert scen_b.baseline_state.rework_hours == 23.12
+    assert scen_b.baseline_state.health_score == 26.88
+    assert scen_b.baseline_state.realized_operational_loss_inr == 73062.28
 
 
 # ==============================================================================

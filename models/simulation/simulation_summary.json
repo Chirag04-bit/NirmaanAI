@@ -1,6 +1,6 @@
 {
   "phase": "Phase 16: What-If / Digital-Twin-Inspired Simulation Engine",
-  "generated_at": "2026-09-13T09:06:49.328092+00:00",
+  "generated_at": "2026-09-13T09:13:27.107411+00:00",
   "decision_timestamp": "2026-01-21T12:00:00+00:00",
   "governance": {
     "system_classification": "DIGITAL-TWIN-INSPIRED WHAT-IF SIMULATION",
@@ -63,7 +63,7 @@
           "parameter_name": "unmitigated_halt_downtime_minutes",
           "configured_value": 150.0,
           "unit": "minutes",
-          "rationale": "Reflects the actual historical Day 22 emergency halt (MAINT_0003) if no intervention occurs",
+          "rationale": "Reflects actual Day 22 emergency halt (MAINT_0003: RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH; NOT a decision-time input at Jan-21 cutoff)",
           "epistemic_classification": "CONFIGURED_ASSUMPTION"
         },
         {
@@ -71,7 +71,7 @@
           "parameter_name": "unmitigated_emergency_labor_hours",
           "configured_value": 1.5,
           "unit": "hours",
-          "rationale": "Reflects the actual historical Day 22 emergency technician overhaul labor (MAINT_0003)",
+          "rationale": "Reflects actual Day 22 overhaul labor (MAINT_0003: RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH; NOT a decision-time input at Jan-21 cutoff)",
           "epistemic_classification": "CONFIGURED_ASSUMPTION"
         }
       ],
@@ -115,11 +115,12 @@
       "confidence": "HIGH_EVIDENCE",
       "epistemic_classification": "CONTROLLED_SYNTHETIC",
       "evidence_basis": [
-        "Phase 5 historical maintenance records (MAINT_0003)",
+        "Phase 5 historical maintenance records (MAINT_0003: Retrospective Controlled Synthetic Ground Truth; NOT_DECISION_INPUT)",
         "Phase 14 realized loss models"
       ],
       "limitations": [
-        "Assumes factory operating conditions remain unadjusted through Day 22 halt"
+        "At decision cutoff 2026-01-21T12:00:00Z, MAINT_0003 is a FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION.",
+        "Assumes factory operating conditions remain unadjusted through Day 22 halt."
       ]
     },
     {
@@ -166,7 +167,7 @@
           "parameter_name": "avoided_unplanned_emergency_downtime_minutes",
           "configured_value": 150.0,
           "unit": "minutes",
-          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage",
+          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage observed in retrospective ground truth MAINT_0003 (NOT a decision-time input at Jan-21 cutoff)",
           "epistemic_classification": "CONFIGURED_ASSUMPTION"
         },
         {
@@ -218,11 +219,13 @@
       "confidence": "ASSUMPTION_DEPENDENT",
       "epistemic_classification": "CONFIGURED_ASSUMPTION",
       "evidence_basis": [
+        "Phase 5 maintenance record MAINT_0003 (Retrospective Controlled Synthetic Ground Truth reference)",
         "Phase 14 downtime valuation rate (INR 4,500/h)",
         "Phase 14 emergency technician labor rate (INR 280/h)",
         "Phase 10 critical spare SKU buffer parameters"
       ],
       "limitations": [
+        "At decision cutoff 2026-01-21T12:00:00Z, MAINT_0003 is a FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION; avoided breakdown loss of INR 9,420 is a retrospective counterfactual evaluation, never realized savings.",
         "No intervention-specific empirical treatment effect is available in the existing controlled synthetic dataset for mechanical health score or failure probability.",
         "Breaches safety stock buffer (projected stock 1.0 < 1.134) without accompanying spare reorder.",
         "Does not rebalance bottleneck line flow or clear queued delayed units."
@@ -273,7 +276,7 @@
           "parameter_name": "avoided_unplanned_emergency_downtime_minutes",
           "configured_value": 150.0,
           "unit": "minutes",
-          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage",
+          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage observed in retrospective ground truth MAINT_0003 (NOT a decision-time input at Jan-21 cutoff)",
           "epistemic_classification": "CONFIGURED_ASSUMPTION"
         },
         {
@@ -488,7 +491,7 @@
           "parameter_name": "avoided_unplanned_emergency_downtime_minutes",
           "configured_value": 150.0,
           "unit": "minutes",
-          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage",
+          "rationale": "Eliminates the catastrophic 150-minute uncommanded stoppage observed in retrospective ground truth MAINT_0003 (NOT a decision-time input at Jan-21 cutoff)",
           "epistemic_classification": "CONFIGURED_ASSUMPTION"
         },
         {
@@ -1015,8 +1018,23 @@
       }
     }
   },
+  "temporal_semantics": {
+    "decision_cutoff_timestamp": "2026-01-21T12:00:00+00:00",
+    "classification_decision_inputs": "DECISION_TIME_INPUT",
+    "decision_inputs_description": "Strictly limited to observations, telemetry, and records on or before 2026-01-21T12:00:00Z.",
+    "future_event_identifier": "MAINT_0003",
+    "future_event_timestamp": "2026-01-22T16:30:00+00:00",
+    "classification_future_event_at_decision": "FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION",
+    "is_decision_input": false,
+    "classification_retrospective_evaluation": "RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH",
+    "counterfactual_role": "Used post-decision cutoff exclusively to benchmark hypothetical intervention against unmitigated synthetic history.",
+    "prohibition_notice": "MAINT_0003 must NEVER be treated as information known by the system at the Jan-21 decision point."
+  },
   "research_integrity_verification": {
     "zero_lookahead_enforced": true,
+    "decision_cutoff_strictly_enforced": true,
+    "future_event_excluded_from_decision_inputs": true,
+    "maint_0003_classified_as_retrospective_ground_truth": true,
     "day_22_emergency_halt_excluded_from_baseline": true,
     "m2_bearing_current_stock_not_reported_as_stockout": true,
     "m2_reorder_point_authoritative_1_367": true,

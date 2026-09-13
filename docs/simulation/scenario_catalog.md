@@ -50,6 +50,10 @@
 > 3. **Configured Delay Assumption vs Opportunity Cost:**
 >    - Remaining delayed units = $15.0$ in Scenarios D and E is strictly a `CONFIGURED_ASSUMPTION` (never called empirical validation).
 >    - Avoided margin loss $(76 - 15) \times ₹320 = ₹19,520$ is strictly a `PROJECTED_OPPORTUNITY_COST`, never realized savings.
+> 4. **Temporal Counterfactual Semantics:**
+>    - At decision cutoff $t = \text{2026-01-21T12:00:00Z}$, decision features consist strictly of `DECISION_TIME_INPUT` data ($t \le t_{\text{cutoff}}$).
+>    - The catastrophic stoppage `MAINT_0003` occurs at $\text{2026-01-22T16:30:00Z}$ (Day 22) and is `FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION` / `NOT_DECISION_INPUT`.
+>    - In Scenarios A, B, C, and E, `MAINT_0003` is referenced strictly as `RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH` for counterfactual comparison.
 
 ---
 

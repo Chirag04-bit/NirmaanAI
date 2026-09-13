@@ -60,6 +60,26 @@ Every metric and scenario output strictly enforces epistemic demarcation:
 
 ---
 
+## 3.1 Temporal Semantics: Decision-Time Inputs vs Retrospective Counterfactual Ground Truth
+
+A strict epistemic boundary separates real-time decision inputs from retrospective simulation evaluation:
+
+1. **Decision Cutoff Timestamp ($t_{\text{cutoff}} = \text{2026-01-21T12:00:00Z}$):**
+   - At this timestamp, the decision engine operates strictly with **`DECISION_TIME_INPUT`** data ($t \le t_{\text{cutoff}}$).
+   - Telemetry, XGBoost failure risk ($0.9959$), PCA anomaly score ($0.35$), health score ($26.88$), bottleneck delay ($76\text{ units}$), physical inventory ($2.0\text{ units}$), and realized financial losses ($₹73,062.28$) reflect exclusively information known on or before the cutoff.
+
+2. **Future Event Exclusion (`FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION` / `NOT_DECISION_INPUT`):**
+   - The catastrophic bearing failure `MAINT_0003` occurs at $\text{2026-01-22T16:30:00Z}$ (Day 22), exactly $28.5\text{ hours}$ **after** the decision cutoff.
+   - `MAINT_0003` is **NOT** a decision-time feature and must never be treated as known foresight at the Jan-21 decision point.
+
+3. **Retrospective Counterfactual Role (`RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH`):**
+   - In offline policy analysis, `MAINT_0003` serves as the controlled synthetic reference to construct counterfactuals:
+     - **Scenario A (Continuation):** Evaluates unmitigated realization of `MAINT_0003` ($150\text{ min}$ downtime, $1.5\text{ h}$ overtime).
+     - **Scenario B/C/E (Mitigation):** Evaluates preemption of `MAINT_0003` ($30\text{ min}$ planned stoppage avoiding $120\text{ min}$ net downtime and $1.5\text{ h}$ labor $\implies ₹9,420\text{ avoided breakdown loss}$).
+   - The avoided loss ($₹9,420$) is a **`PROJECTED` retrospective counterfactual benefit**, never realized savings.
+
+---
+
 ## 4. Financial Simulation Standards (Phase 14 Compliance)
 
 1. **Zero Pseudo-Financial Formulas:**

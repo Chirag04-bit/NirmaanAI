@@ -217,8 +217,23 @@ class WhatIfSimulationService:
                     "projected_avoided_loss_inr": {"value": 0.00, "provenance": "DERIVED_FROM_OBSERVED", "rationale": "Zero fabricated benefit on nominal asset"}
                 }
             },
+            "temporal_semantics": {
+                "decision_cutoff_timestamp": decision_dt.isoformat(),
+                "classification_decision_inputs": "DECISION_TIME_INPUT",
+                "decision_inputs_description": "Strictly limited to observations, telemetry, and records on or before 2026-01-21T12:00:00Z.",
+                "future_event_identifier": "MAINT_0003",
+                "future_event_timestamp": "2026-01-22T16:30:00+00:00",
+                "classification_future_event_at_decision": "FUTURE_EVENT_NOT_AVAILABLE_AT_DECISION",
+                "is_decision_input": False,
+                "classification_retrospective_evaluation": "RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH",
+                "counterfactual_role": "Used post-decision cutoff exclusively to benchmark hypothetical intervention against unmitigated synthetic history.",
+                "prohibition_notice": "MAINT_0003 must NEVER be treated as information known by the system at the Jan-21 decision point.",
+            },
             "research_integrity_verification": {
                 "zero_lookahead_enforced": True,
+                "decision_cutoff_strictly_enforced": True,
+                "future_event_excluded_from_decision_inputs": True,
+                "maint_0003_classified_as_retrospective_ground_truth": True,
                 "day_22_emergency_halt_excluded_from_baseline": True,
                 "m2_bearing_current_stock_not_reported_as_stockout": True,
                 "m2_reorder_point_authoritative_1_367": True,
