@@ -1,0 +1,20 @@
+{
+  "accuracy": 0.9322033898305084,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1": 0.0,
+  "roc_auc": 0.6806818181818182,
+  "pr_auc": 0.13736704720592152,
+  "confusion_matrix": [
+    [
+      220,
+      0
+    ],
+    [
+      16,
+      0
+    ]
+  ],
+  "champion_model": "XGBoost_Weighted",
+  "primary_selection_metric": "pr_auc"
+}

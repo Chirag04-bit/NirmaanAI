@@ -1,0 +1,20 @@
+[
+  {
+    "mae": 38.3847845880079,
+    "rmse": 48.64786709611889,
+    "r2": 0.9717530804730891,
+    "wape": 0.08501595091727356,
+    "smape": 0.2619915514845783,
+    "model_name": "Random_Forest_Regressor",
+    "sampling_strategy": "Natural_ZeroEntityOverlap"
+  },
+  {
+    "mae": 38.25884142412326,
+    "rmse": 48.48867343879053,
+    "r2": 0.9719376465484552,
+    "wape": 0.08473700763404023,
+    "smape": 0.26183444077530915,
+    "model_name": "XGBoost_Regressor",
+    "sampling_strategy": "Natural_ZeroEntityOverlap"
+  }
+]

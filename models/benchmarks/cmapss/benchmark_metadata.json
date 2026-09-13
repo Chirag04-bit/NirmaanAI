@@ -1,0 +1,17 @@
+{
+  "dataset_id": "cmapss",
+  "task": "remaining_useful_life_regression",
+  "epistemic_status": "HIGH_FIDELITY_PHYSICS_SIMULATION",
+  "features_count": 95,
+  "train_engines": 70,
+  "val_engines": 15,
+  "test_engines": 15,
+  "train_rows": 14130,
+  "val_rows": 3210,
+  "test_rows": 3291,
+  "champion_model": "XGBoost_Regressor",
+  "validation_score_rmse": 12.898348808288574,
+  "test_score_rmse": 13.325089454650879,
+  "historical_phase6_comparison": "Historical Phase 6: Random Forest / XGBoost turbofan RUL baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

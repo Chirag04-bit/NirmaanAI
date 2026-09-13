@@ -1,0 +1,32 @@
+[
+  {
+    "model_name": "Robust_ZScore_Detector",
+    "mean_anomaly_score": -185.30817365626572,
+    "std_anomaly_score": 367.0340401576934,
+    "p95_anomaly_score": -1.4839000000000004,
+    "p5_anomaly_score": -920.7960749063664,
+    "min_anomaly_score": -925.1681148564287,
+    "max_anomaly_score": -1.4839000000000004,
+    "sampling_strategy": "Nominal_Baseline_Train"
+  },
+  {
+    "model_name": "PCA_Reconstruction_Detector",
+    "mean_anomaly_score": -0.20332047023068137,
+    "std_anomaly_score": 0.12126061667395527,
+    "p95_anomaly_score": -0.032114092759786744,
+    "p5_anomaly_score": -0.4196654891138099,
+    "min_anomaly_score": -0.7007608899306426,
+    "max_anomaly_score": -0.0009058352811122765,
+    "sampling_strategy": "Nominal_Baseline_Train"
+  },
+  {
+    "model_name": "Isolation_Forest_Detector",
+    "mean_anomaly_score": -0.49328729996648535,
+    "std_anomaly_score": 0.018213466282758863,
+    "p95_anomaly_score": -0.4658439651871299,
+    "p5_anomaly_score": -0.5251006962194145,
+    "min_anomaly_score": -0.5737347519467985,
+    "max_anomaly_score": -0.4455538490880102,
+    "sampling_strategy": "Nominal_Baseline_Train"
+  }
+]

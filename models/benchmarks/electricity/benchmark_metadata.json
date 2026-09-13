@@ -1,0 +1,16 @@
+{
+  "dataset_id": "electricity",
+  "task": "electricity_consumption_forecasting",
+  "epistemic_status": "REAL_INDUSTRIAL_TELEMETRY",
+  "features_count": 19,
+  "train_rows": 18279,
+  "val_rows": 3917,
+  "test_rows": 3917,
+  "champion_model": "XGBoost_Regressor",
+  "validation_score_wape": 0.06517493256165907,
+  "test_score_wape": 0.06625769150387288,
+  "validation_score_mae": 18.79853837012894,
+  "test_score_mae": 19.827682147711442,
+  "historical_phase6_comparison": "Historical Phase 6: XGBoost power consumption forecast baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

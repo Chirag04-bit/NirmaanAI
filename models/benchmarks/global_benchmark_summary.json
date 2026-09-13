@@ -1,0 +1,223 @@
+{
+  "compilation_timestamp": "2026-09-13 14:20:46 UTC",
+  "total_datasets": 10,
+  "benchmarks": {
+    "ai4i": {
+      "task": "machine_failure_classification",
+      "epistemic_status": "REAL_PHYSICAL_SIMULATOR",
+      "champion_model": "Random_Forest_Natural",
+      "test_score": 0.9099594282140974,
+      "test_metrics": {
+        "accuracy": 0.992,
+        "precision": 0.975609756097561,
+        "recall": 0.7843137254901961,
+        "f1": 0.8695652173913043,
+        "roc_auc": 0.9711227486163547,
+        "pr_auc": 0.9099594282140974,
+        "confusion_matrix": [
+          [
+            1448,
+            1
+          ],
+          [
+            11,
+            40
+          ]
+        ],
+        "champion_model": "Random_Forest_Natural",
+        "primary_selection_metric": "pr_auc"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "cmapss": {
+      "task": "remaining_useful_life_regression",
+      "epistemic_status": "HIGH_FIDELITY_PHYSICS_SIMULATION",
+      "champion_model": "XGBoost_Regressor",
+      "test_score": 13.325089454650879,
+      "test_metrics": {
+        "mae": 9.699838638305664,
+        "rmse": 13.325089454650879,
+        "r2": 0.8964521884918213,
+        "wape": 0.10885649667036199,
+        "smape": 0.15806172180957462,
+        "champion_model": "XGBoost_Regressor",
+        "primary_selection_metric": "rmse"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "secom": {
+      "task": "wafer_defect_classification",
+      "epistemic_status": "REAL_SEMICONDUCTOR_INLINE_SENSORS",
+      "champion_model": "XGBoost_Weighted",
+      "test_score": null,
+      "test_metrics": {
+        "accuracy": 0.9322033898305084,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.6806818181818182,
+        "pr_auc": 0.13736704720592152,
+        "confusion_matrix": [
+          [
+            220,
+            0
+          ],
+          [
+            16,
+            0
+          ]
+        ],
+        "champion_model": "XGBoost_Weighted",
+        "primary_selection_metric": "pr_auc"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "electricity": {
+      "task": "electricity_consumption_forecasting",
+      "epistemic_status": "REAL_INDUSTRIAL_TELEMETRY",
+      "champion_model": "XGBoost_Regressor",
+      "test_score": 0.06625769150387288,
+      "test_metrics": {
+        "mae": 19.827682147711442,
+        "rmse": 27.044579799262277,
+        "r2": 0.9579899529069458,
+        "wape": 0.06625769150387288,
+        "smape": 0.07785300841903145,
+        "champion_model": "XGBoost_Regressor",
+        "primary_selection_metric": "wape"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "industrial_iot_failure": {
+      "task": "machine_failure_classification_7day",
+      "epistemic_status": "CONTROLLED_INDUSTRIAL_SIMULATOR",
+      "champion_model": "Logistic_Regression_Sampled",
+      "test_score": 0.7596051118426719,
+      "test_metrics": {
+        "accuracy": 0.9283333333333333,
+        "precision": 0.45478170478170477,
+        "recall": 0.9711431742508324,
+        "f1": 0.6194690265486725,
+        "roc_auc": 0.9832458579921484,
+        "pr_auc": 0.7596051118426719,
+        "confusion_matrix": [
+          [
+            65250,
+            5245
+          ],
+          [
+            130,
+            4375
+          ]
+        ],
+        "champion_model": "Logistic_Regression_Sampled",
+        "primary_selection_metric": "pr_auc"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "industrial_iot_rul": {
+      "task": "remaining_useful_life_regression_days",
+      "epistemic_status": "CONTROLLED_INDUSTRIAL_SIMULATOR",
+      "champion_model": "XGBoost_Regressor",
+      "test_score": 48.59795010141137,
+      "test_metrics": {
+        "mae": 38.365407831063074,
+        "rmse": 48.59795010141137,
+        "r2": 0.9715666757562608,
+        "wape": 0.08476567736537599,
+        "smape": 0.2594349186504031,
+        "champion_model": "XGBoost_Regressor",
+        "primary_selection_metric": "rmse"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "manufacturing_production": {
+      "task": "bottleneck_dispatch_classification",
+      "epistemic_status": "PROSPECTIVE_DISPATCH_RECORD",
+      "champion_model": "Random_Forest_Weighted",
+      "test_score": 0.3141066728881188,
+      "test_metrics": {
+        "accuracy": 0.5933333333333334,
+        "precision": 0.3181818181818182,
+        "recall": 0.3111111111111111,
+        "f1": 0.3146067415730337,
+        "roc_auc": 0.5608465608465608,
+        "pr_auc": 0.3141066728881188,
+        "confusion_matrix": [
+          [
+            75,
+            30
+          ],
+          [
+            31,
+            14
+          ]
+        ],
+        "champion_model": "Random_Forest_Weighted",
+        "primary_selection_metric": "pr_auc"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "manufacturing_defects": {
+      "task": "manufacturing_defects_classification",
+      "epistemic_status": "REAL_MANUFACTURING_METRICS",
+      "champion_model": "Random_Forest_Natural",
+      "test_score": 0.8674585218702866,
+      "test_metrics": {
+        "accuracy": 0.9629629629629629,
+        "precision": 0.9599056603773585,
+        "recall": 0.9975490196078431,
+        "f1": 0.9783653846153846,
+        "roc_auc": 0.8674585218702866,
+        "pr_auc": 0.9570324235251494,
+        "confusion_matrix": [
+          [
+            61,
+            17
+          ],
+          [
+            1,
+            407
+          ]
+        ],
+        "champion_model": "Random_Forest_Natural",
+        "primary_selection_metric": "roc_auc"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "textile": {
+      "task": "loom_telemetry_anomaly_tracking",
+      "epistemic_status": "CONTROLLED_SYNTHETIC",
+      "champion_model": "Isolation_Forest_Detector",
+      "test_score": -0.49723002203692807,
+      "test_metrics": {
+        "champion_model": "Isolation_Forest_Detector",
+        "mean_anomaly_score": -0.49723002203692807,
+        "std_anomaly_score": 0.018949591542373977,
+        "p95_anomaly_score": -0.4680472701843281,
+        "p5_anomaly_score": -0.5302126663974434,
+        "min_anomaly_score": -0.5691313149586635,
+        "max_anomaly_score": -0.45094679412770516,
+        "primary_selection_metric": "mean_anomaly_score"
+      },
+      "tuning_status": "NOT_STARTED"
+    },
+    "synthetic_factory": {
+      "task": "factory_telemetry_anomaly_tracking",
+      "epistemic_status": "CONTROLLED_SYNTHETIC",
+      "champion_model": "Isolation_Forest_Detector",
+      "test_score": -0.5335838554056292,
+      "test_metrics": {
+        "champion_model": "Isolation_Forest_Detector",
+        "mean_anomaly_score": -0.5335838554056292,
+        "std_anomaly_score": 0.04516074122797193,
+        "p95_anomaly_score": -0.4873415698955299,
+        "p5_anomaly_score": -0.6168903949488549,
+        "min_anomaly_score": -0.7197718809952445,
+        "max_anomaly_score": -0.4678753866958205,
+        "primary_selection_metric": "mean_anomaly_score"
+      },
+      "tuning_status": "NOT_STARTED"
+    }
+  }
+}

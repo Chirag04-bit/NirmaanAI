@@ -1,0 +1,15 @@
+{
+  "dataset_id": "ai4i",
+  "task": "machine_failure_classification",
+  "epistemic_status": "REAL_PHYSICAL_SIMULATOR",
+  "features_count": 13,
+  "train_rows": 7000,
+  "train_sampled_rows": 13526,
+  "val_rows": 1500,
+  "test_rows": 1500,
+  "champion_model": "Random_Forest_Natural",
+  "validation_score": 0.905093764226254,
+  "test_score": 0.9099594282140974,
+  "historical_phase6_comparison": "Historical Phase 6: Random Forest / XGBoost failure classifier baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

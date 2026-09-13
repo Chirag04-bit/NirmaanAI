@@ -1,0 +1,10 @@
+{
+  "champion_model": "Isolation_Forest_Detector",
+  "mean_anomaly_score": -0.49723002203692807,
+  "std_anomaly_score": 0.018949591542373977,
+  "p95_anomaly_score": -0.4680472701843281,
+  "p5_anomaly_score": -0.5302126663974434,
+  "min_anomaly_score": -0.5691313149586635,
+  "max_anomaly_score": -0.45094679412770516,
+  "primary_selection_metric": "mean_anomaly_score"
+}

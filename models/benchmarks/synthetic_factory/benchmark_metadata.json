@@ -1,0 +1,14 @@
+{
+  "dataset_id": "synthetic_factory",
+  "task": "factory_telemetry_anomaly_tracking",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "features_count": 20,
+  "train_rows": 20415,
+  "val_rows": 8750,
+  "test_rows": 14035,
+  "champion_model": "Isolation_Forest_Detector",
+  "validation_score_mean": -0.5417424295363203,
+  "test_score_mean": -0.5335838554056292,
+  "historical_phase6_comparison": "Historical Phase 6: Multi-station factory telemetry anomaly baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

@@ -1,0 +1,20 @@
+{
+  "accuracy": 0.992,
+  "precision": 0.975609756097561,
+  "recall": 0.7843137254901961,
+  "f1": 0.8695652173913043,
+  "roc_auc": 0.9711227486163547,
+  "pr_auc": 0.9099594282140974,
+  "confusion_matrix": [
+    [
+      1448,
+      1
+    ],
+    [
+      11,
+      40
+    ]
+  ],
+  "champion_model": "Random_Forest_Natural",
+  "primary_selection_metric": "pr_auc"
+}

@@ -1,0 +1,14 @@
+{
+  "dataset_id": "manufacturing_defects",
+  "task": "manufacturing_defects_classification",
+  "epistemic_status": "REAL_MANUFACTURING_METRICS",
+  "features_count": 23,
+  "train_rows": 2268,
+  "val_rows": 486,
+  "test_rows": 486,
+  "champion_model": "Random_Forest_Natural",
+  "validation_score": 0.8183564601657511,
+  "test_score": 0.8674585218702866,
+  "historical_phase6_comparison": "Historical Phase 6: Defect prediction baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

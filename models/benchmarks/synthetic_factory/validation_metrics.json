@@ -1,0 +1,32 @@
+[
+  {
+    "model_name": "Robust_ZScore_Detector",
+    "mean_anomaly_score": -4950.212958980528,
+    "std_anomaly_score": 10392.822218110274,
+    "p95_anomaly_score": -1.359386247175734,
+    "p5_anomaly_score": -30595.112260274283,
+    "min_anomaly_score": -39474.25027606176,
+    "max_anomaly_score": -1.3490000000000002,
+    "sampling_strategy": "PreCutoff_Nominal_Baseline"
+  },
+  {
+    "model_name": "PCA_Reconstruction_Detector",
+    "mean_anomaly_score": -1.9966947191116247,
+    "std_anomaly_score": 6.029667565681425,
+    "p95_anomaly_score": -0.040016891342182344,
+    "p5_anomaly_score": -16.516665391252918,
+    "min_anomaly_score": -41.59402904479906,
+    "max_anomaly_score": -0.0025273730354184423,
+    "sampling_strategy": "PreCutoff_Nominal_Baseline"
+  },
+  {
+    "model_name": "Isolation_Forest_Detector",
+    "mean_anomaly_score": -0.5417424295363203,
+    "std_anomaly_score": 0.0632891027310264,
+    "p95_anomaly_score": -0.4873166409567986,
+    "p5_anomaly_score": -0.7071497128962829,
+    "min_anomaly_score": -0.7187985640673664,
+    "max_anomaly_score": -0.467555737211632,
+    "sampling_strategy": "PreCutoff_Nominal_Baseline"
+  }
+]

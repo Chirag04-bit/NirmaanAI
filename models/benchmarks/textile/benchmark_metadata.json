@@ -1,0 +1,14 @@
+{
+  "dataset_id": "textile",
+  "task": "loom_telemetry_anomaly_tracking",
+  "epistemic_status": "CONTROLLED_SYNTHETIC",
+  "features_count": 16,
+  "train_rows": 30240,
+  "val_rows": 6480,
+  "test_rows": 6480,
+  "champion_model": "Isolation_Forest_Detector",
+  "validation_score_mean": -0.49328729996648535,
+  "test_score_mean": -0.49723002203692807,
+  "historical_phase6_comparison": "Historical Phase 6: Unsupervised loom telemetry anomaly tracking baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

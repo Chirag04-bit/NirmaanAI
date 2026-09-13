@@ -1,0 +1,9 @@
+{
+  "mae": 9.699838638305664,
+  "rmse": 13.325089454650879,
+  "r2": 0.8964521884918213,
+  "wape": 0.10885649667036199,
+  "smape": 0.15806172180957462,
+  "champion_model": "XGBoost_Regressor",
+  "primary_selection_metric": "rmse"
+}

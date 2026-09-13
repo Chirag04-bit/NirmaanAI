@@ -1,0 +1,19 @@
+{
+  "dataset_id": "industrial_iot_failure",
+  "task": "machine_failure_classification_7day",
+  "epistemic_status": "CONTROLLED_INDUSTRIAL_SIMULATOR",
+  "features_count": 26,
+  "quarantined_columns": [
+    "Remaining_Useful_Life_days",
+    "Machine_ID"
+  ],
+  "train_rows": 350000,
+  "train_sampled_rows": 657956,
+  "val_rows": 75000,
+  "test_rows": 75000,
+  "champion_model": "Logistic_Regression_Sampled",
+  "validation_score": 0.7521847953606936,
+  "test_score": 0.7596051118426719,
+  "historical_phase6_comparison": "Historical Phase 6: XGBoost / RF 7-day failure baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

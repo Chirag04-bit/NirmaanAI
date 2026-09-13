@@ -1,0 +1,20 @@
+{
+  "dataset_id": "industrial_iot_rul",
+  "task": "remaining_useful_life_regression_days",
+  "epistemic_status": "CONTROLLED_INDUSTRIAL_SIMULATOR",
+  "features_count": 26,
+  "quarantined_columns": [
+    "Failure_Within_7_Days",
+    "Machine_ID"
+  ],
+  "train_rows": 350000,
+  "val_rows": 75000,
+  "test_rows": 75000,
+  "champion_model": "XGBoost_Regressor",
+  "validation_score_rmse": 48.48867343879053,
+  "test_score_rmse": 48.59795010141137,
+  "validation_score_mae": 38.25884142412326,
+  "test_score_mae": 38.365407831063074,
+  "historical_phase6_comparison": "Historical Phase 6: XGBoost RUL regression baseline preserved.",
+  "tuning_status": "NOT_STARTED"
+}

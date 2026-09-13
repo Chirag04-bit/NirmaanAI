@@ -1,0 +1,20 @@
+[
+  {
+    "mae": 18.859638943483997,
+    "rmse": 25.666900472715813,
+    "r2": 0.9596654170480784,
+    "wape": 0.0653867695496997,
+    "smape": 0.07441596152528299,
+    "model_name": "Random_Forest_Regressor",
+    "sampling_strategy": "Chronological_Natural"
+  },
+  {
+    "mae": 18.79853837012894,
+    "rmse": 25.823149935317108,
+    "r2": 0.9591728418201109,
+    "wape": 0.06517493256165907,
+    "smape": 0.07484596666206998,
+    "model_name": "XGBoost_Regressor",
+    "sampling_strategy": "Chronological_Natural"
+  }
+]
