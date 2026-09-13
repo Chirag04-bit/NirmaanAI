@@ -15,7 +15,9 @@ router = APIRouter(tags=["System & Health"])
 class SystemHealthResponse(BaseModel):
     status: str = Field(description="OVERALL service status: HEALTHY, DEGRADED, or UNAVAILABLE.")
     application: str = Field(description="FastAPI service status.")
-    database: str = Field(description="PostgreSQL / SQLite database connection status: CONNECTED or UNAVAILABLE.")
+    database: str = Field(description="Database connection status: CONNECTED or UNAVAILABLE.")
+    database_dialect: str = Field(default="unknown", description="Database dialect (e.g. postgresql, sqlite).")
+    postgresql_verified: bool = Field(default=False, description="True ONLY if connected to a live PostgreSQL instance.")
     version: str = Field(default="0.18.0", description="API software version.")
 
 
@@ -24,13 +26,19 @@ def get_system_health(response: Response, db: Session = Depends(get_db)):
     """
     Evaluates application and database health.
     Returns HTTP 200 when connected, or HTTP 503 when database is unreachable.
+    Accurately identifies database dialect and never claims PostgreSQL is verified unless dialect is postgresql.
     """
     app_status = "HEALTHY"
     db_status = "CONNECTED"
     overall_status = "HEALTHY"
+    dialect_name = "unknown"
+    is_postgres_verified = False
 
     try:
+        if db.bind is not None:
+            dialect_name = db.bind.dialect.name
         db.execute(text("SELECT 1")).scalar()
+        is_postgres_verified = (dialect_name == "postgresql")
     except Exception:
         db_status = "UNAVAILABLE"
         overall_status = "UNAVAILABLE"
@@ -40,6 +48,8 @@ def get_system_health(response: Response, db: Session = Depends(get_db)):
         status=overall_status,
         application=app_status,
         database=db_status,
+        database_dialect=dialect_name,
+        postgresql_verified=is_postgres_verified,
         version="0.18.0",
     )
 

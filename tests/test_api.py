@@ -561,3 +561,142 @@ def test_no_credential_leakage_in_error_responses(client):
     assert "password" not in body.lower()
     assert "traceback" not in body.lower()
     assert "sqlite" not in body.lower()
+
+
+# ==============================================================================
+# 11. CRITICAL AUDIT REGRESSION TESTS (TESTS A THROUGH I)
+# ==============================================================================
+
+def test_audit_regression_a_decision_state_excludes_maint_0003(client):
+    """Test A: Decision-state default query strictly excludes post-cutoff ground truth MAINT_0003."""
+    res = client.get("/api/v1/maintenance/records")
+    assert res.status_code == 200
+    ids = [item["maintenance_id"] for item in res.json()["items"]]
+    assert "MAINT_0003" not in ids
+
+
+def test_audit_regression_b_include_retrospective_false_excludes_maint_0003(client):
+    """Test B: Explicit include_retrospective=false excludes MAINT_0003."""
+    res = client.get("/api/v1/maintenance/records?include_retrospective=false")
+    assert res.status_code == 200
+    items = res.json()["items"]
+    ids = [item["maintenance_id"] for item in items]
+    assert "MAINT_0003" not in ids
+    for item in items:
+        assert item["is_decision_input"] is True
+
+
+def test_audit_regression_c_include_retrospective_true_retrieves_maint_0003(client):
+    """Test C: include_retrospective=true can retrieve MAINT_0003 explicitly without changing decision semantics."""
+    res = client.get("/api/v1/maintenance/records?include_retrospective=true")
+    assert res.status_code == 200
+    items = res.json()["items"]
+    maint_0003 = next((i for i in items if i["maintenance_id"] == "MAINT_0003"), None)
+    assert maint_0003 is not None
+    assert maint_0003["is_decision_input"] is False
+    assert maint_0003["epistemic_status"] == "RETROSPECTIVE_CONTROLLED_SYNTHETIC_GROUND_TRUTH"
+
+
+def test_audit_regression_d_maint_0003_cannot_alter_health_or_recommendations(client):
+    """Test D: MAINT_0003 ground truth cannot alter locked decision-state health or recommendations."""
+    # Health remains authoritative Phase 13 decision-cutoff value
+    res_h = client.get("/api/v1/machines/M2/health")
+    assert res_h.status_code == 200
+    assert res_h.json()["health_score"] == 26.88
+    assert res_h.json()["health_state"] == "CRITICAL"
+
+    # Recommendations remain decision-cutoff proactive interventions
+    res_r = client.get("/api/v1/machines/M2/recommendations")
+    assert res_r.status_code == 200
+    actions = [r["action"] for r in res_r.json()["items"]]
+    assert "INSPECT_SPINDLE_BEARING" in actions
+
+
+def test_audit_regression_e_m2_financial_values_remain_authoritative(client):
+    """
+    Test E: M2 financial values remain exactly:
+    - Realized loss: ₹73,062.28
+    - Projected opportunity cost: ₹24,320.00
+    - Gross exposure: ₹97,382.28
+    - Avoided opportunity cost: ₹19,520.00
+    - Remaining gross exposure: ₹77,862.28
+    - Obsolete ₹92,582.28 must NOT appear.
+    """
+    res = client.get("/api/v1/machines/M2/finance")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["realized_historical_loss_inr"] == 73062.28
+    assert data["baseline_projected_opportunity_cost_inr"] == 24320.00
+    assert data["baseline_gross_financial_exposure_inr"] == 97382.28
+    assert data["counterfactual_avoided_opportunity_cost_inr"] == 19520.00
+    assert data["counterfactual_remaining_gross_exposure_inr"] == 77862.28
+    assert data["epistemic_status"] == "FINANCIAL_SUMMARY_SEGREGATED"
+    assert 92582.28 not in [
+        data["realized_historical_loss_inr"],
+        data["baseline_gross_financial_exposure_inr"],
+    ]
+
+
+def test_audit_regression_f_m2_inventory_authoritative_contract(client):
+    """
+    Test F: M2 bearing authoritative contract:
+    - current stock = 2.0
+    - safety stock = 1.134
+    - reorder point = 1.367
+    - 2.0 > 1.367 > 1.134 (no current-stockout claim).
+    """
+    res = client.get("/api/v1/inventory/SKU_SPINDLE_BEARING_M2")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["current_stock"] == 2.0
+    assert abs(data["safety_stock"] - 1.134) < 1e-3
+    assert abs(data["reorder_point"] - 1.367) < 1e-3
+    assert data["current_stock"] > data["reorder_point"]
+    assert data["current_stock"] > data["safety_stock"]
+
+
+def test_audit_regression_g_simulation_diagnostic_post_intervention_not_projectable(client):
+    """Test G: Simulation diagnostic post-intervention metrics strictly remain NOT_PROJECTABLE."""
+    res = client.get("/api/v1/simulations/SCENARIO_M2_PROACTIVE_SERVICE")
+    assert res.status_code == 200
+    sim = res.json()
+    assert sim["projected_failure_probability"] == "NOT_PROJECTABLE"
+    assert sim["projected_anomaly_score"] == "NOT_PROJECTABLE"
+    assert sim["projected_health_score"] == "NOT_PROJECTABLE"
+    assert sim["projected_health_state"] == "NOT_PROJECTABLE"
+
+
+def test_audit_regression_h_provenance_survives_api_serialization(client):
+    """Test H: Provenance and epistemic metadata survive API serialization."""
+    # Check PdM
+    res_pdm = client.get("/api/v1/machines/M2/predictive-maintenance")
+    assert res_pdm.status_code == 200
+    pdm_items = res_pdm.json()["items"]
+    assert len(pdm_items) >= 1
+    assert pdm_items[0]["model_name"] != ""
+    assert pdm_items[0]["model_version"] != ""
+    assert pdm_items[0]["epistemic_status"] != ""
+
+    # Check Anomalies
+    res_anom = client.get("/api/v1/machines/M2/anomalies")
+    assert res_anom.status_code == 200
+    anom_items = res_anom.json()["items"]
+    assert len(anom_items) >= 1
+    assert anom_items[0]["epistemic_status"] != ""
+
+    # Check Health
+    res_h = client.get("/api/v1/machines/M2/health")
+    assert res_h.status_code == 200
+    health = res_h.json()
+    assert health["epistemic_status"] != ""
+
+
+def test_audit_regression_i_health_endpoint_does_not_falsely_claim_postgresql_available(client):
+    """Test I: Health endpoint does not falsely claim PostgreSQL availability when running offline or on SQLite."""
+    res = client.get("/health")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "HEALTHY"
+    # When running in-memory or SQLite, postgresql_verified must be False
+    assert data["postgresql_verified"] is False
+    assert data["database_dialect"] == "sqlite"
