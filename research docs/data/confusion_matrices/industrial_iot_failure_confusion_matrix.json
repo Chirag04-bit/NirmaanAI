@@ -1,0 +1,24 @@
+{
+  "task": "industrial_iot_failure",
+  "threshold": 0.9,
+  "raw_confusion_matrix": [
+    [
+      68619,
+      1876
+    ],
+    [
+      955,
+      3550
+    ]
+  ],
+  "normalized_confusion_matrix": [
+    [
+      0.9733881835591177,
+      0.02661181644088233
+    ],
+    [
+      0.21198668146503885,
+      0.7880133185349611
+    ]
+  ]
+}

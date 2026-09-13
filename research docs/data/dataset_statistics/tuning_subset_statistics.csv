@@ -1,0 +1,6 @@
+Dataset,Full Training Rows,Tuning Subset Rows,Absolute Reduction,Retention Percentage,Volume Reduction (%),Sampling Strategy,Speedup Benefit
+industrial_iot_failure,350000,105000,245000,30.0%,70.0%,Deterministic stratified joint class & machine type sampling,4.12x (IoT linear fit) | ~4.0x (Tree grid)
+industrial_iot_rul,350000,105000,245000,30.0%,70.0%,Deterministic decile-binned distribution-aware regression sampling,4.12x (IoT linear fit) | ~4.0x (Tree grid)
+electricity,18279,9140,9139,50.0%,50.0%,Deterministic contiguous chronological window,~2.0x
+textile,30240,15120,15120,50.0%,50.0%,Deterministic synchronized temporal stride (stride=2 across looms),~2.0x
+synthetic_factory,20415,10210,10205,50.0%,50.0%,Deterministic synchronized multi-station temporal stride (stride=2 across M1-M5),~2.0x

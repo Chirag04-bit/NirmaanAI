@@ -1,0 +1,11 @@
+Task Identifier,Baseline Model Name,Model Family,Primary Selection Metric,Random Seed,Key Hyperparameters
+manufacturing_production,Random_Forest_Weighted,RandomForestClassifier,PR_AUC,42,"{'bootstrap': 'True', 'ccp_alpha': '0.0', 'class_weight': 'balanced', 'criterion': 'gini', 'max_features': 'sqrt', 'min_"
+secom,XGBoost_Weighted,XGBClassifier,PR_AUC,42,"{'objective': 'binary:logistic', 'enable_categorical': 'True', 'eval_metric': 'logloss', 'n_estimators': '100', 'random_"
+industrial_iot_failure,Logistic_Regression_Sampled,LogisticRegression,PR_AUC,42,"{'C': '1.0', 'dual': 'False', 'fit_intercept': 'True', 'intercept_scaling': '1', 'l1_ratio': '0.0', 'max_iter': '500', '"
+ai4i,Random_Forest_Natural,RandomForestClassifier,PR_AUC,42,"{'bootstrap': 'True', 'ccp_alpha': '0.0', 'criterion': 'gini', 'max_features': 'sqrt', 'min_impurity_decrease': '0.0', '"
+cmapss,XGBoost_Regressor,XGBRegressor,RMSE,42,"{'objective': 'reg:squarederror', 'enable_categorical': 'True', 'n_estimators': '100', 'random_state': '42'}"
+electricity,XGBoost_Regressor,XGBRegressor,WAPE,42,"{'objective': 'reg:squarederror', 'enable_categorical': 'True', 'n_estimators': '100', 'random_state': '42'}"
+industrial_iot_rul,XGBoost_Regressor,XGBRegressor,RMSE,42,"{'objective': 'reg:squarederror', 'enable_categorical': 'True', 'max_depth': '6', 'n_estimators': '100', 'random_state':"
+manufacturing_defects,Random_Forest_Natural,RandomForestClassifier,ROC_AUC,42,"{'bootstrap': 'True', 'ccp_alpha': '0.0', 'criterion': 'gini', 'max_features': 'sqrt', 'min_impurity_decrease': '0.0', '"
+textile,Isolation_Forest_Detector,IsolationForest,MEAN_ANOMALY_SCORE,42,"{'bootstrap': 'False', 'contamination': 'auto', 'max_features': '1.0', 'max_samples': 'auto', 'n_estimators': '100', 'ra"
+synthetic_factory,Isolation_Forest_Detector,IsolationForest,MEAN_ANOMALY_SCORE,42,"{'bootstrap': 'False', 'contamination': 'auto', 'max_features': '1.0', 'max_samples': 'auto', 'n_estimators': '100', 'ra"

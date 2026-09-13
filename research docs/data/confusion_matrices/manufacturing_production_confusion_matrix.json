@@ -1,0 +1,24 @@
+{
+  "task": "manufacturing_production",
+  "threshold": 0.35,
+  "raw_confusion_matrix": [
+    [
+      1,
+      104
+    ],
+    [
+      1,
+      44
+    ]
+  ],
+  "normalized_confusion_matrix": [
+    [
+      0.009523809523809525,
+      0.9904761904761905
+    ],
+    [
+      0.022222222222222223,
+      0.9777777777777777
+    ]
+  ]
+}

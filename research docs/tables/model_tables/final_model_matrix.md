@@ -1,0 +1,14 @@
+# NirmaanAI Final Production Model Selection Matrix
+
+| Task | Dataset | Final Selected Model | Why Selected | Validation Criterion | Test Metric | Test Score | Epistemic Status | Downstream Consumer | Provenance |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| ai4i | AI4I 2020 | Random_Forest_Natural | Baseline Retained (Tuned delta +0.003 < 0.005 significance threshold) | PR-AUC (0.8967) | PR-AUC | 0.9099 | REAL_PHYSICAL_SIMULATOR | PdM Engine / Health Score | Post-Phase-25 Research Extension |
+| cmapss | NASA C-MAPSS FD001 | XGB_n150_d6_lr0.03 | Tuned Model Accepted (+11.12% validation RMSE reduction; 1.43 cycles) | RMSE (11.46 cycles) | RMSE | 13.0794 | HIGH_FIDELITY_PHYSICS_SIMULATION | RUL Engine / Maintenance Scheduler | Post-Phase-25 Research Extension |
+| secom | UCI SECOM | XGB_d4_lr0.08_col0.5_spw10_Nat | Tuned Model Accepted (+77.36% validation PR-AUC jump; 50% defect recall) | PR-AUC (0.4733) | PR-AUC | 0.1964 | REAL_MANUFACTURING_METRICS | Wafer Inline Defect Sentry | Post-Phase-25 Research Extension |
+| electricity | UCI Electricity Load | XGB_n200_d8_lr0.03_mcw1 | Tuned Model Accepted (+4.89% validation WAPE reduction; deep seasonal lags) | WAPE (6.20%) | WAPE | 6.27% | REAL_INDUSTRIAL_TELEMETRY | Power Forecasting / Carbon Optimizer | Post-Phase-25 Research Extension |
+| industrial_iot_failure | Industrial IoT 2040 | Logistic_Regression_Sampled | Baseline Retained (Preserves 97.1% failure recall with zero delta) | PR-AUC (0.7607) | PR-AUC | 0.7596 | CONTROLLED_INDUSTRIAL_SIMULATOR | Fleet Failure Early Alert | Post-Phase-25 Research Extension |
+| industrial_iot_rul | Industrial IoT 2040 | XGBoost_Regressor | Baseline Retained (Tuned delta -0.17 days < 0.50 day acceptance threshold) | RMSE (48.49 days) | RMSE | 48.598 | CONTROLLED_INDUSTRIAL_SIMULATOR | Fleet Remaining Life Predictor | Post-Phase-25 Research Extension |
+| manufacturing_production | Manufacturing Production | Random_Forest_Weighted | Baseline Retained (Tuned delta -0.0027 PR-AUC) | PR-AUC (0.3547) | PR-AUC | 0.3141 | REAL_WORLD_OBSERVATIONAL | Dispatch Bottleneck Sentry | Post-Phase-25 Research Extension |
+| manufacturing_defects | Manufacturing Defects | RF_n100_dNone_l4 | Tuned Model Accepted (+0.0206 validation ROC-AUC jump; leaf regularization) | ROC-AUC (0.8389) | ROC-AUC | 0.8935 | REAL_MANUFACTURING_METRICS | Batch Defect Classifier | Post-Phase-25 Research Extension |
+| textile | Textile Loom Telemetry | PCA_comp6 | Tuned Model Accepted (+141.06% ADCR contrast jump; subspace orthogonal error) | ADCR (2.0618) | ADCR | 2.8024 | CONTROLLED_SYNTHETIC | Loom Telemetry Anomaly Detector | Post-Phase-25 Research Extension |
+| synthetic_factory | Synthetic Factory Telemetry | Isolation_Forest | Baseline Retained (Baseline was proven global maximum in grid; delta 0.0) | MASI (4.7288) | MASI | 2.1024 | CONTROLLED_SYNTHETIC | M1-M5 Synchronized Anomaly Sentry | Post-Phase-25 Research Extension |

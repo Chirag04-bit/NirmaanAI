@@ -1,0 +1,14 @@
+# Table 3: Summary of Dataset-Specific Feature Engineering and Domain Formulations
+
+| Dataset | Engineered Features | Methodology | Final Feature Count |
+| :--- | :--- | :--- | :--- |
+| AI4I 2020 | Power (kW), Temperature Difference (K), Tool Wear Risk Index, Torque-Speed Interaction Ratio | Thermodynamic and kinematic physics formulations | 13 |
+| NASA C-MAPSS FD001 | Rolling Means (w=5, 15, 30), Rolling Stds (w=5, 15, 30), Sensor Trend Slopes, Cycle Acceleration, Delta Lags | Multi-window temporal rolling statistics per sensor across engine lifecycle | 95 |
+| UCI SECOM | Filtered Sensor Subspace, Robust Normalized Sensor Readings | Variance thresholding, collinearity pruning, train-only imputation | 436 |
+| UCI Electricity | Lags (1, 2, 4, 8, 96, 672), Rolling Means (4h, 24h, 7d), Rolling Stds, Cyclical Hour/Day Sin/Cos | Causal lag feature generation with sub-daily and weekly seasonalities | 19 |
+| Industrial IoT Failure | Thermal Deviation, Vibration Severity Ratio, Fluid Depletion Index, Thermo-Vibration Stress, Pressure Deviation | Cross-sensor operational stress ratios and deviation indexes | 26 |
+| Industrial IoT RUL | Operating Stress Index, Heat Index, Coolant Thermal Efficiency, Fluid Depletion Ratio | Cross-sectional thermodynamic degradation proxies | 26 |
+| Manufacturing Production | WIP Ratio, Scheduled Queue Density, Stage Processing Ratio, Dispatch Precedence Rank | Discrete-event dispatch simulation queue features | 12 |
+| Manufacturing Defects | Station Cycle Ratios, Multi-Station Vibration Coupling, Speed-Pressure Stress Factor | Inline assembly quality feature extraction | 23 |
+| Textile Weaving Loom | Tension-Vibration Covariance, Pick Speed Variance, Motor Power Surge Delta | High-frequency loom dynamics feature extraction | 16 |
+| Synthetic Factory | Inter-Station WIP Coupling, M2 Downstream Delay Proxy, Synchronized Sensor Residuals | Multi-cell synchronized telemetry engineering | 20 |

@@ -1,0 +1,29 @@
+{
+  "manifest_version": "1.0.0",
+  "generated_at": "2026-09-13T15:50:28.087724+00:00",
+  "project": "NirmaanAI \u2014 AI-Powered Manufacturing Intelligence & Decision Platform",
+  "git": {
+    "commit": "0dec652e2389b28b292bb9b1ce8aa53d97f240b3",
+    "branch": "master"
+  },
+  "environment": {
+    "python_version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32"
+  },
+  "governance_and_integrity": {
+    "canonical_source_checksum": "34B12582B32D81E3121429C55EBF74E8",
+    "expected_source_checksum": "34B12582B32D81E3121429C55EBF74E8",
+    "status": "VERIFIED_UNCHANGED",
+    "benchmark_artifacts_directory": "models/benchmarks/ (LOCKED & IMMUTABLE)",
+    "tuned_artifacts_directory": "models/tuned/ (LOCKED & IMMUTABLE)",
+    "tuning_subsets_directory": "models/tuning_subsets/ (CONTROLLED_COMPUTATIONAL_SUBSET)"
+  },
+  "research_evidence_counts": {
+    "total_figures": 52,
+    "total_tables": 14,
+    "datasets_modeled": 10,
+    "accepted_champions": 5,
+    "retained_baselines": 5,
+    "configurations_evaluated": 267
+  }
+}
